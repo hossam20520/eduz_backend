@@ -208,7 +208,7 @@ class EducationsController extends BaseController
                 $Education->ar_name = $request['ar_name'];
                 // $Education->activities_image = $request['activities_image'];
                 // $Education->institution_id = $request['institution_id'];
-                $Education->institution_id = $request['inst_id'];
+                $Education->institution_id = $request['institution_id'];
                 // $Education->review_id = $request['review_id'];
                  
          
