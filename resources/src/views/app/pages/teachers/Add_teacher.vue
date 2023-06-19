@@ -187,7 +187,7 @@
                         aria-describedby="ProductCost-feedback"
                         label="age_to"
                         :placeholder="$t('age_to')"
-                        v-model="teacher.age_from"
+                        v-model="teacher.age_to"
                       ></b-form-input>
                       <b-form-invalid-feedback
                         id="ProductCost-feedback"

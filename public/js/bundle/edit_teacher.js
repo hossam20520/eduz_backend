@@ -1301,17 +1301,17 @@ var render = function () {
                                                             model: {
                                                               value:
                                                                 _vm.teacher
-                                                                  .age_from,
+                                                                  .age_to,
                                                               callback:
                                                                 function ($$v) {
                                                                   _vm.$set(
                                                                     _vm.teacher,
-                                                                    "age_from",
+                                                                    "age_to",
                                                                     $$v
                                                                   )
                                                                 },
                                                               expression:
-                                                                "teacher.age_from",
+                                                                "teacher.age_to",
                                                             },
                                                           }),
                                                           _vm._v(" "),
@@ -1340,7 +1340,7 @@ var render = function () {
                                               ],
                                               null,
                                               false,
-                                              1849521995
+                                              1595795718
                                             ),
                                           }),
                                         ],
