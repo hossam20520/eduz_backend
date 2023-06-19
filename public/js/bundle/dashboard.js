@@ -384,7 +384,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.sales = response.data.report_dashboard.original.last_sales;
         var dark_heading = "#c2c6dc";
         _this.echartCustomer = {
-          color: ["#6D28D9", "#97c943", "#A78BFA", "#C4B5FD", "#7C3AED"],
+          color: ["#6D28D9", "#db12ef", "#A78BFA", "#C4B5FD", "#7C3AED"],
           tooltip: {
             show: true,
             backgroundColor: "rgba(0, 0, 0, .8)"
@@ -444,7 +444,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }]
         };
         _this.echartProduct = {
-          color: ["#6D28D9", "#97c943", "#A78BFA", "#C4B5FD", "#7C3AED"],
+          color: ["#6D28D9", "#db12ef", "#A78BFA", "#C4B5FD", "#7C3AED"],
           tooltip: {
             show: true,
             backgroundColor: "rgba(0, 0, 0, .8)"
@@ -530,7 +530,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             data: responseData.sales.original.data,
             label: {
               show: false,
-              color: "#97c943"
+              color: "#db12ef"
             },
             type: "bar",
             color: "#A78BFA",
