@@ -14,10 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
+
+ Route::get('device/inst', 'device\InstitutionsController@get');
+
+
 /*auth middleware api passport token*/
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('device/institutions', 'InstitutionsController@index');
+
+
+
 
 //--------------------------- Reset Password  ---------------------------
 
