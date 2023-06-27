@@ -125,6 +125,25 @@
               </validation-provider>
             </b-col>
 
+
+
+            
+            <!-- -Institution banner -->
+            <b-col md="12">
+              <validation-provider name="Banner" ref="Banner" rules="mimes:image/*|size:200">
+                <b-form-group slot-scope="{validate, valid, errors }" :label="$t('banner')">
+                  <input
+                    :state="errors[0] ? false : (valid ? true : null)"
+                    :class="{'is-invalid': !!errors.length}"
+                    @change="onFileSelectedBanner"
+                    label="Choose Image"
+                    type="file"
+                  >
+                  <b-form-invalid-feedback id="Image-feedback">{{  errors[0]  }}</b-form-invalid-feedback>
+                </b-form-group>
+              </validation-provider>
+            </b-col>
+
             <b-col md="12" class="mt-3">
               <b-button variant="primary" type="submit"  :disabled="SubmitProcessing"> {{  $t('submit') }}</b-button>
                 <div v-once class="typo__p" v-if="SubmitProcessing">
@@ -170,7 +189,8 @@ export default {
         id: "",
         ar_name: "",
         en_name: "",
-        image: ""
+        image: "",
+        banner:"",
       }
     };
   },
@@ -290,6 +310,19 @@ export default {
       });
     },
 
+    
+
+    async onFileSelectedBanner(e) {
+      const { valid } = await this.$refs.Banner.validate(e);
+
+      if (valid) {
+        this.institution.banner = e.target.files[0];
+      } else {
+        this.institution.banner = "";
+      }
+    },
+ 
+
     //------------------------------ Event Upload Image -------------------------------\
     async onFileSelected(e) {
       const { valid } = await this.$refs.Image.validate(e);
@@ -359,6 +392,8 @@ export default {
       self.data.append("ar_name", self.institution.ar_name);
       self.data.append("en_name", self.institution.en_name);
       self.data.append("image", self.institution.image);
+      self.data.append("banner", self.institution.banner);
+      
       axios
         .post("institutions", self.data)
         .then(response => {
@@ -384,6 +419,7 @@ export default {
       self.data.append("en_name", self.institution.en_name);
       self.data.append("ar_name", self.institution.ar_name);
       self.data.append("image", self.institution.image);
+      self.data.append("banner", self.institution.banner);
       self.data.append("_method", "put");
 
       axios

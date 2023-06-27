@@ -160,6 +160,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   metaInfo: {
@@ -189,7 +208,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         id: "",
         ar_name: "",
         en_name: "",
-        image: ""
+        image: "",
+        banner: ""
       }
     };
   },
@@ -306,28 +326,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         solid: true
       });
     },
-    //------------------------------ Event Upload Image -------------------------------\
-    onFileSelected: function onFileSelected(e) {
+    onFileSelectedBanner: function onFileSelectedBanner(e) {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var _yield$_this3$$refs$I, valid;
+        var _yield$_this3$$refs$B, valid;
 
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this3.$refs.Image.validate(e);
+                return _this3.$refs.Banner.validate(e);
 
               case 2:
-                _yield$_this3$$refs$I = _context.sent;
-                valid = _yield$_this3$$refs$I.valid;
+                _yield$_this3$$refs$B = _context.sent;
+                valid = _yield$_this3$$refs$B.valid;
 
                 if (valid) {
-                  _this3.institution.image = e.target.files[0];
+                  _this3.institution.banner = e.target.files[0];
                 } else {
-                  _this3.institution.image = "";
+                  _this3.institution.banner = "";
                 }
 
               case 5:
@@ -336,6 +355,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee);
+      }))();
+    },
+    //------------------------------ Event Upload Image -------------------------------\
+    onFileSelected: function onFileSelected(e) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var _yield$_this4$$refs$I, valid;
+
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this4.$refs.Image.validate(e);
+
+              case 2:
+                _yield$_this4$$refs$I = _context2.sent;
+                valid = _yield$_this4$$refs$I.valid;
+
+                if (valid) {
+                  _this4.institution.image = e.target.files[0];
+                } else {
+                  _this4.institution.image = "";
+                }
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
       }))();
     },
     //------------------------------ Modal (create Institution) -------------------------------\
@@ -354,64 +405,66 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //---------------------------------------- Get All institutions-----------------\
     Get_Institutions: function Get_Institutions(page) {
-      var _this4 = this;
+      var _this5 = this;
 
       // Start the progress bar.
       nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.start();
       nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.set(0.1);
       axios.get("institutions?page=" + page + "&SortField=" + this.serverParams.sort.field + "&SortType=" + this.serverParams.sort.type + "&search=" + this.search + "&limit=" + this.limit).then(function (response) {
-        _this4.institutions = response.data.institutions;
-        _this4.totalRows = response.data.totalRows; // Complete the animation of theprogress bar.
+        _this5.institutions = response.data.institutions;
+        _this5.totalRows = response.data.totalRows; // Complete the animation of theprogress bar.
 
         nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
-        _this4.isLoading = false;
+        _this5.isLoading = false;
       })["catch"](function (response) {
         // Complete the animation of theprogress bar.
         nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
         setTimeout(function () {
-          _this4.isLoading = false;
+          _this5.isLoading = false;
         }, 500);
       });
     },
     //---------------------------------------- Create new institution-----------------\
     Create_Institution: function Create_Institution() {
-      var _this5 = this;
-
-      var self = this;
-      self.SubmitProcessing = true;
-      self.data.append("ar_name", self.institution.ar_name);
-      self.data.append("en_name", self.institution.en_name);
-      self.data.append("image", self.institution.image);
-      axios.post("institutions", self.data).then(function (response) {
-        self.SubmitProcessing = false;
-        Fire.$emit("Event_Institution");
-
-        _this5.makeToast("success", _this5.$t("Create.TitleInstitution"), _this5.$t("Success"));
-      })["catch"](function (error) {
-        self.SubmitProcessing = false;
-
-        _this5.makeToast("danger", _this5.$t("InvalidData"), _this5.$t("Failed"));
-      });
-    },
-    //---------------------------------------- Update Institution-----------------\
-    Update_Institution: function Update_Institution() {
       var _this6 = this;
 
       var self = this;
       self.SubmitProcessing = true;
+      self.data.append("ar_name", self.institution.ar_name);
+      self.data.append("en_name", self.institution.en_name);
+      self.data.append("image", self.institution.image);
+      self.data.append("banner", self.institution.banner);
+      axios.post("institutions", self.data).then(function (response) {
+        self.SubmitProcessing = false;
+        Fire.$emit("Event_Institution");
+
+        _this6.makeToast("success", _this6.$t("Create.TitleInstitution"), _this6.$t("Success"));
+      })["catch"](function (error) {
+        self.SubmitProcessing = false;
+
+        _this6.makeToast("danger", _this6.$t("InvalidData"), _this6.$t("Failed"));
+      });
+    },
+    //---------------------------------------- Update Institution-----------------\
+    Update_Institution: function Update_Institution() {
+      var _this7 = this;
+
+      var self = this;
+      self.SubmitProcessing = true;
       self.data.append("en_name", self.institution.en_name);
       self.data.append("ar_name", self.institution.ar_name);
       self.data.append("image", self.institution.image);
+      self.data.append("banner", self.institution.banner);
       self.data.append("_method", "put");
       axios.post("institutions/" + self.institution.id, self.data).then(function (response) {
         self.SubmitProcessing = false;
         Fire.$emit("Event_Institution");
 
-        _this6.makeToast("success", _this6.$t("Update.TitleInstitution"), _this6.$t("Success"));
+        _this7.makeToast("success", _this7.$t("Update.TitleInstitution"), _this7.$t("Success"));
       })["catch"](function (error) {
         self.SubmitProcessing = false;
 
-        _this6.makeToast("danger", _this6.$t("InvalidData"), _this6.$t("Failed"));
+        _this7.makeToast("danger", _this7.$t("InvalidData"), _this7.$t("Failed"));
       });
     },
     //---------------------------------------- Reset Form -----------------\
@@ -426,7 +479,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //---------------------------------------- Delete Institution -----------------\
     Delete_Institution: function Delete_Institution(id) {
-      var _this7 = this;
+      var _this8 = this;
 
       this.$swal({
         title: this.$t("Delete.Title"),
@@ -440,18 +493,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("institutions/" + id).then(function () {
-            _this7.$swal(_this7.$t("Delete.Deleted"), _this7.$t("Delete.TitleInstitution"), "success");
+            _this8.$swal(_this8.$t("Delete.Deleted"), _this8.$t("Delete.TitleInstitution"), "success");
 
             Fire.$emit("Delete_Institution");
           })["catch"](function () {
-            _this7.$swal(_this7.$t("Delete.Failed"), _this7.$t("Delete.Therewassomethingwronge"), "warning");
+            _this8.$swal(_this8.$t("Delete.Failed"), _this8.$t("Delete.Therewassomethingwronge"), "warning");
           });
         }
       });
     },
     //---- Delete institutions by selection
     delete_by_selected: function delete_by_selected() {
-      var _this8 = this;
+      var _this9 = this;
 
       this.$swal({
         title: this.$t("Delete.Title"),
@@ -468,9 +521,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.start();
           nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.set(0.1);
           axios.post("institutions/delete/by_selection", {
-            selectedIds: _this8.selectedIds
+            selectedIds: _this9.selectedIds
           }).then(function () {
-            _this8.$swal(_this8.$t("Delete.Deleted"), _this8.$t("Delete.TitleInstitution"), "success");
+            _this9.$swal(_this9.$t("Delete.Deleted"), _this9.$t("Delete.TitleInstitution"), "success");
 
             Fire.$emit("Delete_Institution");
           })["catch"](function () {
@@ -479,7 +532,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
             }, 500);
 
-            _this8.$swal(_this8.$t("Delete.Failed"), _this8.$t("Delete.Therewassomethingwronge"), "warning");
+            _this9.$swal(_this9.$t("Delete.Failed"), _this9.$t("Delete.Therewassomethingwronge"), "warning");
           });
         }
       });
@@ -487,19 +540,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   //end Methods
   created: function created() {
-    var _this9 = this;
+    var _this10 = this;
 
     this.Get_Institutions(1);
     Fire.$on("Event_Institution", function () {
       setTimeout(function () {
-        _this9.Get_Institutions(_this9.serverParams.page);
+        _this10.Get_Institutions(_this10.serverParams.page);
 
-        _this9.$bvModal.hide("New_institution");
+        _this10.$bvModal.hide("New_institution");
       }, 500);
     });
     Fire.$on("Delete_Institution", function () {
       setTimeout(function () {
-        _this9.Get_Institutions(_this9.serverParams.page);
+        _this10.Get_Institutions(_this10.serverParams.page);
       }, 500);
     });
   }
@@ -929,6 +982,61 @@ var render = function () {
                                           type: "file",
                                         },
                                         on: { change: _vm.onFileSelected },
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-form-invalid-feedback",
+                                        { attrs: { id: "Image-feedback" } },
+                                        [_vm._v(_vm._s(errors[0]))]
+                                      ),
+                                    ],
+                                    1
+                                  )
+                                },
+                              },
+                            ]),
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { attrs: { md: "12" } },
+                        [
+                          _c("validation-provider", {
+                            ref: "Banner",
+                            attrs: {
+                              name: "Banner",
+                              rules: "mimes:image/*|size:200",
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (ref) {
+                                  var validate = ref.validate
+                                  var valid = ref.valid
+                                  var errors = ref.errors
+                                  return _c(
+                                    "b-form-group",
+                                    { attrs: { label: _vm.$t("banner") } },
+                                    [
+                                      _c("input", {
+                                        class: {
+                                          "is-invalid": !!errors.length,
+                                        },
+                                        attrs: {
+                                          state: errors[0]
+                                            ? false
+                                            : valid
+                                            ? true
+                                            : null,
+                                          label: "Choose Image",
+                                          type: "file",
+                                        },
+                                        on: {
+                                          change: _vm.onFileSelectedBanner,
+                                        },
                                       }),
                                       _vm._v(" "),
                                       _c(
