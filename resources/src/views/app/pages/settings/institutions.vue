@@ -175,6 +175,7 @@ export default {
           field: "id",
           type: "desc"
         },
+        
         page: 1,
         perPage: 10
       },
