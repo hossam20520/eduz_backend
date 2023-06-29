@@ -118,7 +118,7 @@ class TeachersController extends BaseController
                     $files = $request['images'];
                     foreach ($files as $file) {
                         $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])));
-                        $fileData->resize(200, 200);
+                    
                         $name = rand(11111111, 99999999) . $file['name'];
                         $path = public_path() . '/images/teachers/';
                         $success = file_put_contents($path . $name, $fileData);
@@ -210,7 +210,7 @@ class TeachersController extends BaseController
                     $files = $request['images'];
                     foreach ($files as $file) {
                         $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])));
-                        $fileData->resize(200, 200);
+                      
                         $name = rand(11111111, 99999999) . $file['name'];
                         $path = public_path() . '/images/teachers/';
                         $success = file_put_contents($path . $name, $fileData);

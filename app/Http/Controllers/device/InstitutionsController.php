@@ -27,7 +27,7 @@ class InstitutionsController extends Controller
 
         $education =  Education::where('institution_id' , $id)->get();
         return response()->json([
-         'inst' =>  $education,
+          'inst' =>  $education,
           'teacher' =>  []
   
      ]);
