@@ -101,6 +101,29 @@
               </validation-provider>
             </b-col>
 
+
+
+
+                  <!-- Name category -->
+                  <b-col md="12">
+              <validation-provider
+                name="ar_name category"
+                :rules="{ required: true}"
+                v-slot="validationContext"
+              >
+                <b-form-group :label="$t('ar_name')">
+                  <b-form-input
+                    :placeholder="$t('Enter_ar_name_category')"
+                    :state="getValidationState(validationContext)"
+                    aria-describedby="Name-feedback"
+                    label="Name"
+                    v-model="category.ar_name"
+                  ></b-form-input>
+                  <b-form-invalid-feedback id="Name-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                </b-form-group>
+              </validation-provider>
+            </b-col>
+
              <b-col md="12" class="mt-3">
                 <b-button variant="primary" type="submit"  :disabled="SubmitProcessing">{{$t('submit')}}</b-button>
                   <div v-once class="typo__p" v-if="SubmitProcessing">
@@ -146,7 +169,8 @@ export default {
       category: {
         id: "",
         name: "",
-        code: ""
+        code: "",
+        ar_name:"",
       }
     };
   },
@@ -318,7 +342,8 @@ export default {
       axios
         .post("categories", {
           name: this.category.name,
-          code: this.category.code
+          code: this.category.code,
+          ar_name:this.category.ar_name
         })
         .then(response => {
           this.SubmitProcessing = false;
@@ -341,7 +366,8 @@ export default {
       axios
         .put("categories/" + this.category.id, {
           name: this.category.name,
-          code: this.category.code
+          code: this.category.code,
+          ar_name:this.category.ar_name
         })
         .then(response => {
           this.SubmitProcessing = false;
@@ -364,7 +390,8 @@ export default {
       this.category = {
         id: "",
         name: "",
-        code: ""
+        code: "",
+        ar_name:"",
       };
     },
 

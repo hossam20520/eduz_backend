@@ -59,6 +59,7 @@ class CategorieController extends BaseController
         Category::create([
             'code' => $request['code'],
             'name' => $request['name'],
+            'ar_name' => $request['ar_name'],
         ]);
         return response()->json(['success' => true]);
     }
@@ -84,6 +85,7 @@ class CategorieController extends BaseController
         Category::whereId($id)->update([
             'code' => $request['code'],
             'name' => $request['name'],
+            'ar_name' => $request['ar_name'],
         ]);
         return response()->json(['success' => true]);
 

@@ -129,6 +129,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   metaInfo: {
@@ -156,7 +179,8 @@ __webpack_require__.r(__webpack_exports__);
       category: {
         id: "",
         name: "",
-        code: ""
+        code: "",
+        ar_name: ""
       }
     };
   },
@@ -310,7 +334,8 @@ __webpack_require__.r(__webpack_exports__);
       this.SubmitProcessing = true;
       axios.post("categories", {
         name: this.category.name,
-        code: this.category.code
+        code: this.category.code,
+        ar_name: this.category.ar_name
       }).then(function (response) {
         _this4.SubmitProcessing = false;
         Fire.$emit("Event_Category");
@@ -329,7 +354,8 @@ __webpack_require__.r(__webpack_exports__);
       this.SubmitProcessing = true;
       axios.put("categories/" + this.category.id, {
         name: this.category.name,
-        code: this.category.code
+        code: this.category.code,
+        ar_name: this.category.ar_name
       }).then(function (response) {
         _this5.SubmitProcessing = false;
         Fire.$emit("Event_Category");
@@ -346,7 +372,8 @@ __webpack_require__.r(__webpack_exports__);
       this.category = {
         id: "",
         name: "",
-        code: ""
+        code: "",
+        ar_name: ""
       };
     },
     //--------------------------- Remove Category----------------\\
@@ -772,6 +799,72 @@ var render = function () {
                                               )
                                             },
                                             expression: "category.name",
+                                          },
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-form-invalid-feedback",
+                                          { attrs: { id: "Name-feedback" } },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                validationContext.errors[0]
+                                              )
+                                            ),
+                                          ]
+                                        ),
+                                      ],
+                                      1
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { attrs: { md: "12" } },
+                        [
+                          _c("validation-provider", {
+                            attrs: {
+                              name: "ar_name category",
+                              rules: { required: true },
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (validationContext) {
+                                  return [
+                                    _c(
+                                      "b-form-group",
+                                      { attrs: { label: _vm.$t("ar_name") } },
+                                      [
+                                        _c("b-form-input", {
+                                          attrs: {
+                                            placeholder: _vm.$t(
+                                              "Enter_ar_name_category"
+                                            ),
+                                            state:
+                                              _vm.getValidationState(
+                                                validationContext
+                                              ),
+                                            "aria-describedby": "Name-feedback",
+                                            label: "Name",
+                                          },
+                                          model: {
+                                            value: _vm.category.ar_name,
+                                            callback: function ($$v) {
+                                              _vm.$set(
+                                                _vm.category,
+                                                "ar_name",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "category.ar_name",
                                           },
                                         }),
                                         _vm._v(" "),
