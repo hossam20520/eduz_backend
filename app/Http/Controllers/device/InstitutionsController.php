@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Education;
 
-
+use App\Models\Teacher;
 class InstitutionsController extends Controller
 {
     //
@@ -15,12 +15,27 @@ class InstitutionsController extends Controller
     public function get(Request $request  ){
 
         $id = $request->id;
-       $education =  Education::where('institution_id' , $id)->get();
-
+        $type = $request->type;
+       if( $type == "TEACHERS"){
+       $teacher =  Teacher::where('deleted_at', '=', null )->get();
        return response()->json([
-        'inst' =>  $education,
+        'inst' =>   [],
+         'teacher' =>  $teacher
  
     ]);
+       }else{
+
+        $education =  Education::where('institution_id' , $id)->get();
+        return response()->json([
+         'inst' =>  $education,
+          'teacher' =>  []
+  
+     ]);
+
+       }
+
+
+
 
 
          
