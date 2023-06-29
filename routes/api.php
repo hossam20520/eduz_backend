@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
+ 
+
+ 
+ Route::get('device/categories', 'device\CategoryController@GetCategories');
+
+
+
 
  Route::get('device/inst', 'device\InstitutionsController@get');
 
