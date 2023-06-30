@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
  
  Route::get('device/products', 'device\ProductController@index');
 
- Route::get('device/product/{id}', 'device\ProductController@Get_Products_Details');
+ Route::get('device/product', 'device\ProductController@Get_Products_Details');
  
 
  Route::get('device/categories', 'device\CategoryController@GetCategories');

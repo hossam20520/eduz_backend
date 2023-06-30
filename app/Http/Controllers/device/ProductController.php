@@ -118,10 +118,11 @@ class ProductController extends Controller
 
     //--------------  Show Product Details ---------------\\
 
-    public function Get_Products_Details(Request $request, $id)
+    public function Get_Products_Details(Request $request )
     {
+        
+         $id = $request->id;
 
-     
         $Product = Product::where('deleted_at', '=', null)->findOrFail($id);
         $firstimage = explode(',', $Product->image);
 
