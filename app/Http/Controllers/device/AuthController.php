@@ -181,14 +181,14 @@ class AuthController extends Controller
 
 
          $username = explode("@" , $request['email']);
-         if($request['type'] == "user"){
+         if($request['type'] == "parent"){
         $role = 3;
     
          }else{
 
             $role = 2;
-
          }
+         
         $filename = 'no_avatar.png';
         $User = new User;
         $User->firstname = $request['firstname'];
@@ -270,7 +270,7 @@ class AuthController extends Controller
 
 
             $helpers = new helpers();
-            $isProvider = $helpers->IsVendor();
+           
             
             // $role = $user->roles()->first();
             // return $role->name;
@@ -278,24 +278,24 @@ class AuthController extends Controller
             $accessToken = $user->createToken('AuthToken')->accessToken;
 
             
-        if($isProvider){
-            $service =  [
-                'isProvider' => true,
-                'flight' => true,
-                'car' => true,
-                'hotel' => true
-            ];
-        }else{
-            $service =  [
-                'isProvider' => false,
-                'flight' => false,
-                'car' => false,
-                'hotel' => false
-            ];
+        // if($isProvider){
+        //     $service =  [
+        //         'isProvider' => true,
+        //         'flight' => true,
+        //         'car' => true,
+        //         'hotel' => true
+        //     ];
+        // }else{
+        //     $service =  [
+        //         'isProvider' => false,
+        //         'flight' => false,
+        //         'car' => false,
+        //         'hotel' => false
+        //     ];
            
-        }
+        // }
 
-            $user = array( 'user'=>   $user   ,   'token' => $accessToken , 'service_provider' => $service );
+            $user = array( 'user'=>   $user   ,   'token' => $accessToken   );
             // $info = User::find($user->id);
             // 'access_token' => $accessToken , 'data'=>$user
             return response()->json(['status' => "success" ,  'message'=> 'success' 
