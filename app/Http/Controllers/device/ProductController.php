@@ -40,6 +40,13 @@ class ProductController extends Controller
         $columns = array(0 => 'name', 1 => 'category_id', 2 => 'brand_id', 3 => 'code');
         $param = array(0 => 'like', 1 => '=', 2 => '=', 3 => 'like');
         $data = array();
+        if($request->cat == 0){
+            $products = Product::with('unit', 'category', 'brand')
+            ->where('deleted_at', '=', null);
+        }else{
+            $products = Product::with('unit', 'category', 'brand')
+            ->where('deleted_at', '=', null)->where('category_id' ,$request->cat); 
+        }
 
         $products = Product::with('unit', 'category', 'brand')
             ->where('deleted_at', '=', null);
