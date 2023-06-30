@@ -44,6 +44,9 @@
           </b-button>
         </div>
 
+
+ 
+
         <template slot="table-row" slot-scope="props">
           <span v-if="props.column.field == 'actions'">
             <a @click="Edit_category(props.row)" title="Edit" v-b-tooltip.hover>
@@ -53,6 +56,18 @@
               <i class="i-Close-Window text-25 text-danger"></i>
             </a>
           </span>
+
+          <span v-else-if="props.column.field == 'image'">
+            <b-img
+              thumbnail
+              height="50"
+              width="50"
+              fluid
+              :src="'/images/categories/' + props.row.image"
+              alt="image"
+            ></b-img>
+          </span>
+          
         </template>
       </vue-good-table>
     </b-card>

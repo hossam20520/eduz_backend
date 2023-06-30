@@ -180,6 +180,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   metaInfo: {
@@ -655,6 +670,25 @@ var render = function () {
                                     ]
                                   ),
                                 ])
+                              : props.column.field == "image"
+                              ? _c(
+                                  "span",
+                                  [
+                                    _c("b-img", {
+                                      attrs: {
+                                        thumbnail: "",
+                                        height: "50",
+                                        width: "50",
+                                        fluid: "",
+                                        src:
+                                          "/images/categories/" +
+                                          props.row.image,
+                                        alt: "image",
+                                      },
+                                    }),
+                                  ],
+                                  1
+                                )
                               : _vm._e(),
                           ]
                         },
@@ -662,7 +696,7 @@ var render = function () {
                     ],
                     null,
                     false,
-                    4178068922
+                    795081680
                   ),
                 },
                 [
