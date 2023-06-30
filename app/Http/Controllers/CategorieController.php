@@ -61,7 +61,6 @@ class CategorieController extends BaseController
 
             $image = $request->file('image');
             $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
-
             $image_resize = Image::make($image->getRealPath());
             $image_resize->resize(200, 200);
             $image_resize->save(public_path('/images/categories/' . $filename));
@@ -136,6 +135,7 @@ class CategorieController extends BaseController
             'code' => $request['code'],
             'name' => $request['name'],
             'ar_name' => $request['ar_name'],
+            'image' => $request['image'],
         ]);
         return response()->json(['success' => true]);
 

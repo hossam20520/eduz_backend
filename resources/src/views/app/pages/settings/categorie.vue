@@ -390,15 +390,14 @@ export default {
 
     //----------------------------------Create new Category ----------------\\
     Create_Category() {
-
+      this.SubmitProcessing = true;
       var self = this;
       self.data.append("name", self.category.name);
       self.data.append("code", self.category.code);
       self.data.append("ar_name", self.category.ar_name);
       self.data.append("image", self.category.image);
-      this.SubmitProcessing = true;
-      axios
-        .post("categories", self.data)
+      
+      axios.post("categories", self.data)
         .then(response => {
           this.SubmitProcessing = false;
           Fire.$emit("Event_Category");
