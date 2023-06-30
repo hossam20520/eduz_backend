@@ -198,6 +198,12 @@ export default {
   computed: {
     columns() {
       return [
+      {
+          label: this.$t("CategoryImage"),
+          field: "image",
+          tdClass: "text-left",
+          thClass: "text-left"
+        },
         {
           label: this.$t("Codecategorie"),
           field: "code",
