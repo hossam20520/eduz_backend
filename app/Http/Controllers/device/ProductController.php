@@ -123,6 +123,8 @@ class ProductController extends Controller
 
      
         $Product = Product::where('deleted_at', '=', null)->findOrFail($id);
+        $firstimage = explode(',', $Product->image);
+
         $warehouses = Warehouse::where('deleted_at', '=', null)->get();
 
         $item['id'] = $Product->id;
@@ -136,6 +138,7 @@ class ProductController extends Controller
         $item['cost'] = $Product->cost;
         $item['stock_alert'] = $Product->stock_alert;
         $item['taxe'] = $Product->TaxNet;
+        $item['image'] = $firstimage[0];
         $item['tax_method'] = $Product->tax_method == '1' ? 'Exclusive' : 'Inclusive';
 
         if ($Product->is_variant) {
