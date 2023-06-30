@@ -48,8 +48,7 @@ class ProductController extends Controller
             ->where('deleted_at', '=', null)->where('category_id' ,$request->cat); 
         }
 
-        $products = Product::with('unit', 'category', 'brand')
-            ->where('deleted_at', '=', null);
+   
 
         //Multiple Filter
         $Filtred = $helpers->filter($products, $columns, $param, $request)
