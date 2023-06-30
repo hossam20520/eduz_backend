@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\Route;
  
 
  Route::get('device/categories', 'device\CategoryController@GetCategories');
+ Route::post("device/auth/register/", "device\AuthController@register");
 
-
-
+ Route::post("device/auth/login/", "device\AuthController@login");
 
  Route::get('device/inst', 'device\InstitutionsController@get');
 
