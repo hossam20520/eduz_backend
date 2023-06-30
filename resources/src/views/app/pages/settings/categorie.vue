@@ -427,7 +427,7 @@ export default {
       self.data.append("_method", "put");
 
       axios
-        .put("categories/" + this.category.id, self.data)
+        .post("categories/" + this.category.id, self.data)
         .then(response => {
           this.SubmitProcessing = false;
           Fire.$emit("Event_Category");
