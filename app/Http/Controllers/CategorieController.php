@@ -135,7 +135,7 @@ class CategorieController extends BaseController
             'code' => $request['code'],
             'name' => $request['name'],
             'ar_name' => $request['ar_name'],
-            'image' => $request['image'],
+            'image' => $filename,
         ]);
         return response()->json(['success' => true]);
 
