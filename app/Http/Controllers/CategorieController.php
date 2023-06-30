@@ -93,11 +93,11 @@ class CategorieController extends BaseController
     {
         $this->authorizeForUser($request->user('api'), 'update', Category::class);
 
-        request()->validate([
-            'name' => 'required',
-            'code' => 'required',
+        // request()->validate([
+        //     'name' => 'required',
+        //     'code' => 'required',
             
-        ]);
+        // ]);
 
         $category = Category::findOrFail($id);
         $currentImage = $category->image;

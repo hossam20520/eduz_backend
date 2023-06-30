@@ -67,7 +67,7 @@
               alt="image"
             ></b-img>
           </span>
-          
+
         </template>
       </vue-good-table>
     </b-card>
@@ -424,6 +424,7 @@ export default {
       self.data.append("code", self.category.code);
       self.data.append("ar_name", self.category.ar_name);
       self.data.append("image", self.category.image);
+      self.data.append("_method", "put");
 
       axios
         .put("categories/" + this.category.id, self.data)
