@@ -440,7 +440,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       self.data.append("ar_name", self.category.ar_name);
       self.data.append("image", self.category.image);
       self.data.append("_method", "put");
-      axios.post("categories/" + this.category.id, self.data).then(function (response) {
+      axios.put("categories/" + this.category.id, self.data).then(function (response) {
         _this6.SubmitProcessing = false;
         Fire.$emit("Event_Category");
 
