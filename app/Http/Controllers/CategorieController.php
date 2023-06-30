@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\utils\helpers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class CategorieController extends BaseController
 {
@@ -56,10 +57,25 @@ class CategorieController extends BaseController
             'code' => 'required',
         ]);
 
+        if ($request->hasFile('image')) {
+
+            $image = $request->file('image');
+            $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize->resize(200, 200);
+            $image_resize->save(public_path('/images/categories/' . $filename));
+
+        } else {
+            $filename = 'no-image.png';
+        }
+
+
         Category::create([
             'code' => $request['code'],
             'name' => $request['name'],
             'ar_name' => $request['ar_name'],
+            'image'=> $filename,
         ]);
         return response()->json(['success' => true]);
     }
@@ -80,7 +96,41 @@ class CategorieController extends BaseController
         request()->validate([
             'name' => 'required',
             'code' => 'required',
+            
         ]);
+
+        $category = Category::findOrFail($id);
+        $currentImage = $category->image;
+
+        if ($currentImage && $request->image != $currentImage) {
+            $image = $request->file('image');
+            $path = public_path() . '/images/categories';
+            $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize->resize(200, 200);
+            $image_resize->save(public_path('/images/categories/' . $filename));
+
+            $BrandImage = $path . '/' . $currentImage;
+            if (file_exists($BrandImage)) {
+                if ($currentImage != 'no-image.png') {
+                    @unlink($BrandImage);
+                }
+            }
+        } else if (!$currentImage && $request->image !='null'){
+            $image = $request->file('image');
+            $path = public_path() . '/images/categories';
+            $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize->resize(200, 200);
+            $image_resize->save(public_path('/images/categories/' . $filename));
+        }
+
+        else {
+            $filename = $currentImage?$currentImage:'no-image.png';
+        }
+
 
         Category::whereId($id)->update([
             'code' => $request['code'],

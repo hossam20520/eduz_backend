@@ -20,6 +20,7 @@ class CreateCategoriesTable extends Migration {
 			$table->string('code', 192);
 			$table->string('name', 192);
 			$table->string('ar_name', 192);
+			$table->text('image')->nullable();
 			$table->timestamps(6);
 			$table->softDeletes();
 		});

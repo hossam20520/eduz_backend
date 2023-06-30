@@ -59,7 +59,7 @@
 
     <validation-observer ref="Create_Category">
       <b-modal hide-footer size="md" id="New_Category" :title="editmode?$t('Edit'):$t('Add')">
-        <b-form @submit.prevent="Submit_Category">
+        <b-form @submit.prevent="Submit_Category" enctype="multipart/form-data">
           <b-row>
             <!-- Code category -->
             <b-col md="12">
@@ -124,6 +124,26 @@
               </validation-provider>
             </b-col>
 
+
+
+
+                     <!-- -Brand Image -->
+                     <b-col md="12">
+              <validation-provider name="Image" ref="Image" rules="mimes:image/*|size:200">
+                <b-form-group slot-scope="{validate, valid, errors }" :label="$t('CategoryImage')">
+                  <input
+                    :state="errors[0] ? false : (valid ? true : null)"
+                    :class="{'is-invalid': !!errors.length}"
+                    @change="onFileSelected"
+                    label="Choose Image"
+                    type="file"
+                  >
+                  <b-form-invalid-feedback id="Image-feedback">{{ errors[0] }}</b-form-invalid-feedback>
+                </b-form-group>
+              </validation-provider>
+            </b-col>
+
+
              <b-col md="12" class="mt-3">
                 <b-button variant="primary" type="submit"  :disabled="SubmitProcessing">{{$t('submit')}}</b-button>
                   <div v-once class="typo__p" v-if="SubmitProcessing">
@@ -165,12 +185,13 @@ export default {
       limit: "10",
       categories: [],
       editmode: false,
-
+      data: new FormData(),
       category: {
         id: "",
         name: "",
         code: "",
         ar_name:"",
+        image:"",
       }
     };
   },
@@ -205,6 +226,16 @@ export default {
     //---- update Params Table
     updateParams(newProps) {
       this.serverParams = Object.assign({}, this.serverParams, newProps);
+    },
+
+    async onFileSelected(e) {
+      const { valid } = await this.$refs.Image.validate(e);
+
+      if (valid) {
+        this.category.image = e.target.files[0];
+      } else {
+        this.category.image = "";
+      }
     },
 
     //---- Event Page Change
@@ -338,13 +369,15 @@ export default {
 
     //----------------------------------Create new Category ----------------\\
     Create_Category() {
+
+      var self = this;
+      self.data.append("name", self.category.name);
+      self.data.append("code", self.category.code);
+      self.data.append("ar_name", self.category.ar_name);
+      self.data.append("image", self.category.image);
       this.SubmitProcessing = true;
       axios
-        .post("categories", {
-          name: this.category.name,
-          code: this.category.code,
-          ar_name:this.category.ar_name
-        })
+        .post("categories", self.data)
         .then(response => {
           this.SubmitProcessing = false;
           Fire.$emit("Event_Category");
@@ -363,12 +396,16 @@ export default {
     //---------------------------------- Update Category ----------------\\
     Update_Category() {
       this.SubmitProcessing = true;
+
+
+      var self = this;
+      self.data.append("name", self.category.name);
+      self.data.append("code", self.category.code);
+      self.data.append("ar_name", self.category.ar_name);
+      self.data.append("image", self.category.image);
+
       axios
-        .put("categories/" + this.category.id, {
-          name: this.category.name,
-          code: this.category.code,
-          ar_name:this.category.ar_name
-        })
+        .put("categories/" + this.category.id, self.data)
         .then(response => {
           this.SubmitProcessing = false;
           Fire.$emit("Event_Category");
@@ -392,7 +429,9 @@ export default {
         name: "",
         code: "",
         ar_name:"",
+        image: "",
       };
+      this.data = new FormData();
     },
 
     //--------------------------- Remove Category----------------\\
