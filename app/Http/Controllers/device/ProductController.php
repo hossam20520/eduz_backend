@@ -210,10 +210,11 @@ class ProductController extends Controller
     $product_id = $request['product_id']; 
     $qty = $request['qty']; 
     $Product = Product::where('deleted_at', '=', null)->findOrFail($product_id);
-
+     
+    return $Product;
     $total = floatval( $Product->price)   *   floatval($qty);
     $cart = new Cart;
-    $cart->product_id = $request['product_id'];
+    $cart->product_id = $product_id;
     $cart->qty  = $qty;
     $cart->total  =  $total;
     $cart->user_id  = $user->id;
