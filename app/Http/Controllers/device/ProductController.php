@@ -215,19 +215,7 @@ class ProductController extends Controller
     $productPrice = $Product->price;
     $subtotal = floatval(  $productPrice )   *   floatval($qty);
     if($cart){
-
-
-
-
-
-       
-        
-       
-
-
-
-
-
+ 
       // check if product in cartitem first 
 
     $procutItem = Cartitem::where('deleted_at', '=', null)->where('cart_id' ,  $cart->id )->where('product_id' ,  $Product->id )->first();
@@ -293,12 +281,12 @@ class ProductController extends Controller
 
     
     $item =  new Cartitem;
-    $cart->product_id = $Product->id;
-    $cart->cart_id = $cart->id;
-    $cart->qty =  $qty;
-    $cart->price =$Product->price;
-    $cart->subtotal =  $subtotal ;
-    $cart->save();
+    $item->product_id = $Product->id;
+    $item->cart_id = $cart->id;
+    $item->qty =  $qty;
+    $item->price =$Product->price;
+    $item->subtotal =  $subtotal ;
+    $item->save();
 
     return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
     }
