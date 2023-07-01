@@ -52,7 +52,7 @@ Route::middleware(['auth:api', 'Is_Active'])->group(function () {
 
     Route::post('device/mycart', 'device\ProductController@AddToCart');
 
-
+    
     //-------------------------- Clear Cache ---------------------------
 
     Route::get("Clear_Cache", "SettingsController@Clear_Cache");
