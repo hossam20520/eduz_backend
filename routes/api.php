@@ -48,6 +48,10 @@ Route::group([
 });
 
 Route::middleware(['auth:api', 'Is_Active'])->group(function () {
+    Route::get('device/mycart', 'device\ProductController@GetMyCart');
+
+    Route::post('device/mycart', 'device\ProductController@AddToCart');
+
 
     //-------------------------- Clear Cache ---------------------------
 

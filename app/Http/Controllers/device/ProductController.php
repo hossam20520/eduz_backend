@@ -229,6 +229,28 @@ class ProductController extends Controller
 
 
 
+    public function  GetMyCart(Request $request){
+
+        $helpers = new helpers();
+    
+        $user = $helpers->getInfo();
+    
+ 
+        $Product = Product::where('deleted_at', '=', null)->findOrFail($product_id);
+    
+         $cart = Cart::with('CartItems')->where('deleted_at', '=', null)->where('user_id', $user->id)->get();
+         
+    
+    
+        return response()->json(['cart' => $cart  ], 200);
+    
+        }
+
+
+
+
+
+
 
 
 

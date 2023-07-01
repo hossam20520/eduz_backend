@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Cart extends Model
 {
    
-
+    public function CartItems()
+    {
+        return $this->hasMany('App\Models\Cartitem');
+    }
     
 }
