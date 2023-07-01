@@ -220,7 +220,7 @@ class ProductController extends Controller
 
     $procutItem = Cartitem::where('deleted_at', '=', null)->where('cart_id' ,  $cart->id )->where('product_id' ,  $Product->id )->first();
    if( $procutItem ){
-    $newPrice =  floatval(  $procutItem->subtotal  ) +  floatval(  $subtotal  );
+    $newPrice =    floatval(  $subtotal  );
     Cartitem::whereId($procutItem->id)->update([
         'qty' =>    floatval( $procutItem->qty ) +  $qty     ,  
         'subtotal' =>   $newPrice   
@@ -235,7 +235,7 @@ class ProductController extends Controller
  
         ]);
 
-        return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
+        return response()->json(['status' => "success" ,  'message'=> 'increased product qty'   ], 200);
 
    }else{
 
