@@ -382,15 +382,7 @@ class ProductController extends Controller
             $cart = Cart::with('CartItems.product')->where('deleted_at', '=', null)->where('user_id', $user->id)->where('order_id' , '=', null)->first();
  
            
-            Client::create([
-            'name' => $user->firstname ." ". $user->lastname,
-            'code' =>  $this->getNumberOrder(),
-            'adresse' => $request['address'],
-            'phone' => $request['phone'],
-            'email' =>  $user->email,
-            'country' => $request['country'],
-            'city' =>  $request['country'] ,
-             ]);
+
 
 
             $order = new Sale;
@@ -412,7 +404,15 @@ class ProductController extends Controller
 
             $order->save();
            
-
+            Client::create([
+                'name' => $user->firstname ." ". $user->lastname,
+                'code' =>   $order->id,
+                'adresse' => $request['address'],
+                'phone' => $request['phone'],
+                'email' =>  $user->email,
+                'country' => $request['country'],
+                'city' =>  $request['country'] ,
+                 ]);
       
             // $data = $request['details'];
              $data =  $cart;
