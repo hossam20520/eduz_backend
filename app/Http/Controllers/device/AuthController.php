@@ -11,11 +11,64 @@ use Intervention\Image\ImageManagerStatic as Image;
 use File;
 use App\Models\role_user;
 use App\Models\Calander;
+use App\Models\Favourit;
+
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
     //
+
+
+     
+    public function AddToFavourit(Request $request){
+ 
+        $helpers = new helpers();
+        $user =  $helpers->getInfo();
+        $type = $request->type;
+
+// if($type == "TEACHERS"){
+//     $fav = Favourit::with('teachers')->where('teacher_id' , $request['teacher_id'] )->where('deleted_at', '=', null )->where('type',  'TEACHERS' )->where('user_id', $user->id )->first();  
+   
+//     return response()->json(['status' => "success" ,  'message'=> 'exsit'   ], 200);
+// }
+        Favourit::create([
+            'title' => $request['title'],
+            'user_id' =>  $user->id,
+            'teacher_id' =>  $request['teacher_id'],
+            'product_id' => $request['product_id'],
+            'inst_id' => $request['inst_id'],
+            'type' => $request['type'],
+        ]);
+
+        return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
+    }
+
+
+
+    public function GetFavourit(Request $request){
+ 
+        $helpers = new helpers();
+        $user =  $helpers->getInfo();
+        $type = $request->type;
+
+        if($type == "TEACHERS"){
+            $fav = Favourit::with('teachers')->where('deleted_at', '=', null )->where('type', $type )->where('user_id', $user->id )->get();  
+            return response()->json(['teachers' => $fav ,  'products'=> []  , 'inst'=>  []  ], 200);
+        }else if($type == "PRODUCTS"){
+            $products = Favourit::with('product')->where('deleted_at', '=', null )->where('type',  $type )->where('user_id', $user->id )->get();  
+            return response()->json(['teachers' =>  [] ,  'products'=> $products  , 'inst'=>  []  ], 200);
+        }else if($type == "INST"){
+            $inst = Favourit::with('inst')->where('deleted_at', '=', null )->where('type',  $type )->where('user_id', $user->id )->get();  
+            return response()->json(['teachers' =>  [] ,  'products'=>  []  , 'inst'=> $inst   ], 200);
+        }
+
+        // $fav = Favourit::where('deleted_at', '=', null )->where('user_id', $user->id )->get();
+
+     
+    }
+
+
 
     public function GetClanader(Request $request){
  
