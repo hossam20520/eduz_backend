@@ -569,8 +569,8 @@ class ProductController extends Controller
             }
 
        
-
-        return response()->json(['success' => true]);
+            return response()->json(['status' => "success" ,  'message'=> 'Order Placed'   ], 200);
+       
     }
 
    }
