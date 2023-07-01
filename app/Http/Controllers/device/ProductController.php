@@ -16,7 +16,7 @@ use App\Models\Warehouse;
 use App\utils\helpers;
 
 use App\Models\Cart;
-
+use App\Models\Cartitem;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -210,18 +210,109 @@ class ProductController extends Controller
     $product_id = $request['product_id']; 
     $qty = $request['qty']; 
     $Product = Product::where('deleted_at', '=', null)->findOrFail($product_id);
-     
+      
+    $cart = Cart::where('deleted_at', '=', null)->where('user_id' , $user->id )->first();
+    $productPrice = $Product->price;
+    $subtotal = floatval(  $productPrice )   *   floatval($qty);
+    if($cart){
+
+
+
+
+
+       
+        
+       
+
+
+
+
+
+      // check if product in cartitem first 
+
+    $procutItem = Cartitem::where('deleted_at', '=', null)->where('cart_id' ,  $cart->id )->where('product_id' ,  $Product->id )->first();
+   if( $procutItem ){
+    $newPrice =  floatval(  $procutItem->subtotal  ) +  floatval(  $subtotal  );
+    Cartitem::whereId($procutItem->id)->update([
+        'qty' =>    floatval( $procutItem->qty ) +  $qty     ,  
+        'subtotal' =>   $newPrice   
+
+    ]);
+
+
+        // update cart total
+        $TotcalMoney =  floatval(  $cart->total)  + floatval( $newPrice );    
+        Cart::whereId($cart->id)->update([
+            'total' =>   $TotcalMoney   
  
-    $total = floatval( $Product->price)   *   floatval($qty);
+        ]);
+
+        return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
+
+   }else{
+
+
+    $item =  new Cartitem;
+    $item->product_id = $Product->id;
+    $item->cart_id = $cart->id;
+    $item->qty =  $qty;
+    $item->price =$Product->price;
+    $item->subtotal =  $subtotal;
+    $item->save();
+
+   }
+
+
+
+
+        
+        // update cart total
+       $TotcalMoney =  floatval(  $cart->total)  + floatval(  $subtotal );    
+        Cart::whereId($cart->id)->update([
+            'total' =>   $TotcalMoney   
+ 
+        ]);
+       
+
+
+        return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
+
+    }else{
+
+
+
+
+    $productPrice = $Product->price;
+    $total = floatval(  $productPrice )   *   floatval($qty);
     $cart = new Cart;
-    $cart->product_id = $product_id;
-    $cart->qty  = $qty;
-    $cart->total  =  $total;
-    $cart->user_id  = $user->id;
+    $cart->user_id = $user->id;
+    $cart->total  =   $total;
+    $cart->save(); 
+
+    
+
+    
+    $item =  new Cartitem;
+    $cart->product_id = $Product->id;
+    $cart->cart_id = $cart->id;
+    $cart->qty =  $qty;
+    $cart->price =$Product->price;
+    $cart->subtotal =  $subtotal ;
     $cart->save();
 
-
     return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
+    }
+ 
+   
+    // $cart = new Cart;
+    // $cart->product_id = $product_id;
+    // $cart->qty  = $qty;
+    // $cart->total  =  $total;
+    // $cart->user_id  = $user->id;
+    // $cart->save();
+
+
+ 
 
     }
 
