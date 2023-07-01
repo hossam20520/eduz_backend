@@ -14,7 +14,6 @@ use App\Models\product_warehouse;
 use App\Models\Unit;
 use App\Models\Warehouse;
 use App\utils\helpers;
-
 use App\Models\Cart;
 use App\Models\Cartitem;
 use Carbon\Carbon;
@@ -25,7 +24,6 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
 use \Gumlet\ImageResize;
-
 
 use Twilio\Rest\Client as Client_Twilio;
 use App\Exports\SalesExport;
@@ -335,7 +333,7 @@ class ProductController extends Controller
 
     public function  GetMyCart(Request $request){
 
-        $helpers = new helpers();
+         $helpers = new helpers();
     
          $user = $helpers->getInfo();
          $cart = Cart::with('CartItems.product')->where('deleted_at', '=', null)->where('order_id' , '=', null)->where('user_id', $user->id)->first();
@@ -368,6 +366,9 @@ class ProductController extends Controller
    public function storeSale(Request $request){
 
  
+    //    create client 
+
+
 
  
         // request()->validate([
@@ -381,6 +382,17 @@ class ProductController extends Controller
             $cart = Cart::with('CartItems.product')->where('deleted_at', '=', null)->where('user_id', $user->id)->where('order_id' , '=', null)->first();
  
            
+            Client::create([
+            'name' => $user->firstname ." ". $user->lastname,
+            'code' =>  $this->getNumberOrder(),
+            'adresse' => $request['address'],
+            'phone' => $request['phone'],
+            'email' =>  $user->email,
+            'country' => $request['country'],
+            'city' =>  $request['country'] ,
+             ]);
+
+
             $order = new Sale;
 
             $order->is_pos = 0;
