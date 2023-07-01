@@ -315,16 +315,11 @@ class ProductController extends Controller
 
         $helpers = new helpers();
     
-        $user = $helpers->getInfo();
+         $user = $helpers->getInfo();
     
+         $cart = Cart::with('CartItems.product')->where('deleted_at', '=', null)->where('user_id', $user->id)->get();
  
-        
-    
-         $cart = Cart::with('CartItems')->where('deleted_at', '=', null)->where('user_id', $user->id)->get();
-         
-    
-    
-        return response()->json(['cart' => $cart  ], 200);
+         return response()->json(['cart' => $cart  ], 200);
     
         }
 
