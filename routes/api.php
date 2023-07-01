@@ -48,6 +48,12 @@ Route::group([
 });
 
 Route::middleware(['auth:api', 'Is_Active'])->group(function () {
+
+    Route::get("device/calander", "device\AuthController@GetClanader");
+    Route::post("device/calander", "device\AuthController@AddToCalander");
+
+
+
     Route::get('device/mycart', 'device\ProductController@GetMyCart');
 
     Route::post('device/mycart', 'device\ProductController@AddToCart');

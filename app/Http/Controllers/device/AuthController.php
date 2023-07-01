@@ -10,11 +10,44 @@ use App\utils\helpers;
 use Intervention\Image\ImageManagerStatic as Image;
 use File;
 use App\Models\role_user;
+use App\Models\Calander;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
     //
+
+    public function GetClanader(Request $request){
+ 
+        $helpers = new helpers();
+        $user =  $helpers->getInfo();
+
+        $calander = Calander::where('deleted_at', '=', null )->where('user_id', $user->id )->get();
+
+
+        return response()->json(['calanders' => $calander    ], 200);
+    }
+
+
+    
+    public function AddToCalander(Request $request){
+ 
+        $helpers = new helpers();
+        $user =  $helpers->getInfo();
+
+        Calander::create([
+            'place' => $request['place'],
+            'user_id' =>  $user->id,
+            'time' =>  $request['time'],
+            'date' => $request['date'],
+            'with_one' => $request['with_one'],
+            'with_tow' => $request['with_tow'],
+        ]);
+
+
+        return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
+    }
+
 
 
 
