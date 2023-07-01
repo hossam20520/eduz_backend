@@ -1,0 +1,41 @@
+version: "3.7"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:8000"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: eduz
+      DB_USERNAME: root
+      DB_PASSWORD: root@2020XXXyyhello
+    command: php artisan serve --host=0.0.0.0 --port=8000
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root@2020XXXyyhello
+      MYSQL_DATABASE: eduz
+    volumes:
+      - ./db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - 3020:80
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root@2020XXXyyhello
+
+volumes:
+  db_data:
+  
