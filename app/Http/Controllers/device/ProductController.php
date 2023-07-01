@@ -14,6 +14,9 @@ use App\Models\product_warehouse;
 use App\Models\Unit;
 use App\Models\Warehouse;
 use App\utils\helpers;
+
+use App\Models\Cart;
+
 use Carbon\Carbon;
 use DB;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -120,7 +123,7 @@ class ProductController extends Controller
 
     public function Get_Products_Details(Request $request )
     {
-        
+
          $id = $request->id;
 
         $Product = Product::where('deleted_at', '=', null)->findOrFail($id);
@@ -193,6 +196,31 @@ class ProductController extends Controller
         $data[] = $item;
 
         return response()->json($data[0]);
+
+    }
+
+
+
+   public function  AddToCart(Request $request){
+
+    $helpers = new helpers();
+
+    $user = $helpers->getInfo();
+
+    $product_id = $request['product_id']; 
+    $qty = $request['qty']; 
+    $Product = Product::where('deleted_at', '=', null)->findOrFail($product_id);
+
+    $total = floatval( $Product->price)   *   floatval($qty);
+    $cart = new Cart;
+    $cart->product_id = $request['product_id'];
+    $cart->qty  = $qty;
+    $cart->total  =  $total;
+    $cart->user_id  = $user->id;
+    $cart->save();
+
+
+    return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
 
     }
 

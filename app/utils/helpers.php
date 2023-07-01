@@ -9,6 +9,53 @@ use Illuminate\Support\Facades\Auth;
 class helpers
 {
 
+
+    public function getInfo(){
+        return  $this->GetUserInfo()['user'];
+     }
+ 
+    //  public function IsCustomer(){
+    //      //    change the 1 to 3 for customer 
+    //        if($this->GetUserInfo()['role']   == 1){
+    //           return  true;
+    //        }else{
+    //           return false;
+    //        }
+    //  }
+ 
+ 
+    //  public function IsVendor(){
+    //      //    change the 1 to 3 for customer 
+    //        if($this->GetUserInfo()['role']   == 2){
+    //           return  true;
+    //        }else{
+    //           return false;
+    //        }
+    //  }
+ 
+ 
+     public function GetRole(){
+         return  $this->GetUserInfo()['role'];
+      }
+ 
+     public function GetUserInfo(){
+         $user =  Auth::User();
+      
+         $role = Auth::user()->roles()->first();
+  
+             return [
+                 "role"=> $role->pivot->role_id,
+                 "user"=> $user,
+      
+             ];
+     
+       
+       
+      
+ 
+     }
+
+
     //  Helper Multiple Filter
     public function filter($model, $columns, $param, $request)
     {
