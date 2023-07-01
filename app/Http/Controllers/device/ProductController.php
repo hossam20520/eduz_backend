@@ -316,9 +316,13 @@ class ProductController extends Controller
         $helpers = new helpers();
     
          $user = $helpers->getInfo();
-    
-         $cart = Cart::with('CartItems.product')->where('deleted_at', '=', null)->where('user_id', $user->id)->get();
+         $cart = Cart::with('CartItems.product')->where('deleted_at', '=', null)->where('user_id', $user->id)->first();
  
+        //  $cartItems = $cart->flatMap(function ($cart) {
+        //     return $cart->cartItems;
+        // });
+
+    
          return response()->json(['cart' => $cart  ], 200);
     
         }
