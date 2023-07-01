@@ -220,15 +220,17 @@ class ProductController extends Controller
 
     $procutItem = Cartitem::where('deleted_at', '=', null)->where('cart_id' ,  $cart->id )->where('product_id' ,  $Product->id )->first();
    if( $procutItem ){
-    $newPrice =    floatval(  $subtotal  );
+ 
+    $newPriceItem =  floatval(  $procutItem->subtotal  ) +  floatval(  $subtotal  );
     Cartitem::whereId($procutItem->id)->update([
         'qty' =>    floatval( $procutItem->qty ) +  $qty     ,  
-        'subtotal' =>   $newPrice   
+        'subtotal' =>   $newPriceItem
 
     ]);
 
 
         // update cart total
+        $newPrice =    floatval(  $subtotal  );
         $TotcalMoney =  floatval(  $cart->total)  + floatval( $newPrice );    
         Cart::whereId($cart->id)->update([
             'total' =>   $TotcalMoney   
