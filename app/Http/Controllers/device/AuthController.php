@@ -52,21 +52,16 @@ class AuthController extends Controller
         $user =  $helpers->getInfo();
         $type = $request->type;
 
-        $fav = Favourit::with('teachers' , 'product' , 'inst')->where('deleted_at', '=', null )->where('user_id', $user->id )->get();  
-
-        return response()->json(['teachers' => $fav ,  'products'=> $fav  , 'inst'=>  $fav  ], 200);
-
-
-        // if($type == "TEACHERS"){
-        //     $fav = Favourit::with('teachers')->where('deleted_at', '=', null )->where('type', $type )->where('user_id', $user->id )->get();  
-        //     return response()->json(['teachers' => $fav ,  'products'=> []  , 'inst'=>  []  ], 200);
-        // }else if($type == "PRODUCTS"){
-        //     $products = Favourit::with('product')->where('deleted_at', '=', null )->where('type',  $type )->where('user_id', $user->id )->get();  
-        //     return response()->json(['teachers' =>  [] ,  'products'=> $products  , 'inst'=>  []  ], 200);
-        // }else if($type == "INST"){
-        //     $inst = Favourit::with('inst')->where('deleted_at', '=', null )->where('type',  $type )->where('user_id', $user->id )->get();  
-        //     return response()->json(['teachers' =>  [] ,  'products'=>  []  , 'inst'=> $inst   ], 200);
-        // }
+        if($type == "TEACHERS"){
+            $fav = Favourit::with('teachers')->where('deleted_at', '=', null )->where('type', $type )->where('user_id', $user->id )->get();  
+            return response()->json(['teachers' => $fav ,  'products'=> []  , 'inst'=>  []  ], 200);
+        }else if($type == "PRODUCTS"){
+            $products = Favourit::with('product')->where('deleted_at', '=', null )->where('type',  $type )->where('user_id', $user->id )->get();  
+            return response()->json(['teachers' =>  [] ,  'products'=> $products  , 'inst'=>  []  ], 200);
+        }else if($type == "INST"){
+            $inst = Favourit::with('inst')->where('deleted_at', '=', null )->where('type',  $type )->where('user_id', $user->id )->get();  
+            return response()->json(['teachers' =>  [] ,  'products'=>  []  , 'inst'=> $inst   ], 200);
+        }
 
    
      
