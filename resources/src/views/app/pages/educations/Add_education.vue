@@ -96,7 +96,7 @@
                 <b-col md="6" class="mb-2">
                   <validation-provider
                     name="share"
-                    :rules="{required:true , min:3 , max:55}"
+                    :rules="{required:true , min:3 , max:600}"
                     v-slot="validationContext">
                     <b-form-group :label="$t('share')">
                       <b-form-input

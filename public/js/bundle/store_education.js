@@ -859,7 +859,7 @@ var render = function () {
                                           rules: {
                                             required: true,
                                             min: 3,
-                                            max: 55,
+                                            max: 600,
                                           },
                                         },
                                         scopedSlots: _vm._u(
