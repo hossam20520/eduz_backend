@@ -12,8 +12,15 @@ use File;
 use App\Models\role_user;
 use App\Models\Calander;
 use App\Models\Favourit;
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 use Illuminate\Support\Facades\Validator;
+ 
 
 class AuthController extends Controller
 {
