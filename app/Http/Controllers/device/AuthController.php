@@ -60,13 +60,38 @@ class AuthController extends Controller
         $type = $request->type;
 
         if($type == "TEACHERS"){
-            $fav = Favourit::with('teachers')->where('deleted_at', '=', null )->where('type', $type )->where('user_id', $user->id )->get();  
+            // $fav = Favourit::with('teachers')->where('deleted_at', '=', null )->where('type', $type )->where('user_id', $user->id )->get();  
+         
+            $fav = Favourit::with(['teachers' => function ($query) {
+                $query->select('id',   'ar_name', 'en_name', 'ar_country', 'en_country', 'en_subject', 'ar_subject',    'share', 'image');
+            }])
+            ->select('id',   'title', 'teacher_id', 'product_id',   'type', 'created_at' )
+            ->where('deleted_at', null)
+            ->where('type', $type)
+            ->where('user_id', $user->id)
+            ->get(['id', 'user_id', 'title', 'teacher_id', 'product_id', 'inst_id', 'type']);
+           
+           
             return response()->json(['teachers' => $fav ,  'products'=> []  , 'inst'=>  []  ], 200);
+      
+      
         }else if($type == "PRODUCTS"){
             $products = Favourit::with('product')->where('deleted_at', '=', null )->where('type',  $type )->where('user_id', $user->id )->get();  
             return response()->json(['teachers' =>  [] ,  'products'=> $products  , 'inst'=>  []  ], 200);
         }else if($type == "INST"){
-            $inst = Favourit::with('inst')->where('deleted_at', '=', null )->where('type',  $type )->where('user_id', $user->id )->get();  
+            // $inst = Favourit::with('inst')->where('deleted_at', '=', null )->where('type',  $type )->where('user_id', $user->id )->get();  
+          
+            $inst = Favourit::with(['teachers' => function ($query) {
+                $query->select('ar_name', 'image');
+            }])
+            ->with(['inst' => function ($query) {
+                $query->select('id', 'type', 'en_name', 'ar_name',   'url', 'phone', 'share', 'image');
+            }])
+            ->select('id', 'user_id', 'title', 'teacher_id', 'product_id', 'inst_id', 'type', )
+            ->where('deleted_at', null)
+            ->where('type', $type)
+            ->where('user_id', $user->id)
+            ->get(['id', 'user_id', 'title', 'teacher_id', 'product_id', 'inst_id', 'type',  ]);
             return response()->json(['teachers' =>  [] ,  'products'=>  []  , 'inst'=> $inst   ], 200);
         }
 

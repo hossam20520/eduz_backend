@@ -29,6 +29,8 @@ class Favourit extends Model
         return $this->belongsTo('App\Models\Product' , 'product_id');
     }
 
+    
+
     public function inst()
     {
         return $this->belongsTo('App\Models\Education' , 'inst_id');
