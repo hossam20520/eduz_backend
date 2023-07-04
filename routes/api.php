@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
- 
+ Route::post('device/auth/social', 'device\AuthController@loginWithSocial');
+
+ Route::post("device/auth/login/", "device\AuthController@login");
  Route::get('device/products', 'device\ProductController@index');
 
  Route::get('device/product', 'device\ProductController@Get_Products_Details');
