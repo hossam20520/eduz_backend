@@ -112,6 +112,8 @@ class TeachersController extends BaseController
                 $Teacher->ar_about = $request['ar_about'];
                 $Teacher->en_about = $request['en_about'];
                 $Teacher->share = $request['share'];
+                $Teacher->lat = $request['lat'];
+                $Teacher->long_a = $request['long'];
       
 
                 if ($request['images']) {
@@ -181,6 +183,8 @@ class TeachersController extends BaseController
                 $Teacher->ar_about = $request['ar_about'];
                 $Teacher->en_about = $request['en_about'];
                 $Teacher->share = $request['share'];
+                $Teacher->lat = $request['lat'];
+                $Teacher->long_a = $request['long'];
  
 
                 if ($request['images'] === null) {

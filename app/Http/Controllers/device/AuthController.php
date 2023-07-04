@@ -63,7 +63,7 @@ class AuthController extends Controller
             // $fav = Favourit::with('teachers')->where('deleted_at', '=', null )->where('type', $type )->where('user_id', $user->id )->get();  
          
             $fav = Favourit::with(['teachers' => function ($query) {
-                $query->select('id',   'ar_name', 'en_name', 'ar_country', 'en_country', 'en_subject', 'ar_subject',    'share', 'image');
+                $query->select('id',  'lat', 'long_a'  ,  'ar_name', 'en_name', 'ar_country', 'en_country', 'en_subject', 'ar_subject',    'share', 'image');
             }])
             ->select('id',   'title', 'teacher_id', 'product_id',   'type', 'created_at' )
             ->where('deleted_at', null)
@@ -85,7 +85,7 @@ class AuthController extends Controller
                 $query->select('ar_name', 'image');
             }])
             ->with(['inst' => function ($query) {
-                $query->select('id', 'type', 'en_name', 'ar_name',   'url', 'phone', 'share', 'image');
+                $query->select('id', 'type', 'en_name',   'lat', 'long_a'  ,'ar_name',   'url', 'phone', 'share', 'image');
             }])
             ->select('id', 'user_id', 'title', 'teacher_id', 'product_id', 'inst_id', 'type', )
             ->where('deleted_at', null)

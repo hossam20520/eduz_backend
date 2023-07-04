@@ -13,6 +13,7 @@ class Teacher extends Model
         'en_country', 'en_subject', "ar_subject",
         'age_from', 'age_to', "ar_about",
         'en_about', 'share', "image" , "user_id",
+        'lat', 'long_a'
     ];
 
     protected $casts = [

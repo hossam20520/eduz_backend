@@ -30,6 +30,8 @@ class Teachers extends Migration
             $table->text('image')->nullable();
             $table->integer('user_id')->nullable()->index('user_id');
             $table->integer('institution_id')->nullable()->index('institution_id');
+            $table->text('lat')->nullable();
+            $table->text('long_a')->nullable();
 			$table->timestamps(6);
 			$table->softDeletes();
 

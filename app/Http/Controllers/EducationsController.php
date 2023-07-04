@@ -129,6 +129,8 @@ class EducationsController extends BaseController
                 $Education->share = $request['share'];
                 $Education->en_name = $request['en_name'];
                 $Education->ar_name = $request['ar_name'];
+                $Education->lat = $request['lat'];
+                $Education->long_a = $request['long'];
 
   
                 // $Education->activities_image = $request['activities_image'];
@@ -209,7 +211,8 @@ class EducationsController extends BaseController
                 // $Education->activities_image = $request['activities_image'];
                 // $Education->institution_id = $request['institution_id'];
                 $Education->institution_id = $request['institution_id'];
-                // $Education->review_id = $request['review_id'];
+                $Education->lat = $request['lat'];
+                $Education->long_a = $request['long'];
                  
          
          

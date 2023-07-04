@@ -260,6 +260,40 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -294,7 +328,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         facilities_en: "",
         activities_ar: "",
         activities_en: "",
-        image: ""
+        image: "",
+        lat: "",
+        "long": ""
       },
       code_exist: ""
     };
@@ -493,6 +529,194 @@ var render = function () {
                                   _c(
                                     "b-row",
                                     [
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: {
+                                              name: "lat",
+                                              rules: {
+                                                required: true,
+                                                min: 3,
+                                                max: 55,
+                                              },
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (
+                                                    validationContext
+                                                  ) {
+                                                    return [
+                                                      _c(
+                                                        "b-form-group",
+                                                        {
+                                                          attrs: {
+                                                            label:
+                                                              _vm.$t("lat"),
+                                                          },
+                                                        },
+                                                        [
+                                                          _c("b-form-input", {
+                                                            attrs: {
+                                                              state:
+                                                                _vm.getValidationState(
+                                                                  validationContext
+                                                                ),
+                                                              "aria-describedby":
+                                                                "Name-feedback",
+                                                              label: "lat",
+                                                              placeholder:
+                                                                _vm.$t("lat"),
+                                                            },
+                                                            model: {
+                                                              value:
+                                                                _vm.education
+                                                                  .lat,
+                                                              callback:
+                                                                function ($$v) {
+                                                                  _vm.$set(
+                                                                    _vm.education,
+                                                                    "lat",
+                                                                    $$v
+                                                                  )
+                                                                },
+                                                              expression:
+                                                                "education.lat",
+                                                            },
+                                                          }),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "b-form-invalid-feedback",
+                                                            {
+                                                              attrs: {
+                                                                id: "Name-feedback",
+                                                              },
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  validationContext
+                                                                    .errors[0]
+                                                                )
+                                                              ),
+                                                            ]
+                                                          ),
+                                                        ],
+                                                        1
+                                                      ),
+                                                    ]
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              2582614688
+                                            ),
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: {
+                                              name: "long",
+                                              rules: {
+                                                required: true,
+                                                min: 3,
+                                                max: 55,
+                                              },
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (
+                                                    validationContext
+                                                  ) {
+                                                    return [
+                                                      _c(
+                                                        "b-form-group",
+                                                        {
+                                                          attrs: {
+                                                            label:
+                                                              _vm.$t("long"),
+                                                          },
+                                                        },
+                                                        [
+                                                          _c("b-form-input", {
+                                                            attrs: {
+                                                              state:
+                                                                _vm.getValidationState(
+                                                                  validationContext
+                                                                ),
+                                                              "aria-describedby":
+                                                                "Name-feedback",
+                                                              label: "long",
+                                                              placeholder:
+                                                                _vm.$t("long"),
+                                                            },
+                                                            model: {
+                                                              value:
+                                                                _vm.education
+                                                                  .long,
+                                                              callback:
+                                                                function ($$v) {
+                                                                  _vm.$set(
+                                                                    _vm.education,
+                                                                    "long",
+                                                                    $$v
+                                                                  )
+                                                                },
+                                                              expression:
+                                                                "education.long",
+                                                            },
+                                                          }),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "b-form-invalid-feedback",
+                                                            {
+                                                              attrs: {
+                                                                id: "Name-feedback",
+                                                              },
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  validationContext
+                                                                    .errors[0]
+                                                                )
+                                                              ),
+                                                            ]
+                                                          ),
+                                                        ],
+                                                        1
+                                                      ),
+                                                    ]
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              1887121760
+                                            ),
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
                                       _c(
                                         "b-col",
                                         {

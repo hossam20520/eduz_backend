@@ -12,6 +12,44 @@
               <b-row>
 
 
+                
+                <b-col md="6" class="mb-2">
+                  <validation-provider
+                    name="lat"
+                    :rules="{required:true , min:3 , max:55}"
+                    v-slot="validationContext">
+                    <b-form-group :label="$t('lat')">
+                      <b-form-input
+                        :state="getValidationState(validationContext)"
+                        aria-describedby="Name-feedback"
+                        label="lat"
+                        :placeholder="$t('lat')"
+                        v-model="education.lat"
+                      ></b-form-input>
+                      <b-form-invalid-feedback id="Name-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
+                <b-col md="6" class="mb-2">
+                  <validation-provider
+                    name="long"
+                    :rules="{required:true , min:3 , max:55}"
+                    v-slot="validationContext">
+                    <b-form-group :label="$t('long')">
+                      <b-form-input
+                        :state="getValidationState(validationContext)"
+                        aria-describedby="Name-feedback"
+                        label="long"
+                        :placeholder="$t('long')"
+                        v-model="education.long"
+                      ></b-form-input>
+                      <b-form-invalid-feedback id="Name-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
+
 
 
                 
@@ -274,6 +312,8 @@ export default {
          activities_ar: "",
          activities_en: "",
          image:"",
+         lat:"",
+         long:"",
       },
       code_exist: ""
     };
