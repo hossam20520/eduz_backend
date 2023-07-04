@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
+
+ 
+
  Route::post('device/auth/social', 'device\AuthController@loginWithSocial');
 
  Route::post("device/auth/login/", "device\AuthController@login");
@@ -49,7 +52,14 @@ Route::group([
     Route::post('reset', 'PasswordResetController@reset');
 });
 
+Route::post('device/auth/password/change', 'device\AuthController@changePassword');
+
+
 Route::middleware(['auth:api', 'Is_Active'])->group(function () {
+
+    Route::post('device/auth/profile/update', 'device\AuthController@updateProfile');
+
+
 
     Route::get("device/calander", "device\AuthController@GetClanader");
     Route::post("device/calander", "device\AuthController@AddToCalander");
