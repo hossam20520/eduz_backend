@@ -42,9 +42,9 @@ class helpers
          $user =  Auth::User();
       
          $role = Auth::user()->roles()->first();
-  
+        //  $role->pivot->role_id,
              return [
-                 "role"=> $role->pivot->role_id,
+                 "role"=> 3,
                  "user"=> $user,
       
              ];

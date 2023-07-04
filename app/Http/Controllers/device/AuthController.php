@@ -195,12 +195,14 @@ class AuthController extends Controller
 
                     
          $username = explode("@" , $request['email']);
-         if($type == "user"){
-               $role = 3;
+
+         $role = 3;
+        //  if($type == "teacher"){
+        //       $role = 3;
     
-         }else{
-            $role = 2;
-         }
+        //  }else{
+        //     $role = 2;
+        //  }
 
         $filename = 'no_avatar.png';
         $User = new User;
