@@ -6,6 +6,7 @@ RUN apt-get update \
         libonig-dev \
         libzip-dev \
         libjpeg-dev \
+        libpng-dev \
         zip \
         unzip \
         libpng-dev \
@@ -14,7 +15,7 @@ RUN apt-get update \
         intl \
         zip \
         gd \
-    && docker-php-ext-configure gd --with-jpeg  --with-png=/usr/include/ \
+    && docker-php-ext-configure gd --with-jpeg   \
  
     && apt-get install -y git unzip  && \
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
