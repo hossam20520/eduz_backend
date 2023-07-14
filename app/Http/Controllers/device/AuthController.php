@@ -34,11 +34,7 @@ class AuthController extends Controller
         $user =  $helpers->getInfo();
         $type = $request->type;
 
-// if($type == "TEACHERS"){
-//     $fav = Favourit::with('teachers')->where('teacher_id' , $request['teacher_id'] )->where('deleted_at', '=', null )->where('type',  'TEACHERS' )->where('user_id', $user->id )->first();  
-   
-//     return response()->json(['status' => "success" ,  'message'=> 'exsit'   ], 200);
-// }
+ 
         Favourit::create([
             'title' => $request['title'],
             'user_id' =>  $user->id,

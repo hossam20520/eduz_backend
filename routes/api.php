@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 
- 
+ Route::get('device/educations', 'device\InstitutionsController@GetAllEducation');
 
  Route::post('device/auth/social', 'device\AuthController@loginWithSocial');
 

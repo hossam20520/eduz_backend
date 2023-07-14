@@ -12,6 +12,21 @@ class InstitutionsController extends Controller
     //
 
 
+    public function GetAllEducation(Request $request ){
+
+
+      $education =  Education::where('deleted_at', '=', null )->get();
+
+      return response()->json([
+        'educations' =>  $education,
+   
+
+         ]);
+
+
+
+    }
+
     public function get(Request $request  ){
 
         $id = $request->id;
