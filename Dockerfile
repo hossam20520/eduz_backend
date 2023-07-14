@@ -14,8 +14,8 @@ RUN apt-get update \
         intl \
         zip \
         gd \
-    && docker-php-ext-configure gd --with-jpeg \
-    && docker-php-ext-configure gd --with-png \
+    && docker-php-ext-configure gd --with-jpeg  --with-png=/usr/include/ \
+ 
     && apt-get install -y git unzip  && \
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
