@@ -33,7 +33,12 @@ class AuthController extends Controller
 
     $response = app()->handle($request);
 
-    return $response->getContent();
+    $content = $response->getContent();
+    $json = json_decode($content, true);
+
+  
+    return response()->json(['user' => $json     ], 200);
+
   }
      
     public function AddToFavourit(Request $request){
