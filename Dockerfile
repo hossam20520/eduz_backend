@@ -30,8 +30,11 @@ COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
 
 # RUN a2enmod rewrite
-# RUN a2ensite default-ssl
-# RUN a2enmod ssl
+RUN a2ensite default-ssl
+RUN a2enmod ssl
+RUN service apache2 restart
+RUN service apache2 reload
+
 
 # COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
