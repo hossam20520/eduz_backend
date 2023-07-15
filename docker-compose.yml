@@ -13,7 +13,7 @@ services:
       - ./eduz-app.com.key:/etc/ssl/private/eduz-app.com.key
       - ./000-default.conf:/etc/apache2/sites-available/000-default.conf
       - ./default-ssl.conf:/etc/apache2/sites-available/default-ssl.conf
-      - ./default-ssl.conf:/etc/apache2/sites-enabled/default-ssl.conf
+ 
       
 
       - .:/var/www/html
