@@ -9,8 +9,8 @@
  <div id="appp"> 
 
  
-    <section  class=" "  v-show="showChat"  >
-      <div class="container py-5">
+    <section  class=" "style="padding:0"  v-show="showChat"  >
+      <div class="  ">
           
         <div class="row d-flex justify-content-center">
           <div class="col-md-8">
