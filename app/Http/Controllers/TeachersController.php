@@ -420,7 +420,8 @@ class TeachersController extends BaseController
         $item['ar_about'] = $Teacher->ar_about;
         $item['en_about'] = $Teacher->en_about;
         $item['share'] = $Teacher->share;
-
+        $item['lat'] = $Teacher->lat;
+        $item['long'] = $Teacher->long_a;
 
 
  
