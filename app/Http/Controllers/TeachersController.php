@@ -422,7 +422,7 @@ class TeachersController extends BaseController
         $item['share'] = $Teacher->share;
         $item['lat'] = $Teacher->lat;
         $item['long'] = $Teacher->long_a;
-
+        $item['user_id'] = $Teacher->user_id;
 
  
  
