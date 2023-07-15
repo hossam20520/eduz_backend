@@ -24,7 +24,10 @@ RUN apt-get update \
     && a2enmod \
         rewrite
 
-
+COPY eduz-app.com.crt /etc/ssl/certs/eduz-app.com.crt
+COPY eduz-app.com.key /etc/ssl/private/eduz-app.com.key
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY default-ssl.conf /etc/apache2/sites-available/default-ssl.conf
 
 RUN a2enmod rewrite
 RUN a2ensite default-ssl
