@@ -27,7 +27,7 @@ class AuthController extends Controller
 {
     //
 
-  public function GetUserByToken( Request $request ,  $token){
+  public function GetUserByToken( Request $requesta ,  $token){
     $request = Request::create('/api/user', 'GET');
     $request->headers->set('Authorization', 'Bearer ' . $token);
 
@@ -38,7 +38,7 @@ class AuthController extends Controller
    
     
   
-    return response()->json(['user' => $json   , "test"=> $request->user_id   ], 200);
+    return response()->json(['user' => $json   , "test"=> $requesta->user_id   ], 200);
 
   }
      
