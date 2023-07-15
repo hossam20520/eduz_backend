@@ -660,33 +660,6 @@ var render = function () {
                                     }),
                                   ]
                                 ),
-                                _vm._v(" "),
-                                _c(
-                                  "a",
-                                  {
-                                    directives: [
-                                      {
-                                        name: "b-tooltip",
-                                        rawName: "v-b-tooltip.hover",
-                                        modifiers: { hover: true },
-                                      },
-                                    ],
-                                    attrs: { title: "Delete" },
-                                    on: {
-                                      click: function ($event) {
-                                        return _vm.Delete_Institution(
-                                          props.row.id
-                                        )
-                                      },
-                                    },
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass:
-                                        "i-Close-Window text-25 text-danger",
-                                    }),
-                                  ]
-                                ),
                               ])
                             : props.column.field == "image"
                             ? _c(
@@ -714,7 +687,7 @@ var render = function () {
                   ],
                   null,
                   false,
-                  2381460254
+                  910618215
                 ),
               }),
             ],

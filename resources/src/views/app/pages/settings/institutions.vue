@@ -46,9 +46,9 @@
             <a @click="Edit_Institution(props.row)" title="Edit" v-b-tooltip.hover>
               <i class="i-Edit text-25 text-success"></i>
             </a>
-            <a title="Delete" v-b-tooltip.hover @click="Delete_Institution(props.row.id)">
+            <!-- <a title="Delete" v-b-tooltip.hover @click="Delete_Institution(props.row.id)">
               <i class="i-Close-Window text-25 text-danger"></i>
-            </a>
+            </a> -->
           </span>
           <span v-else-if="props.column.field == 'image'">
             <b-img
