@@ -12,6 +12,7 @@ services:
       - ./eduz-app.com.crt:/etc/ssl/certs/eduz-app.com.crt
       - ./eduz-app.com.key:/etc/ssl/private/eduz-app.com.key
       - ./000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - ./default-ssl.conf:/etc/apache2/sites-available/default-ssl.conf
       - .:/var/www/html
     depends_on:
       - db
