@@ -6,18 +6,18 @@ RUN apt-get update \
         libonig-dev \
         libzip-dev \
         libjpeg-dev \
-        libpng-dev \
         libfreetype6-dev \
         zip \
         unzip \
         libpng-dev \
+        libpng12-dev \
     && docker-php-ext-install \
         pdo_mysql \
         intl \
         zip \
         gd \
-    && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/  \
- 
+    # && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/  \
+    && docker-php-ext-configure gd --with-gd   --with-jpeg-dir  --with-png-dir   --with-freetype-dir \
     && apt-get install -y git unzip  && \
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
