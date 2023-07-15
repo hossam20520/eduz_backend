@@ -204,6 +204,14 @@ export default {
           tdClass: "text-left",
           thClass: "text-left"
         },
+
+        {
+          label: this.$t("Base"),
+          field: "type",
+          tdClass: "text-left",
+          thClass: "text-left"
+        },
+
         {
           label: this.$t("InstitutionName"),
           field: "en_name",
