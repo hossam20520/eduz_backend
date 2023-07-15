@@ -7,7 +7,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:8000"
+      - "443:443"
     volumes:
+      - eduz-app.com.crt:/etc/ssl/certs/eduz-app.com.crt
+      - eduz-app.com.key:/etc/ssl/private/eduz-app.com.key
       - .:/var/www/html
     depends_on:
       - db

@@ -27,6 +27,26 @@ RUN apt-get update \
     && a2enmod \
         rewrite
 
+
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+
+
+# Copy your SSL certificate and key to the container
+# COPY ssl.crt /etc/apache2/ssl.crt
+# COPY ssl.key /etc/apache2/ssl.key
+
+# # Configure Apache virtual host for SSL
+# COPY apache2-ssl.conf /etc/apache2/sites-available/default-ssl.conf
+# RUN a2ensite default-ssl.conf
+
+# # Enable Apache SSL module and ports
+# RUN a2enmod ssl
+# RUN sed -i 's/Listen 80/Listen 443/' /etc/apache2/ports.conf
+
+# # Enable HTTPS redirection (optional)
+# COPY apache2-redirect.conf /etc/apache2/conf-available/redirect.conf
+# RUN a2enconf redirect.conf
+
 COPY . /var/www/html
 
  
