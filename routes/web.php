@@ -91,7 +91,7 @@ if ($installed === false) {
 } else {
 
 
-    Route::get('/chat/{token}', function () {
+    Route::get('/chat', function () {
         return view("front.chat");
     })->name('chat');
 
