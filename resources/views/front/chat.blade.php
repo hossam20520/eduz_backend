@@ -33,13 +33,13 @@
  <div id="appp"> 
 
  
-    <section  class=" "style="padding:0"  v-show="showChat"  >
+    <section  class=" "style="padding:0"  v-show="showChat" id="container"  >
       <div class="  ">
           
         <div class="row d-flex justify-content-center">
           <div class="col-md-8">
     
-            <div class="card">
+            <div class="card" >
   
               <div class="card-body scroll" id="con"  data-mdb-perfect-scrollbar="true" style="position: relative;" ref="chatMessages" >
   
@@ -112,7 +112,7 @@
                 <div class="input-group mb-0">
                   <input style="height:41px;" v-model="newMessage" type="text" class="form-control" placeholder="Type message"
                     aria-label="Recipient's username" aria-describedby="button-addon2" />
-                  <button class="btn btn-warning" @click="sendMessage" type="button" id="button-addon2" style="padding-top: .55rem;">
+                  <button class="btn btn-warning"  @click="sendMessage" onfocus="scrollToTop()" type="button" id="button-addon2" style="padding-top: .55rem;">
                     send
                   </button>
                 </div>

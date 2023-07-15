@@ -85,5 +85,12 @@
   loadingElement.style.display = 'none';
 }, 1000);
         </script>
+
+<script>
+    function scrollToTop() {
+      var container = document.getElementById('container');
+      container.scrollTop = 0;
+    }
+  </script>
 </body>
 </html>
