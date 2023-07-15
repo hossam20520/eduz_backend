@@ -9,6 +9,8 @@ RUN apt-get update \
         libpng-dev \
         zip \
         unzip \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
  
  
     && docker-php-ext-install \
