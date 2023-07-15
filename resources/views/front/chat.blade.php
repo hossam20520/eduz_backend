@@ -90,7 +90,7 @@
                           @{{ message.text }}
                          </p> --}}
   
-                     <p class="small p-2 ms-3 mb-3 rounded-3" style="background-color: #f5f6f7;" >@{{ message.text }}
+                     <p class="small p-2 ms-3 mb-3 rounded-3" style="background-color: #db12ef; color:white" >@{{ message.text }}
                      </p>
   
                   </div>
