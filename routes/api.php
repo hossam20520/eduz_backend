@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\Route;
  */
 
 
+
+Route::get('device/info/{token}', 'device\AuthController@GetUserByToken');
+
+
+
+
  Route::get('device/educations', 'device\InstitutionsController@GetAllEducation');
 
  Route::post('device/auth/social', 'device\AuthController@loginWithSocial');

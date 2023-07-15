@@ -22,11 +22,19 @@ use App\Models\Favourit;
 use Illuminate\Support\Facades\Validator;
  
 
+
 class AuthController extends Controller
 {
     //
 
+  public function GetUserByToken(  $token){
+    $request = Request::create('/api/user', 'GET');
+    $request->headers->set('Authorization', 'Bearer ' . $token);
 
+    $response = app()->handle($request);
+
+    return $response->getContent();
+  }
      
     public function AddToFavourit(Request $request){
  

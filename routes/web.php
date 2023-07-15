@@ -89,6 +89,13 @@ if ($installed === false) {
     });
 
 } else {
+
+
+    Route::get('/chat/{token}', function () {
+        return view("front.chat");
+    })->name('chat');
+
+
     Route::any('/setup/{vue}', function () {
         abort(403);
     });
