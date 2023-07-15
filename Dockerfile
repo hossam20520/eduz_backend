@@ -10,7 +10,6 @@ RUN apt-get update \
         zip \
         unzip \
         libpng-dev \
-        libpng12-dev \
     && docker-php-ext-install \
         pdo_mysql \
         intl \
