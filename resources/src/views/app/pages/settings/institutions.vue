@@ -31,7 +31,7 @@
       }"
         styleClass="table-hover tableOne vgt-table"
       >
-        <div slot="selected-row-actions">
+        <!-- <div slot="selected-row-actions">
           <button class="btn btn-danger btn-sm" @click="delete_by_selected()"> {{ $t('Del') }}</button>
         </div>
         <div slot="table-actions" class="mt-2 mb-3">
@@ -39,7 +39,7 @@
             <i class="i-Add"></i>
              {{ $t('Add') }}
           </b-button>
-        </div>
+        </div> -->
 
         <template slot="table-row" slot-scope="props">
           <span v-if="props.column.field == 'actions'">

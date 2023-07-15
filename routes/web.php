@@ -95,6 +95,11 @@ if ($installed === false) {
         return view("front.chat");
     })->name('chat');
 
+    Route::get('/messages', function () {
+        return view("front.messages");
+    })->name('messages');
+
+
 
     Route::any('/setup/{vue}', function () {
         abort(403);

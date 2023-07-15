@@ -594,182 +594,124 @@ var render = function () {
             "b-card",
             { staticClass: "wrapper" },
             [
-              _c(
-                "vue-good-table",
-                {
-                  attrs: {
-                    mode: "remote",
-                    columns: _vm.columns,
-                    totalRows: _vm.totalRows,
-                    rows: _vm.institutions,
-                    "search-options": {
-                      enabled: true,
-                      placeholder: _vm.$t("Search_this_table"),
-                    },
-                    "select-options": {
-                      enabled: true,
-                      clearSelectionText: "",
-                    },
-                    "pagination-options": {
-                      enabled: true,
-                      mode: "records",
-                      nextLabel: "next",
-                      prevLabel: "prev",
-                    },
-                    styleClass: "table-hover tableOne vgt-table",
+              _c("vue-good-table", {
+                attrs: {
+                  mode: "remote",
+                  columns: _vm.columns,
+                  totalRows: _vm.totalRows,
+                  rows: _vm.institutions,
+                  "search-options": {
+                    enabled: true,
+                    placeholder: _vm.$t("Search_this_table"),
                   },
-                  on: {
-                    "on-page-change": _vm.onPageChange,
-                    "on-per-page-change": _vm.onPerPageChange,
-                    "on-sort-change": _vm.onSortChange,
-                    "on-search": _vm.onSearch,
-                    "on-selected-rows-change": _vm.selectionChanged,
+                  "select-options": {
+                    enabled: true,
+                    clearSelectionText: "",
                   },
-                  scopedSlots: _vm._u(
-                    [
-                      {
-                        key: "table-row",
-                        fn: function (props) {
-                          return [
-                            props.column.field == "actions"
-                              ? _c("span", [
-                                  _c(
-                                    "a",
-                                    {
-                                      directives: [
-                                        {
-                                          name: "b-tooltip",
-                                          rawName: "v-b-tooltip.hover",
-                                          modifiers: { hover: true },
-                                        },
-                                      ],
-                                      attrs: { title: "Edit" },
-                                      on: {
-                                        click: function ($event) {
-                                          return _vm.Edit_Institution(props.row)
-                                        },
-                                      },
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass:
-                                          "i-Edit text-25 text-success",
-                                      }),
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      directives: [
-                                        {
-                                          name: "b-tooltip",
-                                          rawName: "v-b-tooltip.hover",
-                                          modifiers: { hover: true },
-                                        },
-                                      ],
-                                      attrs: { title: "Delete" },
-                                      on: {
-                                        click: function ($event) {
-                                          return _vm.Delete_Institution(
-                                            props.row.id
-                                          )
-                                        },
-                                      },
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass:
-                                          "i-Close-Window text-25 text-danger",
-                                      }),
-                                    ]
-                                  ),
-                                ])
-                              : props.column.field == "image"
-                              ? _c(
-                                  "span",
-                                  [
-                                    _c("b-img", {
-                                      attrs: {
-                                        thumbnail: "",
-                                        height: "50",
-                                        width: "50",
-                                        fluid: "",
-                                        src:
-                                          "/images/institutions/" +
-                                          props.row.image,
-                                        alt: "image",
-                                      },
-                                    }),
-                                  ],
-                                  1
-                                )
-                              : _vm._e(),
-                          ]
-                        },
-                      },
-                    ],
-                    null,
-                    false,
-                    2381460254
-                  ),
+                  "pagination-options": {
+                    enabled: true,
+                    mode: "records",
+                    nextLabel: "next",
+                    prevLabel: "prev",
+                  },
+                  styleClass: "table-hover tableOne vgt-table",
                 },
-                [
-                  _c(
-                    "div",
+                on: {
+                  "on-page-change": _vm.onPageChange,
+                  "on-per-page-change": _vm.onPerPageChange,
+                  "on-sort-change": _vm.onSortChange,
+                  "on-search": _vm.onSearch,
+                  "on-selected-rows-change": _vm.selectionChanged,
+                },
+                scopedSlots: _vm._u(
+                  [
                     {
-                      attrs: { slot: "selected-row-actions" },
-                      slot: "selected-row-actions",
-                    },
-                    [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger btn-sm",
-                          on: {
-                            click: function ($event) {
-                              return _vm.delete_by_selected()
-                            },
-                          },
-                        },
-                        [_vm._v(" " + _vm._s(_vm.$t("Del")))]
-                      ),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "mt-2 mb-3",
-                      attrs: { slot: "table-actions" },
-                      slot: "table-actions",
-                    },
-                    [
-                      _c(
-                        "b-button",
-                        {
-                          staticClass: "btn-rounded",
-                          attrs: { variant: "btn btn-primary btn-icon m-1" },
-                          on: {
-                            click: function ($event) {
-                              return _vm.New_Institution()
-                            },
-                          },
-                        },
-                        [
-                          _c("i", { staticClass: "i-Add" }),
-                          _vm._v(
-                            "\n           " +
-                              _vm._s(_vm.$t("Add")) +
-                              "\n        "
-                          ),
+                      key: "table-row",
+                      fn: function (props) {
+                        return [
+                          props.column.field == "actions"
+                            ? _c("span", [
+                                _c(
+                                  "a",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "b-tooltip",
+                                        rawName: "v-b-tooltip.hover",
+                                        modifiers: { hover: true },
+                                      },
+                                    ],
+                                    attrs: { title: "Edit" },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.Edit_Institution(props.row)
+                                      },
+                                    },
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass:
+                                        "i-Edit text-25 text-success",
+                                    }),
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "b-tooltip",
+                                        rawName: "v-b-tooltip.hover",
+                                        modifiers: { hover: true },
+                                      },
+                                    ],
+                                    attrs: { title: "Delete" },
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.Delete_Institution(
+                                          props.row.id
+                                        )
+                                      },
+                                    },
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass:
+                                        "i-Close-Window text-25 text-danger",
+                                    }),
+                                  ]
+                                ),
+                              ])
+                            : props.column.field == "image"
+                            ? _c(
+                                "span",
+                                [
+                                  _c("b-img", {
+                                    attrs: {
+                                      thumbnail: "",
+                                      height: "50",
+                                      width: "50",
+                                      fluid: "",
+                                      src:
+                                        "/images/institutions/" +
+                                        props.row.image,
+                                      alt: "image",
+                                    },
+                                  }),
+                                ],
+                                1
+                              )
+                            : _vm._e(),
                         ]
-                      ),
-                    ],
-                    1
-                  ),
-                ]
-              ),
+                      },
+                    },
+                  ],
+                  null,
+                  false,
+                  2381460254
+                ),
+              }),
             ],
             1
           )
