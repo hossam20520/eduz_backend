@@ -28,6 +28,11 @@ RUN apt-get update \
         rewrite
 
 
+
+RUN a2enmod rewrite
+RUN a2ensite default-ssl
+RUN a2enmod ssl
+
 # COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
 
@@ -53,6 +58,8 @@ COPY . /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
+    && chown -R www-data:www-data /var/www/html/storage \
+    && chmod -R 775 /var/www/html/storage \
     && php /var/www/html/artisan key:generate
 
 WORKDIR /var/www/html
