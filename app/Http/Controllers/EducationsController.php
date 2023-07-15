@@ -538,6 +538,9 @@ class EducationsController extends BaseController
         $item['ar_name'] =  $Education->ar_name;
 
 
+        $item['lat'] =  $Education->lat;
+        $item['long'] =  $Education->long_a;
+
         $firstimage = explode(',', $Education->image);
         $item['image'] = $firstimage[0];
           

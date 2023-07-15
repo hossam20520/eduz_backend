@@ -7,6 +7,7 @@ RUN apt-get update \
         libzip-dev \
         libjpeg-dev \
         libpng-dev \
+        libfreetype6-dev \
         zip \
         unzip \
         libpng-dev \
@@ -15,7 +16,7 @@ RUN apt-get update \
         intl \
         zip \
         gd \
-    && docker-php-ext-configure gd --with-jpeg   \
+    && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/  \
  
     && apt-get install -y git unzip  && \
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
