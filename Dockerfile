@@ -11,15 +11,12 @@ RUN apt-get update \
         unzip \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
- 
- 
     && docker-php-ext-install \
         pdo_mysql \
         intl \
         zip \
         gd \
     && docker-php-ext-configure gd --with-freetype --with-jpeg   \
- 
     && apt-get install -y git unzip  && \
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
@@ -60,6 +57,8 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
     && chown -R www-data:www-data /var/www/html/storage \
     && chmod -R 775 /var/www/html/storage \
+    && chown -R www-data:www-data public \
+    && chmod -R 775 public \
     && php /var/www/html/artisan key:generate
 
 WORKDIR /var/www/html
