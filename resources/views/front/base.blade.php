@@ -24,10 +24,20 @@
 <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-firestore.js"></script>
 
+
+<script src="{{ asset('js/front/vue/vue.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.0.2/vuetify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-i18n/8.26.0/vue-i18n.min.js"></script>
+
 </head>
 <body>
     
 
      @yield('content')
+
+
+     @stack('scripts')
 </body>
 </html>

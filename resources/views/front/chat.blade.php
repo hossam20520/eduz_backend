@@ -3,7 +3,31 @@
 
 
  @section('content')
-     
+ <script>
+    function getDeviceSize() {
+        var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+        console.log("Device Width: " + width);
+        console.log("Device Height: " + height);
+
+        var element = document.getElementById("con");
+            element.style.height = (height - 80 )+"px";
+    }
+
+    // Call the function on page load or whenever needed
+    window.addEventListener('load', getDeviceSize);
+
+
+</script>
+
+
+    <style>
+ 
+
+  
+</style>
+
 
 
  <div id="appp"> 
@@ -17,7 +41,7 @@
     
             <div class="card">
   
-              <div class="card-body scroll"  data-mdb-perfect-scrollbar="true" style="position: relative; height: 400px" ref="chatMessages" >
+              <div class="card-body scroll" id="con"  data-mdb-perfect-scrollbar="true" style="position: relative;" ref="chatMessages" >
   
        
   
@@ -105,3 +129,9 @@
   
   
  @endsection
+
+
+ @push('scripts')
+ {{-- <script src="{{ asset('js/front/vue/vue.global.min.js') }}"></script> --}}
+<script src="{{ asset('js/front/vue/chat.js') }}"></script>
+@endpush
