@@ -365,6 +365,15 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -388,6 +397,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       units: [],
       units_sub: [],
       brands: [],
+      users: [],
       educations: [],
       roles: {},
       teacher: {
@@ -405,7 +415,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         share: "",
         image: "",
         lat: "",
-        "long": ""
+        "long": "",
+        user_id: ""
       },
       code_exist: ""
     };
@@ -470,6 +481,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         _this2.teacher = response.data.teacher;
         _this2.educations = response.data.educations;
         _this2.images = response.data.teacher.images;
+        _this2.users = response.data.users;
         _this2.isLoading = false;
       })["catch"](function (response) {
         setTimeout(function () {
@@ -1836,6 +1848,53 @@ var render = function () {
                                                   },
                                                   expression:
                                                     "teacher.en_about",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: { label: _vm.$t("User") },
+                                            },
+                                            [
+                                              _c("v-select", {
+                                                attrs: {
+                                                  placeholder: _vm.$t("User"),
+                                                  reduce: function (label) {
+                                                    return label.value
+                                                  },
+                                                  options: _vm.users.map(
+                                                    function (users) {
+                                                      return {
+                                                        label: users.email,
+                                                        value: users.id,
+                                                      }
+                                                    }
+                                                  ),
+                                                },
+                                                model: {
+                                                  value: _vm.teacher.user_id,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.teacher,
+                                                      "user_id",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "teacher.user_id",
                                                 },
                                               }),
                                             ],

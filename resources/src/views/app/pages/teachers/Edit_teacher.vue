@@ -285,7 +285,16 @@
                 </b-col>
 
  
-
+                <b-col md="12" class="mb-2">
+                  <b-form-group :label="$t('User')">
+                    <v-select
+                      :placeholder="$t('User')"
+                      :reduce="label => label.value"
+                      v-model="teacher.user_id"
+                      :options="users.map(users => ({label: users.email, value: users.id}))"
+                    />
+                  </b-form-group>
+                </b-col>
  
                 </b-row>
               </b-card-body>
@@ -360,6 +369,7 @@ export default {
       units: [],
       units_sub: [],
       brands: [],
+      users:[],
       educations:[],
       roles: {},
       teacher: {
@@ -378,6 +388,7 @@ export default {
          image:"",
          lat:"",
          long:"",
+         user_id:"",
          
       },
       code_exist: ""
@@ -455,6 +466,7 @@ export default {
           this.teacher = response.data.teacher;
           this.educations = response.data.educations;
           this.images = response.data.teacher.images;
+          this.users = response.data.users;
     
           this.isLoading = false;
         })

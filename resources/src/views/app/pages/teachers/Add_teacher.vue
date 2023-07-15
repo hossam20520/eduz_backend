@@ -282,7 +282,16 @@
                   </b-form-group>
                 </b-col>
 
- 
+                <b-col md="6" class="mb-2">
+                  <b-form-group :label="$t('User')">
+                    <v-select
+                      :placeholder="$t('User')"
+                      :reduce="label => label.value"
+                      v-model="teacher.user_id"
+                      :options="users.map(users => ({label: users.email, value: users.id}))"
+                    />
+                  </b-form-group>
+                </b-col>
 
 
                    </b-row>
@@ -357,7 +366,9 @@ export default {
       SubmitProcessing:false,
       data: new FormData(),
       educations:[],
+      users:[],
       roles: {},
+
       teacher: {
          inst_id:"",
          ar_name: "",
@@ -372,6 +383,7 @@ export default {
          en_about:"",
          share:"",
          image:"",
+         user_id:"",
          
       },
       code_exist: ""
@@ -444,6 +456,7 @@ export default {
         .get("Teachers/create")
         .then(response => {
           this.educations = response.data.educations;
+          this.users = response.data.users;
 
           this.isLoading = false;
         })

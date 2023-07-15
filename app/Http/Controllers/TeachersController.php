@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Exports\TeachersExport;
 use App\Models\Teacher;
+use App\Models\User;
 use App\Models\Institution;
 use App\utils\helpers;
 use Carbon\Carbon;
@@ -114,12 +115,12 @@ class TeachersController extends BaseController
                 $Teacher->share = $request['share'];
                 $Teacher->lat = $request['lat'];
                 $Teacher->long_a = $request['long'];
-      
+                $Teacher->user_id = $request['user_id'];
 
                 if ($request['images']) {
                     $files = $request['images'];
                     foreach ($files as $file) {
-                        $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])));
+                        $fileData =  base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path']));
                     
                         $name = rand(11111111, 99999999) . $file['name'];
                         $path = public_path() . '/images/teachers/';
@@ -184,6 +185,8 @@ class TeachersController extends BaseController
                 $Teacher->en_about = $request['en_about'];
                 $Teacher->share = $request['share'];
                 $Teacher->lat = $request['lat'];
+                $Teacher->user_id = $request['user_id'];
+                
                 $Teacher->long_a = $request['long'];
  
 
@@ -213,7 +216,7 @@ class TeachersController extends BaseController
                     }
                     $files = $request['images'];
                     foreach ($files as $file) {
-                        $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])));
+                        $fileData =  base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path']));
                       
                         $name = rand(11111111, 99999999) . $file['name'];
                         $path = public_path() . '/images/teachers/';
@@ -382,11 +385,14 @@ class TeachersController extends BaseController
     public function create(Request $request)
     {
 
+
+        $users  = User::where('deleted_at', '=', null)->get(['id' , 'email']);
         // $this->authorizeForUser($request->user('api'), 'create', Teacher::class);
 
         $Education_data = Institution::where('deleted_at', '=', null)->get(['id', 'ar_name']);
         return response()->json([
             'educations' =>  $Education_data ,
+            'users' =>  $users ,
         ]);
  
      
@@ -441,10 +447,11 @@ class TeachersController extends BaseController
 
         $Education_data = Institution::where('deleted_at', '=', null)->get(['id', 'ar_name']);
  
-
+        $users  = User::where('deleted_at', '=', null)->get(['id' , 'email']);
         return response()->json([
             'teacher' => $data,
             'educations' =>  $Education_data ,
+            'users'=> $users,
         ]);
 
     }
