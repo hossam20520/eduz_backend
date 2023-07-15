@@ -16,14 +16,7 @@
           <div class="col-md-8">
     
             <div class="card">
-              <div class="card-header d-flex justify-content-between align-items-center p-3"
-                style="border-top: 4px solid #ffa900;">
-                <h5 class="mb-0">Global Chat</h5>
-                <div class="d-flex flex-row align-items-center">
-                
-                  <i class="bi bi-x-square"  style="color: red;"></i>
-                </div>
-              </div>
+  
               <div class="card-body scroll"  data-mdb-perfect-scrollbar="true" style="position: relative; height: 400px" ref="chatMessages" >
   
        
