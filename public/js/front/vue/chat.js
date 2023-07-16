@@ -272,7 +272,7 @@ new Vue({
 
     getProfileData(token){
             
-      
+      console.log(token)
       // const data = localStorage.getItem('token');
       // const user_id = localStorage.getItem('user_id');
       axios.get('/api/device/auth/user' , {
