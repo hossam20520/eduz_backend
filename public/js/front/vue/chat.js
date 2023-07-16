@@ -37,6 +37,7 @@ new Vue({
     user_id: 0,
     image: "",
     name: "",
+    user:"",
     private: false,
     receiver_id: 0,
     from_to: "",
@@ -57,25 +58,17 @@ new Vue({
     // this.productImage = baseUrl + "images/products/";
     this.baseUrl = baseUrl;
 
-    const isLogged = localStorage.getItem("isLogged");
-
-    if (isLogged) {
-      const id = localStorage.getItem("user_id");
-      const image = localStorage.getItem("image");
-      const name = localStorage.getItem("name");
-      this.name = name;
-      this.image = baseUrl + "images/avatar/" + image;
-      this.user_id = id;
-    } else {
-      this.name = "Anonymous";
-      this.image = "https://cdn-icons-png.flaticon.com/512/1768/1768630.png";
-      this.user_id = 0;
-    }
+    
 
     const urlParams = new URLSearchParams(window.location.search);
 
     // Get the value of the user_id parameter
     // const userId = urlParams.get('user_id');
+    if(urlParams.has("token")){
+      const token = urlParams.get("user_id");
+      this.getProfileData(token);
+    }
+
 
     if (urlParams.has("user_id")) {
       // Get the value of the user_id parameter
@@ -83,9 +76,6 @@ new Vue({
       this.private = true;
 
       this.receiver_id = userId;
-
-
-    
  
       // Check if the 'replay' parameter exists in the current URL
       if (urlParams.has("replay")) {
@@ -104,29 +94,10 @@ new Vue({
       // Handle the case when the user_id parameter is not present
       console.log("user_id parameter is missing");
     }
-
-    // user_id
-
-    // db.collection("messages")
-    // .orderBy("time")
-    // .get()
-    // .then((querySnapshot) => {
-    //   querySnapshot.forEach((doc) => {
-    //     this.messages.push(doc.data());
-    //   });
-    // })
-    // .catch((error) => {
-    //   console.error("Error loading messages from Firestore: ", error);
-    // });
+ 
 
     if (this.private) {
-      // this.from_to
-      //  var reply =
-
-
-
-
-      // const user = this.receiver_id + "-" + this.user_id;
+ 
 
       db.collection("chats")
         .doc(this.from_to)
@@ -145,19 +116,7 @@ new Vue({
           });
         });
 
-      // db.collection("private")
-      // .orderBy("time")
-      // .onSnapshot((snapshot) => {
-      //   snapshot.docChanges().forEach((change) => {
-      //     if (change.type === "added") {
-      //       const newMessage = change.doc.data();
-      //       this.messages.push(newMessage);
-      //       this.$nextTick(() => {
-      //         this.$refs.chatMessages.scrollTop = this.$refs.chatMessages.scrollHeight;
-      //       });
-      //     }
-      //   });
-      // });
+ 
     } else {
       db.collection("messages")
         .orderBy("time")
@@ -309,6 +268,58 @@ new Vue({
     callBacload() {
       this.load = false;
     },
+
+
+    getProfileData(token){
+            
+      
+      // const data = localStorage.getItem('token');
+      // const user_id = localStorage.getItem('user_id');
+      axios.get('/api/device/auth/user' , {
+          headers: {
+              'Authorization': 'Bearer  ' + token
+          }
+      }).then(
+              response => {
+                // const isLogged = localStorage.getItem("isLogged");
+
+                // if (isLogged) {
+
+                // console.log(response.data.user)
+                 this.user = response.data.user;
+                  const id =  response.data.user.id;
+                  const image =  response.data.user.avatar;
+                  const name = response.data.user.firstname + " "+response.data.user.lastname;
+            
+            
+            
+                  this.name = name;
+                  this.image = baseUrl + "images/avatar/" + image;
+                  this.user_id = id;
+
+
+
+                // } else {
+                //   this.name = "Anonymous";
+                //   this.image = "https://cdn-icons-png.flaticon.com/512/1768/1768630.png";
+                //   this.user_id = 0;
+                // }
+
+
+
+      
+             
+                  // this.products = response.data.products;
+                  // this.totalPages = response.data.totalRows;
+                  // this.totalPages = Math.ceil(response.data.products.length / this.pageSize);
+              })
+          .catch(error => {
+              console.error(error);
+          });
+
+
+  },
+  
     callback() {
       let mess =
         "Hi , My name is coopa I hope you are well , I am out of service right now.";
