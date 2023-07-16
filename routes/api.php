@@ -62,7 +62,7 @@ Route::post('device/auth/password/change', 'device\AuthController@changePassword
 
 
 Route::middleware(['auth:api', 'Is_Active'])->group(function () {
-
+    Route::get("device/auth/user", "device\AuthController@User");
     Route::post('device/auth/profile/update', 'device\AuthController@updateProfile');
 
 

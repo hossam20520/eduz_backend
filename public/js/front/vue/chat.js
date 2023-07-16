@@ -1,12 +1,12 @@
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAhztOqMjG0YFWpRhlzQ2R-U8SCI6zcFwo",
-  authDomain: "dhafar-c2e6b.firebaseapp.com",
-  projectId: "dhafar-c2e6b",
-  storageBucket: "dhafar-c2e6b.appspot.com",
-  messagingSenderId: "1035993403227",
-  appId: "1:1035993403227:web:738fbba2b264b1101d947e",
-  measurementId: "G-QDH1W4MKK6",
+  apiKey: "AIzaSyBAo-9uGF0imkowHLWaZw6ZAfdHn18YhkI",
+  authDomain: "eduz-add95.firebaseapp.com",
+  projectId: "eduz-add95",
+  storageBucket: "eduz-add95.appspot.com",
+  messagingSenderId: "634601617248",
+  appId: "1:634601617248:web:0792d0428eff9686c4d005",
+  measurementId: "G-24381Q9R73"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

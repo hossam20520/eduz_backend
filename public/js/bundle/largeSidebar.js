@@ -1605,36 +1605,6 @@ var render = function () {
                 "li",
                 {
                   staticClass: "nav-item",
-                  class: { active: _vm.selectedParentMenu == "forms" },
-                  attrs: { "data-item": "forms", "data-submenu": true },
-                  on: { mouseenter: _vm.toggleSubMenu },
-                },
-                [
-                  _c(
-                    "a",
-                    { staticClass: "nav-item-hold", attrs: { href: "#" } },
-                    [
-                      _c("img", {
-                        attrs: {
-                          src: "https://cdn-icons-png.flaticon.com/512/4306/4306892.png",
-                          width: "50%",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "nav-text" }, [
-                        _vm._v(_vm._s(_vm.$t("Forms"))),
-                      ]),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "triangle" }),
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                {
-                  staticClass: "nav-item",
                   class: { active: _vm.selectedParentMenu == "educations" },
                   attrs: { "data-item": "educations", "data-submenu": true },
                   on: { mouseenter: _vm.toggleSubMenu },

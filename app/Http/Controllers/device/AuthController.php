@@ -27,6 +27,19 @@ class AuthController extends Controller
 {
     //
 
+    public function User(Request $request){
+        $helpers = new helpers();
+        $user =  $helpers->getInfo();
+
+        $userr = User::where('id' , $user->id)->first();
+      
+ 
+
+        return response()->json(['user' => $userr    ], 200);
+      
+    }
+
+
   public function GetUserByToken( Request $requesta ,  $token){
     $request = Request::create('/api/user', 'GET');
     $request->headers->set('Authorization', 'Bearer ' . $token);

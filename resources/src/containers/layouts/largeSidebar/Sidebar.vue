@@ -58,7 +58,7 @@
           </li>
 
           
-          <li  @mouseenter="toggleSubMenu"
+          <!-- <li  @mouseenter="toggleSubMenu"
             class="nav-item"
             :class="{ active: selectedParentMenu == 'forms' }"
             data-item="forms"
@@ -68,7 +68,7 @@
               <span class="nav-text">{{   $t('Forms')  }}</span>
             </a>
             <div class="triangle"></div>
-          </li>
+          </li> -->
 
  
 
