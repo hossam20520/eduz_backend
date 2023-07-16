@@ -65,7 +65,7 @@ new Vue({
     // Get the value of the user_id parameter
     // const userId = urlParams.get('user_id');
     if(urlParams.has("token")){
-      const token = urlParams.get("user_id");
+      const token = urlParams.get("token");
       this.getProfileData(token);
     }
 
