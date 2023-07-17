@@ -309,6 +309,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
 
 
 
@@ -1123,100 +1126,6 @@ var render = function () {
                                         [
                                           _c("validation-provider", {
                                             attrs: {
-                                              name: "share",
-                                              rules: {
-                                                required: true,
-                                                min: 3,
-                                                max: 600,
-                                              },
-                                            },
-                                            scopedSlots: _vm._u(
-                                              [
-                                                {
-                                                  key: "default",
-                                                  fn: function (
-                                                    validationContext
-                                                  ) {
-                                                    return [
-                                                      _c(
-                                                        "b-form-group",
-                                                        {
-                                                          attrs: {
-                                                            label:
-                                                              _vm.$t("share"),
-                                                          },
-                                                        },
-                                                        [
-                                                          _c("b-form-input", {
-                                                            attrs: {
-                                                              state:
-                                                                _vm.getValidationState(
-                                                                  validationContext
-                                                                ),
-                                                              "aria-describedby":
-                                                                "Name-feedback",
-                                                              label: "share",
-                                                              placeholder:
-                                                                _vm.$t("share"),
-                                                            },
-                                                            model: {
-                                                              value:
-                                                                _vm.education
-                                                                  .share,
-                                                              callback:
-                                                                function ($$v) {
-                                                                  _vm.$set(
-                                                                    _vm.education,
-                                                                    "share",
-                                                                    $$v
-                                                                  )
-                                                                },
-                                                              expression:
-                                                                "education.share",
-                                                            },
-                                                          }),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "b-form-invalid-feedback",
-                                                            {
-                                                              attrs: {
-                                                                id: "Name-feedback",
-                                                              },
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  validationContext
-                                                                    .errors[0]
-                                                                )
-                                                              ),
-                                                            ]
-                                                          ),
-                                                        ],
-                                                        1
-                                                      ),
-                                                    ]
-                                                  },
-                                                },
-                                              ],
-                                              null,
-                                              false,
-                                              658346016
-                                            ),
-                                          }),
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-col",
-                                        {
-                                          staticClass: "mb-2",
-                                          attrs: { md: "6" },
-                                        },
-                                        [
-                                          _c("validation-provider", {
-                                            attrs: {
                                               name: "category",
                                               rules: { required: true },
                                             },
@@ -1412,6 +1321,100 @@ var render = function () {
                                               null,
                                               false,
                                               1141054192
+                                            ),
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-12",
+                                          attrs: { md: "12" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: {
+                                              name: "share",
+                                              rules: {
+                                                required: true,
+                                                min: 3,
+                                                max: 600,
+                                              },
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (
+                                                    validationContext
+                                                  ) {
+                                                    return [
+                                                      _c(
+                                                        "b-form-group",
+                                                        {
+                                                          attrs: {
+                                                            label:
+                                                              _vm.$t("share"),
+                                                          },
+                                                        },
+                                                        [
+                                                          _c("b-form-input", {
+                                                            attrs: {
+                                                              state:
+                                                                _vm.getValidationState(
+                                                                  validationContext
+                                                                ),
+                                                              "aria-describedby":
+                                                                "Name-feedback",
+                                                              label: "share",
+                                                              placeholder:
+                                                                _vm.$t("share"),
+                                                            },
+                                                            model: {
+                                                              value:
+                                                                _vm.education
+                                                                  .share,
+                                                              callback:
+                                                                function ($$v) {
+                                                                  _vm.$set(
+                                                                    _vm.education,
+                                                                    "share",
+                                                                    $$v
+                                                                  )
+                                                                },
+                                                              expression:
+                                                                "education.share",
+                                                            },
+                                                          }),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "b-form-invalid-feedback",
+                                                            {
+                                                              attrs: {
+                                                                id: "Name-feedback",
+                                                              },
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  validationContext
+                                                                    .errors[0]
+                                                                )
+                                                              ),
+                                                            ]
+                                                          ),
+                                                        ],
+                                                        1
+                                                      ),
+                                                    ]
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              658346016
                                             ),
                                           }),
                                         ],

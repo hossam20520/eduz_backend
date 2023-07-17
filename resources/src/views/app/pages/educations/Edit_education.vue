@@ -124,23 +124,7 @@
                 </b-col>
 
 
-                <b-col md="6" class="mb-2">
-                  <validation-provider
-                    name="share"
-                    :rules="{required:true , min:3 , max:600}"
-                    v-slot="validationContext">
-                    <b-form-group :label="$t('share')">
-                      <b-form-input
-                        :state="getValidationState(validationContext)"
-                        aria-describedby="Name-feedback"
-                        label="share"
-                        :placeholder="$t('share')"
-                        v-model="education.share"
-                      ></b-form-input>
-                      <b-form-invalid-feedback id="Name-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                    </b-form-group>
-                  </validation-provider>
-                </b-col>
+     
 
 
 
@@ -176,6 +160,25 @@
                         :options="areas.map(areas => ({label: areas.ar_name, value: areas.id}))"
                       />
                       <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
+
+                <b-col md="12" class="mb-12">
+                  <validation-provider
+                    name="share"
+                    :rules="{required:true , min:3 , max:600}"
+                    v-slot="validationContext">
+                    <b-form-group :label="$t('share')">
+                      <b-form-input
+                        :state="getValidationState(validationContext)"
+                        aria-describedby="Name-feedback"
+                        label="share"
+                        :placeholder="$t('share')"
+                        v-model="education.share"
+                      ></b-form-input>
+                      <b-form-invalid-feedback id="Name-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
                     </b-form-group>
                   </validation-provider>
                 </b-col>
