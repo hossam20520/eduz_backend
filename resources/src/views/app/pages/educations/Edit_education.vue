@@ -149,7 +149,7 @@
 
       
                 <b-col md="6" class="mb-2">
-                  <validation-provider name="Areas" :rules="{ required: true}">
+                  <validation-provider name="area_id" :rules="{ required: true}">
                     <b-form-group slot-scope="{ valid, errors }" :label="$t('Choose_Area')">
                       <v-select
                         :class="{'is-invalid': !!errors.length}"
@@ -308,7 +308,7 @@ export default {
       variants: [],
       educations:[],
       education: {
-        area_id:"",
+           area_id:"",
            institution_id:"",
            ar_name:"",
             en_name:"",
@@ -399,6 +399,7 @@ export default {
         .then(response => {
           this.education = response.data.education;
           this.areas = response.data.areas;
+          console.log(  response.data.areas)
           this.educations =  response.data.educations;
           this.images = response.data.education.images;
     

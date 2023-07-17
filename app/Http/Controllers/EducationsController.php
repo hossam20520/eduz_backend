@@ -577,6 +577,9 @@ class EducationsController extends BaseController
         }
  
         $data = $item;
+
+
+        
         $area = Area::where('deleted_at', '=', null)->get(['id', 'ar_name']);
         
    

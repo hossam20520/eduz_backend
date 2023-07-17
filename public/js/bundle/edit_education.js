@@ -414,6 +414,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       axios.get("Educations/".concat(id, "/edit")).then(function (response) {
         _this2.education = response.data.education;
         _this2.areas = response.data.areas;
+        console.log(response.data.areas);
         _this2.educations = response.data.educations;
         _this2.images = response.data.education.images;
         _this2.isLoading = false;
@@ -1231,7 +1232,7 @@ var render = function () {
                                         [
                                           _c("validation-provider", {
                                             attrs: {
-                                              name: "Areas",
+                                              name: "area_id",
                                               rules: { required: true },
                                             },
                                             scopedSlots: _vm._u(
