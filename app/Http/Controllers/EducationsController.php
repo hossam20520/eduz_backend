@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 use App\Exports\EducationsExport;
 use App\Models\Education;
+use App\Models\Area;
+
 use App\Models\Institution;
 use App\utils\helpers;
 use Carbon\Carbon;
@@ -56,6 +58,8 @@ class EducationsController extends BaseController
             $item['id'] = $education->id;
             $item['en_name'] = $education->en_name;
             $item['ar_name'] = $education->ar_name;
+
+          
 
             $item['en_info'] = $education->en_info;
             $item['ar_info'] = $education->ar_info;
@@ -131,7 +135,9 @@ class EducationsController extends BaseController
                 $Education->ar_name = $request['ar_name'];
                 $Education->lat = $request['lat'];
                 $Education->long_a = $request['long'];
+                $Education->area_id = $request['area_id'];
 
+              
   
                 // $Education->activities_image = $request['activities_image'];
                 $Education->institution_id = $request['inst_id'];
@@ -208,6 +214,11 @@ class EducationsController extends BaseController
 
                 $Education->en_name = $request['en_name'];
                 $Education->ar_name = $request['ar_name'];
+
+
+                $Education->area_id = $request['area_id'];
+                
+
                 // $Education->activities_image = $request['activities_image'];
                 // $Education->institution_id = $request['institution_id'];
                 $Education->institution_id = $request['institution_id'];
@@ -497,8 +508,11 @@ class EducationsController extends BaseController
         // $this->authorizeForUser($request->user('api'), 'create', Education::class);
 
         $Education_data = Institution::where('deleted_at', '=', null)->get(['id', 'ar_name']);
+        $area = Area::where('deleted_at', '=', null)->get(['id', 'ar_name']);
+
         return response()->json([
             'educations' =>  $Education_data ,
+            'areas' =>  $area
         ]);
 
     }
@@ -524,8 +538,7 @@ class EducationsController extends BaseController
 
         $item['activities_ar'] = $Education->activities_ar;
         $item['activities_en'] = $Education->activities_en;
-
-
+        $item['area_id'] = $Education->area_id;
         $item['url'] = $Education->url;
         $item['phone'] = $Education->phone;
 
@@ -564,10 +577,13 @@ class EducationsController extends BaseController
         }
  
         $data = $item;
-
+        $area = Area::where('deleted_at', '=', null)->get(['id', 'ar_name']);
+        
+   
         return response()->json([
             'education' => $data,
             'educations' =>  $Education_data ,
+            'areas'=>$area 
         ]);
 
     }

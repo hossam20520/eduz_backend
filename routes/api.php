@@ -60,7 +60,7 @@ Route::group([
 
 Route::post('device/auth/password/change', 'device\AuthController@changePassword');
 
-
+Route::post("device/users/message/", "device\AuthController@GetUsers");
 Route::middleware(['auth:api', 'Is_Active'])->group(function () {
     Route::get("device/auth/user", "device\AuthController@User");
     Route::post('device/auth/profile/update', 'device\AuthController@updateProfile');
@@ -106,6 +106,12 @@ Route::post('Forms/import/csv', 'FormsController@import_forms');
 Route::post('Forms/delete/by_selection', 'FormsController@delete_by_selection');
 Route::get('Forms/Detail/{id}', 'FormsController@Get_Forms_Details');
 
+
+    //------------------------------- Areas--------------------------\
+    //------------------------------------------------------------------\
+    Route::resource('areas', 'AreasController');
+    Route::post('areas/delete/by_selection', 'AreasController@delete_by_selection');
+    
 
 //------------------------------- Teachers --------------------------\
 //------------------------------------------------------------------\

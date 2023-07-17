@@ -294,6 +294,21 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -308,6 +323,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       len: 8,
       images: [],
       imageArray: [],
+      areas: [],
       change: false,
       isLoading: true,
       SubmitProcessing: false,
@@ -316,6 +332,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       variants: [],
       educations: [],
       education: {
+        area_id: "",
         institution_id: "",
         ar_name: "",
         en_name: "",
@@ -393,7 +410,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       var id = this.$route.params.id;
       axios.get("Educations/".concat(id, "/edit")).then(function (response) {
         _this2.education = response.data.education;
-        console.log(response.data);
+        _this2.areas = response.data.areas;
         _this2.educations = response.data.educations;
         _this2.images = response.data.education.images;
         _this2.isLoading = false;
@@ -1290,6 +1307,111 @@ var render = function () {
                                               null,
                                               false,
                                               1488784179
+                                            ),
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: {
+                                              name: "Areas",
+                                              rules: { required: true },
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (ref) {
+                                                    var valid = ref.valid
+                                                    var errors = ref.errors
+                                                    return _c(
+                                                      "b-form-group",
+                                                      {
+                                                        attrs: {
+                                                          label:
+                                                            _vm.$t(
+                                                              "Choose_Area"
+                                                            ),
+                                                        },
+                                                      },
+                                                      [
+                                                        _c("v-select", {
+                                                          class: {
+                                                            "is-invalid":
+                                                              !!errors.length,
+                                                          },
+                                                          attrs: {
+                                                            state: errors[0]
+                                                              ? false
+                                                              : valid
+                                                              ? true
+                                                              : null,
+                                                            reduce: function (
+                                                              label
+                                                            ) {
+                                                              return label.value
+                                                            },
+                                                            placeholder:
+                                                              _vm.$t(
+                                                                "Choose_Area"
+                                                              ),
+                                                            options:
+                                                              _vm.areas.map(
+                                                                function (
+                                                                  areas
+                                                                ) {
+                                                                  return {
+                                                                    label:
+                                                                      areas.ar_name,
+                                                                    value:
+                                                                      areas.id,
+                                                                  }
+                                                                }
+                                                              ),
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.education
+                                                                .area_id,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.education,
+                                                                "area_id",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "education.area_id",
+                                                          },
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "b-form-invalid-feedback",
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(errors[0])
+                                                            ),
+                                                          ]
+                                                        ),
+                                                      ],
+                                                      1
+                                                    )
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              1141054192
                                             ),
                                           }),
                                         ],

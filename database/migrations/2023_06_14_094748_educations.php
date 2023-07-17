@@ -30,6 +30,8 @@ class Educations extends Migration
             $table->text('image')->nullable();
             $table->text('activities_image')->nullable();
             $table->integer('institution_id')->nullable()->index('institution_id');
+            $table->integer('area_id')->nullable()->index('area_id');
+            
             $table->integer('review_id')->nullable()->index('review_id');
             $table->text('lat')->nullable();
             $table->text('long_a')->nullable();

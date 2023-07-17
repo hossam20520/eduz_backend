@@ -646,6 +646,14 @@ const routes = [
                             import(/* webpackChunkName: "Categories" */"./views/app/pages/settings/categorie")
                     },
 
+                                            // areas
+                    {
+                        name: "areas",
+                        path: "Areas",
+                        component: () =>
+                            import(/* webpackChunkName: "Areas" */"./views/app/pages/settings/areas")
+                    },
+
                     // brands
                     {
                         name: "brands",

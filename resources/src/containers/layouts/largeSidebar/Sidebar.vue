@@ -718,6 +718,19 @@
               <span class="item-name">{{$t('Categories')}}</span>
             </router-link>
           </li>
+
+
+          <li
+            class="nav-item"
+           
+          >
+            <router-link tag="a" class to="/app/settings/Areas">
+              <i class="nav-icon i-Bookmark"></i>
+              <span class="item-name">{{   $t('Area') }}</span>
+            </router-link>
+          </li>
+
+
           <li
             class="nav-item"
             v-if="currentUserPermissions && currentUserPermissions.includes('brand')"

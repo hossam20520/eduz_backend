@@ -12,20 +12,23 @@ use File;
 use App\Models\role_user;
 use App\Models\Calander;
 use App\Models\Favourit;
- 
- 
- 
- 
- 
- 
- 
 use Illuminate\Support\Facades\Validator;
  
-
-
 class AuthController extends Controller
 {
     //
+
+    public function GetUsers(Request $request){
+
+        $array = $request->input('arrayData');
+  
+      
+        $data = User::whereIn('id',  $array)->get();
+       
+
+        return response()->json(['users' => $data   ], 200);
+
+    }
 
     public function User(Request $request){
         $helpers = new helpers();

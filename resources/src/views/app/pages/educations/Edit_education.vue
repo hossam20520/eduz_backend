@@ -163,7 +163,22 @@
                 </b-col>
 
 
-
+      
+                <b-col md="6" class="mb-2">
+                  <validation-provider name="Areas" :rules="{ required: true}">
+                    <b-form-group slot-scope="{ valid, errors }" :label="$t('Choose_Area')">
+                      <v-select
+                        :class="{'is-invalid': !!errors.length}"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        :reduce="label => label.value"
+                        :placeholder="$t('Choose_Area')"
+                        v-model="education.area_id"
+                        :options="areas.map(areas => ({label: areas.ar_name, value: areas.id}))"
+                      />
+                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
 
 
                 <b-col md="12" class="mb-2">
@@ -280,6 +295,7 @@ export default {
       len: 8,
       images: [],
       imageArray: [],
+      areas:[],
       change: false,
       isLoading: true,
       SubmitProcessing:false,
@@ -289,6 +305,7 @@ export default {
       variants: [],
       educations:[],
       education: {
+        area_id:"",
            institution_id:"",
            ar_name:"",
             en_name:"",
@@ -378,7 +395,7 @@ export default {
         .get(`Educations/${id}/edit`)
         .then(response => {
           this.education = response.data.education;
-          console.log(response.data);
+          this.areas = response.data.areas;
           this.educations =  response.data.educations;
           this.images = response.data.education.images;
     
