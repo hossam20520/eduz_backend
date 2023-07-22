@@ -124,19 +124,45 @@ new Vue({
 
 
           db.collection("users_messages")
-            .doc(this.receiver_id)
-            .collection("messages")
-            .add(user)
-            .then(() => {
-              //   this.messages.push(newMessage);
-              // this.newMessage = '';
-              // this.$nextTick(() => {
-              //   this.$refs.chatMessages.scrollTop = this.$refs.chatMessages.scrollHeight;
-              // });
-            })
-            .catch((error) => {
-              console.error("Error adding message to Firestore: ", error);
+          .doc(this.receiver_id)
+          .collection("messages")
+          .where("to", "==", this.receiver_id)
+          .get()
+          .then((querySnapshot) => {
+            // Loop through the query results (there should be only one result if "to" is unique)
+            querySnapshot.forEach((doc) => {
+              // Update the found document using the "set()" method with merge option
+              db.collection("users_messages")
+                .doc(this.receiver_id)
+                .collection("messages")
+                .doc(doc.id) // Use the ID of the found document
+                .set(user, { merge: true }) // Update the document with the "user" object
+                .then(() => {
+                  // The message has been updated successfully
+                  // You can perform any necessary actions here if needed
+                })
+                .catch((error) => {
+                  console.error("Error updating message in Firestore: ", error);
+                });
             });
+          })
+          .catch((error) => {
+            console.error("Error querying Firestore: ", error);
+          });
+          // db.collection("users_messages")
+          //   .doc(this.receiver_id)
+          //   .collection("messages")
+          //   .add(user)
+          //   .then(() => {
+          //     //   this.messages.push(newMessage);
+          //     // this.newMessage = '';
+          //     // this.$nextTick(() => {
+          //     //   this.$refs.chatMessages.scrollTop = this.$refs.chatMessages.scrollHeight;
+          //     // });
+          //   })
+          //   .catch((error) => {
+          //     console.error("Error adding message to Firestore: ", error);
+          //   });
       
  
     },

@@ -71,6 +71,9 @@ new Vue({
 
  
 
+
+
+
     db.collection("users_messages")
       .doc(this.user_id)
       .where("to", "==", this.user_id)
