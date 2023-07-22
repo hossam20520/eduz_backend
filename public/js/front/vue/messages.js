@@ -66,6 +66,11 @@ new Vue({
     if(urlParams.has("token")){
       const token = urlParams.get("token");
       this.getProfileData(token);
+
+
+
+
+      this.FetchMessages();
     }
  
 
@@ -120,9 +125,7 @@ new Vue({
     
     getProfileData(token){
             
-      
-      // const data = localStorage.getItem('token');
-      // const user_id = localStorage.getItem('user_id');
+
       axios.get('/api/device/auth/user' , {
           headers: {
               'Authorization': 'Bearer  ' + token
@@ -142,17 +145,16 @@ new Vue({
                   this.user_id = id;
                   const urlParamss = new URLSearchParams(window.location.search);
                   if (urlParamss.has("user_id")) {
-                    // Get the value of the user_id parameter
+           
                     const userId = urlParamss.get("user_id");
                     this.private = true;
               
                     this.receiver_id = userId;
-                    // Use the userId value as needed
-                    // console.log(userId);
+       
                   } 
 
 
-                  this.FetchMessages();
+               
 
      
               })
