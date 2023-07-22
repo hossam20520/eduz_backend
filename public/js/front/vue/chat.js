@@ -294,6 +294,9 @@ new Vue({
 
                   this.user = response.data.user;
                   const id =  response.data.user.id;
+                  this.user_id =   response.data.user.id;
+
+                  console.log(this.user_id);
                   const image =  response.data.user.avatar;
                   const name = response.data.user.firstname + " "+response.data.user.lastname;
             
@@ -301,7 +304,7 @@ new Vue({
             
                   this.name = name;
                   this.image = this.baseUrl + "images/avatar/" + image;
-                  this.user_id = id;
+                 
 
 
 
