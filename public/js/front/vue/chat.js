@@ -98,7 +98,7 @@ new Vue({
 
     if (this.private) {
  
-
+     console.log(this.user_id);
       db.collection("chats")
         .doc(this.from_to)
         .collection("messages")
@@ -287,7 +287,7 @@ new Vue({
 
                 console.log(response.data.user)
 
-                 this.user = response.data.user;
+                  this.user = response.data.user;
                   const id =  response.data.user.id;
                   const image =  response.data.user.avatar;
                   const name = response.data.user.firstname + " "+response.data.user.lastname;
