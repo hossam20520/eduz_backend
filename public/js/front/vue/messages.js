@@ -75,6 +75,12 @@ new Vue({
 
     const urlParams = new URLSearchParams(window.location.search);
 
+
+    if(urlParams.has("token")){
+      const token = urlParams.get("token");
+      this.getProfileData(token);
+    }
+
     // Get the value of the user_id parameter
     // const userId = urlParams.get('user_id');
 
@@ -147,8 +153,45 @@ new Vue({
       
   },
   methods: {
+
+
+    
+    getProfileData(token){
+            
+      
+      // const data = localStorage.getItem('token');
+      // const user_id = localStorage.getItem('user_id');
+      axios.get('/api/device/auth/user' , {
+          headers: {
+              'Authorization': 'Bearer  ' + token
+          }
+      }).then(
+              response => {
+    
+                  this.user = response.data.user;
+                  const id =  response.data.user.id;
+                  const image =  response.data.user.avatar;
+                  const name = response.data.user.firstname + " "+response.data.user.lastname;
+            
+            
+            
+                  this.name = name;
+                  this.image = this.baseUrl + "images/avatar/" + image;
+                  this.user_id = id;
+
+
+
+     
+              })
+          .catch(error => {
+              console.error(error);
+          });
+
+
+  },
+
     openChat(id){
-      const url = 'http://192.168.1.5:8000/chat?user_id='+id+'&replay=true';
+      const url = '/chat?user_id='+id+'&replay=true&token=';
       // window.open(url);
 
       window.location.href = url;

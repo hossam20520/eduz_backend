@@ -285,7 +285,8 @@ new Vue({
 
                 // if (isLogged) {
 
-                // console.log(response.data.user)
+                console.log(response.data.user)
+
                  this.user = response.data.user;
                   const id =  response.data.user.id;
                   const image =  response.data.user.avatar;
