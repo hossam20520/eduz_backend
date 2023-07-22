@@ -186,8 +186,8 @@ new Vue({
         snapshot.docChanges().forEach((change) => {
           if (change.type === "added") {
             const newMessage = change.doc.data();
-            this.messages.push(newMessage);
-            console.log(this.messages);
+            // this.messages.push(newMessage);
+            console.log(newMessage);
             // this.$nextTick(() => {
             //   this.$refs.chatMessages.scrollTop =
             //     this.$refs.chatMessages.scrollHeight;
