@@ -69,29 +69,7 @@ new Vue({
 
 
  
-
-    if (this.private) {
-  
-      db.collection("chats")
-        .doc(this.from_to)
-        .collection("messages")
-        .orderBy("time")
-        .onSnapshot((snapshot) => {
-          snapshot.docChanges().forEach((change) => {
-            if (change.type === "added") {
-              const newMessage = change.doc.data();
-              this.messages.push(newMessage);
-              this.$nextTick(() => {
-                this.$refs.chatMessages.scrollTop =
-                  this.$refs.chatMessages.scrollHeight;
-              });
-            }
-          });
-        });
-
  
-    } 
-
 
 
 
@@ -163,6 +141,26 @@ new Vue({
  
     },
 
+
+    GetMyMessages(){
+      db.collection("chats")
+      .doc(this.from_to)
+      .collection("messages")
+      .orderBy("time")
+      .onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+          if (change.type === "added") {
+            const newMessage = change.doc.data();
+            this.messages.push(newMessage);
+            this.$nextTick(() => {
+              this.$refs.chatMessages.scrollTop =
+                this.$refs.chatMessages.scrollHeight;
+            });
+          }
+        });
+      });
+    },
+
   
     getProfileData(token){
  
@@ -197,6 +195,9 @@ new Vue({
                     } else {
                       this.from_to = this.user_id + "-" + userId;     
                     }
+
+
+                    this.GetMyMessages();
              
                   } 
            
