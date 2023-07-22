@@ -67,6 +67,8 @@ new Vue({
     if(urlParams.has("token")){
       const token = urlParams.get("token");
       this.getProfileData(token);
+
+      console.log(this.user_id);
     }
 
 
@@ -99,6 +101,9 @@ new Vue({
     if (this.private) {
  
      console.log(this.user_id);
+
+
+     
       db.collection("chats")
         .doc(this.from_to)
         .collection("messages")
