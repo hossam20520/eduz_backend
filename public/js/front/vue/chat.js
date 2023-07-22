@@ -72,30 +72,6 @@ new Vue({
     }
 
 
-    if (urlParams.has("user_id")) {
-      // Get the value of the user_id parameter
-      const userId = urlParams.get("user_id");
-      this.private = true;
-
-      this.receiver_id = userId;
- 
-      // Check if the 'replay' parameter exists in the current URL
-      if (urlParams.has("replay")) {
-        // The 'replay' parameter exists in the current URL
-       
-        this.from_to =  userId+"-" +  this.user_id;
-       
-      } else {
-        this.from_to = this.user_id + "-" + userId;     
-      }
-
-    
-      // Use the userId value as needed
-      // console.log(userId);
-    } else {
-      // Handle the case when the user_id parameter is not present
-      console.log("user_id parameter is missing");
-    }
  
 
     if (this.private) {
@@ -169,7 +145,35 @@ new Vue({
       }
 
       if (this.private) {
-        // let joinData = firebase.database().ref('chatrooms/'+this.roomid+'/chats').push();
+    
+
+
+
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has("user_id")) {
+          // Get the value of the user_id parameter
+          const userId = urlParams.get("user_id");
+          this.private = true;
+    
+          this.receiver_id = userId;
+     
+          // Check if the 'replay' parameter exists in the current URL
+          if (urlParams.has("replay")) {
+            // The 'replay' parameter exists in the current URL
+           
+            this.from_to =  userId+"-" +  this.user_id;
+           
+          } else {
+            this.from_to = this.user_id + "-" + userId;     
+          }
+    
+        
+          // Use the userId value as needed
+          // console.log(userId);
+        } else {
+          // Handle the case when the user_id parameter is not present
+          console.log("user_id parameter is missing");
+        }
 
         db.collection("chats")
           .doc(this.from_to)
@@ -296,7 +300,7 @@ new Vue({
                   const id =  response.data.user.id;
                   this.user_id =   response.data.user.id;
 
-                  console.log(this.user_id);
+                
                   const image =  response.data.user.avatar;
                   const name = response.data.user.firstname + " "+response.data.user.lastname;
             
