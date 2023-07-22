@@ -125,7 +125,8 @@ new Vue({
 
 
 
-          db.collection("users")
+          db.collection("users_messages")
+            .doc(this.receiver_id)
             .add(user)
             .then(() => {
               //   this.messages.push(newMessage);
