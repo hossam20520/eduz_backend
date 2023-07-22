@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
-
+use App\Models\Area;
 class InstitutionsController extends Controller
 {
 
@@ -37,7 +37,11 @@ class InstitutionsController extends Controller
             ->orderBy($order, $dir)
             ->get();
 
+
+            $areas = Area::where('deleted_at', '=', null )->get();
+
         return response()->json([
+            'countries' => $areas ,
             'institutions' => $institutions,
             'totalRows' => $totalRows,
         ]);
