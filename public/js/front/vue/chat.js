@@ -75,9 +75,7 @@ new Vue({
 
   },
   methods: {
-    close() {
-      this.showChat = false;
-    },
+ 
     sendMessage() {
       var newMessage = {};
     
@@ -127,6 +125,7 @@ new Vue({
 
           db.collection("users_messages")
             .doc(this.receiver_id)
+            .collection("messages")
             .add(user)
             .then(() => {
               //   this.messages.push(newMessage);
