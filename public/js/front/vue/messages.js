@@ -74,40 +74,43 @@ new Vue({
 
 
 
-    db.collection("users_messages")
-      .doc(this.user_id)
-      .where("to", "==", this.user_id)
-      .get()
-      .then((querySnapshot) => {
-
-         querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          const toValue = data.id;
-          console.log(data);
-          // uniqueToValues.add(toValue);
-        });
 
 
-        // const uniqueToValues = new Set();
-        // querySnapshot.forEach((doc) => {
-        //   const data = doc.data();
-        //   const toValue = data.id;
-        //   console.log(toValue);
-        //   uniqueToValues.add(toValue);
-        // });
 
-        // // Convert the set to an array
-        // const uniqueToValuesArray = Array.from(uniqueToValues);
+    // db.collection("users_messages")
+    //   .doc(this.user_id)
+    //   .where("to", "==", this.user_id)
+    //   .get()
+    //   .then((querySnapshot) => {
+
+    //      querySnapshot.forEach((doc) => {
+    //       const data = doc.data();
+    //       const toValue = data.id;
+    //       console.log(data);
+    //       // uniqueToValues.add(toValue);
+    //     });
 
 
-        // this.FetchUsers(uniqueToValuesArray);
+    //     // const uniqueToValues = new Set();
+    //     // querySnapshot.forEach((doc) => {
+    //     //   const data = doc.data();
+    //     //   const toValue = data.id;
+    //     //   console.log(toValue);
+    //     //   uniqueToValues.add(toValue);
+    //     // });
 
-        // // Use the uniqueToValuesArray as needed
-        // console.log(uniqueToValuesArray);
-      })
-      .catch((error) => {
-        console.log("Error getting documents: ", error);
-      });
+    //     // // Convert the set to an array
+    //     // const uniqueToValuesArray = Array.from(uniqueToValues);
+
+
+    //     // this.FetchUsers(uniqueToValuesArray);
+
+    //     // // Use the uniqueToValuesArray as needed
+    //     // console.log(uniqueToValuesArray);
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error getting documents: ", error);
+    //   });
 
       
   },
@@ -163,22 +166,32 @@ new Vue({
 
       window.location.href = url;
     },
-    FetchUsers(listIds) {
-      const data = {
-        arrayData:listIds
-      };
-      axios
-        .post(
-          "/api/device/users/message" , data
-        )
-        .then((response) => {
-   
-          this.users = response.data.users;
-          console.log(this.users)
-        })
-        .catch((error) => {
-          console.error(error);
+    FetchMessages() {
+ 
+ 
+
+      db.collection("users_messages")
+      .doc(this.user_id)
+      .collection("messages")
+      .orderBy("time")
+      .onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+          if (change.type === "added") {
+            const newMessage = change.doc.data();
+            this.messages.push(newMessage);
+            console.log(this.messages);
+            // this.$nextTick(() => {
+            //   this.$refs.chatMessages.scrollTop =
+            //     this.$refs.chatMessages.scrollHeight;
+            // });
+          }
         });
+      });
+
+
+
+ 
+
     },
 
     close() {
