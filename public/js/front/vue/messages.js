@@ -69,9 +69,7 @@ new Vue({
     }
  
 
-    db.collection("users_messages")
-  
-    .collection("messages")
+ 
 
     db.collection("users_messages")
       .doc(this.user_id)
