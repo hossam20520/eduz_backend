@@ -44,42 +44,34 @@ new Vue({
     color: "HSL(45,100%,50%)",
     messages: [],
     newMessage: "",
-    message: "Hello Vue!",
     local: "en",
     cart: [],
 
     baseUrl: "",
   },
   mounted() {
-    // setInterval(this.colorChanger, 4000);
     this.local = this.$i18n.locale;
     var baseUrl = window.location.protocol + "//" + window.location.host + "/";
-    // this.categoryImage = baseUrl + "images/category/";
-    // this.productImage = baseUrl + "images/products/";
     this.baseUrl = baseUrl;
-
-    
-
     const urlParams = new URLSearchParams(window.location.search);
 
-    // Get the value of the user_id parameter
-    // const userId = urlParams.get('user_id');
     if(urlParams.has("token")){
       const token = urlParams.get("token");
       this.getProfileData(token);
 
-      console.log(this.user_id);
+      
+
+
+
+
+
     }
 
 
  
 
     if (this.private) {
- 
-     console.log(this.user_id);
-
-
-     
+  
       db.collection("chats")
         .doc(this.from_to)
         .collection("messages")
@@ -98,22 +90,11 @@ new Vue({
         });
 
  
-    } else {
-      db.collection("messages")
-        .orderBy("time")
-        .onSnapshot((snapshot) => {
-          snapshot.docChanges().forEach((change) => {
-            if (change.type === "added") {
-              const newMessage = change.doc.data();
-              this.messages.push(newMessage);
-              this.$nextTick(() => {
-                this.$refs.chatMessages.scrollTop =
-                  this.$refs.chatMessages.scrollHeight;
-              });
-            }
-          });
-        });
-    }
+    } 
+
+
+
+
   },
   methods: {
     close() {
@@ -121,7 +102,7 @@ new Vue({
     },
     sendMessage() {
       var newMessage = {};
-      if (this.private) {
+    
         newMessage = {
           who: "justify-content-end mb-4 pt-1",
           time: Date.now(),
@@ -132,24 +113,8 @@ new Vue({
           image: this.image,
           text: this.newMessage,
         };
-      } else {
-        newMessage = {
-          who: "justify-content-end mb-4 pt-1",
-          time: Date.now(),
-          username: "You",
-          id: this.user_id,
-          name: this.name,
-          image: this.image,
-          text: this.newMessage,
-        };
-      }
-
-      if (this.private) {
-    
-
-
-
-
+      
+ 
 
         db.collection("chats")
           .doc(this.from_to)
@@ -168,7 +133,7 @@ new Vue({
             console.error("Error adding message to Firestore: ", error);
           });
 
-        if (this.private) {
+       
           const user = {
             to: this.receiver_id,
             time: Date.now(),
@@ -178,6 +143,9 @@ new Vue({
             image: this.image,
             text: this.newMessage,
           };
+
+
+
 
           db.collection("users")
             .add(user)
@@ -191,114 +159,47 @@ new Vue({
             .catch((error) => {
               console.error("Error adding message to Firestore: ", error);
             });
-        }
-
- 
-      } else {
-        db.collection("messages")
-          .add(newMessage)
-          .then(() => {
-            //   this.messages.push(newMessage);
-            this.newMessage = "";
-
-            this.$nextTick(() => {
-              this.$refs.chatMessages.scrollTop =
-                this.$refs.chatMessages.scrollHeight;
-            });
-          })
-          .catch((error) => {
-            console.error("Error adding message to Firestore: ", error);
-          });
-      }
-
-      // this.messages.push(newMessage);
-      // this.newMessage = '';
-      // this.$nextTick(() => {
-      //   this.$refs.chatMessages.scrollTop = this.$refs.chatMessages.scrollHeight;
-      // });
-
-      const intervalIdd = setInterval(this.callBacload, 2000);
-
-      setTimeout(() => clearInterval(intervalIdd), 2000);
-
-      // const intervalId = setInterval(this.callback, 1000);
-      // setTimeout(() => clearInterval(intervalId), 1000);
-    },
-
-    colorChanger() {
-      let liscolor = [
-        "HSL(45,100%,50%)",
-        "#b62827",
-        "#fbd30f",
-        "#2e499b",
-        "#93cd45",
-      ];
-      const min = 0;
-      const max = 5;
-      const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
-      this.color = liscolor[randomNum];
-    },
-    callBacload() {
-      this.load = false;
-    },
-
-
-    getProfileData(token){
-            
       
-      // const data = localStorage.getItem('token');
-      // const user_id = localStorage.getItem('user_id');
+ 
+    },
+
+  
+    getProfileData(token){
+ 
       axios.get('/api/device/auth/user' , {
           headers: {
               'Authorization': 'Bearer  ' + token
           }
       }).then(
               response => {
-                // const isLogged = localStorage.getItem("isLogged");
-
-                // if (isLogged) {
-
-                console.log(response.data.user)
 
                   this.user = response.data.user;
-                  const id =  response.data.user.id;
                   this.user_id =   response.data.user.id;
 
                 
                   const image =  response.data.user.avatar;
                   const name = response.data.user.firstname + " "+response.data.user.lastname;
-            
-            
-            
                   this.name = name;
                   this.image = this.baseUrl + "images/avatar/" + image;
                  
 
-                  const urlParams = new URLSearchParams(window.location.search);
-                  if (urlParams.has("user_id")) {
+                  const urlParamsa = new URLSearchParams(window.location.search);
+
+                  if (urlParamsa.has("user_id")) {
                     // Get the value of the user_id parameter
-                    const userId = urlParams.get("user_id");
+                    const userId = urlParamsa.get("user_id");
                     this.private = true;
-              
                     this.receiver_id = userId;
-               
                     // Check if the 'replay' parameter exists in the current URL
-                    if (urlParams.has("replay")) {
-                      // The 'replay' parameter exists in the current URL
-                     
+                    if (urlParamsa.has("replay")) {
                       this.from_to =  userId+"-" +  this.user_id;
                      
                     } else {
                       this.from_to = this.user_id + "-" + userId;     
                     }
-              
-                  
-                    // Use the userId value as needed
-                    // console.log(userId);
-                  } else {
-                    // Handle the case when the user_id parameter is not present
-                    console.log("user_id parameter is missing");
-                  }
+             
+                  } 
+           
               })
           .catch(error => {
               console.error(error);
@@ -306,26 +207,7 @@ new Vue({
 
 
   },
-  
-    callback() {
-      let mess =
-        "Hi , My name is coopa I hope you are well , I am out of service right now.";
-      this.replay(mess);
-      // this.load = true;
-    },
-    replay(message) {
-      const newMessage = {
-        who: "justify-content-end mb-4 pt-1",
-        time: Date.now(),
-        username: "coopa",
-        text: message,
-      };
-      this.messages.push(newMessage);
-      this.newMessage = "";
-      this.$nextTick(() => {
-        this.$refs.chatMessages.scrollTop =
-          this.$refs.chatMessages.scrollHeight;
-      });
-    },
+ 
+    
   },
 });
