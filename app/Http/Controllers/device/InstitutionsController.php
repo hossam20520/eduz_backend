@@ -5,6 +5,9 @@ namespace App\Http\Controllers\device;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Education;
+use App\Models\Area;
+
+
 
 use App\Models\Teacher;
 class InstitutionsController extends Controller
@@ -31,17 +34,22 @@ class InstitutionsController extends Controller
 
         $id = $request->id;
         $type = $request->type;
+
+        $areas = Area::where('deleted_at', '=', null )->get();
+
+
+
        if( $type == "TEACHERS"){
        $teacher =  Teacher::where('deleted_at', '=', null )->get();
        return response()->json([
+        'countries' => $areas,
         'inst' =>   [],
-         'teacher' =>  $teacher
- 
-    ]);
+         'teacher' =>  $teacher ]);
        }else{
 
         $education =  Education::where('institution_id' , $id)->get();
         return response()->json([
+          'countries' => $areas ,
           'inst' =>  $education,
           'teacher' =>  []
   
