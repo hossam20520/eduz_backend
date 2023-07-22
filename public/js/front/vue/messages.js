@@ -70,31 +70,13 @@ new Vue({
 
 
 
-      // this.FetchMessages();
+      this.FetchMessages();
     }
 
 
 
     
-    db.collection("users_messages")
-    .doc(2)
-    .collection("messages")
-    .orderBy("time")
-    .onSnapshot((snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        if (change.type === "added") {
-          const newMessage = change.doc.data();
-          // this.messages.push(newMessage);
-          console.log(newMessage);
-          // this.$nextTick(() => {
-          //   this.$refs.chatMessages.scrollTop =
-          //     this.$refs.chatMessages.scrollHeight;
-          // });
-        }
-      });
-    });
  
-
  
 
 
@@ -200,7 +182,7 @@ new Vue({
 
 
       db.collection("users_messages")
-      .doc("2")
+      .doc(2)
       .collection("messages")
       .orderBy("time")
       .onSnapshot((snapshot) => {
