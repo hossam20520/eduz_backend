@@ -130,21 +130,37 @@ new Vue({
           .get()
           .then((querySnapshot) => {
             // Loop through the query results (there should be only one result if "to" is unique)
-            querySnapshot.forEach((doc) => {
-              // Update the found document using the "set()" method with merge option
+            if (!querySnapshot.empty) {
+              // If a matching document is found, update it
+              querySnapshot.forEach((doc) => {
+                // Update the found document using the "set()" method with merge option
+                db.collection("users_messages")
+                  .doc(this.receiver_id.toString())
+                  .collection("messages")
+                  .doc(doc.id) // Use the ID of the found document
+                  .set(user, { merge: true }) // Update the document with the "user" object
+                  .then(() => {
+                    // The message has been updated successfully
+                    // You can perform any necessary actions here if needed
+                  })
+                  .catch((error) => {
+                    console.error("Error updating message in Firestore: ", error);
+                  });
+              });
+            } else {
+              // If no matching document is found, add a new message
               db.collection("users_messages")
-                .doc(this.receiver_id)
+                .doc(this.receiver_id.toString())
                 .collection("messages")
-                .doc(doc.id) // Use the ID of the found document
-                .set(user, { merge: true }) // Update the document with the "user" object
+                .add(user) // Add a new document with the provided "user" object
                 .then(() => {
-                  // The message has been updated successfully
+                  // The new message has been added successfully
                   // You can perform any necessary actions here if needed
                 })
                 .catch((error) => {
-                  console.error("Error updating message in Firestore: ", error);
+                  console.error("Error adding message to Firestore: ", error);
                 });
-            });
+            }
           })
           .catch((error) => {
             console.error("Error querying Firestore: ", error);
