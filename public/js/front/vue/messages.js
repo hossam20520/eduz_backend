@@ -151,6 +151,9 @@ new Vue({
                     // console.log(userId);
                   } 
 
+
+                  this.FetchMessages();
+
      
               })
           .catch(error => {
