@@ -176,7 +176,7 @@ new Vue({
  
 
       db.collection("users_messages")
-      .doc(this.user_id)
+      .doc(2)
       .collection("messages")
       .orderBy("time")
       .onSnapshot((snapshot) => {
