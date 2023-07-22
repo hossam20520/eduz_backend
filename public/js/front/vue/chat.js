@@ -126,7 +126,7 @@ new Vue({
           db.collection("users_messages")
           .doc(this.receiver_id)
           .collection("messages")
-          .where("to", "==", this.receiver_id )
+          .where("id", "==", this.user_id )
           .get()
           .then((querySnapshot) => {
             // Loop through the query results (there should be only one result if "to" is unique)
