@@ -123,6 +123,8 @@ new Vue({
 
 
 
+
+          
           db.collection("users_messages")
           .doc(this.receiver_id)
           .collection("messages")
