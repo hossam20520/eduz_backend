@@ -149,31 +149,7 @@ new Vue({
 
 
 
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has("user_id")) {
-          // Get the value of the user_id parameter
-          const userId = urlParams.get("user_id");
-          this.private = true;
-    
-          this.receiver_id = userId;
-     
-          // Check if the 'replay' parameter exists in the current URL
-          if (urlParams.has("replay")) {
-            // The 'replay' parameter exists in the current URL
-           
-            this.from_to =  userId+"-" +  this.user_id;
-           
-          } else {
-            this.from_to = this.user_id + "-" + userId;     
-          }
-    
-        
-          // Use the userId value as needed
-          // console.log(userId);
-        } else {
-          // Handle the case when the user_id parameter is not present
-          console.log("user_id parameter is missing");
-        }
+
 
         db.collection("chats")
           .doc(this.from_to)
@@ -217,19 +193,7 @@ new Vue({
             });
         }
 
-        // db.collection("chats")
-        // .doc(this.from_to)
-        // .collection("messages")
-        // .add(newMessage)
-        // .then((docRef) => {
-        //   this.newMessage = "";
-
-        //   docRef.collection("subcollectionName").add(newMessage);
-        //   this.newMessage = "";
-        // })
-        // .catch((error) => {
-        //   console.error("Error sending message: ", error);
-        // });
+ 
       } else {
         db.collection("messages")
           .add(newMessage)
@@ -310,21 +274,31 @@ new Vue({
                   this.image = this.baseUrl + "images/avatar/" + image;
                  
 
-
-
-                // } else {
-                //   this.name = "Anonymous";
-                //   this.image = "https://cdn-icons-png.flaticon.com/512/1768/1768630.png";
-                //   this.user_id = 0;
-                // }
-
-
-
-      
-             
-                  // this.products = response.data.products;
-                  // this.totalPages = response.data.totalRows;
-                  // this.totalPages = Math.ceil(response.data.products.length / this.pageSize);
+                  const urlParams = new URLSearchParams(window.location.search);
+                  if (urlParams.has("user_id")) {
+                    // Get the value of the user_id parameter
+                    const userId = urlParams.get("user_id");
+                    this.private = true;
+              
+                    this.receiver_id = userId;
+               
+                    // Check if the 'replay' parameter exists in the current URL
+                    if (urlParams.has("replay")) {
+                      // The 'replay' parameter exists in the current URL
+                     
+                      this.from_to =  userId+"-" +  this.user_id;
+                     
+                    } else {
+                      this.from_to = this.user_id + "-" + userId;     
+                    }
+              
+                  
+                    // Use the userId value as needed
+                    // console.log(userId);
+                  } else {
+                    // Handle the case when the user_id parameter is not present
+                    console.log("user_id parameter is missing");
+                  }
               })
           .catch(error => {
               console.error(error);
