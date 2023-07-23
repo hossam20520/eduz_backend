@@ -58,7 +58,7 @@
                       <p class="small mb-1">You</p>
                   </div>
                   <div class="d-flex flex-row justify-content-end mb-4 pt-1">
-                      <div>
+                      <div style="max-width: 60%">
                       <p class="small p-2 me-3 mb-3 text-white rounded-3 bg-warning">@{{ message.text }}</p>
                       </div>
                       <img v-if='user_id == 0' :src="message.image"
