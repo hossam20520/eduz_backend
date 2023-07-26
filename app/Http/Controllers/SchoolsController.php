@@ -169,7 +169,7 @@ class SchoolsController extends BaseController
                         $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])));
                         // $fileData->resize(200, 200);
                         $name = rand(11111111, 99999999) . $file['name'];
-                        $path = public_path() . '/images/schools/';
+                        $path = public_path() . '/images/educations/';
                         $success = file_put_contents($path . $name, $fileData);
                         $images[] = $name;
                     }
@@ -313,7 +313,7 @@ class SchoolsController extends BaseController
 
                     if ($School->image !== null) {
                         foreach (explode(',', $School->image) as $img) {
-                            $pathIMG = public_path() . '/images/schools/' . $img;
+                            $pathIMG = public_path() . '/images/educations/' . $img;
                             if (file_exists($pathIMG)) {
                                 if ($img != 'no-image.png') {
                                     @unlink($pathIMG);
@@ -325,7 +325,7 @@ class SchoolsController extends BaseController
                 } else {
                     if ($School->image !== null) {
                         foreach (explode(',', $School->image) as $img) {
-                            $pathIMG = public_path() . '/images/schools/' . $img;
+                            $pathIMG = public_path() . '/images/educations/' . $img;
                             if (file_exists($pathIMG)) {
                                 if ($img != 'no-image.png') {
                                     @unlink($pathIMG);
@@ -338,7 +338,7 @@ class SchoolsController extends BaseController
                         $fileData =  base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path']));
                         // $fileData->resize(200, 200);
                         $name = rand(11111111, 99999999) . $file['name'];
-                        $path = public_path() . '/images/schools/';
+                        $path = public_path() . '/images/educations/';
                         $success = file_put_contents($path . $name, $fileData);
                         $images[] = $name;
                     }
@@ -376,7 +376,7 @@ class SchoolsController extends BaseController
             $School->save();
 
             foreach (explode(',', $School->image) as $img) {
-                $pathIMG = public_path() . '/images/schools/' . $img;
+                $pathIMG = public_path() . '/images/educations/' . $img;
                 if (file_exists($pathIMG)) {
                     if ($img != 'no-image.png') {
                         @unlink($pathIMG);
@@ -408,7 +408,7 @@ class SchoolsController extends BaseController
                 $School->save();
 
                 foreach (explode(',', $School->image) as $img) {
-                    $pathIMG = public_path() . '/images/schools/' . $img;
+                    $pathIMG = public_path() . '/images/educations/' . $img;
                     if (file_exists($pathIMG)) {
                         if ($img != 'no-image.png') {
                             @unlink($pathIMG);
@@ -656,7 +656,7 @@ class SchoolsController extends BaseController
         $item['images'] = [];
         if ($School->image != '' && $School->image != 'no-image.png') {
             foreach (explode(',', $School->image) as $img) {
-                $path = public_path() . '/images/schools/' . $img;
+                $path = public_path() . '/images/educations/' . $img;
                 if (file_exists($path)) {
                     $itemImg['name'] = $img;
                     $type = pathinfo($path, PATHINFO_EXTENSION);

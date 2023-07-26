@@ -82,7 +82,7 @@
               height="50"
               width="50"
               fluid
-              :src="'/images/schools/' + props.row.image"
+              :src="'/images/educations/' + props.row.image"
               alt="image"
             ></b-img>
           </span>
