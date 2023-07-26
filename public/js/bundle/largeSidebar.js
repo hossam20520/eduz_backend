@@ -1002,6 +1002,55 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1647,6 +1696,36 @@ var render = function () {
               _c(
                 "li",
                 {
+                  staticClass: "nav-item",
+                  class: { active: _vm.selectedParentMenu == "schools" },
+                  attrs: { "data-item": "schools", "data-submenu": true },
+                  on: { mouseenter: _vm.toggleSubMenu },
+                },
+                [
+                  _c(
+                    "a",
+                    { staticClass: "nav-item-hold", attrs: { href: "#" } },
+                    [
+                      _c("img", {
+                        attrs: {
+                          src: "https://cdn-icons-png.flaticon.com/512/201/201614.png",
+                          width: "50%",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "nav-text" }, [
+                        _vm._v(_vm._s(_vm.$t("Schools"))),
+                      ]),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "triangle" }),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
                   directives: [
                     {
                       name: "show",
@@ -2035,6 +2114,54 @@ var render = function () {
                         _vm._v(" "),
                         _c("span", { staticClass: "item-name" }, [
                           _vm._v(_vm._s(_vm.$t("educationsList"))),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "ul",
+              {
+                staticClass: "childNav d-none",
+                class: { "d-block": _vm.selectedParentMenu == "schools" },
+                attrs: { "data-parent": "schools" },
+              },
+              [
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { tag: "a", to: "/app/schools/store" } },
+                      [
+                        _c("i", { staticClass: "nav-icon i-Add-File" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "item-name" }, [
+                          _vm._v(_vm._s(_vm.$t("addSchool"))),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { tag: "a", to: "/app/schools/list" } },
+                      [
+                        _c("i", { staticClass: "nav-icon i-Files" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "item-name" }, [
+                          _vm._v(_vm._s(_vm.$t("schoolsList"))),
                         ]),
                       ]
                     ),
@@ -2762,6 +2889,44 @@ var render = function () {
                       1
                     )
                   : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { tag: "a", to: "/app/settings/Drops" } },
+                      [
+                        _c("i", { staticClass: "nav-icon i-Bookmark" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "item-name" }, [
+                          _vm._v(_vm._s(_vm.$t("Drop"))),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { tag: "a", to: "/app/settings/Section" } },
+                      [
+                        _c("i", { staticClass: "nav-icon i-Bookmark" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "item-name" }, [
+                          _vm._v(_vm._s(_vm.$t("Section"))),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _vm.currentUserPermissions &&
                 _vm.currentUserPermissions.includes("category")

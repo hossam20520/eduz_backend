@@ -38,7 +38,10 @@ Route::get('device/info/{token}', 'device\AuthController@GetUserByToken');
 
  Route::get('device/inst', 'device\InstitutionsController@get');
 
+ Route::get('drops/gettypes', 'DropsController@getTypes');
 
+ Route::get('drops/list/data', 'DropsController@listITems');
+ Route::get('device/drops/list/data', 'DropsController@listITems');
 /*auth middleware api passport token*/
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -113,6 +116,26 @@ Route::get('Forms/Detail/{id}', 'FormsController@Get_Forms_Details');
     Route::post('areas/delete/by_selection', 'AreasController@delete_by_selection');
     
 
+
+
+
+
+     //-------------------------------Drops--------------------------\
+    //------------------------------------------------------------------\
+    Route::resource('drops', 'DropsController');
+    Route::post('drops/delete/by_selection', 'DropsController@delete_by_selection');
+
+   
+
+     //-------------------------------Section--------------------------\
+    //------------------------------------------------------------------\
+    Route::resource('sections', 'SectionsController');
+    Route::post('sections/delete/by_selection', 'SectionsController@delete_by_selection');
+
+
+
+
+
 //------------------------------- Teachers --------------------------\
 //------------------------------------------------------------------\
 Route::resource('Teachers', 'TeachersController');
@@ -130,6 +153,15 @@ Route::post('Educations/import/csv', 'EducationsController@import_educations');
 Route::post('Educations/delete/by_selection', 'EducationsController@delete_by_selection');
 Route::get('Educations/Detail/{id}', 'EducationsController@Get_Educations_Details');
 
+
+
+//------------------------------- Schools --------------------------\
+//------------------------------------------------------------------\
+Route::resource('Schools', 'SchoolsController');
+Route::get('Schools/export/Excel', 'SchoolsController@export_Excel');
+Route::post('Schools/import/csv', 'SchoolsController@import_educations');
+Route::post('Schools/delete/by_selection', 'SchoolsController@delete_by_selection');
+Route::get('Schools/Detail/{id}', 'SchoolsController@Get_Schools_Details');
 
 
     //-------------------------- Reports ---------------------------

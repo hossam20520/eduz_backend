@@ -156,6 +156,41 @@ const routes = [
                         ]
                     },
 
+ 
+                                        //Schools
+                                        {
+                                            path: "/app/schools",
+                                            component: () => import(/* webpackChunkName: "schools" */ "./views/app/pages/schools"),
+                                            redirect: "app/schools/list",
+                                            children: [
+                                                {
+                                                    name: "index_schools",
+                                                    path: "list",
+                                                    component: () =>
+                                                        import(/* webpackChunkName: "index_schools" */"./views/app/pages/schools/index_schools")
+                                                },
+                                                {
+                                                    path: "store",
+                                                    name: "store_school",
+                                                    component: () =>
+                                                        import(/* webpackChunkName: "store_school" */"./views/app/pages/schools/Add_school")
+                                                },
+                                                {
+                                                    path: "edit/:id",
+                                                    name: "edit_school",
+                                                    component: () =>
+                                                        import(/* webpackChunkName: "edit_school" */"./views/app/pages/schools/Edit_school")
+                                                },
+                                                {
+                                                    path: "detail/:id",
+                                                    name: "detail_school",
+                                                    component: () =>
+                                                        import(/* webpackChunkName: "detail_school" */"./views/app/pages/schools/Detail_School")
+                                                }
+                                           
+                                            ]
+                                        },
+
 
          //numbers
          {
@@ -619,6 +654,11 @@ const routes = [
                                         "./views/app/pages/settings/permissions/Permissions"
                                     )
                             },
+
+                                              // drops
+  
+
+
                             {
                                 name: "store_permission",
                                 path: "store",
@@ -644,6 +684,21 @@ const routes = [
                         path: "Categories",
                         component: () =>
                             import(/* webpackChunkName: "Categories" */"./views/app/pages/settings/categorie")
+                    },
+
+                                         // sections
+                                         {
+                                            name: "sections",
+                                            path: "Section",
+                                            component: () =>
+                                                import(/* webpackChunkName: "Section" */"./views/app/pages/settings/sections")
+                                        },
+
+                    {
+                        name: "drops",
+                        path: "Drops",
+                        component: () =>
+                            import(/* webpackChunkName: "Drops" */"./views/app/pages/settings/drops")
                     },
 
                                             // areas

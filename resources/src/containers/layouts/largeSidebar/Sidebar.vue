@@ -103,25 +103,24 @@
             </a>
             <div class="triangle"></div>
           </li>
-        
-         
-<!--           
-             <li
-            v-show="currentUserPermissions 
-            && (currentUserPermissions.includes('deferreds_add')
-            || currentUserPermissions.includes('deferreds_view'))"
+
+
+
+
+          <li 
             @mouseenter="toggleSubMenu"
             class="nav-item"
-            :class="{ active: selectedParentMenu == 'deferreds' }"
-            data-item="deferreds"
-            :data-submenu="true"
-          >
+            :class="{ active: selectedParentMenu == 'schools' }"
+            data-item="schools"
+            :data-submenu="true">
             <a class="nav-item-hold" href="#">
-              <i class="nav-icon i-Alarm-Clock"></i>
-              <span class="nav-text">{{$t('deferred')}}</span>
+              <img src="https://cdn-icons-png.flaticon.com/512/201/201614.png" width="50%"/> 
+              <span class="nav-text">{{   $t('Schools')  }}</span>
             </a>
             <div class="triangle"></div>
-          </li> -->
+          </li>
+        
+ 
 
 
   
@@ -339,6 +338,38 @@
             <router-link tag="a" class to="/app/educations/list">
               <i class="nav-icon i-Files"></i>
               <span class="item-name">{{  $t('educationsList') }}</span>
+            </router-link>
+          </li>
+ 
+        </ul>
+
+
+
+
+
+
+
+
+
+        <ul
+          class="childNav d-none"
+          data-parent="schools"
+          :class="{ 'd-block': selectedParentMenu == 'schools' }">
+
+          <li
+            class="nav-item"  >
+            <router-link tag="a" class to="/app/schools/store">
+              <i class="nav-icon i-Add-File"></i>
+              <span class="item-name">{{  $t('addSchool')  }}</span>
+            </router-link>
+          </li>
+
+
+          <li
+            class="nav-item" >
+            <router-link tag="a" class to="/app/schools/list">
+              <i class="nav-icon i-Files"></i>
+              <span class="item-name">{{  $t('schoolsList') }}</span>
             </router-link>
           </li>
  
@@ -697,6 +728,24 @@
             <router-link tag="a" class to="/app/settings/System_settings">
               <i class="nav-icon i-Data-Settings"></i>
               <span class="item-name">{{$t('SystemSettings')}}</span>
+            </router-link>
+          </li>
+
+
+
+          
+          <li class="nav-item"  >
+            <router-link tag="a" class to="/app/settings/Drops">
+              <i class="nav-icon i-Bookmark"></i>
+              <span class="item-name">{{   $t('Drop') }}</span>
+            </router-link>
+          </li>
+
+          <li
+            class="nav-item">
+            <router-link tag="a" class to="/app/settings/Section">
+              <i class="nav-icon i-Bookmark"></i>
+              <span class="item-name">{{   $t('Section') }}</span>
             </router-link>
           </li>
           
