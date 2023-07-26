@@ -53,15 +53,15 @@ class InstitutionsController extends Controller
         'countries' => $areas,
         'inst' =>   [],
          'teacher' =>  $teacher ]);
-       }else if($type == "SCHOOLS"){
+       }else  {
 
-        // $education =  Education::where('institution_id' , $id)->get();
+        $education =  Education::where('institution_id' , $id)->get();
+
 
 
 
         
-
-        $education =  School::where('deleted_at', '=', null )->get();
+        // $education =  School::where('deleted_at', '=', null )->get();
 
 
 
