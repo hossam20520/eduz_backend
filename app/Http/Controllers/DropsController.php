@@ -13,6 +13,19 @@ class DropsController extends Controller
 {
 
 
+    
+
+
+    public function listITemsDev(Request $request){
+        $type = $request->type;
+        $SECTION = Section::with('drop')->where('deleted_at', '=', null)->where('type',  $type )->get();
+ 
+        return response()->json([
+         'SECIONS' => $SECTION,
+        
+     ]);
+     }
+
     public function listITems(Request $request){
        $SECTION = Section::with('drop')->where('deleted_at', '=', null)->get();
 

@@ -54,7 +54,7 @@ class InstitutionsController extends Controller
         'countries' => $areas,
         'inst' =>   [],
          'teacher' =>  $teacher ]);
-       }else  if($type == "SCHOOL") {
+       }else  if($type == "SCHOOLS") {
 
         if (!is_null($idsString)) {
         $idsArray = explode(',', $idsString);
@@ -79,41 +79,13 @@ class InstitutionsController extends Controller
         }else{
           $education = School::where('deleted_at', '=', null)->get();
 
-
-    //     $idsString = $request->ids;
-
-
-    //     if (!is_null($idsString)) {
-
  
-    //     $idsArray = explode(',', $idsString);
-    //     $education = School::where('deleted_at', '=', null)->where(function ($query) use ($idsArray) {
-    //       foreach ($idsArray as $id) {
-    //           $query->orWhereJsonContains('selected_ids', (int)$id);
-    //          }
-    //     })->get();
-
-
-      
-    //   return response()->json([
-
-    //     'countries' => $areas ,
-    //     'inst' =>  $education,
-    //     'teacher' =>  []
-
-    //     ]);
- 
-
-    // }
-
     return response()->json([
-
         'countries' => $areas ,
         'inst' =>  $education,
-        'teacher' =>  []
-
-        ]);
+        'teacher' =>  [] ]);
     
+        
 
        }
 
@@ -124,6 +96,6 @@ class InstitutionsController extends Controller
       }
       
     }
-    
+
     }
  

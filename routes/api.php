@@ -41,6 +41,8 @@ Route::get('device/info/{token}', 'device\AuthController@GetUserByToken');
  Route::get('drops/gettypes', 'DropsController@getTypes');
 
  Route::get('drops/list/data', 'DropsController@listITems');
+
+ 
  Route::get('device/drops/list/data', 'DropsController@listITems');
 /*auth middleware api passport token*/
 Route::middleware('auth:api')->get('/user', function (Request $request) {
