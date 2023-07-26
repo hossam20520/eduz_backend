@@ -68,8 +68,14 @@ class InstitutionsController extends Controller
         // $matchingElements = YourModel::whereIn('id', $idsArray)->get();
         
         
-        $education =  School::where('deleted_at', '=', null )->whereIn('selected_ids', $idsArray)->get();
+        // $education =  School::where('deleted_at', '=', null )->whereIn('selected_ids', $idsArray)->get();
 
+
+        $education = School::where('deleted_at', '=', null)->where(function ($query) use ($idsArray) {
+          foreach ($idsArray as $id) {
+              $query->orWhereJsonContains('selected_ids', (int)$id);
+          }
+      })->get();
  
         return response()->json([
                'countries' => $areas ,
