@@ -74,7 +74,7 @@ class InstitutionsController extends Controller
   
           ]);
 
-          
+
 
         }else{
           $education = School::where('deleted_at', '=', null)->get();
@@ -121,6 +121,9 @@ class InstitutionsController extends Controller
 
 
 
-         
+      }
+      
     }
-}
+    
+    }
+ 
