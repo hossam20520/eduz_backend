@@ -128,7 +128,22 @@ $education = $education->offset($offSet)
 
     
   }else if($typeSearch == "home"){
-    $education = $model::where('deleted_at', '=', null)->get();
+
+
+    $education = $model::where('deleted_at', '=', null)->where(function ($query) use ($request) {
+      return $query->when($request->filled('search'), function ($query) use ($request) {
+          return $query->where('ar_name', 'LIKE', "%{$request->search}%")
+              ->orWhere('en_name', 'LIKE', "%{$request->search}%");
+      });
+  });
+$totalRows = $education->count();
+$education = $education->offset($offSet)
+  ->limit($perPage)
+  ->orderBy($order, $dir)
+  ->get();
+
+
+    // $education = $model::where('deleted_at', '=', null)->get();
     return response()->json([
         'countries' => $areas ,
         'inst' =>  $education,
