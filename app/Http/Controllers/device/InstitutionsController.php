@@ -83,7 +83,7 @@ class InstitutionsController extends Controller
 
 
 
-        if (!is_null($idsString)) {
+        if (! ($idsString == '0')) {
         $idsArray = explode(',', $idsString);
         $education = School::where('deleted_at', '=', null)->where(function ($query) use ($idsArray) {
           foreach ($idsArray as $id) {
