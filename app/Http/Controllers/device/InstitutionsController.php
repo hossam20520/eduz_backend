@@ -44,6 +44,24 @@ class InstitutionsController extends Controller
         $type = $request->type;
         $idsString = $request->ids;
 
+
+
+
+
+        $perPage = $request->limit;
+        $pageStart = \Request::get('page', 1);
+        // Start displaying items from this number;
+        $offSet = ($pageStart * $perPage) - $perPage;
+        $order = $request->SortField;
+        $dir = $request->SortType;
+        $helpers = new helpers();
+
+
+
+
+
+
+
         $areas = Area::where('deleted_at', '=', null )->get();
 
 
@@ -55,6 +73,14 @@ class InstitutionsController extends Controller
         'inst' =>   [],
          'teacher' =>  $teacher ]);
        }else  if($type == "SCHOOLS") {
+
+
+
+
+
+
+
+
 
         if (!is_null($idsString)) {
         $idsArray = explode(',', $idsString);
@@ -76,17 +102,38 @@ class InstitutionsController extends Controller
 
 
 
-        }else{
-          $education = School::where('deleted_at', '=', null)->get();
+        }else if($idsString == "0"){
+
+          $education = School::where('deleted_at', '=', null)->where(function ($query) use ($request) {
+            return $query->when($request->filled('search'), function ($query) use ($request) {
+                return $query->where('ar_name', 'LIKE', "%{$request->search}%")
+                    ->orWhere('en_name', 'LIKE', "%{$request->search}%");
+            });
+        });
+    $totalRows = $education->count();
+    $education = $education->offset($offSet)
+        ->limit($perPage)
+        ->orderBy($order, $dir)
+        ->get();
+
+
+    
+
+
+        return response()->json([
+          'countries' => $areas ,
+          'inst' =>  $education,
+          'teacher' =>  [] ]);
 
  
-    return response()->json([
-        'countries' => $areas ,
-        'inst' =>  $education,
-        'teacher' =>  [] ]);
-    
-        
+       }else{
 
+
+        $education = School::where('deleted_at', '=', null)->get();
+        return response()->json([
+            'countries' => $areas ,
+            'inst' =>  $education,
+            'teacher' =>  [] ]);
        }
 
 
