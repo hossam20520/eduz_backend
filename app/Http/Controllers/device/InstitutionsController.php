@@ -42,6 +42,7 @@ class InstitutionsController extends Controller
 
         $id = $request->id;
         $type = $request->type;
+        $idsString = $request->ids;
 
         $areas = Area::where('deleted_at', '=', null )->get();
 
@@ -53,36 +54,66 @@ class InstitutionsController extends Controller
         'countries' => $areas,
         'inst' =>   [],
          'teacher' =>  $teacher ]);
-       }else  {
+       }else  if($type == "SCHOOL") {
 
-        // $education =  Education::where('institution_id' , $id)->get();
-
-        
-
-        $idsString = $request->ids;
-
-        // Convert the comma-separated string to an array of IDs
+        if (!is_null($idsString)) {
         $idsArray = explode(',', $idsString);
-
-        // Fetch the elements that match the sent IDs from the database
-        // $matchingElements = YourModel::whereIn('id', $idsArray)->get();
-        
-        
-        // $education =  School::where('deleted_at', '=', null )->whereIn('selected_ids', $idsArray)->get();
-
-
         $education = School::where('deleted_at', '=', null)->where(function ($query) use ($idsArray) {
           foreach ($idsArray as $id) {
               $query->orWhereJsonContains('selected_ids', (int)$id);
-          }
-      })->get();
- 
+             }
+        })->get();
+
+
+
         return response()->json([
-               'countries' => $areas ,
-               'inst' =>  $education,
-               'teacher' =>  []
+
+          'countries' => $areas ,
+          'inst' =>  $education,
+          'teacher' =>  []
   
-     ]);
+          ]);
+
+          
+
+        }else{
+          $education = School::where('deleted_at', '=', null)->get();
+
+
+    //     $idsString = $request->ids;
+
+
+    //     if (!is_null($idsString)) {
+
+ 
+    //     $idsArray = explode(',', $idsString);
+    //     $education = School::where('deleted_at', '=', null)->where(function ($query) use ($idsArray) {
+    //       foreach ($idsArray as $id) {
+    //           $query->orWhereJsonContains('selected_ids', (int)$id);
+    //          }
+    //     })->get();
+
+
+      
+    //   return response()->json([
+
+    //     'countries' => $areas ,
+    //     'inst' =>  $education,
+    //     'teacher' =>  []
+
+    //     ]);
+ 
+
+    // }
+
+    return response()->json([
+
+        'countries' => $areas ,
+        'inst' =>  $education,
+        'teacher' =>  []
+
+        ]);
+    
 
        }
 
