@@ -57,15 +57,20 @@ class InstitutionsController extends Controller
 
         // $education =  Education::where('institution_id' , $id)->get();
 
-
-
-
         
-        $education =  School::where('deleted_at', '=', null )->get();
 
+        $idsString = $request->ids;
 
+        // Convert the comma-separated string to an array of IDs
+        $idsArray = explode(',', $idsString);
 
+        // Fetch the elements that match the sent IDs from the database
+        // $matchingElements = YourModel::whereIn('id', $idsArray)->get();
+        
+        
+        $education =  School::where('deleted_at', '=', null )->whereIn('selected_ids', $idsArray)->get();
 
+ 
         return response()->json([
                'countries' => $areas ,
                'inst' =>  $education,
