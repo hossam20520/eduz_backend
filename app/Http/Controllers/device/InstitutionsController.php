@@ -124,7 +124,11 @@ class InstitutionsController extends Controller
         return response()->json([
           'countries' => $areas ,
           'inst' =>  $education,
-          'teacher' =>  [] ]);
+          'teacher' =>  [] ,
+          'search' => 'search'
+        
+        
+        ]);
 
  
        }else{
