@@ -45,7 +45,7 @@ class InstitutionsController extends Controller
         $type = $request->type;
         $idsString = $request->ids;
 
-
+        $typeSearch = $request->searchType;
 
 
 
@@ -73,79 +73,75 @@ class InstitutionsController extends Controller
         'countries' => $areas,
         'inst' =>   [],
          'teacher' =>  $teacher ]);
-       }else  if($type == "SCHOOLS") {
+       }else   {
+
+          $model = School::class;
+        if($type == "SCHOOLS"){
+          $model  = School::class;
+        }
+
+
+  if( $typeSearch == "ids"){
+    $idsArray = explode(',', $idsString);
+    $education = $model::where('deleted_at', '=', null)->where(function ($query) use ($idsArray) {
+      foreach ($idsArray as $id) {
+          $query->orWhereJsonContains('selected_ids', (int)$id);
+         }
+    })->get();
+
+
+
+    return response()->json([
+
+      'countries' => $areas ,
+      'inst' =>  $education,
+      'teacher' =>  []
+
+      ]);
+
+  }else if ($typeSearch == "search"){
+
+    $education = $model::where('deleted_at', '=', null)->where(function ($query) use ($request) {
+      return $query->when($request->filled('search'), function ($query) use ($request) {
+          return $query->where('ar_name', 'LIKE', "%{$request->search}%")
+              ->orWhere('en_name', 'LIKE', "%{$request->search}%");
+      });
+  });
+$totalRows = $education->count();
+$education = $education->offset($offSet)
+  ->limit($perPage)
+  ->orderBy($order, $dir)
+  ->get();
 
 
 
 
 
-
-
-
-
-        if (! ($idsString == '0')) {
-        $idsArray = explode(',', $idsString);
-        $education = School::where('deleted_at', '=', null)->where(function ($query) use ($idsArray) {
-          foreach ($idsArray as $id) {
-              $query->orWhereJsonContains('selected_ids', (int)$id);
-             }
-        })->get();
-
-
-
-        return response()->json([
-
-          'countries' => $areas ,
-          'inst' =>  $education,
-          'teacher' =>  []
+  return response()->json([
+    'countries' => $areas ,
+    'inst' =>  $education,
+    'teacher' =>  [] ,
+    'search' => 'search'
   
-          ]);
-
-
-
-        }else if($idsString == "0"){
-
-          $education = School::where('deleted_at', '=', null)->where(function ($query) use ($request) {
-            return $query->when($request->filled('search'), function ($query) use ($request) {
-                return $query->where('ar_name', 'LIKE', "%{$request->search}%")
-                    ->orWhere('en_name', 'LIKE', "%{$request->search}%");
-            });
-        });
-    $totalRows = $education->count();
-    $education = $education->offset($offSet)
-        ->limit($perPage)
-        ->orderBy($order, $dir)
-        ->get();
-
+  
+  ]);
 
     
+  }else if($typeSearch == "home"){
+    $education = $model::where('deleted_at', '=', null)->get();
+    return response()->json([
+        'countries' => $areas ,
+        'inst' =>  $education,
+        'teacher' =>  [] ]);
+  }
 
 
-        return response()->json([
-          'countries' => $areas ,
-          'inst' =>  $education,
-          'teacher' =>  [] ,
-          'search' => 'search'
-        
-        
-        ]);
+
 
  
-       }else{
 
 
-        $education = School::where('deleted_at', '=', null)->get();
-        return response()->json([
-            'countries' => $areas ,
-            'inst' =>  $education,
-            'teacher' =>  [] ]);
-       }
-
-
-
-
-
-      }
+}
       
     }
 
