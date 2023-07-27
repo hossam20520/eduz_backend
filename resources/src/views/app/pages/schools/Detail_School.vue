@@ -87,7 +87,7 @@
                 <b-carousel-slide
                   v-for="(image, index) in school.images"
                   :key="index"
-                  :img-src="'/images/schools/'+image"
+                  :img-src="'/images/educations/'+image"
                 ></b-carousel-slide>
               </b-carousel>
             </div>

@@ -767,7 +767,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     getSecions: function getSecions() {
       var _this4 = this;
 
-      axios.get("drops/list/data").then(function (response) {
+      axios.get("drops/list/data?type=SCHOOLS").then(function (response) {
         _this4.sections = response.data.SECIONS;
       })["catch"](function (response) {
         setTimeout(function () {

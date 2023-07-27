@@ -1051,6 +1051,240 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1667,8 +1901,8 @@ var render = function () {
                 "li",
                 {
                   staticClass: "nav-item",
-                  class: { active: _vm.selectedParentMenu == "educations" },
-                  attrs: { "data-item": "educations", "data-submenu": true },
+                  class: { active: _vm.selectedParentMenu == "schools" },
+                  attrs: { "data-item": "schools", "data-submenu": true },
                   on: { mouseenter: _vm.toggleSubMenu },
                 },
                 [
@@ -1678,13 +1912,13 @@ var render = function () {
                     [
                       _c("img", {
                         attrs: {
-                          src: "https://cdn-icons-png.flaticon.com/512/201/201614.png",
+                          src: "https://cdn-icons-png.flaticon.com/512/8074/8074788.png",
                           width: "50%",
                         },
                       }),
                       _vm._v(" "),
                       _c("span", { staticClass: "nav-text" }, [
-                        _vm._v(_vm._s(_vm.$t("Educations"))),
+                        _vm._v(_vm._s(_vm.$t("Schools"))),
                       ]),
                     ]
                   ),
@@ -1697,8 +1931,8 @@ var render = function () {
                 "li",
                 {
                   staticClass: "nav-item",
-                  class: { active: _vm.selectedParentMenu == "schools" },
-                  attrs: { "data-item": "schools", "data-submenu": true },
+                  class: { active: _vm.selectedParentMenu == "kindergartens" },
+                  attrs: { "data-item": "kindergartens", "data-submenu": true },
                   on: { mouseenter: _vm.toggleSubMenu },
                 },
                 [
@@ -1708,13 +1942,133 @@ var render = function () {
                     [
                       _c("img", {
                         attrs: {
-                          src: "https://cdn-icons-png.flaticon.com/512/201/201614.png",
+                          src: "https://cdn-icons-png.flaticon.com/512/7069/7069373.png",
                           width: "50%",
                         },
                       }),
                       _vm._v(" "),
                       _c("span", { staticClass: "nav-text" }, [
-                        _vm._v(_vm._s(_vm.$t("Schools"))),
+                        _vm._v(_vm._s(_vm.$t("kindergartens"))),
+                      ]),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "triangle" }),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticClass: "nav-item",
+                  class: { active: _vm.selectedParentMenu == "centers" },
+                  attrs: { "data-item": "centers", "data-submenu": true },
+                  on: { mouseenter: _vm.toggleSubMenu },
+                },
+                [
+                  _c(
+                    "a",
+                    { staticClass: "nav-item-hold", attrs: { href: "#" } },
+                    [
+                      _c("img", {
+                        attrs: {
+                          src: "https://cdn-icons-png.flaticon.com/512/7118/7118114.png",
+                          width: "50%",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "nav-text" }, [
+                        _vm._v(_vm._s(_vm.$t("centers"))),
+                      ]),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "triangle" }),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticClass: "nav-item",
+                  class: { active: _vm.selectedParentMenu == "educenters" },
+                  attrs: { "data-item": "educenters", "data-submenu": true },
+                  on: { mouseenter: _vm.toggleSubMenu },
+                },
+                [
+                  _c(
+                    "a",
+                    { staticClass: "nav-item-hold", attrs: { href: "#" } },
+                    [
+                      _c("img", {
+                        attrs: {
+                          src: "https://cdn-icons-png.flaticon.com/512/1237/1237798.png",
+                          width: "50%",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "nav-text" }, [
+                        _vm._v(_vm._s(_vm.$t("educenters"))),
+                      ]),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "triangle" }),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticClass: "nav-item",
+                  class: { active: _vm.selectedParentMenu == "specialneeds" },
+                  attrs: { "data-item": "specialneeds", "data-submenu": true },
+                  on: { mouseenter: _vm.toggleSubMenu },
+                },
+                [
+                  _c(
+                    "a",
+                    { staticClass: "nav-item-hold", attrs: { href: "#" } },
+                    [
+                      _c("img", {
+                        attrs: {
+                          src: "https://cdn-icons-png.flaticon.com/512/3996/3996139.png",
+                          width: "50%",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "nav-text" }, [
+                        _vm._v(_vm._s(_vm.$t("specialneeds"))),
+                      ]),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "triangle" }),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                {
+                  staticClass: "nav-item",
+                  class: { active: _vm.selectedParentMenu == "universities" },
+                  attrs: { "data-item": "universities", "data-submenu": true },
+                  on: { mouseenter: _vm.toggleSubMenu },
+                },
+                [
+                  _c(
+                    "a",
+                    { staticClass: "nav-item-hold", attrs: { href: "#" } },
+                    [
+                      _c("img", {
+                        attrs: {
+                          src: "https://cdn-icons-png.flaticon.com/512/2997/2997322.png",
+                          width: "50%",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "nav-text" }, [
+                        _vm._v(_vm._s(_vm.$t("universities"))),
                       ]),
                     ]
                   ),
@@ -2162,6 +2516,246 @@ var render = function () {
                         _vm._v(" "),
                         _c("span", { staticClass: "item-name" }, [
                           _vm._v(_vm._s(_vm.$t("schoolsList"))),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "ul",
+              {
+                staticClass: "childNav d-none",
+                class: { "d-block": _vm.selectedParentMenu == "universities" },
+                attrs: { "data-parent": "universities" },
+              },
+              [
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { tag: "a", to: "/app/universities/store" } },
+                      [
+                        _c("i", { staticClass: "nav-icon i-Add-File" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "item-name" }, [
+                          _vm._v(_vm._s(_vm.$t("adduniversities"))),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { tag: "a", to: "/app/universities/list" } },
+                      [
+                        _c("i", { staticClass: "nav-icon i-Files" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "item-name" }, [
+                          _vm._v(_vm._s(_vm.$t("universitiesList"))),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "ul",
+              {
+                staticClass: "childNav d-none",
+                class: { "d-block": _vm.selectedParentMenu == "centers" },
+                attrs: { "data-parent": "centers" },
+              },
+              [
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { tag: "a", to: "/app/centers/store" } },
+                      [
+                        _c("i", { staticClass: "nav-icon i-Add-File" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "item-name" }, [
+                          _vm._v(_vm._s(_vm.$t("addcenters"))),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { tag: "a", to: "/app/centers/list" } },
+                      [
+                        _c("i", { staticClass: "nav-icon i-Files" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "item-name" }, [
+                          _vm._v(_vm._s(_vm.$t("centersList"))),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "ul",
+              {
+                staticClass: "childNav d-none",
+                class: { "d-block": _vm.selectedParentMenu == "educenters" },
+                attrs: { "data-parent": "educenters" },
+              },
+              [
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { tag: "a", to: "/app/educenters/store" } },
+                      [
+                        _c("i", { staticClass: "nav-icon i-Add-File" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "item-name" }, [
+                          _vm._v(_vm._s(_vm.$t("educenters"))),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { tag: "a", to: "/app/educenters/list" } },
+                      [
+                        _c("i", { staticClass: "nav-icon i-Files" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "item-name" }, [
+                          _vm._v(_vm._s(_vm.$t("educentersList"))),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "ul",
+              {
+                staticClass: "childNav d-none",
+                class: { "d-block": _vm.selectedParentMenu == "kindergartens" },
+                attrs: { "data-parent": "kindergartens" },
+              },
+              [
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { tag: "a", to: "/app/kindergartens/store" } },
+                      [
+                        _c("i", { staticClass: "nav-icon i-Add-File" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "item-name" }, [
+                          _vm._v(_vm._s(_vm.$t("kindergartens"))),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { tag: "a", to: "/app/kindergartens/list" } },
+                      [
+                        _c("i", { staticClass: "nav-icon i-Files" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "item-name" }, [
+                          _vm._v(_vm._s(_vm.$t("kindergartensList"))),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "ul",
+              {
+                staticClass: "childNav d-none",
+                class: { "d-block": _vm.selectedParentMenu == "specialneeds" },
+                attrs: { "data-parent": "specialneeds" },
+              },
+              [
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { tag: "a", to: "/app/specialneeds/store" } },
+                      [
+                        _c("i", { staticClass: "nav-icon i-Add-File" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "item-name" }, [
+                          _vm._v(_vm._s(_vm.$t("specialneeds"))),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { tag: "a", to: "/app/specialneeds/list" } },
+                      [
+                        _c("i", { staticClass: "nav-icon i-Files" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "item-name" }, [
+                          _vm._v(_vm._s(_vm.$t("specialneedsList"))),
                         ]),
                       ]
                     ),

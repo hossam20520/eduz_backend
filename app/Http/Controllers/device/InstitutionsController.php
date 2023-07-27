@@ -8,6 +8,15 @@ use App\Models\Education;
 use App\Models\Area;
 use App\Models\School;
 
+use App\Models\Kindergarten;
+use App\Models\Center;
+use App\Models\Educenter;
+use App\Models\Specialneed;
+use App\Models\Universitie;
+
+
+
+
 use App\utils\helpers;
 use Carbon\Carbon;
 use App\Models\Teacher;
@@ -75,9 +84,19 @@ class InstitutionsController extends Controller
          'teacher' =>  $teacher ]);
        }else   {
 
-          $model = School::class;
+        
         if($type == "SCHOOLS"){
-          $model  = School::class;
+          $model = School::class;
+        }else if($type == "KINDERGARTENS"){
+          $model  = Kindergarten::class;
+        }else if($type == "CENTERS"){
+          $model  = Center::class;
+        }else if($type == "EDUCENTERS"){
+          $model  = Educenter::class;
+        }else if($type == "SPECIALNEEDS"){
+          $model  = Specialneed::class;
+        }else if($type == "UNIVERSITIES"){
+          $model  = Universitie::class;
         }
 
 

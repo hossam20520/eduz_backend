@@ -629,7 +629,7 @@ export default {
 
     getSecions() {
       axios
-        .get("drops/list/data")
+      .get("drops/list/data?type=SCHOOLS")
         .then(response => {
           this.sections = response.data.SECIONS;
  

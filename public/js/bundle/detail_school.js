@@ -381,7 +381,8 @@ var render = function () {
                                     return _c("b-carousel-slide", {
                                       key: index,
                                       attrs: {
-                                        "img-src": "/images/schools/" + image,
+                                        "img-src":
+                                          "/images/educations/" + image,
                                       },
                                     })
                                   }

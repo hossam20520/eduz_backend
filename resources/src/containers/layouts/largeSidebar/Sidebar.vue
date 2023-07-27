@@ -91,7 +91,7 @@
           
 
 
-          <li 
+          <!-- <li 
             @mouseenter="toggleSubMenu"
             class="nav-item"
             :class="{ active: selectedParentMenu == 'educations' }"
@@ -102,7 +102,7 @@
               <span class="nav-text">{{   $t('Educations')  }}</span>
             </a>
             <div class="triangle"></div>
-          </li>
+          </li> -->
 
 
 
@@ -114,7 +114,7 @@
             data-item="schools"
             :data-submenu="true">
             <a class="nav-item-hold" href="#">
-              <img src="https://cdn-icons-png.flaticon.com/512/201/201614.png" width="50%"/> 
+              <img src="https://cdn-icons-png.flaticon.com/512/8074/8074788.png" width="50%"/> 
               <span class="nav-text">{{   $t('Schools')  }}</span>
             </a>
             <div class="triangle"></div>
@@ -123,6 +123,87 @@
  
 
 
+          <li 
+            @mouseenter="toggleSubMenu"
+            class="nav-item"
+            :class="{ active: selectedParentMenu == 'kindergartens' }"
+            data-item="kindergartens"
+            :data-submenu="true">
+            <a class="nav-item-hold" href="#">
+              <img src="https://cdn-icons-png.flaticon.com/512/7069/7069373.png" width="50%"/> 
+              <span class="nav-text">{{   $t('kindergartens')  }}</span>
+            </a>
+            <div class="triangle"></div>
+          </li>
+
+
+
+
+          <li 
+            @mouseenter="toggleSubMenu"
+            class="nav-item"
+            :class="{ active: selectedParentMenu == 'centers' }"
+            data-item="centers"
+            :data-submenu="true">
+            <a class="nav-item-hold" href="#">
+              <img src="https://cdn-icons-png.flaticon.com/512/7118/7118114.png" width="50%"/> 
+              <span class="nav-text">{{   $t('centers')  }}</span>
+            </a>
+            <div class="triangle"></div>
+          </li>
+
+
+
+
+
+
+          <li 
+            @mouseenter="toggleSubMenu"
+            class="nav-item"
+            :class="{ active: selectedParentMenu == 'educenters' }"
+            data-item="educenters"
+            :data-submenu="true">
+            <a class="nav-item-hold" href="#">
+              <img src="https://cdn-icons-png.flaticon.com/512/1237/1237798.png" width="50%"/> 
+              <span class="nav-text">{{   $t('educenters')  }}</span>
+            </a>
+            <div class="triangle"></div>
+          </li>
+
+
+
+          <li 
+            @mouseenter="toggleSubMenu"
+            class="nav-item"
+            :class="{ active: selectedParentMenu == 'specialneeds' }"
+            data-item="specialneeds"
+            :data-submenu="true">
+            <a class="nav-item-hold" href="#">
+              <img src="https://cdn-icons-png.flaticon.com/512/3996/3996139.png" width="50%"/> 
+              <span class="nav-text">{{   $t('specialneeds')  }}</span>
+            </a>
+            <div class="triangle"></div>
+          </li>
+
+
+
+
+
+
+          <li 
+            @mouseenter="toggleSubMenu"
+            class="nav-item"
+            :class="{ active: selectedParentMenu == 'universities' }"
+            data-item="universities"
+            :data-submenu="true">
+            <a class="nav-item-hold" href="#">
+              <img src="https://cdn-icons-png.flaticon.com/512/2997/2997322.png" width="50%"/> 
+              <span class="nav-text">{{   $t('universities')  }}</span>
+            </a>
+            <div class="triangle"></div>
+          </li>
+
+          
   
   
           <li
@@ -383,8 +464,161 @@
 
 
 
+        <ul
+          class="childNav d-none"
+          data-parent="universities"
+          :class="{ 'd-block': selectedParentMenu == 'universities' }">
+
+          <li
+            class="nav-item"  >
+            <router-link tag="a" class to="/app/universities/store">
+              <i class="nav-icon i-Add-File"></i>
+              <span class="item-name">{{  $t('adduniversities')  }}</span>
+            </router-link>
+          </li>
 
 
+          <li
+            class="nav-item" >
+            <router-link tag="a" class to="/app/universities/list">
+              <i class="nav-icon i-Files"></i>
+              <span class="item-name">{{  $t('universitiesList') }}</span>
+            </router-link>
+          </li>
+ 
+        </ul>
+
+
+
+
+
+
+
+
+
+
+        <ul
+          class="childNav d-none"
+          data-parent="centers"
+          :class="{ 'd-block': selectedParentMenu == 'centers' }">
+
+          <li
+            class="nav-item"  >
+            <router-link tag="a" class to="/app/centers/store">
+              <i class="nav-icon i-Add-File"></i>
+              <span class="item-name">{{  $t('addcenters')  }}</span>
+            </router-link>
+          </li>
+
+
+          <li
+            class="nav-item" >
+            <router-link tag="a" class to="/app/centers/list">
+              <i class="nav-icon i-Files"></i>
+              <span class="item-name">{{  $t('centersList') }}</span>
+            </router-link>
+          </li>
+ 
+        </ul>
+
+
+
+
+
+
+
+
+
+        
+        <ul
+          class="childNav d-none"
+          data-parent="educenters"
+          :class="{ 'd-block': selectedParentMenu == 'educenters' }">
+
+          <li
+            class="nav-item"  >
+            <router-link tag="a" class to="/app/educenters/store">
+              <i class="nav-icon i-Add-File"></i>
+              <span class="item-name">{{  $t('educenters')  }}</span>
+            </router-link>
+          </li>
+
+
+          <li
+            class="nav-item" >
+            <router-link tag="a" class to="/app/educenters/list">
+              <i class="nav-icon i-Files"></i>
+              <span class="item-name">{{  $t('educentersList') }}</span>
+            </router-link>
+          </li>
+ 
+        </ul>
+
+
+
+
+        <ul
+          class="childNav d-none"
+          data-parent="kindergartens"
+          :class="{ 'd-block': selectedParentMenu == 'kindergartens' }">
+
+          <li
+            class="nav-item"  >
+            <router-link tag="a" class to="/app/kindergartens/store">
+              <i class="nav-icon i-Add-File"></i>
+              <span class="item-name">{{  $t('kindergartens')  }}</span>
+            </router-link>
+          </li>
+
+
+          <li
+            class="nav-item" >
+            <router-link tag="a" class to="/app/kindergartens/list">
+              <i class="nav-icon i-Files"></i>
+              <span class="item-name">{{  $t('kindergartensList') }}</span>
+            </router-link>
+          </li>
+ 
+        </ul>
+
+
+
+
+
+
+        
+        <ul
+          class="childNav d-none"
+          data-parent="specialneeds"
+          :class="{ 'd-block': selectedParentMenu == 'specialneeds' }">
+
+          <li
+            class="nav-item"  >
+            <router-link tag="a" class to="/app/specialneeds/store">
+              <i class="nav-icon i-Add-File"></i>
+              <span class="item-name">{{  $t('specialneeds')  }}</span>
+            </router-link>
+          </li>
+
+
+          <li
+            class="nav-item" >
+            <router-link tag="a" class to="/app/specialneeds/list">
+              <i class="nav-icon i-Files"></i>
+              <span class="item-name">{{  $t('specialneedsList') }}</span>
+            </router-link>
+          </li>
+ 
+        </ul>
+
+
+
+
+
+        
+
+
+        
 
         <ul
           class="childNav d-none"

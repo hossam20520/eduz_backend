@@ -157,6 +157,65 @@ Route::get('Educations/Detail/{id}', 'EducationsController@Get_Educations_Detail
 
 
 
+//------------------------------- Kindergartens --------------------------\
+//------------------------------------------------------------------\
+Route::resource('Kindergartens', 'KindergartensController');
+Route::get('Kindergartens/export/Excel', 'KindergartensController@export_Excel');
+Route::post('Kindergartens/import/csv', 'KindergartensController@import_kindergartens');
+Route::post('Kindergartens/delete/by_selection', 'KindergartensController@delete_by_selection');
+Route::get('Kindergartens/Detail/{id}', 'KindergartensController@Get_Kindergartens_Details');
+
+
+
+//------------------------------- Educenters --------------------------\
+//------------------------------------------------------------------\
+
+
+Route::resource('Educenters', 'EducentersController');
+Route::get('Educenters/export/Excel', 'EducentersController@export_Excel');
+Route::post('Educenters/import/csv', 'EducentersController@import_educenters');
+Route::post('Educenters/delete/by_selection', 'EducentersController@delete_by_selection');
+Route::get('Educenters/Detail/{id}', 'EducentersController@Get_Educenters_Details');
+
+
+
+
+ //------------------------------- Centers --------------------------\
+//------------------------------------------------------------------\
+Route::resource('Centers', 'CentersController');
+Route::get('Centers/export/Excel', 'CentersController@export_Excel');
+Route::post('Centers/import/csv', 'CentersController@import_centers');
+Route::post('Centers/delete/by_selection', 'CentersController@delete_by_selection');
+Route::get('Centers/Detail/{id}', 'CentersController@Get_Centers_Details');
+
+
+
+
+
+                                                      //------------------------------- Specialneeds --------------------------\
+//------------------------------------------------------------------\
+Route::resource('Specialneeds', 'SpecialneedsController');
+Route::get('Specialneeds/export/Excel', 'SpecialneedsController@export_Excel');
+Route::post('Specialneeds/import/csv', 'SpecialneedsController@import_specialneeds');
+Route::post('Specialneeds/delete/by_selection', 'SpecialneedsController@delete_by_selection');
+Route::get('Specialneeds/Detail/{id}', 'SpecialneedsController@Get_Specialneeds_Details');
+
+
+
+
+
+//------------------------------- Kindergartens --------------------------\
+//------------------------------------------------------------------\
+Route::resource('Universities', 'UniversitiesController');
+ 
+ 
+Route::post('Universities/delete/by_selection', 'UniversitiesController@delete_by_selection');
+Route::get('Universities/Detail/{id}', 'UniversitiesController@Get_Universities_Details');
+
+
+
+
+
 //------------------------------- Schools --------------------------\
 //------------------------------------------------------------------\
 Route::resource('Schools', 'SchoolsController');
