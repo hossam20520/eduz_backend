@@ -385,8 +385,8 @@ class AuthController extends Controller
         $helpers = new helpers();
         $user =  $helpers->getInfo();
      
-         $currentAvatar = $user->avatar;
-        if ($request->avatar != $currentAvatar) {
+            $currentAvatar = $user->avatar;
+ 
 
             $image = $request->file('avatar');
             $path = public_path() . '/images/avatar';
@@ -402,9 +402,9 @@ class AuthController extends Controller
                     @unlink($userPhoto);
                 }
             }
-        } else {
-            $filename = $currentAvatar;
-        }
+ 
+            // $filename = $currentAvatar;
+      
 
     // return $filename;
 
