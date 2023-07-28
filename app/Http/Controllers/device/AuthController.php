@@ -393,7 +393,7 @@ class AuthController extends Controller
             $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
 
             $image_resize = Image::make($image->getRealPath());
-            $image_resize->resize(128, 128);
+            // $image_resize->resize(128, 128);
             $image_resize->save(public_path('/images/avatar/' . $filename));
 
             $userPhoto = $path . '/' . $currentAvatar;
@@ -406,7 +406,16 @@ class AuthController extends Controller
             $filename = $currentAvatar;
         }
 
-    return $filename;
+    // return $filename;
+
+
+    User::whereId($user->id)->update([
+ 
+        'avatar' => $filename,
+      
+    ]);
+
+
 
     }
 
