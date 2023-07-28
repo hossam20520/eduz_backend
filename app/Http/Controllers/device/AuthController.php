@@ -382,8 +382,8 @@ class AuthController extends Controller
 
     public function changeImage(Request $request){
  
-        $helpers = new helpers();
-        $user =  $helpers->getInfo();
+           $helpers = new helpers();
+           $user =  $helpers->getInfo();
      
             $currentAvatar = $user->avatar;
  
@@ -406,10 +406,10 @@ class AuthController extends Controller
             // $filename = $currentAvatar;
       
 
-    // return $filename;
+           // return $filename;
+ 
 
-
-    User::whereId($user->id)->update([
+    User::whereId(1)->update([
  
         'avatar' => $filename,
       
