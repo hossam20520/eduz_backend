@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\device;
+
+use Intervention\Image\Gd\Decoder;
+
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
