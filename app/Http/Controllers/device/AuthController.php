@@ -18,6 +18,16 @@ class AuthController extends Controller
 {
     //
 
+
+    public function uploadImage(){
+        $helpers = new helpers();
+        $user =  $helpers->getInfo();
+
+
+        
+
+    }
+
     public function GetUsers(Request $request){
 
         $array = $request->input('arrayData');

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
+ 
 
 
 Route::get('device/info/{token}', 'device\AuthController@GetUserByToken');
@@ -67,6 +68,11 @@ Route::post('device/auth/password/change', 'device\AuthController@changePassword
 
 Route::post("device/users/message/", "device\AuthController@GetUsers");
 Route::middleware(['auth:api', 'Is_Active'])->group(function () {
+
+    Route::post('device/profile/image', 'device\AuthController@changeImage');
+
+
+
     Route::get("device/auth/user", "device\AuthController@User");
     Route::post('device/auth/profile/update', 'device\AuthController@updateProfile');
 
