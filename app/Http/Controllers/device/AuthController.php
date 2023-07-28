@@ -384,6 +384,7 @@ class AuthController extends Controller
  
            $helpers = new helpers();
            $user =  $helpers->getInfo();
+ 
      
             $currentAvatar = $user->avatar;
  
@@ -409,7 +410,7 @@ class AuthController extends Controller
            // return $filename;
  
 
-    User::whereId(1)->update([
+    User::whereId($user->id)->update([
  
         'avatar' => $filename,
       
