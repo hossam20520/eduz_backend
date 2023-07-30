@@ -1,5 +1,8 @@
 FROM php:7.4-apache
 
+
+
+    
 RUN apt-get update \
     && apt-get install -y \
         libicu-dev \
@@ -72,3 +75,11 @@ RUN chown -R www-data:www-data /var/www/html \
     && php /var/www/html/artisan key:generate
 
 WORKDIR /var/www/html
+
+
+
+
+# apt-get update \
+#     && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev \
+#     && docker-php-ext-configure gd --with-freetype --with-jpeg \
+#     && docker-php-ext-install gd

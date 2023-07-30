@@ -82,7 +82,7 @@ class DropsController extends Controller
 
          $type = $request->type;
           
-         $secion = Section::where('type',  $type)->get(['id', 'ar_name' ,'en_name' ]);
+         $secion = Section::where('type',  $type)->where('deleted_at', '=', null)->get(['id', 'ar_name' ,'en_name' ]);
 
          return response()->json(['types' => $secion]);
 
