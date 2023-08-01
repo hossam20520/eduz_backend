@@ -71,7 +71,7 @@ Route::middleware(['auth:api', 'Is_Active'])->group(function () {
 
     Route::post('device/profile/image', 'device\AuthController@changeImage');
 
-
+    Route::get('device/fav/delete', 'device\AuthController@DeleteFav');
 
     Route::get("device/auth/user", "device\AuthController@User");
     Route::post('device/auth/profile/update', 'device\AuthController@updateProfile');

@@ -92,6 +92,25 @@ class AuthController extends Controller
 
 
 
+    public function DeleteFav(Request $request){
+
+        $id =  $request->id;
+        $type = $request->type;
+
+     
+     if( $type == "CART"){
+        Favourit::whereId( $id)->update([
+            'deleted_at' => Carbon::now(),
+        ]);
+
+        return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
+     }
+   
+    
+       
+
+    }
+
     public function GetFavourit(Request $request){
  
         $helpers = new helpers();
