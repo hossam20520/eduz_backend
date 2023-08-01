@@ -15,6 +15,7 @@ use File;
 use App\Models\role_user;
 use App\Models\Calander;
 use App\Models\Favourit;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Validator;
  
 class AuthController extends Controller
@@ -77,7 +78,10 @@ class AuthController extends Controller
         $user =  $helpers->getInfo();
         $type = $request->type;
 
- 
+
+        // Favourit::where('deleted_at', '=', null )->where('user_id', $user->id )->where('user_id', $user->id )
+
+     
         Favourit::create([
             'title' => $request['title'],
             'user_id' =>  $user->id,
@@ -99,7 +103,13 @@ class AuthController extends Controller
 
      
      if( $type == "CART"){
-        Favourit::whereId( $id)->update([
+        Favourit::where( 'product_id' ,  $id)->update([
+            'deleted_at' => Carbon::now(),
+        ]);
+
+        return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
+     }else if( $type == "PRODUCT"){
+        Cart::whereId( $id)->update([
             'deleted_at' => Carbon::now(),
         ]);
 
