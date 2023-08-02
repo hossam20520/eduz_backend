@@ -18,7 +18,9 @@ use App\Models\Favourit;
 use App\Models\Cart;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
- 
+use App\Models\Cartitem;
+
+
 class AuthController extends Controller
 {
     //
@@ -110,9 +112,11 @@ class AuthController extends Controller
 
         return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
      }else if( $type == "PRODUCT"){
-        Cart::whereId( $id)->update([
-            'deleted_at' => Carbon::now(),
-        ]);
+        // Cart::whereId( $id)->update([
+        //     'deleted_at' => Carbon::now(),
+        // ]);
+
+
 
         return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
      }
