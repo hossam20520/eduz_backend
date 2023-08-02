@@ -112,6 +112,11 @@ class AuthController extends Controller
 
         return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
      }else if( $type == "PRODUCT"){
+
+        $cart =  Cart::where('id',  $id )->delete();
+
+        $cartItem = Cartitem::where('cart_id' , $cart->id)->delete();
+
         // Cart::whereId( $id)->update([
         //     'deleted_at' => Carbon::now(),
         // ]);
