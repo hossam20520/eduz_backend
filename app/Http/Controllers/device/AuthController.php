@@ -103,7 +103,7 @@ class AuthController extends Controller
 
         $id =  $request->id;
         $type = $request->type;
-
+        $product_id = $request->product_id;
      
      if( $type == "CART"){
         Favourit::where( 'product_id' ,  $id)->update([
@@ -116,15 +116,21 @@ class AuthController extends Controller
 
         $ia = Cart::where('id',  $id )->first();
  
-        $cart =  Cart::where('id',  $ia->id )->delete();
+        // $cart =  Cart::where('id',  $ia->id )->delete();
+        
+        $cartItemc = Cartitem::where('cart_id' ,  $ia->id )->where('product_id' , $product_id)->first();
 
-        $cartItem = Cartitem::where('cart_id' ,  $ia->id)->delete();
-
-        // Cart::whereId( $id)->update([
-        //     'deleted_at' => Carbon::now(),
-        // ]);
+        $total =  $cartItemc->subtotal;
+ 
+      
 
 
+        
+        Cart::whereId(  $id )->update([
+            'total' => floatval( $total  )    -  floatval(  $cartItemc->subtotal )  ,
+        ]);
+
+        $cartItem = Cartitem::where('cart_id' ,  $ia->id )->where('product_id' , $product_id)->delete();
 
         return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
      }
