@@ -79,10 +79,15 @@ class InstitutionsController extends Controller
        if( $type == "TEACHERS"){
        $teacher =  Teacher::where('deleted_at', '=', null )->get();
        return response()->json([
-        'countries' => $areas,
-        'inst' =>   [],
+         'countries' => $areas,
+         'inst' =>   [],
          'teacher' =>  $teacher ]);
-       }else   {
+       }else if($type == "EDUSERVICES"){
+
+
+        $model  = Kindergarten::class;
+
+       } else {
 
         
         if($type == "SCHOOLS"){
@@ -97,7 +102,7 @@ class InstitutionsController extends Controller
           $model  = Specialneed::class;
         }else if($type == "UNIVERSITIES"){
           $model  = Universitie::class;
-        }
+        } 
 
 
   if( $typeSearch == "ids"){
