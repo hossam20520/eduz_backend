@@ -84,9 +84,9 @@ class InstitutionsController extends Controller
          'teacher' =>  $teacher ]);
        }else if($type == "EDUSERVICES"){
 
-
         $model  = Kindergarten::class;
 
+        
        } else {
 
         

@@ -104,7 +104,7 @@ class AuthController extends Controller
         $id =  $request->id;
         $type = $request->type;
         $product_id = $request->product_id;
-     
+        $item = $request->item;
      if( $type == "CART"){
         Favourit::where( 'product_id' ,  $id)->update([
             'deleted_at' => Carbon::now(),
@@ -118,7 +118,7 @@ class AuthController extends Controller
  
         // $cart =  Cart::where('id',  $ia->id )->delete();
         
-        $cartItemc = Cartitem::where('cart_id' ,  $ia->id )->where('product_id' , $product_id)->first();
+        $cartItemc = Cartitem::where('id' ,  $item )->where('product_id' , $product_id)->first();
 
         $total =  $cartItemc->subtotal;
  
@@ -137,7 +137,7 @@ class AuthController extends Controller
    
     
 
-     
+
        
 
     }
