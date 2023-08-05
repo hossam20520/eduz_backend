@@ -118,16 +118,12 @@ class AuthController extends Controller
  
         // $cart =  Cart::where('id',  $ia->id )->delete();
         
-        $cartItemc = Cartitem::where('id' ,  $item )->where('product_id' , $product_id)->first();
+        $cartItemc = Cartitem::where('id' ,  $item )->first();
 
         $total =  $cartItemc->subtotal;
  
-      
-
-
-        
-        Cart::whereId(  $id )->update([
-            'total' => floatval( $total  )    -  floatval(  $cartItemc->subtotal )  ,
+        Cart::whereId( $id )->update([
+            'total' => floatval( $total  ) -  floatval(  $cartItemc->subtotal )  ,
         ]);
 
         $cartItem = Cartitem::where('cart_id' ,  $ia->id )->where('product_id' , $product_id)->delete();
