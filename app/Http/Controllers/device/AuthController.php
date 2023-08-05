@@ -123,7 +123,7 @@ class AuthController extends Controller
         $total =  $cartItemc->subtotal;
  
         Cart::whereId( $id )->update([
-            'total' => floatval( $total  ) -  floatval(  $cartItemc->subtotal )  ,
+            'total' => floatval( $ia->total ) -  floatval(  $cartItemc->subtotal )  ,
         ]);
 
         $cartItem = Cartitem::where('cart_id' ,  $ia->id )->where('product_id' , $product_id)->delete();
