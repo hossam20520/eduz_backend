@@ -33,6 +33,7 @@ class InstitutionsController extends Controller
 
       $id =  $request->id;
       $education =  Education::where('deleted_at', '=', null )->where('area_id',   $id   )->select('id', 'ar_name' , 'en_name' , 'image' , 'lat' , 'long_a' )->get();
+      $schools =  School::where('deleted_at', '=', null )->select('id', 'ar_name' , 'en_name' , 'image' , 'lat' , 'long_a' )->get();
 
 
 
@@ -40,7 +41,7 @@ class InstitutionsController extends Controller
 
       return response()->json([
         'educations' =>  $education,
-   
+        'schools'=> $schools 
 
          ]);
 
