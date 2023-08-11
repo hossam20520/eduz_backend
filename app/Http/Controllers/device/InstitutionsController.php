@@ -24,7 +24,41 @@ class InstitutionsController extends Controller
 {
     //
 
+    public function index(Request $request)
+    {
+        // $this->authorizeForUser($request->user('api'), 'view', Institution::class);
+        // How many items do you want to display.
+        $perPage = $request->limit;
+        $pageStart = \Request::get('page', 1);
+        // Start displaying items from this number;
+        $offSet = ($pageStart * $perPage) - $perPage;
+        $order = $request->SortField;
+        $dir = $request->SortType;
+        $helpers = new helpers();
 
+        $institutions = Institution::where('deleted_at', '=', null)->where(function ($query) use ($request) {
+                return $query->when($request->filled('search'), function ($query) use ($request) {
+                    return $query->where('ar_name', 'LIKE', "%{$request->search}%")
+                        ->orWhere('en_name', 'LIKE', "%{$request->search}%");
+                });
+            });
+        $totalRows = $institutions->count();
+        $institutions = $institutions->offset($offSet)
+            ->limit($perPage)
+            ->orderBy($order, $dir)
+            ->get();
+
+
+            $areas = Area::where('deleted_at', '=', null )->get();
+   
+
+        return response()->json([
+            'countries' => $areas ,
+            'institutions' =>$institutions,
+            'totalRows' => $totalRows,
+        ]);
+
+    }
 
     public function GetDetailEdu(Request $request ){
 
