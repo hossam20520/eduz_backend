@@ -29,7 +29,7 @@ class InstitutionsController extends Controller
     public function GetDetailEdu(Request $request ){
 
 
-
+      $data = array();
       $id = $request->id;
       $type = $request->type;
       $idsString = $request->ids;
