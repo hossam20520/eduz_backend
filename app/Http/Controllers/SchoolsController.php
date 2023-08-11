@@ -136,8 +136,8 @@ class SchoolsController extends BaseController
                 $School->lat = $request['lat'];
                 $School->long_a = $request['long'];
                 $School->area_id = $request['area_id'];
-
-
+               
+                
                 $School->second_lang = $request['second_lang'];
                 $School->first_lang = $request['first_lang'];
                 $School->other_lang = $request['other_lang'];
@@ -162,6 +162,9 @@ class SchoolsController extends BaseController
                 // $School->review_id = $request['review_id'];
 
  
+            
+
+
 
                 if ($request['images']) {
                     $files = $request['images'];
@@ -177,6 +180,26 @@ class SchoolsController extends BaseController
                 } else {
                     $filename = 'no-image.png';
                 }
+
+
+
+
+                if ($request['logo']) {
+                    $files = $request['logo'];
+                    foreach ($files as $file) {
+                        $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])));
+                        // $fileData->resize(200, 200);
+                        $name = rand(11111111, 99999999) . $file['name'];
+                        $path = public_path() . '/images/educations/';
+                        $success = file_put_contents($path . $name, $fileData);
+                        $images[] = $name;
+                    }
+                    $filename_logo = implode(",", $images);
+                } else {
+                    $filename_logo = 'no-image.png';
+                }
+
+                $School->logo = $filename_logo;
 
                 $School->image = $filename;
                 $School->save();
