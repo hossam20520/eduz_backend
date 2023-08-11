@@ -48,7 +48,7 @@ class InstitutionsController extends Controller
 
 
 
- 
+         $model  = Kindergarten::class;
         
         if($type == "SCHOOLS"){
           $model = School::class;
