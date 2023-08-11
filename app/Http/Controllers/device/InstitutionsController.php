@@ -25,6 +25,74 @@ class InstitutionsController extends Controller
     //
 
 
+
+    public function GetDetailEdu(Request $request ){
+
+
+
+      $id = $request->id;
+      $type = $request->type;
+      $idsString = $request->ids;
+
+      $typeSearch = $request->searchType;
+
+
+
+      $perPage = $request->limit;
+      $pageStart = \Request::get('page', 1);
+      // Start displaying items from this number;
+      $offSet = ($pageStart * $perPage) - $perPage;
+      $order = $request->SortField;
+      $dir = $request->SortType;
+      $helpers = new helpers();
+
+
+
+ 
+        
+        if($type == "SCHOOLS"){
+          $model = School::class;
+        }else if($type == "KINDERGARTENS"){
+          $model  = Kindergarten::class;
+        }else if($type == "CENTERS"){
+          $model  = Center::class;
+        }else if($type == "SPECIALNEEDS"){
+          $model  = Specialneed::class;
+        }
+ 
+        $education = $model::where('deleted_at', '=', null)->where(function ($query) use ($request) {
+          return $query->when($request->filled('search'), function ($query) use ($request) {
+              return $query->where('ar_name', 'LIKE', "%{$request->search}%")
+                  ->orWhere('en_name', 'LIKE', "%{$request->search}%");
+          });
+      });
+
+
+    $totalRows = $education->count();
+    $education = $education->offset($offSet)
+      ->limit($perPage)
+      ->orderBy($order, $dir)
+      ->get();
+
+
+
+       
+    
+ 
+      return response()->json([
+
+        'inst' =>  $education,
+ 
+      
+      ]);
+    
+
+    }
+
+
+
+
+
     public function GetAllEducation(Request $request ){
 
       

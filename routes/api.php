@@ -22,6 +22,14 @@ Route::get('device/info/{token}', 'device\AuthController@GetUserByToken');
 
 
 
+
+
+Route::get('device/educations/detail', 'device\InstitutionsController@GetDetailEdu');
+
+
+
+
+
  Route::get('device/educations', 'device\InstitutionsController@GetAllEducation');
 
  Route::post('device/auth/social', 'device\AuthController@loginWithSocial');
