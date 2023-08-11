@@ -60,7 +60,7 @@ class InstitutionsController extends Controller
           $model  = Specialneed::class;
         }
  
-        $education = $model::where('deleted_at', '=', null)->where(function ($query) use ($request) {
+        $education = $model::where('deleted_at', '=', null)->where('id' ,  $id  )->where(function ($query) use ($request) {
           return $query->when($request->filled('search'), function ($query) use ($request) {
               return $query->where('ar_name', 'LIKE', "%{$request->search}%")
                   ->orWhere('en_name', 'LIKE', "%{$request->search}%");
@@ -76,7 +76,22 @@ class InstitutionsController extends Controller
 
 
 
-       
+      foreach ($education as $edu) {
+        $item['id'] = $edu->id;
+        $item['en_name'] = $edu->en_name;
+        $item['ar_name'] = $edu->ar_name;
+        $item['location'] =  "Cairo";
+        $item['review'] =    "4.2";
+        $item['activities_have'] =  [];
+        $item['free'] =    "yes";
+        $firstimage = explode(',', $edu->image);
+        $item['image'] = $firstimage[0];
+        $item['banner'] = $firstimage[1];
+     
+
+
+        $data[] = $item;
+    }
     
  
       return response()->json([
