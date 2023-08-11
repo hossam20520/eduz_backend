@@ -264,13 +264,26 @@
             </b-col>
 
 
-
+            <b-col md="12"  class="mb-2">
+              <validation-provider name="Banner" ref="Banner" rules="mimes:image/*">
+                <b-form-group slot-scope="{validate, valid, errors }" :label="$t('Banner')">
+                  <input
+                    :state="errors[0] ? false : (valid ? true : null)"
+                    :class="{'is-invalid': !!errors.length}"
+                    @change="onFileSelectedBanner"
+                    label="Choose Image"
+                    type="file"
+                  >
+                  <b-form-invalid-feedback id="Image-feedback">{{ errors[0] }}</b-form-invalid-feedback>
+                </b-form-group>
+              </validation-provider>
+            </b-col>
                 <!-- children are accepted from the age -->
  
 
 
 
-
+                
                            
 
                 <b-col md="6" class="mb-6" v-for="section in sections" :key="section.id">
@@ -376,6 +389,7 @@ export default {
       school_types:[],
       sections:[],
       school: {
+        banner:"",
         logo:"",
         area_id:"",
         ar_name:"",
@@ -454,6 +468,16 @@ export default {
       }
     },
 
+
+    async onFileSelectedBanner(e) {
+      const { valid } = await this.$refs.Banner.validate(e);
+
+      if (valid) {
+        this.school.banner = e.target.files[0];
+      } else {
+        this.school.banner = "";
+      }
+    },
 
 
 

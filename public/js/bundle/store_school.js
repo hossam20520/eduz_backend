@@ -384,6 +384,19 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -410,6 +423,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       school_types: [],
       sections: [],
       school: {
+        banner: "",
         logo: "",
         area_id: "",
         ar_name: "",
@@ -506,16 +520,47 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         }, _callee);
       }))();
     },
+    onFileSelectedBanner: function onFileSelectedBanner(e) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var _yield$_this3$$refs$B, valid;
+
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this3.$refs.Banner.validate(e);
+
+              case 2:
+                _yield$_this3$$refs$B = _context2.sent;
+                valid = _yield$_this3$$refs$B.valid;
+
+                if (valid) {
+                  _this3.school.banner = e.target.files[0];
+                } else {
+                  _this3.school.banner = "";
+                }
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
     //------------- Submit Validation Create School
     Submit_School: function Submit_School() {
-      var _this3 = this;
+      var _this4 = this;
 
       // this.sendData()
       this.$refs.Create_School.validate().then(function (success) {
         if (!success) {
-          _this3.makeToast("danger", _this3.$t("Please_fill_the_form_correctly"), _this3.$t("Failed"));
+          _this4.makeToast("danger", _this4.$t("Please_fill_the_form_correctly"), _this4.$t("Failed"));
         } else {
-          _this3.Create_School();
+          _this4.Create_School();
         }
       });
     },
@@ -554,25 +599,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     },
     //-------------- School Get Elements
     GetElements: function GetElements() {
-      var _this4 = this;
-
-      axios.get("Schools/create").then(function (response) {
-        _this4.schools = response.data.schools;
-        _this4.areas = response.data.areas;
-        _this4.isLoading = false;
-      })["catch"](function (response) {
-        setTimeout(function () {
-          _this4.isLoading = false;
-        }, 500);
-
-        _this4.makeToast("danger", _this4.$t("InvalidData"), _this4.$t("Failed"));
-      });
-    },
-    getSecions: function getSecions() {
       var _this5 = this;
 
-      axios.get("drops/list/data?type=SCHOOLS").then(function (response) {
-        _this5.sections = response.data.SECIONS;
+      axios.get("Schools/create").then(function (response) {
+        _this5.schools = response.data.schools;
+        _this5.areas = response.data.areas;
+        _this5.isLoading = false;
       })["catch"](function (response) {
         setTimeout(function () {
           _this5.isLoading = false;
@@ -581,9 +613,22 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         _this5.makeToast("danger", _this5.$t("InvalidData"), _this5.$t("Failed"));
       });
     },
+    getSecions: function getSecions() {
+      var _this6 = this;
+
+      axios.get("drops/list/data?type=SCHOOLS").then(function (response) {
+        _this6.sections = response.data.SECIONS;
+      })["catch"](function (response) {
+        setTimeout(function () {
+          _this6.isLoading = false;
+        }, 500);
+
+        _this6.makeToast("danger", _this6.$t("InvalidData"), _this6.$t("Failed"));
+      });
+    },
     //------------------------------ Create new School ------------------------------\
     Create_School: function Create_School() {
-      var _this6 = this;
+      var _this7 = this;
 
       // Start the progress bar.
       nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.start();
@@ -615,16 +660,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
       axios.post("Schools", self.data).then(function (response) {
-        console.log(_this6.selectedOptions); // Complete the animation of theprogress bar.
+        console.log(_this7.selectedOptions); // Complete the animation of theprogress bar.
 
         nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
         self.SubmitProcessing = false;
 
-        _this6.$router.push({
+        _this7.$router.push({
           name: "index_schools"
         });
 
-        _this6.makeToast("success", _this6.$t("Successfully_Created"), _this6.$t("Success"));
+        _this7.makeToast("success", _this7.$t("Successfully_Created"), _this7.$t("Success"));
       })["catch"](function (error) {
         // Complete the animation of theprogress bar.
         nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
@@ -633,7 +678,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           self.code_exist = error.errors.code[0];
         }
 
-        _this6.makeToast("danger", _this6.$t("InvalidData"), _this6.$t("Failed"));
+        _this7.makeToast("danger", _this7.$t("InvalidData"), _this7.$t("Failed"));
 
         self.SubmitProcessing = false;
       });
@@ -1793,6 +1838,83 @@ var render = function () {
                                           null,
                                           false,
                                           3102529420
+                                        ),
+                                      }),
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-col",
+                                    {
+                                      staticClass: "mb-2",
+                                      attrs: { md: "12" },
+                                    },
+                                    [
+                                      _c("validation-provider", {
+                                        ref: "Banner",
+                                        attrs: {
+                                          name: "Banner",
+                                          rules: "mimes:image/*",
+                                        },
+                                        scopedSlots: _vm._u(
+                                          [
+                                            {
+                                              key: "default",
+                                              fn: function (ref) {
+                                                var validate = ref.validate
+                                                var valid = ref.valid
+                                                var errors = ref.errors
+                                                return _c(
+                                                  "b-form-group",
+                                                  {
+                                                    attrs: {
+                                                      label: _vm.$t("Banner"),
+                                                    },
+                                                  },
+                                                  [
+                                                    _c("input", {
+                                                      class: {
+                                                        "is-invalid":
+                                                          !!errors.length,
+                                                      },
+                                                      attrs: {
+                                                        state: errors[0]
+                                                          ? false
+                                                          : valid
+                                                          ? true
+                                                          : null,
+                                                        label: "Choose Image",
+                                                        type: "file",
+                                                      },
+                                                      on: {
+                                                        change:
+                                                          _vm.onFileSelectedBanner,
+                                                      },
+                                                    }),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "b-form-invalid-feedback",
+                                                      {
+                                                        attrs: {
+                                                          id: "Image-feedback",
+                                                        },
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          _vm._s(errors[0])
+                                                        ),
+                                                      ]
+                                                    ),
+                                                  ],
+                                                  1
+                                                )
+                                              },
+                                            },
+                                          ],
+                                          null,
+                                          false,
+                                          3565170343
                                         ),
                                       }),
                                     ],

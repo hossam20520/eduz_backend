@@ -233,8 +233,26 @@
 
  
    
+                <b-col md="12"  class="mb-2">
+              <validation-provider name="Image" ref="Image" rules="mimes:image/*">
+                <b-form-group slot-scope="{validate, valid, errors }" :label="$t('Logo')">
+                  <input
+                    :state="errors[0] ? false : (valid ? true : null)"
+                    :class="{'is-invalid': !!errors.length}"
+                    @change="onFileSelected"
+                    label="Choose Image"
+                    type="file"
+                  >
+                  <b-form-invalid-feedback id="Image-feedback">{{ errors[0] }}</b-form-invalid-feedback>
+                </b-form-group>
+              </validation-provider>
+            </b-col>
+
 
         
+
+
+            
  
          
                 <b-col md="6" class="mb-6" v-for="section in sections" :key="section.id">
@@ -334,6 +352,7 @@ export default {
       variants: [],
       schools:[],
       school: {
+           logo:"",
            area_id:"",
            institution_id:"",
            ar_name:"",
@@ -371,6 +390,17 @@ export default {
   },
 
   methods: {
+
+
+    async onFileSelected(e) {
+      const { valid } = await this.$refs.Image.validate(e);
+
+      if (valid) {
+        this.school.logo = e.target.files[0];
+      } else {
+        this.school.logo = "";
+      }
+    },
 
     getSecions() {
       axios

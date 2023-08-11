@@ -16,7 +16,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
 use \Gumlet\ImageResize;
-
+use Intervention\Image\ImageManagerStatic as Image;
 
 class SchoolsController extends BaseController
 {
@@ -184,17 +184,19 @@ class SchoolsController extends BaseController
 
 
 
-                if ($request['logo']) {
-                    $files = $request['logo'];
-                    foreach ($files as $file) {
-                        $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])));
-                        // $fileData->resize(200, 200);
-                        $name = rand(11111111, 99999999) . $file['name'];
-                        $path = public_path() . '/images/educations/';
-                        $success = file_put_contents($path . $name, $fileData);
-                        $images[] = $name;
-                    }
-                    $filename_logo = implode(",", $images);
+       
+
+
+
+                if ($request->hasFile('logo')) {
+
+                    $image = $request->file('logo');
+                    $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
+    
+                    $image_resize = Image::make($image->getRealPath());
+                    $image_resize->resize(200, 200);
+                    $image_resize->save(public_path('/images/educations/' . $filename_logo));
+    
                 } else {
                     $filename_logo = 'no-image.png';
                 }
@@ -266,6 +268,45 @@ class SchoolsController extends BaseController
 
         return response()->json($result);
     }
+
+
+
+
+  public function UpdateImage($name , $pathURL , $request ,  $requImage , $currentImage ){
+    if ($currentImage &&  $requImage != $currentImage) {
+        $image = $request->file($name);
+        $path = public_path() . '/images/'. $pathURL;
+        $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+        $image_resize = Image::make($image->getRealPath());
+        // $image_resize->resize(200, 200);
+        $image_resize->save(public_path('/images/'.$pathURL.'/'. $filename_logo));
+
+        $BrandImage = $path . '/' . $currentImage;
+        if (file_exists($BrandImage)) {
+            if ($currentImage != 'no-image.png') {
+                @unlink($BrandImage);
+            }
+        }
+    } else if (!$currentImage && $request->image !='null'){
+        $image = $request->file($name);
+        $path = public_path() . '/images/'.$pathURL;
+        $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+        $image_resize = Image::make($image->getRealPath());
+        // $image_resize->resize(200, 200);
+        $image_resize->save(public_path('/images/'.$pathURL.'/'.  $filename_logo));
+    }
+
+    else {
+        $filename_logo = $currentImage?$currentImage:'no-image.png';
+    }
+
+
+    return $filename_logo;
+  }
+
+
 
     public function update(Request $request, $id)
     {
@@ -368,6 +409,11 @@ class SchoolsController extends BaseController
                     $filename = implode(",", $images);
                 }
 
+
+               $logo =  $this->UpdateImage( 'logo',  "educations" , $request , $request->logo , $School->logo );
+
+ 
+                $School->logo = $logo;
                 $School->image = $filename;
                 $School->save();
 
@@ -507,74 +553,7 @@ class SchoolsController extends BaseController
 
     //------------ Get Schools By Warehouse -----------------\
 
-    public function Schools_by_Warehouse(request $request, $id)
-    {
-        $data = [];
-        $school_warehouse_data = school_warehouse::with('warehouse', 'School', 'schoolVariant')
-            ->where('warehouse_id', $id)
-            ->where('deleted_at', '=', null)
-            ->where(function ($query) use ($request) {
-                if ($request->stock == '1') {
-                    return $query->where('qte', '>', 0);
-                }
-            })->get();
-
-        foreach ($school_warehouse_data as $school_warehouse) {
-
-            if ($school_warehouse->school_variant_id) {
-                $item['school_variant_id'] = $school_warehouse->school_variant_id;
-                $item['code'] = $school_warehouse['schoolVariant']->name . '-' . $school_warehouse['school']->code;
-                $item['Variant'] = $school_warehouse['schoolVariant']->name;
-            } else {
-                $item['school_variant_id'] = null;
-                $item['Variant'] = null;
-                $item['code'] = $school_warehouse['school']->code;
-            }
-
-            $item['id'] = $school_warehouse->school_id;
-            $item['name'] = $school_warehouse['school']->name;
-            $item['barcode'] = $school_warehouse['school']->code;
-            $item['Type_barcode'] = $school_warehouse['school']->Type_barcode;
-            $firstimage = explode(',', $school_warehouse['school']->image);
-            $item['image'] = $firstimage[0];
-
-            if ($school_warehouse['school']['unitSale']->operator == '/') {
-                $item['qte_sale'] = $school_warehouse->qte * $school_warehouse['school']['unitSale']->operator_value;
-                $price = $school_warehouse['school']->price / $school_warehouse['school']['unitSale']->operator_value;
-            } else {
-                $item['qte_sale'] = $school_warehouse->qte / $school_warehouse['school']['unitSale']->operator_value;
-                $price = $school_warehouse['school']->price * $school_warehouse['school']['unitSale']->operator_value;
-            }
-
-            if ($school_warehouse['school']['unitPurchase']->operator == '/') {
-                $item['qte_purchase'] = round($school_warehouse->qte * $school_warehouse['school']['unitPurchase']->operator_value, 5);
-            } else {
-                $item['qte_purchase'] = round($school_warehouse->qte / $school_warehouse['school']['unitPurchase']->operator_value, 5);
-            }
-
-            $item['qte'] = $school_warehouse->qte;
-            $item['unitSale'] = $school_warehouse['school']['unitSale']->ShortName;
-            $item['unitPurchase'] = $school_warehouse['school']['unitPurchase']->ShortName;
-
-            if ($school_warehouse['school']->TaxNet !== 0.0) {
-                //Exclusive
-                if ($school_warehouse['school']->tax_method == '1') {
-                    $tax_price = $price * $school_warehouse['school']->TaxNet / 100;
-                    $item['Net_price'] = $price + $tax_price;
-                    // Inxclusive
-                } else {
-                    $item['Net_price'] = $price;
-                }
-            } else {
-                $item['Net_price'] = $price;
-            }
-
-            $data[] = $item;
-        }
-
-        return response()->json($data);
-    }
-
+ 
     //------------ Get school By ID -----------------\
 
     public function show($id)
