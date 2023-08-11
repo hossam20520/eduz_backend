@@ -96,7 +96,7 @@ class InstitutionsController extends Controller
  
       return response()->json([
 
-        'inst' =>  $education,
+        'inst' =>  $data,
  
       
       ]);
