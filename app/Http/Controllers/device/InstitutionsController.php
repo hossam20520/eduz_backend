@@ -119,7 +119,7 @@ class InstitutionsController extends Controller
         $item['activities_have'] =  [];
         $item['free'] =    "yes";
         $firstimage = explode(',', $edu->image);
-        $item['image'] = $edu->image;
+        $item['image'] = $firstimage[0];
         $item['banner'] = $edu->banner;
         $item['lat'] = $edu->lat;
         $item['long'] = $edu->long_a;
