@@ -183,25 +183,11 @@ class SchoolsController extends BaseController
 
 
 
+ 
 
-       
+                $School->logo =  $this->StoreImage("logo" , "educations" , $request);
+                $School->banner =  $this->StoreImage("banner" , "educations" , $request);
 
-
-
-                if ($request->hasFile('logo')) {
-
-                    $image = $request->file('logo');
-                    $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
-    
-                    $image_resize = Image::make($image->getRealPath());
-                    $image_resize->resize(200, 200);
-                    $image_resize->save(public_path('/images/educations/' . $filename_logo));
-    
-                } else {
-                    $filename_logo = 'no-image.png';
-                }
-
-                $School->logo = $filename_logo;
 
                 $School->image = $filename;
                 $School->save();
@@ -270,7 +256,24 @@ class SchoolsController extends BaseController
     }
 
 
+public function StoreImage($name , $pathUrl , $request){
+    if ($request->hasFile($name)) {
 
+        $image = $request->file($name);
+        $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+        $image_resize = Image::make($image->getRealPath());
+        // $image_resize->resize(200, 200);
+        $image_resize->save(public_path('/images/'.$pathUrl."/".$filename_logo));
+
+    } else {
+        $filename_logo = 'no-image.png';
+    }
+
+ 
+
+    return  $filename_logo;
+}
 
   public function UpdateImage($name , $pathURL , $request ,  $requImage , $currentImage ){
     if ($currentImage &&  $requImage != $currentImage) {
@@ -288,7 +291,7 @@ class SchoolsController extends BaseController
                 @unlink($BrandImage);
             }
         }
-    } else if (!$currentImage && $request->image !='null'){
+    } else if (!$currentImage && $requImage !='null'){
         $image = $request->file($name);
         $path = public_path() . '/images/'.$pathURL;
         $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
@@ -409,11 +412,16 @@ class SchoolsController extends BaseController
                     $filename = implode(",", $images);
                 }
 
+                $logo =  $this->UpdateImage( 'logo',  "educations" , $request , $request->logo , $School->logo );
+              
 
-               $logo =  $this->UpdateImage( 'logo',  "educations" , $request , $request->logo , $School->logo );
 
+                $banner =  $this->UpdateImage( 'banner',  "educations" , $request , $request->banner , $School->banner );
+
+         
  
                 $School->logo = $logo;
+                $School->banner = $banner;
                 $School->image = $filename;
                 $School->save();
 
@@ -647,7 +655,8 @@ class SchoolsController extends BaseController
         $item['is_accept'] =  $School->is_accept;
         $item['selected_ids'] =  $School->selected_ids;
 
- 
+        $item['logo'] =  $School->logo;
+        $item['banner'] =  $School->banner;
          
 
         $firstimage = explode(',', $School->image);
@@ -680,6 +689,7 @@ class SchoolsController extends BaseController
         $drops =  $this->getSectionsWithDrops( $School->selected_ids);
    
         return response()->json([
+            'slider' => $item['images'],
             'school' => $data,
             'drops' => $drops,
             'schools' =>  $School_data ,

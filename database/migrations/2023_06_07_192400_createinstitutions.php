@@ -20,6 +20,7 @@ class Createinstitutions extends Migration
             $table->string('en_name', 192)->nullable();
             $table->text('image')->nullable();
             $table->text('banner')->nullable();
+            $table->text('slider')->nullable();
 			$table->timestamps(6);
 			$table->softDeletes();
         });

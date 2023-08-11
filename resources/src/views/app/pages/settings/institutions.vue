@@ -71,6 +71,43 @@
             <!-- Institution Name -->
 
 
+            <b-col md="12">
+            <!-- upload-multiple-image -->
+            <b-card>
+              <div class="card-header">
+                <h5>{{ $t('MultipleImage')}}</h5>
+              </div>
+              <div class="card-body">
+                <b-row class="form-group">
+                  <b-col md="12 mb-5">
+                    <div
+                      id="my-strictly-unique-vue-upload-multiple-image"
+                      class="d-flex justify-content-center"
+                    >
+                      <vue-upload-multiple-image
+                      @upload-success="uploadImageSuccess"
+                      @before-remove="beforeRemove"
+                      dragText="Drag & Drop Multiple images For school"
+                      dropText="Drag & Drop image"
+                      browseText="(or) Select"
+                      accept=image/gif,image/jpeg,image/png,image/bmp,image/jpg
+                      primaryText='success'
+                      markIsPrimaryText='success'
+                      popupText='have been successfully uploaded'
+                      :data-images="images"
+                      idUpload="myIdUpload"
+                      :showEdit="false"
+                      />
+                    </div>
+                  </b-col>
+            
+                </b-row>
+              </div>
+            </b-card>
+          </b-col>
+
+
+
 
             <b-col md="12">
                   <validation-provider
@@ -144,6 +181,14 @@
               </validation-provider>
             </b-col>
 
+
+
+
+
+ 
+
+
+
             <b-col md="12" class="mt-3">
               <b-button variant="primary" type="submit"  :disabled="SubmitProcessing"> {{  $t('submit') }}</b-button>
                 <div v-once class="typo__p" v-if="SubmitProcessing">
@@ -160,7 +205,7 @@
 
 <script>
 import NProgress from "nprogress";
-
+import VueUploadMultipleImage from "vue-upload-multiple-image";
 export default {
   metaInfo: {
     title: "Institution"
@@ -186,6 +231,8 @@ export default {
       editmode: false,
       institutions: [],
       limit: "10",
+      images: [],
+      imageArray: [],
       institution: {
         id: "",
         ar_name: "",
@@ -195,6 +242,13 @@ export default {
       }
     };
   },
+
+  components: {
+  
+    VueUploadMultipleImage,
+ 
+  },
+
   computed: {
     columns() {
       return [
@@ -237,6 +291,24 @@ export default {
   },
 
   methods: {
+
+        //------ Event upload Image Success
+        uploadImageSuccess(formData, index, fileList, imageArray) {
+      this.images = fileList;
+    },
+
+    //------ Event before Remove Image
+    beforeRemove(index, done, fileList) {
+      var remove = confirm("remove image");
+      if (remove == true) {
+        this.images = fileList;
+        done();
+      } else {
+      }
+    },
+
+
+
     //---- update Params Table
     updateParams(newProps) {
       this.serverParams = Object.assign({}, this.serverParams, newProps);
@@ -354,6 +426,7 @@ export default {
     Edit_Institution(institution) {
       this.Get_Institutions(this.serverParams.page);
       this.reset_Form();
+      this.images = institution.slider;
       this.institution = institution;
       this.editmode = true;
       this.$bvModal.show("New_institution");
@@ -379,6 +452,10 @@ export default {
         )
         .then(response => {
           this.institutions = response.data.institutions;
+
+          
+             
+                  
           this.totalRows = response.data.totalRows;
 
           // Complete the animation of theprogress bar.
@@ -398,6 +475,17 @@ export default {
     Create_Institution() {
       var self = this;
       self.SubmitProcessing = true;
+
+                //append array images
+  //  if (self.images.length > 0) {
+  //       for (var k = 0; k < self.images.length; k++) {
+  //         Object.entries(self.images[k]).forEach(([key, value]) => {
+  //           self.data.append("images[" + k + "][" + key + "]", value);
+  //         });
+  //       }
+  //     }
+
+
       self.data.append("ar_name", self.institution.ar_name);
       self.data.append("en_name", self.institution.en_name);
       self.data.append("image", self.institution.image);
@@ -429,6 +517,17 @@ export default {
       self.data.append("ar_name", self.institution.ar_name);
       self.data.append("image", self.institution.image);
       self.data.append("banner", self.institution.banner);
+
+                      //append array images
+   if (self.images.length > 0) {
+        for (var k = 0; k < self.images.length; k++) {
+          Object.entries(self.images[k]).forEach(([key, value]) => {
+            self.data.append("images[" + k + "][" + key + "]", value);
+          });
+        }
+      }
+
+
       self.data.append("_method", "put");
 
       axios
@@ -540,6 +639,8 @@ export default {
   }, //end Methods
   created: function() {
     this.Get_Institutions(1);
+    this.imageArray = [];
+    this.images = [];
 
     Fire.$on("Event_Institution", () => {
       setTimeout(() => {

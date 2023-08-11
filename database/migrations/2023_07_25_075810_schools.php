@@ -28,6 +28,10 @@ class Schools extends Migration
             $table->text('phone')->nullable();
             $table->text('share')->nullable();
             $table->text('image')->nullable();
+            $table->text('logo')->nullable();
+            $table->text('banner')->nullable();
+
+            
             $table->text('activities_image')->nullable();
             $table->integer('institution_id')->nullable()->index('institution_id');
             $table->integer('area_id')->nullable()->index('area_id');

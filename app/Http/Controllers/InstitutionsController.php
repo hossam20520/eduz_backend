@@ -40,12 +40,77 @@ class InstitutionsController extends Controller
 
             $areas = Area::where('deleted_at', '=', null )->get();
 
+
+           $data = array();
+
+            foreach ($institutions as $inst) {
+ 
+                $item['id'] =  $inst->id;
+                $item['ar_name'] =  $inst->ar_name;
+                $item['en_name'] =  $inst->en_name;
+                $item['banner'] =  $inst->banner;
+                $item['image'] =  $inst->image;
+                $item['slider'] =  $this->getImagesMulit($inst->slider);
+                  
+                                  
+                // $item['images'] = [];
+                // if ($inst->slider != '' && $inst->slider != 'no-image.png') {
+                //     foreach (explode(',', $inst->slider) as $img) {
+                //         $path = public_path() . '/images/institutions/' . $img;
+                //         if (file_exists($path)) {
+                //             $itemImg['name'] = $img;
+                //             $type = pathinfo($path, PATHINFO_EXTENSION);
+                //             $data = file_get_contents($path);
+                //             $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        
+                //             $item['images'][] = $itemImg;
+                //         }
+                //     }
+                // } else {
+                //     $item['images'] = [];
+                // }
+
+
+                $data[] = $item;
+            }
+
+
+
+ 
+ 
+    
+
+            
+
         return response()->json([
             'countries' => $areas ,
-            'institutions' => $institutions,
+            'institutions' => $data,
             'totalRows' => $totalRows,
         ]);
 
+    }
+
+
+
+    public function  getImagesMulit($inst){
+                    $item['images'] = [];
+                if ( $inst != '' && $inst != 'no-image.png') {
+                    foreach (explode(',', $inst) as $img) {
+                        $path = public_path() . '/images/institutions/' . $img;
+                        if (file_exists($path)) {
+                            $itemImg['name'] = $img;
+                            $type = pathinfo($path, PATHINFO_EXTENSION);
+                            $data = file_get_contents($path);
+                            $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        
+                            $item['images'][] = $itemImg;
+                        }
+                    }
+                } else {
+                    $item['images'] = [];
+                }
+
+                return $item['images'];
     }
 
     //---------------- STORE NEW Institution -------------\
@@ -105,6 +170,47 @@ class InstitutionsController extends Controller
     
     }
 
+
+
+    public function updateImageMulti($name , $pathUrl , $ModelImage  , $request){
+        if ($request[$name] === null) {
+
+            if ($ModelImage  !== null) {
+                foreach (explode(',', $Product->image) as $img) {
+                    $pathIMG = public_path() . '/images/'.$pathUrl.'/'. $img;
+                    if (file_exists($pathIMG)) {
+                        if ($img != 'no-image.png') {
+                            @unlink($pathIMG);
+                        }
+                    }
+                }
+            }
+            $filename = 'no-image.png';
+        } else {
+            if ($ModelImage !== null) {
+                foreach (explode(',', $ModelImage ) as $img) {
+                    $pathIMG = public_path() . '/images/'.$pathUrl.'/'.$img;
+                    if (file_exists($pathIMG)) {
+                        if ($img != 'no-image.png') {
+                            @unlink($pathIMG);
+                        }
+                    }
+                }
+            }
+            $files = $request[$name];
+            foreach ($files as $file) {
+                $fileData =  base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path']));
+                // $fileData->resize(200, 200);
+                $name = rand(11111111, 99999999) . $file['name'];
+                $path = public_path() . '/images/'.$pathUrl.'/';
+                $success = file_put_contents($path . $name, $fileData);
+                $images[] = $name;
+            }
+            $filename = implode(",", $images);
+            return $filename;
+        }
+    }
+
      //---------------- UPDATE Institution -------------\
 
      public function update(Request $request, $id)
@@ -126,7 +232,7 @@ class InstitutionsController extends Controller
                  $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
  
                  $image_resize = Image::make($image->getRealPath());
-                 $image_resize->resize(200, 200);
+                 
                  $image_resize->save(public_path('/images/institutions/' . $filename));
  
                  $InstitutionImage = $path . '/' . $currentImage;
@@ -141,7 +247,7 @@ class InstitutionsController extends Controller
                  $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
  
                  $image_resize = Image::make($image->getRealPath());
-                 $image_resize->resize(200, 200);
+               
                  $image_resize->save(public_path('/images/institutions/' . $filename));
              }
  
@@ -150,7 +256,7 @@ class InstitutionsController extends Controller
              }
 
 
-
+          
 
 
 
@@ -186,9 +292,12 @@ class InstitutionsController extends Controller
                 $filename_banner = $currentImage_banner?$currentImage_banner:'no-image.png';
             }
  
+            $slider = $this->updateImageMulti('images' ,  'institutions' , $Institution->slider , $request );
+            
              Institution::whereId($id)->update([
                  'ar_name' => $request['ar_name'],
                  'en_name' => $request['en_name'],
+                 'slider'=>  $slider,
                  'image' => $filename,
                  'banner' => $filename_banner
              ]);
