@@ -179,7 +179,7 @@ public function MapData(Request $request){
 
             
      return response()->json([
-      'map_data' =>  $data,
+      'inst' =>  $data,
     ]);
 
 }
