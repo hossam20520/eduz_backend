@@ -157,11 +157,29 @@ public function MapData(Request $request){
     }else if($type == "SPECIALNEEDS"){
       $model  = Specialneed::class;
     } 
-     $data  = $model::where('deleted_at', '=', null )->get(['ar_name' , 'en_name' , 'lat', 'long_a' , 'image']);
+
+     $dataa  = $model::where('deleted_at', '=', null )->get(['ar_name' , 'en_name' , 'lat', 'long_a' , 'image']);
+
+   
+
+     foreach ($dataa as $edu) {
+      $item['id'] = $edu->id;
+      $item['en_name'] = $edu->en_name;
+      $item['ar_name'] = $edu->ar_name;
+      $firstimage = explode(',', $edu->image);
+      $item['image'] = $firstimage[0];
+      $item['banner'] = $edu->banner;
+      $item['lat'] = $edu->lat;
+      $item['long'] = $edu->long_a;
+ 
+
+
+      $data[] = $item;
+  }
+
+            
      return response()->json([
-
       'map_data' =>  $data,
-
     ]);
 
 }
