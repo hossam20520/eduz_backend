@@ -129,6 +129,7 @@ class InstitutionsController extends Controller
         $item['long'] = $edu->long_a;
         $item['logo'] = $firstimage[0];
 
+        
         $data[] = $item;
     }
     
