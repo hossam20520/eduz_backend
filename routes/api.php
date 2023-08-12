@@ -32,6 +32,8 @@ Route::get('device/educations/detail', 'device\InstitutionsController@GetDetailE
 
 
 
+ 
+Route::get('device/map', 'device\InstitutionsController@MapData');
 
 
  Route::get('device/educations', 'device\InstitutionsController@GetAllEducation');

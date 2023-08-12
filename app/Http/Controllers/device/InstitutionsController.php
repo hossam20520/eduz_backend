@@ -144,7 +144,27 @@ class InstitutionsController extends Controller
 
 
 
+public function MapData(Request $request){
 
+    $type = $request->type;
+    
+    if($type == "SCHOOLS"){
+      $model = School::class;
+    }else if($type == "KINDERGARTENS"){
+      $model  = Kindergarten::class;
+    }else if($type == "CENTERS"){
+      $model  = Center::class;
+    }else if($type == "SPECIALNEEDS"){
+      $model  = Specialneed::class;
+    } 
+     $data  = $model::where('deleted_at', '=', null )->get(['ar_name' , 'en_name' , 'lat', 'long_a' , 'image']);
+     return response()->json([
+
+      'map_data' =>  $data,
+
+    ]);
+
+}
 
 
     public function GetTheInstDetail(Request $request ){
