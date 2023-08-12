@@ -114,10 +114,8 @@ class InstitutionsController extends Controller
         $item['id'] = $edu->id;
         $item['en_name'] = $edu->en_name;
         $item['ar_name'] = $edu->ar_name;
-
         $item['ar_address'] = $edu->ar_address;
         $item['en_address'] = $edu->en_address;
-
         $item['location'] =  "Caironn";
         $item['review'] =    "4.2";
         $item['activities_have'] =  [];
@@ -129,7 +127,7 @@ class InstitutionsController extends Controller
         $item['long'] = $edu->long_a;
         $item['logo'] = $firstimage[0];
 
-        
+
         $data[] = $item;
     }
     
