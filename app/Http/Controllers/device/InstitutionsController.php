@@ -114,10 +114,14 @@ class InstitutionsController extends Controller
         $item['id'] = $edu->id;
         $item['en_name'] = $edu->en_name;
         $item['ar_name'] = $edu->ar_name;
+
+        $item['ar_address'] = $edu->ar_address;
+        $item['en_address'] = $edu->en_address;
+
         $item['location'] =  "Cairo";
         $item['review'] =    "4.2";
         $item['activities_have'] =  [];
-        $item['free'] =    "yes";
+        $item['free'] =    $edu->free;
         $firstimage = explode(',', $edu->image);
         $item['image'] = $firstimage[0];
         $item['banner'] = $edu->banner;

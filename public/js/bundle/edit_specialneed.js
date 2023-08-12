@@ -333,6 +333,150 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -358,6 +502,15 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       variants: [],
       specialneeds: [],
       specialneed: {
+        exp_from: "",
+        exp_to: "",
+        paid_en_info: "",
+        paid_ar_info: "",
+        paid_facilities_ar: "",
+        paid_facilities_en: "",
+        free: "",
+        ar_address: "",
+        en_address: "",
         area_id: "",
         institution_id: "",
         ar_name: "",
@@ -1701,6 +1854,645 @@ var render = function () {
                                             ],
                                             1
                                           ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                label: _vm.$t("paid_en_info"),
+                                              },
+                                            },
+                                            [
+                                              _c("vue-editor", {
+                                                model: {
+                                                  value:
+                                                    _vm.specialneed
+                                                      .paid_en_info,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.specialneed,
+                                                      "paid_en_info",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "specialneed.paid_en_info",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                label: _vm.$t("paid_ar_info"),
+                                              },
+                                            },
+                                            [
+                                              _c("vue-editor", {
+                                                model: {
+                                                  value:
+                                                    _vm.specialneed
+                                                      .paid_ar_info,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.specialneed,
+                                                      "paid_ar_info",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "specialneed.paid_ar_info",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                label:
+                                                  _vm.$t("paid_facilities_ar"),
+                                              },
+                                            },
+                                            [
+                                              _c("vue-editor", {
+                                                model: {
+                                                  value:
+                                                    _vm.specialneed
+                                                      .paid_facilities_ar,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.specialneed,
+                                                      "paid_facilities_ar",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "specialneed.paid_facilities_ar",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                label:
+                                                  _vm.$t("paid_facilities_en"),
+                                              },
+                                            },
+                                            [
+                                              _c("vue-editor", {
+                                                model: {
+                                                  value:
+                                                    _vm.specialneed
+                                                      .paid_facilities_en,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.specialneed,
+                                                      "paid_facilities_en",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "specialneed.paid_facilities_en",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: {
+                                              name: "subscription",
+                                              rules: { required: true },
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (ref) {
+                                                    var valid = ref.valid
+                                                    var errors = ref.errors
+                                                    return _c(
+                                                      "b-form-group",
+                                                      {
+                                                        attrs: {
+                                                          label:
+                                                            _vm.$t(
+                                                              "subscription"
+                                                            ),
+                                                        },
+                                                      },
+                                                      [
+                                                        _c("v-select", {
+                                                          class: {
+                                                            "is-invalid":
+                                                              !!errors.length,
+                                                          },
+                                                          attrs: {
+                                                            state: errors[0]
+                                                              ? false
+                                                              : valid
+                                                              ? true
+                                                              : null,
+                                                            reduce: function (
+                                                              label
+                                                            ) {
+                                                              return label.value
+                                                            },
+                                                            placeholder: _vm.$t(
+                                                              "Choose_StatusSubscription"
+                                                            ),
+                                                            options: [
+                                                              {
+                                                                label: "free",
+                                                                value: "free",
+                                                              },
+                                                              {
+                                                                label: "paid",
+                                                                value: "paid",
+                                                              },
+                                                            ],
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.specialneed
+                                                                .free,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.specialneed,
+                                                                "free",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "specialneed.free",
+                                                          },
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "b-form-invalid-feedback",
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(errors[0])
+                                                            ),
+                                                          ]
+                                                        ),
+                                                      ],
+                                                      1
+                                                    )
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              2418153216
+                                            ),
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: {
+                                              name: "Product Cost",
+                                              rules: {
+                                                required: true,
+                                                regex: /^\d*\.?\d*$/,
+                                              },
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (
+                                                    validationContext
+                                                  ) {
+                                                    return [
+                                                      _c(
+                                                        "b-form-group",
+                                                        {
+                                                          attrs: {
+                                                            label:
+                                                              _vm.$t("from"),
+                                                          },
+                                                        },
+                                                        [
+                                                          _c("b-form-input", {
+                                                            attrs: {
+                                                              state:
+                                                                _vm.getValidationState(
+                                                                  validationContext
+                                                                ),
+                                                              "aria-describedby":
+                                                                "ProductCost-feedback",
+                                                              label: "Cost",
+                                                              placeholder:
+                                                                _vm.$t("from"),
+                                                            },
+                                                            model: {
+                                                              value:
+                                                                _vm.specialneed
+                                                                  .exp_from,
+                                                              callback:
+                                                                function ($$v) {
+                                                                  _vm.$set(
+                                                                    _vm.specialneed,
+                                                                    "exp_from",
+                                                                    $$v
+                                                                  )
+                                                                },
+                                                              expression:
+                                                                "specialneed.exp_from",
+                                                            },
+                                                          }),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "b-form-invalid-feedback",
+                                                            {
+                                                              attrs: {
+                                                                id: "ProductCost-feedback",
+                                                              },
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  validationContext
+                                                                    .errors[0]
+                                                                )
+                                                              ),
+                                                            ]
+                                                          ),
+                                                        ],
+                                                        1
+                                                      ),
+                                                    ]
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              2777024078
+                                            ),
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: {
+                                              name: "exp_to Cost",
+                                              rules: {
+                                                required: true,
+                                                regex: /^\d*\.?\d*$/,
+                                              },
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (
+                                                    validationContext
+                                                  ) {
+                                                    return [
+                                                      _c(
+                                                        "b-form-group",
+                                                        {
+                                                          attrs: {
+                                                            label:
+                                                              _vm.$t("exp_to"),
+                                                          },
+                                                        },
+                                                        [
+                                                          _c("b-form-input", {
+                                                            attrs: {
+                                                              state:
+                                                                _vm.getValidationState(
+                                                                  validationContext
+                                                                ),
+                                                              "aria-describedby":
+                                                                "ProductCost-feedback",
+                                                              label: "Cost",
+                                                              placeholder:
+                                                                _vm.$t(
+                                                                  "exp_to"
+                                                                ),
+                                                            },
+                                                            model: {
+                                                              value:
+                                                                _vm.specialneed
+                                                                  .exp_to,
+                                                              callback:
+                                                                function ($$v) {
+                                                                  _vm.$set(
+                                                                    _vm.specialneed,
+                                                                    "exp_to",
+                                                                    $$v
+                                                                  )
+                                                                },
+                                                              expression:
+                                                                "specialneed.exp_to",
+                                                            },
+                                                          }),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "b-form-invalid-feedback",
+                                                            {
+                                                              attrs: {
+                                                                id: "ProductCost-feedback",
+                                                              },
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  validationContext
+                                                                    .errors[0]
+                                                                )
+                                                              ),
+                                                            ]
+                                                          ),
+                                                        ],
+                                                        1
+                                                      ),
+                                                    ]
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              4028336419
+                                            ),
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: {
+                                              name: "ar_address",
+                                              rules: {
+                                                required: true,
+                                                min: 3,
+                                                max: 600,
+                                              },
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (
+                                                    validationContext
+                                                  ) {
+                                                    return [
+                                                      _c(
+                                                        "b-form-group",
+                                                        {
+                                                          attrs: {
+                                                            label:
+                                                              _vm.$t(
+                                                                "ar_address"
+                                                              ),
+                                                          },
+                                                        },
+                                                        [
+                                                          _c("b-form-input", {
+                                                            attrs: {
+                                                              state:
+                                                                _vm.getValidationState(
+                                                                  validationContext
+                                                                ),
+                                                              "aria-describedby":
+                                                                "Name-feedback",
+                                                              label: "share",
+                                                              placeholder:
+                                                                _vm.$t(
+                                                                  "ar_address"
+                                                                ),
+                                                            },
+                                                            model: {
+                                                              value:
+                                                                _vm.specialneed
+                                                                  .ar_address,
+                                                              callback:
+                                                                function ($$v) {
+                                                                  _vm.$set(
+                                                                    _vm.specialneed,
+                                                                    "ar_address",
+                                                                    $$v
+                                                                  )
+                                                                },
+                                                              expression:
+                                                                "specialneed.ar_address",
+                                                            },
+                                                          }),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "b-form-invalid-feedback",
+                                                            {
+                                                              attrs: {
+                                                                id: "Name-feedback",
+                                                              },
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  validationContext
+                                                                    .errors[0]
+                                                                )
+                                                              ),
+                                                            ]
+                                                          ),
+                                                        ],
+                                                        1
+                                                      ),
+                                                    ]
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              958209782
+                                            ),
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: {
+                                              name: "en_address",
+                                              rules: {
+                                                required: true,
+                                                min: 3,
+                                                max: 600,
+                                              },
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (
+                                                    validationContext
+                                                  ) {
+                                                    return [
+                                                      _c(
+                                                        "b-form-group",
+                                                        {
+                                                          attrs: {
+                                                            label:
+                                                              _vm.$t(
+                                                                "en_address"
+                                                              ),
+                                                          },
+                                                        },
+                                                        [
+                                                          _c("b-form-input", {
+                                                            attrs: {
+                                                              state:
+                                                                _vm.getValidationState(
+                                                                  validationContext
+                                                                ),
+                                                              "aria-describedby":
+                                                                "Name-feedback",
+                                                              label: "share",
+                                                              placeholder:
+                                                                _vm.$t(
+                                                                  "en_address"
+                                                                ),
+                                                            },
+                                                            model: {
+                                                              value:
+                                                                _vm.specialneed
+                                                                  .en_address,
+                                                              callback:
+                                                                function ($$v) {
+                                                                  _vm.$set(
+                                                                    _vm.specialneed,
+                                                                    "en_address",
+                                                                    $$v
+                                                                  )
+                                                                },
+                                                              expression:
+                                                                "specialneed.en_address",
+                                                            },
+                                                          }),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "b-form-invalid-feedback",
+                                                            {
+                                                              attrs: {
+                                                                id: "Name-feedback",
+                                                              },
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  validationContext
+                                                                    .errors[0]
+                                                                )
+                                                              ),
+                                                            ]
+                                                          ),
+                                                        ],
+                                                        1
+                                                      ),
+                                                    ]
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              2708887406
+                                            ),
+                                          }),
                                         ],
                                         1
                                       ),

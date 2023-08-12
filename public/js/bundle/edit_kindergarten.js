@@ -328,6 +328,155 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -353,6 +502,15 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       variants: [],
       kindergartens: [],
       kindergarten: {
+        exp_from: "",
+        exp_to: "",
+        paid_en_info: "",
+        paid_ar_info: "",
+        paid_facilities_ar: "",
+        paid_facilities_en: "",
+        free: "",
+        ar_address: "",
+        en_address: "",
         area_id: "",
         institution_id: "",
         ar_name: "",
@@ -1695,6 +1853,645 @@ var render = function () {
                                             ],
                                             1
                                           ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                label: _vm.$t("paid_en_info"),
+                                              },
+                                            },
+                                            [
+                                              _c("vue-editor", {
+                                                model: {
+                                                  value:
+                                                    _vm.kindergarten
+                                                      .paid_en_info,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.kindergarten,
+                                                      "paid_en_info",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "kindergarten.paid_en_info",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                label: _vm.$t("paid_ar_info"),
+                                              },
+                                            },
+                                            [
+                                              _c("vue-editor", {
+                                                model: {
+                                                  value:
+                                                    _vm.kindergarten
+                                                      .paid_ar_info,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.kindergarten,
+                                                      "paid_ar_info",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "kindergarten.paid_ar_info",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                label:
+                                                  _vm.$t("paid_facilities_ar"),
+                                              },
+                                            },
+                                            [
+                                              _c("vue-editor", {
+                                                model: {
+                                                  value:
+                                                    _vm.kindergarten
+                                                      .paid_facilities_ar,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.kindergarten,
+                                                      "paid_facilities_ar",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "kindergarten.paid_facilities_ar",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                label:
+                                                  _vm.$t("paid_facilities_en"),
+                                              },
+                                            },
+                                            [
+                                              _c("vue-editor", {
+                                                model: {
+                                                  value:
+                                                    _vm.kindergarten
+                                                      .paid_facilities_en,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.kindergarten,
+                                                      "paid_facilities_en",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "kindergarten.paid_facilities_en",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: {
+                                              name: "subscription",
+                                              rules: { required: true },
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (ref) {
+                                                    var valid = ref.valid
+                                                    var errors = ref.errors
+                                                    return _c(
+                                                      "b-form-group",
+                                                      {
+                                                        attrs: {
+                                                          label:
+                                                            _vm.$t(
+                                                              "subscription"
+                                                            ),
+                                                        },
+                                                      },
+                                                      [
+                                                        _c("v-select", {
+                                                          class: {
+                                                            "is-invalid":
+                                                              !!errors.length,
+                                                          },
+                                                          attrs: {
+                                                            state: errors[0]
+                                                              ? false
+                                                              : valid
+                                                              ? true
+                                                              : null,
+                                                            reduce: function (
+                                                              label
+                                                            ) {
+                                                              return label.value
+                                                            },
+                                                            placeholder: _vm.$t(
+                                                              "Choose_StatusSubscription"
+                                                            ),
+                                                            options: [
+                                                              {
+                                                                label: "free",
+                                                                value: "free",
+                                                              },
+                                                              {
+                                                                label: "paid",
+                                                                value: "paid",
+                                                              },
+                                                            ],
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.kindergarten
+                                                                .free,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.kindergarten,
+                                                                "free",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "kindergarten.free",
+                                                          },
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "b-form-invalid-feedback",
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(errors[0])
+                                                            ),
+                                                          ]
+                                                        ),
+                                                      ],
+                                                      1
+                                                    )
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              1771166591
+                                            ),
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: {
+                                              name: "Product Cost",
+                                              rules: {
+                                                required: true,
+                                                regex: /^\d*\.?\d*$/,
+                                              },
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (
+                                                    validationContext
+                                                  ) {
+                                                    return [
+                                                      _c(
+                                                        "b-form-group",
+                                                        {
+                                                          attrs: {
+                                                            label:
+                                                              _vm.$t("from"),
+                                                          },
+                                                        },
+                                                        [
+                                                          _c("b-form-input", {
+                                                            attrs: {
+                                                              state:
+                                                                _vm.getValidationState(
+                                                                  validationContext
+                                                                ),
+                                                              "aria-describedby":
+                                                                "ProductCost-feedback",
+                                                              label: "Cost",
+                                                              placeholder:
+                                                                _vm.$t("from"),
+                                                            },
+                                                            model: {
+                                                              value:
+                                                                _vm.kindergarten
+                                                                  .exp_from,
+                                                              callback:
+                                                                function ($$v) {
+                                                                  _vm.$set(
+                                                                    _vm.kindergarten,
+                                                                    "exp_from",
+                                                                    $$v
+                                                                  )
+                                                                },
+                                                              expression:
+                                                                "kindergarten.exp_from",
+                                                            },
+                                                          }),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "b-form-invalid-feedback",
+                                                            {
+                                                              attrs: {
+                                                                id: "ProductCost-feedback",
+                                                              },
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  validationContext
+                                                                    .errors[0]
+                                                                )
+                                                              ),
+                                                            ]
+                                                          ),
+                                                        ],
+                                                        1
+                                                      ),
+                                                    ]
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              3398905521
+                                            ),
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: {
+                                              name: "exp_to Cost",
+                                              rules: {
+                                                required: true,
+                                                regex: /^\d*\.?\d*$/,
+                                              },
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (
+                                                    validationContext
+                                                  ) {
+                                                    return [
+                                                      _c(
+                                                        "b-form-group",
+                                                        {
+                                                          attrs: {
+                                                            label:
+                                                              _vm.$t("exp_to"),
+                                                          },
+                                                        },
+                                                        [
+                                                          _c("b-form-input", {
+                                                            attrs: {
+                                                              state:
+                                                                _vm.getValidationState(
+                                                                  validationContext
+                                                                ),
+                                                              "aria-describedby":
+                                                                "ProductCost-feedback",
+                                                              label: "Cost",
+                                                              placeholder:
+                                                                _vm.$t(
+                                                                  "exp_to"
+                                                                ),
+                                                            },
+                                                            model: {
+                                                              value:
+                                                                _vm.kindergarten
+                                                                  .exp_to,
+                                                              callback:
+                                                                function ($$v) {
+                                                                  _vm.$set(
+                                                                    _vm.kindergarten,
+                                                                    "exp_to",
+                                                                    $$v
+                                                                  )
+                                                                },
+                                                              expression:
+                                                                "kindergarten.exp_to",
+                                                            },
+                                                          }),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "b-form-invalid-feedback",
+                                                            {
+                                                              attrs: {
+                                                                id: "ProductCost-feedback",
+                                                              },
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  validationContext
+                                                                    .errors[0]
+                                                                )
+                                                              ),
+                                                            ]
+                                                          ),
+                                                        ],
+                                                        1
+                                                      ),
+                                                    ]
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              3771888924
+                                            ),
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: {
+                                              name: "ar_address",
+                                              rules: {
+                                                required: true,
+                                                min: 3,
+                                                max: 600,
+                                              },
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (
+                                                    validationContext
+                                                  ) {
+                                                    return [
+                                                      _c(
+                                                        "b-form-group",
+                                                        {
+                                                          attrs: {
+                                                            label:
+                                                              _vm.$t(
+                                                                "ar_address"
+                                                              ),
+                                                          },
+                                                        },
+                                                        [
+                                                          _c("b-form-input", {
+                                                            attrs: {
+                                                              state:
+                                                                _vm.getValidationState(
+                                                                  validationContext
+                                                                ),
+                                                              "aria-describedby":
+                                                                "Name-feedback",
+                                                              label: "share",
+                                                              placeholder:
+                                                                _vm.$t(
+                                                                  "ar_address"
+                                                                ),
+                                                            },
+                                                            model: {
+                                                              value:
+                                                                _vm.kindergarten
+                                                                  .ar_address,
+                                                              callback:
+                                                                function ($$v) {
+                                                                  _vm.$set(
+                                                                    _vm.kindergarten,
+                                                                    "ar_address",
+                                                                    $$v
+                                                                  )
+                                                                },
+                                                              expression:
+                                                                "kindergarten.ar_address",
+                                                            },
+                                                          }),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "b-form-invalid-feedback",
+                                                            {
+                                                              attrs: {
+                                                                id: "Name-feedback",
+                                                              },
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  validationContext
+                                                                    .errors[0]
+                                                                )
+                                                              ),
+                                                            ]
+                                                          ),
+                                                        ],
+                                                        1
+                                                      ),
+                                                    ]
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              456477097
+                                            ),
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: {
+                                              name: "en_address",
+                                              rules: {
+                                                required: true,
+                                                min: 3,
+                                                max: 600,
+                                              },
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (
+                                                    validationContext
+                                                  ) {
+                                                    return [
+                                                      _c(
+                                                        "b-form-group",
+                                                        {
+                                                          attrs: {
+                                                            label:
+                                                              _vm.$t(
+                                                                "en_address"
+                                                              ),
+                                                          },
+                                                        },
+                                                        [
+                                                          _c("b-form-input", {
+                                                            attrs: {
+                                                              state:
+                                                                _vm.getValidationState(
+                                                                  validationContext
+                                                                ),
+                                                              "aria-describedby":
+                                                                "Name-feedback",
+                                                              label: "share",
+                                                              placeholder:
+                                                                _vm.$t(
+                                                                  "en_address"
+                                                                ),
+                                                            },
+                                                            model: {
+                                                              value:
+                                                                _vm.kindergarten
+                                                                  .en_address,
+                                                              callback:
+                                                                function ($$v) {
+                                                                  _vm.$set(
+                                                                    _vm.kindergarten,
+                                                                    "en_address",
+                                                                    $$v
+                                                                  )
+                                                                },
+                                                              expression:
+                                                                "kindergarten.en_address",
+                                                            },
+                                                          }),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "b-form-invalid-feedback",
+                                                            {
+                                                              attrs: {
+                                                                id: "Name-feedback",
+                                                              },
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  validationContext
+                                                                    .errors[0]
+                                                                )
+                                                              ),
+                                                            ]
+                                                          ),
+                                                        ],
+                                                        1
+                                                      ),
+                                                    ]
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              1339396401
+                                            ),
+                                          }),
                                         ],
                                         1
                                       ),
