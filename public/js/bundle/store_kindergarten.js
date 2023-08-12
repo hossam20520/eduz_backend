@@ -380,7 +380,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         area_id: "",
         ar_name: "",
         en_name: "",
-        inst_id: "",
+        institution_id: "",
         url: "",
         phone: "",
         share: "",
@@ -1335,18 +1335,18 @@ var render = function () {
                                                       model: {
                                                         value:
                                                           _vm.kindergarten
-                                                            .inst_id,
+                                                            .institution_id,
                                                         callback: function (
                                                           $$v
                                                         ) {
                                                           _vm.$set(
                                                             _vm.kindergarten,
-                                                            "inst_id",
+                                                            "institution_id",
                                                             $$v
                                                           )
                                                         },
                                                         expression:
-                                                          "kindergarten.inst_id",
+                                                          "kindergarten.institution_id",
                                                       },
                                                     }),
                                                     _vm._v(" "),
@@ -1366,7 +1366,7 @@ var render = function () {
                                           ],
                                           null,
                                           false,
-                                          2240546649
+                                          1269481133
                                         ),
                                       }),
                                     ],

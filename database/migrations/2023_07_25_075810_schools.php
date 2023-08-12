@@ -31,6 +31,22 @@ class Schools extends Migration
             $table->text('logo')->nullable();
             $table->text('banner')->nullable();
 
+            $table->text('address_ar')->nullable();
+            $table->text('address_en')->nullable();
+            $table->text('exp_from')->nullable();
+            $table->text('exp_to')->nullable();
+            $table->text('paid_en_info')->nullable();
+            $table->text('paid_ar_info')->nullable();
+            $table->text('paid_facilities_en')->nullable();
+            $table->text('paid_facilities_ar')->nullable();
+
+
+
+
+
+
+
+
             
             $table->text('activities_image')->nullable();
             $table->integer('institution_id')->nullable()->index('institution_id');
@@ -54,6 +70,11 @@ class Schools extends Migration
             $table->text('children_numbers')->nullable();
             $table->text('is_accept')->nullable();
  
+
+
+
+
+
             // second_lang
             $table->float('expense_from', 10, 0)->nullable();
             $table->float('expense_to', 10, 0)->nullable();

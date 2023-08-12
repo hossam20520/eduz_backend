@@ -32,6 +32,14 @@ class CreateKindergrants extends Migration
             $table->text('phone')->nullable();
             $table->text('share')->nullable();
             $table->text('image')->nullable();
+
+
+            $table->text('exp_from')->nullable();
+            $table->text('exp_to')->nullable();
+            $table->text('paid_en_info')->nullable();
+            $table->text('paid_ar_info')->nullable();
+            $table->text('paid_facilities_en')->nullable();
+            $table->text('paid_facilities_ar')->nullable();
 			$table->timestamps(6);
 			$table->softDeletes();
         });

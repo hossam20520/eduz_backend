@@ -231,9 +231,133 @@
                 </b-col>
 
 
+
+
+
+
+                <b-col md="12" class="mb-2">
+                  <b-form-group :label="$t('paid_en_info')">
+                    <vue-editor v-model="school.paid_en_info" />
+                  </b-form-group>
+                </b-col>
+
+
+                
+                <b-col md="12" class="mb-2">
+                  <b-form-group :label="$t('paid_ar_info')">
+                    <vue-editor v-model="school.paid_ar_info" />
+                  </b-form-group>
+                </b-col>
+
+
+
+                <b-col md="12" class="mb-2">
+                  <b-form-group :label="$t('paid_facilities_ar')">
+                    <vue-editor v-model="school.paid_facilities_ar" />
+                  </b-form-group>
+                </b-col>
+
+
+
+                <b-col md="12" class="mb-2">
+                  <b-form-group :label="$t('paid_facilities_en')">
+                    <vue-editor v-model="school.paid_facilities_en" />
+                  </b-form-group>
+                </b-col>
+
+
+
+                <!-- free free  -->
+                <b-col md="6" class="mb-2">
+                  <validation-provider name="subscription" :rules="{ required: true}">
+                    <b-form-group slot-scope="{ valid, errors }" :label="$t('subscription')">
+                      <v-select
+                        :class="{'is-invalid': !!errors.length}"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        v-model="school.free"
+                        :reduce="label => label.value"
+                        :placeholder="$t('Choose_StatusSubscription')"
+                        :options="
+                            [
+                              {label: 'free', value: 'free'},
+                              {label: 'paid', value: 'paid'},
+                    
+                            ]"
+                      ></v-select>
+                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
+
+
+
+
+                <b-col md="6" class="mb-2">
+                  <validation-provider
+                    name="exp_to Cost"
+                    :rules="{ required: true , regex: /^\d*\.?\d*$/}"
+                    v-slot="validationContext"
+                  >
+                    <b-form-group :label="$t('exp_to')">
+                      <b-form-input
+                        :state="getValidationState(validationContext)"
+                        aria-describedby="ProductCost-feedback"
+                        label="Cost"
+                        :placeholder="$t('exp_to')"
+                        v-model="school.exp_to"
+                      ></b-form-input>
+                      <b-form-invalid-feedback
+                        id="ProductCost-feedback"
+                      >{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
+
+
+                <b-col md="6" class="mb-2">
+                  <validation-provider
+                    name="ar_address"
+                    :rules="{required:true , min:3 , max:600}"
+                    v-slot="validationContext">
+                    <b-form-group :label="$t('ar_address')">
+                      <b-form-input
+                        :state="getValidationState(validationContext)"
+                        aria-describedby="Name-feedback"
+                        label="share"
+                        :placeholder="$t('ar_address')"
+                        v-model="school.ar_address"
+                      ></b-form-input>
+                      <b-form-invalid-feedback id="Name-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
+
+
+                <b-col md="6" class="mb-2">
+                  <validation-provider
+                    name="en_address"
+                    :rules="{required:true , min:3 , max:600}"
+                    v-slot="validationContext">
+                    <b-form-group :label="$t('en_address')">
+                      <b-form-input
+                        :state="getValidationState(validationContext)"
+                        aria-describedby="Name-feedback"
+                        label="share"
+                        :placeholder="$t('en_address')"
+                        v-model="school.en_address"
+                      ></b-form-input>
+                      <b-form-invalid-feedback id="Name-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
+
  
    
-                <b-col md="12"  class="mb-2">
+                <!-- <b-col md="12"  class="mb-2">
               <validation-provider name="Image" ref="Image" rules="mimes:image/*">
                 <b-form-group slot-scope="{validate, valid, errors }" :label="$t('Logo')">
                   <input
@@ -246,10 +370,10 @@
                   <b-form-invalid-feedback id="Image-feedback">{{ errors[0] }}</b-form-invalid-feedback>
                 </b-form-group>
               </validation-provider>
-            </b-col>
+            </b-col> -->
 
 
-            <b-col md="12"  class="mb-2">
+            <!-- <b-col md="12"  class="mb-2">
               <validation-provider name="Banner" ref="Banner" rules="mimes:image/*">
                 <b-form-group slot-scope="{validate, valid, errors }" :label="$t('Banner')">
                   <input
@@ -262,7 +386,7 @@
                   <b-form-invalid-feedback id="Image-feedback">{{ errors[0] }}</b-form-invalid-feedback>
                 </b-form-group>
               </validation-provider>
-            </b-col>
+            </b-col> -->
 
 
             
@@ -365,7 +489,19 @@ export default {
       variants: [],
       schools:[],
       school: {
+        exp_from:"",
+        exp_to:"",
+        paid_en_info: "",
+        paid_ar_info: "",
+        paid_facilities_ar: "",
+        paid_facilities_en: "",
+        free:"",
+        ar_address:"",
+        en_address:"",
+
+
            logo:"",
+ 
            banner:"",
            area_id:"",
            institution_id:"",

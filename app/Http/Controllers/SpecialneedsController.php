@@ -121,29 +121,10 @@ class SpecialneedsController extends BaseController
 
                 //-- Create New Specialneed
                 $Specialneed = new Specialneed;
-                //-- Field Required
-                $Specialneed->en_info = $request['en_info'];
-                $Specialneed->ar_info = $request['ar_info'];
-                $Specialneed->facilities_ar = $request['facilities_ar'];
-                $Specialneed->facilities_en = $request['facilities_en'];
-                $Specialneed->activities_ar = $request['activities_ar'];
-                $Specialneed->activities_en = $request['activities_en'];
-                $Specialneed->url = $request['url'];
-                $Specialneed->phone = $request['phone'];
-                $Specialneed->share = $request['share'];
-                $Specialneed->en_name = $request['en_name'];
-                $Specialneed->ar_name = $request['ar_name'];
-                $Specialneed->lat = $request['lat'];
-                $Specialneed->long_a = $request['long'];
-                $Specialneed->area_id = $request['area_id'];
 
- 
-                $Specialneed->selected_ids = $request['selected_ids'];
-              
-             
-                // $Specialneed->activities_image = $request['activities_image'];
-                $Specialneed->institution_id = $request['inst_id'];
-                // $Specialneed->review_id = $request['review_id'];
+                $helpers = new helpers();
+           
+                $Specialneed =  $helpers->store( $Specialneed , $request);
 
  
 
@@ -246,36 +227,14 @@ class SpecialneedsController extends BaseController
                     ->first();
  
 
+
+                    $Specialneed = new Specialneed;
+                    $helpers = new helpers();
+                    $Specialneed =  $helpers->store( $Specialneed , $request);
+
                     
-                //-- Update Specialneed
-                $Specialneed->en_info = $request['en_info'];
-                $Specialneed->ar_info = $request['ar_info'];
-                $Specialneed->facilities_ar = $request['facilities_ar'];
-                $Specialneed->facilities_en = $request['facilities_en'];
-                $Specialneed->activities_ar = $request['activities_ar'];
-                $Specialneed->activities_en = $request['activities_en'];
-                $Specialneed->url = $request['url'];
-                $Specialneed->phone = $request['phone'];
-                $Specialneed->share = $request['share'];
- 
-
-                $Specialneed->en_name = $request['en_name'];
-                $Specialneed->ar_name = $request['ar_name'];
-                $Specialneed->area_id = $request['area_id'];
- 
-                $Specialneed->institution_id = $request['institution_id'];
-                $Specialneed->lat = $request['lat'];
-                $Specialneed->long_a = $request['long'];
-
- 
-
-
- 
-                $Specialneed->selected_ids = $request['selected_ids'];
-                 
-         
-         
-    
+                    
+                    // institution_id
 
 
  
@@ -577,39 +536,10 @@ class SpecialneedsController extends BaseController
     
         // $this->authorizeForUser($request->user('api'), 'update', Specialneed::class);
         $Specialneed = Specialneed::where('deleted_at', '=', null)->findOrFail($id);
-        $item['id'] = $Specialneed->id;
-        $item['en_info'] = $Specialneed->en_info;
-        $item['ar_info'] = $Specialneed->ar_info;
-
-        $item['facilities_ar'] = $Specialneed->facilities_ar;
-        $item['facilities_en'] = $Specialneed->facilities_en;
-
-
-        $item['activities_ar'] = $Specialneed->activities_ar;
-        $item['activities_en'] = $Specialneed->activities_en;
-        $item['area_id'] = $Specialneed->area_id;
-        $item['url'] = $Specialneed->url;
-        $item['phone'] = $Specialneed->phone;
-
-
-        $item['share'] = $Specialneed->share;
-        $item['institution_id'] = $Specialneed->institution_id;
-
-
-        $item['en_name'] =  $Specialneed->en_name;
-        $item['ar_name'] =  $Specialneed->ar_name;
-
-
-        $item['lat'] =  $Specialneed->lat;
-        $item['long'] =  $Specialneed->long_a;
-
-
-
-
         
-        $item['selected_ids'] =  $Specialneed->selected_ids;
 
- 
+        $helpers = new helpers();
+        $item =  $helpers->edit( $Specialneed  );
          
 
         $firstimage = explode(',', $Specialneed->image);

@@ -35,6 +35,18 @@ class Specialneeds extends Migration
             $table->text('lat')->nullable();
             $table->text('long_a')->nullable();
             $table->text('selected_ids')->nullable();
+
+
+            $table->text('address_ar')->nullable();
+            $table->text('address_en')->nullable();
+            $table->text('exp_from')->nullable();
+            $table->text('exp_to')->nullable();
+            $table->text('paid_en_info')->nullable();
+            $table->text('paid_ar_info')->nullable();
+            $table->text('paid_facilities_en')->nullable();
+            $table->text('paid_facilities_ar')->nullable();
+
+
 			$table->timestamps(6);
 			$table->softDeletes();
         });

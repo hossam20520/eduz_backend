@@ -110,59 +110,14 @@ class SchoolsController extends BaseController
 
             \DB::transaction(function () use ($request) {
 
-
-
-
-                
-    
-      
  
- 
-
-                //-- Create New School
+                $helpers = new helpers();
                 $School = new School;
+                $School =  $helpers->store($School , $request);
+                //-- Create New School
+                // $School = new School;
                 //-- Field Required
-                $School->en_info = $request['en_info'];
-                $School->ar_info = $request['ar_info'];
-                $School->facilities_ar = $request['facilities_ar'];
-                $School->facilities_en = $request['facilities_en'];
-                $School->activities_ar = $request['activities_ar'];
-                $School->activities_en = $request['activities_en'];
-                $School->url = $request['url'];
-                $School->phone = $request['phone'];
-                $School->share = $request['share'];
-                $School->en_name = $request['en_name'];
-                $School->ar_name = $request['ar_name'];
-                $School->lat = $request['lat'];
-                $School->long_a = $request['long'];
-                $School->area_id = $request['area_id'];
-               
-                
-                $School->second_lang = $request['second_lang'];
-                $School->first_lang = $request['first_lang'];
-                $School->other_lang = $request['other_lang'];
-                $School->years_accepted = $request['years_accepted'];
-                $School->weekend = $request['weekend'];
-                $School->expense_from = $request['expFrom'];
-                $School->expense_to = $request['expTo'];
-                $School->children_numbers = $request['children_numbers'];
-                $School->is_accept = $request['is_accept'];
 
-
-
-
- 
-
-
-                $School->selected_ids = $request['selected_ids'];
-              
-             
-                // $School->activities_image = $request['activities_image'];
-                $School->institution_id = $request['inst_id'];
-                // $School->review_id = $request['review_id'];
-
- 
-            
 
 
 
@@ -328,51 +283,15 @@ public function StoreImage($name , $pathUrl , $request){
                     ->where('deleted_at', '=', null)
                     ->first();
  
-
-                    
-                //-- Update School
-                $School->en_info = $request['en_info'];
-                $School->ar_info = $request['ar_info'];
-                $School->facilities_ar = $request['facilities_ar'];
-                $School->facilities_en = $request['facilities_en'];
-                $School->activities_ar = $request['activities_ar'];
-                $School->activities_en = $request['activities_en'];
-                $School->url = $request['url'];
-                $School->phone = $request['phone'];
-                $School->share = $request['share'];
-
-                $School->en_name = $request['en_name'];
-                $School->ar_name = $request['ar_name'];
-
-                $School->area_id = $request['area_id'];
-                
-
-                // $School->activities_image = $request['activities_image'];
-                // $School->institution_id = $request['institution_id'];
-                $School->institution_id = $request['institution_id'];
-                $School->lat = $request['lat'];
-                $School->long_a = $request['long'];
-
  
+                     
+                $helpers = new helpers();
 
 
-
-                
-                $School->second_lang = $request['second_lang'];
-                $School->first_lang = $request['first_lang'];
-                $School->other_lang = $request['other_lang'];
-                $School->years_accepted = $request['years_accepted'];
-                $School->weekend = $request['weekend'];
-                $School->expense_from = $request['expFrom'];
-                $School->expense_to = $request['expTo'];
-                $School->children_numbers = $request['children_numbers'];
-                $School->is_accept = $request['is_accept'];
-                $School->selected_ids = $request['selected_ids'];
-                 
-         
-         
-    
-
+            
+                $School =  $helpers->store($School , $request);
+                //-- Update School
+               
 
  
 
@@ -616,48 +535,11 @@ public function StoreImage($name , $pathUrl , $request){
     
         // $this->authorizeForUser($request->user('api'), 'update', School::class);
         $School = School::where('deleted_at', '=', null)->findOrFail($id);
-        $item['id'] = $School->id;
-        $item['en_info'] = $School->en_info;
-        $item['ar_info'] = $School->ar_info;
+ 
 
-        $item['facilities_ar'] = $School->facilities_ar;
-        $item['facilities_en'] = $School->facilities_en;
-
-
-        $item['activities_ar'] = $School->activities_ar;
-        $item['activities_en'] = $School->activities_en;
-        $item['area_id'] = $School->area_id;
-        $item['url'] = $School->url;
-        $item['phone'] = $School->phone;
-
-
-        $item['share'] = $School->share;
-        $item['institution_id'] = $School->institution_id;
-
-
-        $item['en_name'] =  $School->en_name;
-        $item['ar_name'] =  $School->ar_name;
-
-
-        $item['lat'] =  $School->lat;
-        $item['long'] =  $School->long_a;
-
-
-
-        $item['second_lang'] =  $School->second_lang;
-        $item['first_lang'] =  $School->first_lang;
-        $item['other_lang'] =  $School->other_lang;
-        $item['years_accepted'] =  $School->years_accepted;
-        $item['weekend'] =  $School->weekend;
-        $item['expFrom'] =  $School->expense_from;
-        $item['expTo'] =  $School->expense_to;
-        $item['children_numbers'] =  $School->children_numbers;
-        $item['is_accept'] =  $School->is_accept;
-        $item['selected_ids'] =  $School->selected_ids;
-
-        $item['logo'] =  $School->logo;
-        $item['banner'] =  $School->banner;
-         
+        $helpers = new helpers();
+        $item =  $helpers->edit( $School );
+  
 
         $firstimage = explode(',', $School->image);
         $item['image'] = $firstimage[0];

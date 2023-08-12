@@ -161,7 +161,7 @@
                         :state="errors[0] ? false : (valid ? true : null)"
                         :reduce="label => label.value"
                         :placeholder="$t('Choose_instation')"
-                        v-model="kindergarten.inst_id"
+                        v-model="kindergarten.institution_id"
                         :options="kindergartens.map(kindergartens => ({label: kindergartens.ar_name, value: kindergartens.id}))"
                       />
                       <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
@@ -354,7 +354,7 @@ export default {
         area_id:"",
         ar_name:"",
         en_name:"",
-         inst_id:"",
+         institution_id:"",
          url: "",
          phone: "",
          share: "",

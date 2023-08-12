@@ -10,6 +10,119 @@ class helpers
 {
 
 
+
+
+    public function store($field , $request){
+
+        $field->en_info = $request['en_info'];
+        $field->ar_info = $request['ar_info'];
+        $field->facilities_ar = $request['facilities_ar'];
+        $field->facilities_en = $request['facilities_en'];
+        $field->activities_ar = $request['activities_ar'];
+        $field->activities_en = $request['activities_en'];
+        $field->url = $request['url'];
+        $field->phone = $request['phone'];
+        $field->share = $request['share'];
+        $field->en_name = $request['en_name'];
+        $field->ar_name = $request['ar_name'];
+        $field->lat = $request['lat'];
+        $field->long_a = $request['long'];
+        $field->area_id = $request['area_id'];
+    
+        $field->second_lang = $request['second_lang'];
+        $field->first_lang = $request['first_lang'];
+        $field->other_lang = $request['other_lang'];
+        $field->years_accepted = $request['years_accepted'];
+        $field->weekend = $request['weekend'];
+        $field->expense_from = $request['expFrom'];
+        $field->expense_to = $request['expTo'];
+        $field->children_numbers = $request['children_numbers'];
+        $field->is_accept = $request['is_accept'];
+
+
+        $field->exp_from = $request['exp_from'];
+        $field->exp_to = $request['exp_to'];
+        $field->paid_en_info = $request['paid_en_info'];
+        $field->paid_ar_info = $request['paid_ar_info'];
+        $field->paid_facilities_en = $request['paid_facilities_en'];
+        $field->paid_facilities_ar = $request['paid_facilities_ar'];
+        $field->free = $request['free'];
+        $field->ar_address = $request['ar_address'];
+        $field->en_address = $request['en_address'];
+        $field->selected_ids = $request['selected_ids'];
+
+        // $School->activities_image = $request['activities_image'];
+        $field->institution_id = $request['institution_id'];
+        // $School->review_id = $request['review_id'];
+   return $field;
+
+       
+
+
+    }
+
+
+
+
+    public function edit($model){
+
+
+
+        $item['id'] = $model->id;
+        $item['en_info'] = $model->en_info;
+        $item['ar_info'] = $model->ar_info;
+
+        $item['facilities_ar'] = $model->facilities_ar;
+        $item['facilities_en'] = $model->facilities_en;
+
+
+        $item['activities_ar'] = $model->activities_ar;
+        $item['activities_en'] = $model->activities_en;
+        $item['area_id'] = $model->area_id;
+        $item['url'] = $model->url;
+        $item['phone'] = $model->phone;
+
+
+        $item['share'] = $model->share;
+        $item['institution_id'] = $model->institution_id;
+
+
+        $item['en_name'] =  $model->en_name;
+        $item['ar_name'] =  $model->ar_name;
+
+
+        $item['lat'] =  $model->lat;
+        $item['long'] =  $model->long_a;
+
+
+
+        $item['second_lang'] =  $model->second_lang;
+        $item['first_lang'] =  $model->first_lang;
+        $item['other_lang'] =  $model->other_lang;
+        $item['years_accepted'] =  $model->years_accepted;
+        $item['weekend'] =  $model->weekend;
+        $item['expFrom'] =  $model->expense_from;
+        $item['expTo'] =  $model->expense_to;
+        $item['children_numbers'] =  $model->children_numbers;
+        $item['is_accept'] =  $model->is_accept;
+        $item['selected_ids'] =  $model->selected_ids;
+        $item['logo'] =  $model->logo;
+        $item['banner'] =  $model->banner;
+        $item['exp_from'] =  $model->exp_from;
+        $item['exp_to'] =  $model->exp_from;
+        $item['paid_en_info'] =  $model->paid_en_info;
+        $item['paid_ar_info'] =  $model->paid_ar_info;
+        $item['paid_facilities_en'] =  $model->paid_facilities_en;
+        $item['paid_facilities_ar'] =  $model->paid_facilities_ar;
+        $item['free'] =  $model->free;
+        $item['ar_address'] =  $model->ar_address;
+        $item['en_address'] =  $model->en_address;
+    
+        return $item;
+
+    }
+
+
     public function getInfo(){
         return  $this->GetUserInfo()['user'];
      }

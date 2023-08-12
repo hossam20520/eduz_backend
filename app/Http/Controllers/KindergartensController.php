@@ -111,48 +111,11 @@ class KindergartensController extends BaseController
             \DB::transaction(function () use ($request) {
 
 
-
-
-                
-    
-      
  
- 
-
-                //-- Create New Kindergarten
                 $Kindergarten = new Kindergarten;
-                //-- Field Required
-                $Kindergarten->en_info = $request['en_info'];
-                $Kindergarten->ar_info = $request['ar_info'];
-                $Kindergarten->facilities_ar = $request['facilities_ar'];
-                $Kindergarten->facilities_en = $request['facilities_en'];
-                $Kindergarten->activities_ar = $request['activities_ar'];
-                $Kindergarten->activities_en = $request['activities_en'];
-                $Kindergarten->url = $request['url'];
-                $Kindergarten->phone = $request['phone'];
-                $Kindergarten->share = $request['share'];
-                $Kindergarten->en_name = $request['en_name'];
-                $Kindergarten->ar_name = $request['ar_name'];
-                $Kindergarten->lat = $request['lat'];
-                $Kindergarten->long_a = $request['long'];
-                $Kindergarten->area_id = $request['area_id'];
-
-
+                $helpers = new helpers();
+                $Kindergarten =  $helpers->store( $Kindergarten , $request);
  
-
-
-
-
- 
-
-
-                $Kindergarten->selected_ids = $request['selected_ids'];
-              
-             
-                // $Kindergarten->activities_image = $request['activities_image'];
-                $Kindergarten->institution_id = $request['inst_id'];
-                // $Kindergarten->review_id = $request['review_id'];
-
  
 
                 if ($request['images']) {
@@ -253,39 +216,10 @@ class KindergartensController extends BaseController
                     ->where('deleted_at', '=', null)
                     ->first();
  
-
-                    
-                //-- Update Kindergarten
-                $Kindergarten->en_info = $request['en_info'];
-                $Kindergarten->ar_info = $request['ar_info'];
-                $Kindergarten->facilities_ar = $request['facilities_ar'];
-                $Kindergarten->facilities_en = $request['facilities_en'];
-                $Kindergarten->activities_ar = $request['activities_ar'];
-                $Kindergarten->activities_en = $request['activities_en'];
-                $Kindergarten->url = $request['url'];
-                $Kindergarten->phone = $request['phone'];
-                $Kindergarten->share = $request['share'];
-
-                $Kindergarten->en_name = $request['en_name'];
-                $Kindergarten->ar_name = $request['ar_name'];
-
-                $Kindergarten->area_id = $request['area_id'];
                 
-
-                // $Kindergarten->activities_image = $request['activities_image'];
-                // $Kindergarten->institution_id = $request['institution_id'];
-                $Kindergarten->institution_id = $request['institution_id'];
-                $Kindergarten->lat = $request['lat'];
-                $Kindergarten->long_a = $request['long'];
-
- 
- 
-                $Kindergarten->selected_ids = $request['selected_ids'];
-                 
-         
-         
-    
-
+                    $helpers = new helpers();
+                    $Kindergarten =  $helpers->store( $Kindergarten , $request);
+     
 
  
 
@@ -586,37 +520,11 @@ class KindergartensController extends BaseController
     
         // $this->authorizeForUser($request->user('api'), 'update', Kindergarten::class);
         $Kindergarten = Kindergarten::where('deleted_at', '=', null)->findOrFail($id);
-        $item['id'] = $Kindergarten->id;
-        $item['en_info'] = $Kindergarten->en_info;
-        $item['ar_info'] = $Kindergarten->ar_info;
-
-        $item['facilities_ar'] = $Kindergarten->facilities_ar;
-        $item['facilities_en'] = $Kindergarten->facilities_en;
-
-
-        $item['activities_ar'] = $Kindergarten->activities_ar;
-        $item['activities_en'] = $Kindergarten->activities_en;
-        $item['area_id'] = $Kindergarten->area_id;
-        $item['url'] = $Kindergarten->url;
-        $item['phone'] = $Kindergarten->phone;
-
-
-        $item['share'] = $Kindergarten->share;
-        $item['institution_id'] = $Kindergarten->institution_id;
-
-
-        $item['en_name'] =  $Kindergarten->en_name;
-        $item['ar_name'] =  $Kindergarten->ar_name;
-
-
-        $item['lat'] =  $Kindergarten->lat;
-        $item['long'] =  $Kindergarten->long_a;
-
-
  
-        $item['selected_ids'] =  $Kindergarten->selected_ids;
 
- 
+        
+        $helpers = new helpers();
+        $item =  $helpers->edit( $Kindergarten );
          
 
         $firstimage = explode(',', $Kindergarten->image);

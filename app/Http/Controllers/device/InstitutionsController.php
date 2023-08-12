@@ -143,6 +143,42 @@ class InstitutionsController extends Controller
 
 
 
+
+    public function GetTheInstDetail(Request $request ){
+
+        
+      $model = School::class;
+
+
+      $type = $request->type;
+      $id = $request->id;
+
+      if($type == "SCHOOLS"){
+        $model = School::class;
+      }else if($type == "KINDERGARTENS"){
+        $model  = Kindergarten::class;
+      }else if($type == "CENTERS"){
+        $model  = Center::class;
+      }else if($type == "SPECIALNEEDS"){
+        $model  = Specialneed::class;
+      }
+
+      $data  = $model::where('id' , $id )->first();
+
+      return response()->json([
+
+        'detail' =>  $data,
+ 
+      
+      ]);
+
+
+    }
+
+
+
+
+
     public function GetAllEducation(Request $request ){
 
       
