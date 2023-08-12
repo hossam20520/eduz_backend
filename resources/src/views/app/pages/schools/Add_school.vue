@@ -276,39 +276,6 @@
                 </b-col>
 
 
-
-
-             <!-- <b-col md="12"  class="mb-2">
-              <validation-provider name="Image" ref="Image" rules="mimes:image/*">
-                <b-form-group slot-scope="{validate, valid, errors }" :label="$t('Logo')">
-                  <input
-                    :state="errors[0] ? false : (valid ? true : null)"
-                    :class="{'is-invalid': !!errors.length}"
-                    @change="onFileSelected"
-                    label="Choose Image"
-                    type="file"
-                  >
-                  <b-form-invalid-feedback id="Image-feedback">{{ errors[0] }}</b-form-invalid-feedback>
-                </b-form-group>
-              </validation-provider>
-            </b-col> -->
-
-<!-- 
-            <b-col md="12"  class="mb-2">
-              <validation-provider name="Banner" ref="Banner" rules="mimes:image/*">
-                <b-form-group slot-scope="{validate, valid, errors }" :label="$t('Banner')">
-                  <input
-                    :state="errors[0] ? false : (valid ? true : null)"
-                    :class="{'is-invalid': !!errors.length}"
-                    @change="onFileSelectedBanner"
-                    label="Choose Image"
-                    type="file"
-                  >
-                  <b-form-invalid-feedback id="Image-feedback">{{ errors[0] }}</b-form-invalid-feedback>
-                </b-form-group>
-              </validation-provider>
-            </b-col> -->
-                <!-- children are accepted from the age -->
  
                 <!-- free free  -->
                 <b-col md="6" class="mb-2">
