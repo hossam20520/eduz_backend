@@ -118,7 +118,7 @@ class InstitutionsController extends Controller
         $item['ar_address'] = $edu->ar_address;
         $item['en_address'] = $edu->en_address;
 
-        $item['location'] =  "Cairo";
+        $item['location'] =  "Caironn";
         $item['review'] =    "4.2";
         $item['activities_have'] =  [];
         $item['free'] =    $edu->free;
