@@ -158,7 +158,7 @@ public function MapData(Request $request){
       $model  = Specialneed::class;
     } 
 
-     $dataa  = $model::where('deleted_at', '=', null )->get(['ar_name' , 'en_name' , 'lat', 'long_a' , 'image']);
+     $dataa  = $model::where('deleted_at', '=', null )->get(['ar_name' , 'id',  'en_name' , 'lat', 'long_a' , 'image']);
 
    
 
