@@ -27,9 +27,7 @@ Route::get('device/inst/detail', 'device\InstitutionsController@GetTheInstDetail
 
 
 
-
-
-Route::get('device/educations/one/detail', 'device\InstitutionsController@GetDetailEdu');
+Route::get('device/educations/detail', 'device\InstitutionsController@GetDetailEdu');
 
 
 
