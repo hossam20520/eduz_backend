@@ -1037,10 +1037,7 @@ var render = function () {
                         [
                           _c("validation-provider", {
                             ref: "Image",
-                            attrs: {
-                              name: "Image",
-                              rules: "mimes:image/*|size:200",
-                            },
+                            attrs: { name: "Image", rules: "mimes:image/*" },
                             scopedSlots: _vm._u([
                               {
                                 key: "default",

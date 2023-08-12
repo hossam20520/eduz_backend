@@ -148,7 +148,7 @@
 
             <!-- -Institution Image -->
             <b-col md="12">
-              <validation-provider name="Image" ref="Image" rules="mimes:image/*|size:200">
+              <validation-provider name="Image" ref="Image" rules="mimes:image/*">
                 <b-form-group slot-scope="{validate, valid, errors }" :label="$t('InstitutionImage')">
                   <input
                     :state="errors[0] ? false : (valid ? true : null)"
