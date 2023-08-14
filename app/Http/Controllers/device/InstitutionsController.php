@@ -209,6 +209,21 @@ public function MapData(Request $request){
       return response()->json([
 
         'detail' =>  $data,
+        'files' => [
+          [
+            "id" => 1 ,
+            "file" => "https://th.bing.com/th/id/OIG.lVXjWwlHyIo4QdjnC1YE",
+            "type" => "image"
+          ],
+          [
+            "id" => 2 ,
+            "file" => "https://www.youtube.com/watch?v=_EiuGZZSZdI",
+            "type" => "video"
+          ],
+
+
+          
+        ]
  
       
       ]);
