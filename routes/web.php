@@ -91,6 +91,10 @@ if ($installed === false) {
 } else {
 
 
+    Route::get('/', function () {
+        return view("front.index");
+    })->name('home');
+
     Route::get('/chat', function () {
         return view("front.chat");
     })->name('chat');

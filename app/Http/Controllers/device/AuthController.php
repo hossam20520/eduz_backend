@@ -539,29 +539,7 @@ class AuthController extends Controller
     {
 
 
-        // $helpers = new helpers();
-        //  $client =  $helpers->getInfo();
-
-        // $user = User::findOrFail($id);
-        // $current = $user->password;
-
-        // if ($request->NewPassword != 'null') {
-        //     if ($request->NewPassword != $current) {
-        //         $pass = Hash::make($request->NewPassword);
-        //     } else {
-        //         $pass = $user->password;
-        //     }
-
-        // } else {
-        //     $pass = $user->password;
-        // }
-
-        // $credentials = $request->only('phone', 'password');
-        //   $cre = [
-        //     "phone"=> $request->phone,
-        //     "password"=> $request->password
-        //   ];
-
+   
           $credentials = [
             'phone' => $request->phone,
             'password' => $request->old_password,
