@@ -9,13 +9,10 @@
     <meta name="author" content="Template Mo">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
 
-    <title>Art Factory HTML CSS Template</title>
+    <title>Eduz App</title>
 <!--
 
-ART FACTORY
-
-https://templatemo.com/tm-537-art-factory
-
+ 
 -->
     <!-- Additional CSS Files -->
     
