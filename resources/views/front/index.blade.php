@@ -423,7 +423,7 @@ https://templatemo.com/tm-537-art-factory
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 col-md-12 col-sm-12">
-                    <p class="copyright">Copyright &copy; 2020 Art Factory Company  </p>
+                    <p class="copyright">Copyright &copy; 2020 Eduz    </p>
                 </div>
                 <div class="col-lg-5 col-md-12 col-sm-12">
                     <ul class="social">
