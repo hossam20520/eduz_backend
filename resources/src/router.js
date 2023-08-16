@@ -1054,12 +1054,7 @@ const routes = [
                                         "./views/app/pages/settings/permissions/Create_permission"
                                     ),
                             },                             // reviews
-                                {
-                                    name: "reviews",
-                                    path: "Reviews",
-                                    component: () =>
-                                        import(/* webpackChunkName: "Reviews" */"./views/app/pages/settings/reviews")
-                                },
+                 
 
                             {
                                 name: "edit_permission",
@@ -1071,6 +1066,14 @@ const routes = [
                                     ),
                             },
                         ],
+                    },
+
+
+                    {
+                        name: "reviews",
+                        path: "Reviews",
+                        component: () =>
+                            import(/* webpackChunkName: "Reviews" */"./views/app/pages/settings/reviews")
                     },
 
                     // categories
