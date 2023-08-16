@@ -253,7 +253,7 @@ export default {
       return [
         {
           label: this.$t("first_name"),
-          field: "first_name",
+          field: "user.firstname",
           tdClass: "text-left",
           thClass: "text-left"
         },
@@ -261,20 +261,20 @@ export default {
 
         {
           label: this.$t("last_name"),
-          field: "last_name",
+          field: "user.lastname",
           tdClass: "text-left",
           thClass: "text-left"
         },
  
         {
           label: this.$t("email"),
-          field: "email",
+          field: "user.email",
           tdClass: "text-left",
           thClass: "text-left"
         },
         {
           label: this.$t("phone"),
-          field: "phone",
+          field: "user.phone",
           tdClass: "text-left",
           thClass: "text-left"
         },
