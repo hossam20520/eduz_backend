@@ -63,7 +63,7 @@
 
             
                <!-- Category -->
-                 <b-col md="6" class="mb-2">
+                 <b-col md="12" class="mb-2">
                   <validation-provider name="user" :rules="{ required: true}">
                     <b-form-group slot-scope="{ valid, errors }" :label="$t('user')">
                       <v-select
@@ -81,7 +81,7 @@
 
                 
 
-                <b-col md="12" class="mb-12">
+                <b-col md="12" class="mb-2">
                   <validation-provider name="Type" :rules="{ required: true}">
                     <b-form-group slot-scope="{ valid, errors }" :label="$t('Type')">
                       <v-select
@@ -112,7 +112,7 @@
 
                             
              
-               <b-col md="6" class="mb-2">
+                <b-col md="12" class="mb-2">
                   <validation-provider name="user" :rules="{ required: true}">
                     <b-form-group slot-scope="{ valid, errors }" :label="$t('insts')">
                       <v-select
@@ -130,7 +130,7 @@
 
 
 
-              <b-col lg="12" md="6" sm="12" class="mb-2">
+                <b-col md="12" class="mb-2">
                   <validation-provider name="  approve" :rules="{ required: true}">
                     <b-form-group slot-scope="{ valid, errors }" :label="$t('approve')">
                       <v-select
@@ -152,7 +152,7 @@
 
      
  
-                <b-col md="6" class="mb-2">
+                <b-col md="12" class="mb-2">
                   <validation-provider
                     name="Product Cost"
                     :rules="{ required: true , regex: /^\d*\.?\d*$/}"
@@ -173,8 +173,7 @@
                   </validation-provider>
                 </b-col>
 
-
-                <b-col md="12">
+                <b-col md="12" class="mb-2">
                   <validation-provider
                     name="ar_Name"
                     :rules="{required:true , min:3 , max:55}"

@@ -8,6 +8,17 @@ use DB;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 
+use App\Models\Area;
+use App\Models\School;
+
+use App\Models\Kindergarten;
+use App\Models\Center;
+use App\Models\Educenter;
+use App\Models\Specialneed;
+use App\Models\Universitie;
+use App\Models\Institution;
+use App\Models\User;
+
 class ReviewsController extends Controller
 {
 

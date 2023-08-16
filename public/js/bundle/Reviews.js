@@ -228,7 +228,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   metaInfo: {
@@ -858,7 +857,7 @@ var render = function () {
                     [
                       _c(
                         "b-col",
-                        { staticClass: "mb-2", attrs: { md: "6" } },
+                        { staticClass: "mb-2", attrs: { md: "12" } },
                         [
                           _c("validation-provider", {
                             attrs: { name: "user", rules: { required: true } },
@@ -920,7 +919,7 @@ var render = function () {
                       _vm._v(" "),
                       _c(
                         "b-col",
-                        { staticClass: "mb-12", attrs: { md: "12" } },
+                        { staticClass: "mb-2", attrs: { md: "12" } },
                         [
                           _c("validation-provider", {
                             attrs: { name: "Type", rules: { required: true } },
@@ -993,7 +992,7 @@ var render = function () {
                       _vm._v(" "),
                       _c(
                         "b-col",
-                        { staticClass: "mb-2", attrs: { md: "6" } },
+                        { staticClass: "mb-2", attrs: { md: "12" } },
                         [
                           _c("validation-provider", {
                             attrs: { name: "user", rules: { required: true } },
@@ -1055,10 +1054,7 @@ var render = function () {
                       _vm._v(" "),
                       _c(
                         "b-col",
-                        {
-                          staticClass: "mb-2",
-                          attrs: { lg: "12", md: "6", sm: "12" },
-                        },
+                        { staticClass: "mb-2", attrs: { md: "12" } },
                         [
                           _c("validation-provider", {
                             attrs: {
@@ -1125,7 +1121,7 @@ var render = function () {
                       _vm._v(" "),
                       _c(
                         "b-col",
-                        { staticClass: "mb-2", attrs: { md: "6" } },
+                        { staticClass: "mb-2", attrs: { md: "12" } },
                         [
                           _c("validation-provider", {
                             attrs: {
@@ -1192,7 +1188,7 @@ var render = function () {
                       _vm._v(" "),
                       _c(
                         "b-col",
-                        { attrs: { md: "12" } },
+                        { staticClass: "mb-2", attrs: { md: "12" } },
                         [
                           _c("validation-provider", {
                             attrs: {
