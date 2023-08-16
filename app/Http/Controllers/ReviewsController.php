@@ -97,24 +97,17 @@ class ReviewsController extends Controller
 
         \DB::transaction(function () use ($request) {
 
-            if ($request->hasFile('image')) {
-
-                $image = $request->file('image');
-                $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
-
-                $image_resize = Image::make($image->getRealPath());
-                $image_resize->resize(200, 200);
-                $image_resize->save(public_path('/images/reviews/' . $filename));
-
-            } else {
-                $filename = 'no-image.png';
-            }
+    
 
             $Review = new Review;
 
-            $Review->en_name = $request['en_name'];
-            $Review->ar_name = $request['ar_name'];
-            $Review->image = $filename;
+            $Review->approve = $request['approve'];
+            $Review->count = $request['count'];
+            $Review->review = $request['review'];
+            $Review->user_id = $request['user_id'];
+            $Review->inst_id = $request['inst_id'];
+            $Review->inst_id = $request['type'];
+  
             $Review->save();
 
         }, 10);
@@ -145,6 +138,11 @@ class ReviewsController extends Controller
  
              Review::whereId($id)->update([
                  'approve' => $request['approve'],
+                 'count' => $request['count'],
+                 'review' => $request['review'],
+                 'user_id' => $request['user_id'],
+                 'inst_id' => $request['inst_id'],
+                 'type' => $request['type'],
  
              ]);
  

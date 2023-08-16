@@ -226,6 +226,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   metaInfo: {
@@ -493,6 +496,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var self = this;
       self.SubmitProcessing = true;
       self.data.append("approve", self.review.approve);
+      self.data.append("count", self.review.count);
+      self.data.append("review", self.review.review);
+      self.data.append("user_id", self.review.user_id);
+      self.data.append("inst_id", self.review.inst_id);
+      self.data.append("type", self.review.type);
       axios.post("reviews", self.data).then(function (response) {
         self.SubmitProcessing = false;
         Fire.$emit("Event_Review");
@@ -511,6 +519,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var self = this;
       self.SubmitProcessing = true;
       self.data.append("approve", self.review.approve);
+      self.data.append("count", self.review.count);
+      self.data.append("review", self.review.review);
+      self.data.append("user_id", self.review.user_id);
+      self.data.append("inst_id", self.review.inst_id);
+      self.data.append("type", self.review.type);
       self.data.append("_method", "put");
       axios.post("reviews/" + self.review.id, self.data).then(function (response) {
         self.SubmitProcessing = false;
@@ -527,9 +540,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     reset_Form: function reset_Form() {
       this.review = {
         id: "",
-        ar_name: "",
-        en_name: "",
-        image: ""
+        approve: "",
+        count: "",
+        review: "",
+        user_id: "",
+        inst_id: "",
+        type: ""
       };
       this.data = new FormData();
     },
@@ -772,11 +788,37 @@ var render = function () {
                     ]
                   ),
                   _vm._v(" "),
-                  _c("div", {
-                    staticClass: "mt-2 mb-3",
-                    attrs: { slot: "table-actions" },
-                    slot: "table-actions",
-                  }),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "mt-2 mb-3",
+                      attrs: { slot: "table-actions" },
+                      slot: "table-actions",
+                    },
+                    [
+                      _c(
+                        "b-button",
+                        {
+                          staticClass: "btn-rounded",
+                          attrs: { variant: "btn btn-primary btn-icon m-1" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.New_Review()
+                            },
+                          },
+                        },
+                        [
+                          _c("i", { staticClass: "i-Add" }),
+                          _vm._v(
+                            "\n           " +
+                              _vm._s(_vm.$t("Add")) +
+                              "\n        "
+                          ),
+                        ]
+                      ),
+                    ],
+                    1
+                  ),
                 ]
               ),
             ],

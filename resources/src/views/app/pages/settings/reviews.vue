@@ -34,7 +34,10 @@
           <button class="btn btn-danger btn-sm" @click="delete_by_selected()"> {{ $t('Del') }}</button>
         </div>
         <div slot="table-actions" class="mt-2 mb-3">
-         
+          <b-button @click="New_Review()" class="btn-rounded" variant="btn btn-primary btn-icon m-1">
+            <i class="i-Add"></i>
+             {{ $t('Add') }}
+          </b-button>
         </div>
 
         <template slot="table-row" slot-scope="props">
@@ -494,8 +497,11 @@ export default {
       var self = this;
       self.SubmitProcessing = true;
       self.data.append("approve", self.review.approve);
-  
- 
+      self.data.append("count", self.review.count);
+      self.data.append("review", self.review.review);
+      self.data.append("user_id", self.review.user_id);
+      self.data.append("inst_id", self.review.inst_id);
+      self.data.append("type", self.review.type);
       axios
         .post("reviews", self.data)
         .then(response => {
@@ -519,6 +525,11 @@ export default {
       var self = this;
        self.SubmitProcessing = true;
       self.data.append("approve", self.review.approve);
+      self.data.append("count", self.review.count);
+      self.data.append("review", self.review.review);
+      self.data.append("user_id", self.review.user_id);
+      self.data.append("inst_id", self.review.inst_id);
+      self.data.append("type", self.review.type);
       self.data.append("_method", "put");
 
       axios
@@ -543,9 +554,15 @@ export default {
     reset_Form() {
       this.review = {
         id: "",
-        ar_name: "",
-        en_name: "",
-        image: ""
+        approve: "",
+        count: "",
+        review: "",
+        user_id: "",
+        inst_id: "",
+        type: "",
+   
+ 
+
       };
       this.data = new FormData();
     },
