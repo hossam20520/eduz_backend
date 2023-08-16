@@ -206,7 +206,7 @@ public function MapData(Request $request){
 
       $data  = $model::where('id' , $id )->first();
       
-      $reviews  =  Review::where('type' , $type )->where('inst_id' ,  $data->id )->get();
+      $reviews  =  Review::with('user')->where('type' , $type )->where('inst_id' ,  $data->id )->get();
       return response()->json([
 
         'detail' =>  $data,
