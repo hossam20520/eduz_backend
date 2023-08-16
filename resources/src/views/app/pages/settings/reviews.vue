@@ -58,15 +58,82 @@
             <!-- Review Name -->
  
 
+            
+               <!-- Category -->
+                 <b-col md="6" class="mb-2">
+                  <validation-provider name="user" :rules="{ required: true}">
+                    <b-form-group slot-scope="{ valid, errors }" :label="$t('user')">
+                      <v-select
+                        :class="{'is-invalid': !!errors.length}"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        :reduce="label => label.value"
+                        :placeholder="$t('Choose_user')"
+                        v-model="review.user_id"
+                        :options="users.map(users => ({label: users.email, value: users.id}))"
+                      />
+                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
 
+                
+
+                <b-col md="12" class="mb-12">
+                  <validation-provider name="Type" :rules="{ required: true}">
+                    <b-form-group slot-scope="{ valid, errors }" :label="$t('Type')">
+                      <v-select
+                        :class="{'is-invalid': !!errors.length}"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        v-model="review.type"
+                        :reduce="label => label.value"
+                        :placeholder="$t('Type')"
+                        v-on:input="handleChange"
+                        :options="
+                            [
+
+                              {label: 'SCHOOLS', value: 'SCHOOLS'},
+                              {label: 'KINDERGARTENS', value: 'KINDERGARTENS'},
+                              {label: 'SPECIALNEEDS', value: 'SPECIALNEEDS'},
+                              {label: 'CENTERS', value: 'CENTERS'},
+                     
+
+            
+                            ]"
+                      ></v-select>
+                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
+
+
+                            
              
-                <b-col lg="12" md="6" sm="12" class="mb-2">
+               <b-col md="6" class="mb-2">
+                  <validation-provider name="user" :rules="{ required: true}">
+                    <b-form-group slot-scope="{ valid, errors }" :label="$t('insts')">
+                      <v-select
+                        :class="{'is-invalid': !!errors.length}"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        :reduce="label => label.value"
+                        :placeholder="$t('Choose_inst')"
+                        v-model="review.inst_id"
+                        :options="insts.map(insts => ({label: insts.ar_name, value: insts.id}))"
+                      />
+                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
+
+
+              <b-col lg="12" md="6" sm="12" class="mb-2">
                   <validation-provider name="  approve" :rules="{ required: true}">
                     <b-form-group slot-scope="{ valid, errors }" :label="$t('approve')">
                       <v-select
                         :class="{'is-invalid': !!errors.length}"
                         :state="errors[0] ? false : (valid ? true : null)"
-                        v-model="review.tax_method"
+                        v-model="review.approve"
                         :reduce="label => label.value"
                         :placeholder="$t('Choose_status')"
                         :options="
@@ -79,6 +146,48 @@
                     </b-form-group>
                   </validation-provider>
                 </b-col>
+
+     
+ 
+                <b-col md="6" class="mb-2">
+                  <validation-provider
+                    name="Product Cost"
+                    :rules="{ required: true , regex: /^\d*\.?\d*$/}"
+                    v-slot="validationContext"
+                  >
+                    <b-form-group :label="$t('review_num')">
+                      <b-form-input
+                        :state="getValidationState(validationContext)"
+                        aria-describedby="ProductCost-feedback"
+                        label="review_num"
+                        :placeholder="$t('count')"
+                        v-model="review.count"
+                      ></b-form-input>
+                      <b-form-invalid-feedback
+                        id="ProductCost-feedback"
+                      >{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
+
+                <b-col md="12">
+                  <validation-provider
+                    name="ar_Name"
+                    :rules="{required:true , min:3 , max:55}"
+                    v-slot="validationContext">
+                    <b-form-group :label="$t('review')">
+                      <b-form-input
+                        :state="getValidationState(validationContext)"
+                        aria-describedby="Name-feedback"
+                        label="ar_name"
+                        :placeholder="$t('Enter_review')"
+                        v-model="review.review"
+                      ></b-form-input>
+                      <b-form-invalid-feedback id="Name-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+            </b-col>
 
 
 
@@ -122,10 +231,17 @@ export default {
       data: new FormData(),
       editmode: false,
       reviews: [],
+      users:[],
       limit: "10",
+      insts:[],
       review: {
         id: "",
         approve:"",
+        count:"",
+        review:"",
+        user_id:"",
+        inst_id:"",
+        type:"",
         
       }
     };
@@ -133,12 +249,14 @@ export default {
   computed: {
     columns() {
       return [
-      {
+        {
           label: this.$t("first_name"),
           field: "first_name",
           tdClass: "text-left",
           thClass: "text-left"
         },
+
+
         {
           label: this.$t("last_name"),
           field: "last_name",
@@ -158,6 +276,38 @@ export default {
           tdClass: "text-left",
           thClass: "text-left"
         },
+
+        {
+          label: this.$t("review"),
+          field: "review",
+          tdClass: "text-left",
+          thClass: "text-left"
+        },
+
+
+        {
+          label: this.$t("count"),
+          field: "count",
+          tdClass: "text-left",
+          thClass: "text-left"
+        },
+
+        
+        {
+          label: this.$t("type"),
+          field: "type",
+          tdClass: "text-left",
+          thClass: "text-left"
+        },
+
+        {
+          label: this.$t("approve"),
+          field: "approve",
+          tdClass: "text-left",
+          thClass: "text-left"
+        },
+
+
         {
           label: this.$t("Action"),
           field: "actions",
@@ -171,6 +321,29 @@ export default {
   },
 
   methods: {
+
+    GetInsts(type) {
+      axios
+        .get("reviews/insts/?type="+type)
+        .then(response => {
+          this.insts = response.data.insts;
+  
+        })
+        .catch(response => {
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 500);
+          this.makeToast("danger", this.$t("InvalidData"), this.$t("Failed"));
+        });
+    },
+
+
+    handleChange(selectedValue){
+ 
+      this.GetInsts(selectedValue);
+
+    },
+
     //---- update Params Table
     updateParams(newProps) {
       this.serverParams = Object.assign({}, this.serverParams, newProps);
@@ -301,6 +474,7 @@ export default {
         .then(response => {
           this.reviews = response.data.reviews;
           this.totalRows = response.data.totalRows;
+          this.users = response.data.users;
 
           // Complete the animation of theprogress bar.
           NProgress.done();

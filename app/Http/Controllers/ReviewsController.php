@@ -13,6 +13,43 @@ class ReviewsController extends Controller
 
     //------------ GET ALL Reviews -----------\
 
+
+
+
+    public function GetTheInsts(Request $request){
+
+
+        $model  = Kindergarten::class;
+        
+       $type = $request->type;
+     
+
+        if($type == "SCHOOLS"){
+          $model = School::class;
+        }else if($type == "KINDERGARTENS"){
+          $model  = Kindergarten::class;
+        }else if($type == "CENTERS"){
+          $model  = Center::class;
+        }else if($type == "SPECIALNEEDS"){
+          $model  = Specialneed::class;
+        }
+
+       $data =  $model::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
+
+       return response()->json([
+
+        'insts' =>  $data,
+ 
+      
+      ]);
+    
+
+   
+    }
+
+
+
+
     public function index(Request $request)
     {
         // $this->authorizeForUser($request->user('api'), 'view', Review::class);
@@ -25,7 +62,7 @@ class ReviewsController extends Controller
         $dir = $request->SortType;
         $helpers = new helpers();
 
-        $reviews = Review::where('deleted_at', '=', null)->where(function ($query) use ($request) {
+        $reviews = Review::with('user')->where('deleted_at', '=', null)->where(function ($query) use ($request) {
                 return $query->when($request->filled('search'), function ($query) use ($request) {
                     return $query->where('ar_name', 'LIKE', "%{$request->search}%")
                         ->orWhere('en_name', 'LIKE', "%{$request->search}%");
@@ -37,8 +74,12 @@ class ReviewsController extends Controller
             ->orderBy($order, $dir)
             ->get();
 
+
+           $users =  User::where('deleted_at', '=', null)->get(['email', 'id']);
+
         return response()->json([
             'reviews' => $reviews,
+            'users'=>  $users,
             'totalRows' => $totalRows,
         ]);
 
@@ -101,14 +142,10 @@ class ReviewsController extends Controller
         //  ]);
          \DB::transaction(function () use ($request, $id) {
              $Review = Review::findOrFail($id);
-           
- 
-       
  
              Review::whereId($id)->update([
                  'approve' => $request['approve'],
-              
-               
+ 
              ]);
  
          }, 10);

@@ -117,6 +117,115 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   metaInfo: {
@@ -141,10 +250,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       data: new FormData(),
       editmode: false,
       reviews: [],
+      users: [],
       limit: "10",
+      insts: [],
       review: {
         id: "",
-        approve: ""
+        approve: "",
+        count: "",
+        review: "",
+        user_id: "",
+        inst_id: "",
+        type: ""
       }
     };
   },
@@ -171,6 +287,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         tdClass: "text-left",
         thClass: "text-left"
       }, {
+        label: this.$t("review"),
+        field: "review",
+        tdClass: "text-left",
+        thClass: "text-left"
+      }, {
+        label: this.$t("count"),
+        field: "count",
+        tdClass: "text-left",
+        thClass: "text-left"
+      }, {
+        label: this.$t("type"),
+        field: "type",
+        tdClass: "text-left",
+        thClass: "text-left"
+      }, {
+        label: this.$t("approve"),
+        field: "approve",
+        tdClass: "text-left",
+        thClass: "text-left"
+      }, {
         label: this.$t("Action"),
         field: "actions",
         html: true,
@@ -181,6 +317,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    GetInsts: function GetInsts(type) {
+      var _this = this;
+
+      axios.get("reviews/insts/?type=" + type).then(function (response) {
+        _this.insts = response.data.insts;
+      })["catch"](function (response) {
+        setTimeout(function () {
+          _this.isLoading = false;
+        }, 500);
+
+        _this.makeToast("danger", _this.$t("InvalidData"), _this.$t("Failed"));
+      });
+    },
+    handleChange: function handleChange(selectedValue) {
+      this.GetInsts(selectedValue);
+    },
     //---- update Params Table
     updateParams: function updateParams(newProps) {
       this.serverParams = Object.assign({}, this.serverParams, newProps);
@@ -221,12 +373,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //---- Event Select Rows
     selectionChanged: function selectionChanged(_ref3) {
-      var _this = this;
+      var _this2 = this;
 
       var selectedRows = _ref3.selectedRows;
       this.selectedIds = [];
       selectedRows.forEach(function (row, index) {
-        _this.selectedIds.push(row.id);
+        _this2.selectedIds.push(row.id);
       });
     },
     //---- Event on Search
@@ -244,16 +396,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //------------- Submit Validation Create & Edit Review
     Submit_Review: function Submit_Review() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$refs.Create_review.validate().then(function (success) {
         if (!success) {
-          _this2.makeToast("danger", _this2.$t("Please_fill_the_form_correctly"), _this2.$t("Failed"));
+          _this3.makeToast("danger", _this3.$t("Please_fill_the_form_correctly"), _this3.$t("Failed"));
         } else {
-          if (!_this2.editmode) {
-            _this2.Create_Review();
+          if (!_this3.editmode) {
+            _this3.Create_Review();
           } else {
-            _this2.Update_Review();
+            _this3.Update_Review();
           }
         }
       });
@@ -268,26 +420,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //------------------------------ Event Upload Image -------------------------------\
     onFileSelected: function onFileSelected(e) {
-      var _this3 = this;
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var _yield$_this3$$refs$I, valid;
+        var _yield$_this4$$refs$I, valid;
 
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this3.$refs.Image.validate(e);
+                return _this4.$refs.Image.validate(e);
 
               case 2:
-                _yield$_this3$$refs$I = _context.sent;
-                valid = _yield$_this3$$refs$I.valid;
+                _yield$_this4$$refs$I = _context.sent;
+                valid = _yield$_this4$$refs$I.valid;
 
                 if (valid) {
-                  _this3.review.image = e.target.files[0];
+                  _this4.review.image = e.target.files[0];
                 } else {
-                  _this3.review.image = "";
+                  _this4.review.image = "";
                 }
 
               case 5:
@@ -314,28 +466,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //---------------------------------------- Get All reviews-----------------\
     Get_Reviews: function Get_Reviews(page) {
-      var _this4 = this;
+      var _this5 = this;
 
       // Start the progress bar.
       nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.start();
       nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.set(0.1);
       axios.get("reviews?page=" + page + "&SortField=" + this.serverParams.sort.field + "&SortType=" + this.serverParams.sort.type + "&search=" + this.search + "&limit=" + this.limit).then(function (response) {
-        _this4.reviews = response.data.reviews;
-        _this4.totalRows = response.data.totalRows; // Complete the animation of theprogress bar.
+        _this5.reviews = response.data.reviews;
+        _this5.totalRows = response.data.totalRows;
+        _this5.users = response.data.users; // Complete the animation of theprogress bar.
 
         nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
-        _this4.isLoading = false;
+        _this5.isLoading = false;
       })["catch"](function (response) {
         // Complete the animation of theprogress bar.
         nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
         setTimeout(function () {
-          _this4.isLoading = false;
+          _this5.isLoading = false;
         }, 500);
       });
     },
     //---------------------------------------- Create new review-----------------\
     Create_Review: function Create_Review() {
-      var _this5 = this;
+      var _this6 = this;
 
       var self = this;
       self.SubmitProcessing = true;
@@ -344,16 +497,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         self.SubmitProcessing = false;
         Fire.$emit("Event_Review");
 
-        _this5.makeToast("success", _this5.$t("Create.TitleReview"), _this5.$t("Success"));
+        _this6.makeToast("success", _this6.$t("Create.TitleReview"), _this6.$t("Success"));
       })["catch"](function (error) {
         self.SubmitProcessing = false;
 
-        _this5.makeToast("danger", _this5.$t("InvalidData"), _this5.$t("Failed"));
+        _this6.makeToast("danger", _this6.$t("InvalidData"), _this6.$t("Failed"));
       });
     },
     //---------------------------------------- Update Review-----------------\
     Update_Review: function Update_Review() {
-      var _this6 = this;
+      var _this7 = this;
 
       var self = this;
       self.SubmitProcessing = true;
@@ -363,11 +516,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         self.SubmitProcessing = false;
         Fire.$emit("Event_Review");
 
-        _this6.makeToast("success", _this6.$t("Update.TitleReview"), _this6.$t("Success"));
+        _this7.makeToast("success", _this7.$t("Update.TitleReview"), _this7.$t("Success"));
       })["catch"](function (error) {
         self.SubmitProcessing = false;
 
-        _this6.makeToast("danger", _this6.$t("InvalidData"), _this6.$t("Failed"));
+        _this7.makeToast("danger", _this7.$t("InvalidData"), _this7.$t("Failed"));
       });
     },
     //---------------------------------------- Reset Form -----------------\
@@ -382,7 +535,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //---------------------------------------- Delete Review -----------------\
     Delete_Review: function Delete_Review(id) {
-      var _this7 = this;
+      var _this8 = this;
 
       this.$swal({
         title: this.$t("Delete.Title"),
@@ -396,18 +549,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("reviews/" + id).then(function () {
-            _this7.$swal(_this7.$t("Delete.Deleted"), _this7.$t("Delete.TitleReview"), "success");
+            _this8.$swal(_this8.$t("Delete.Deleted"), _this8.$t("Delete.TitleReview"), "success");
 
             Fire.$emit("Delete_Review");
           })["catch"](function () {
-            _this7.$swal(_this7.$t("Delete.Failed"), _this7.$t("Delete.Therewassomethingwronge"), "warning");
+            _this8.$swal(_this8.$t("Delete.Failed"), _this8.$t("Delete.Therewassomethingwronge"), "warning");
           });
         }
       });
     },
     //---- Delete reviews by selection
     delete_by_selected: function delete_by_selected() {
-      var _this8 = this;
+      var _this9 = this;
 
       this.$swal({
         title: this.$t("Delete.Title"),
@@ -424,9 +577,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.start();
           nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.set(0.1);
           axios.post("reviews/delete/by_selection", {
-            selectedIds: _this8.selectedIds
+            selectedIds: _this9.selectedIds
           }).then(function () {
-            _this8.$swal(_this8.$t("Delete.Deleted"), _this8.$t("Delete.TitleReview"), "success");
+            _this9.$swal(_this9.$t("Delete.Deleted"), _this9.$t("Delete.TitleReview"), "success");
 
             Fire.$emit("Delete_Review");
           })["catch"](function () {
@@ -435,7 +588,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
             }, 500);
 
-            _this8.$swal(_this8.$t("Delete.Failed"), _this8.$t("Delete.Therewassomethingwronge"), "warning");
+            _this9.$swal(_this9.$t("Delete.Failed"), _this9.$t("Delete.Therewassomethingwronge"), "warning");
           });
         }
       });
@@ -443,19 +596,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   //end Methods
   created: function created() {
-    var _this9 = this;
+    var _this10 = this;
 
     this.Get_Reviews(1);
     Fire.$on("Event_Review", function () {
       setTimeout(function () {
-        _this9.Get_Reviews(_this9.serverParams.page);
+        _this10.Get_Reviews(_this10.serverParams.page);
 
-        _this9.$bvModal.hide("New_review");
+        _this10.$bvModal.hide("New_review");
       }, 500);
     });
     Fire.$on("Delete_Review", function () {
       setTimeout(function () {
-        _this9.Get_Reviews(_this9.serverParams.page);
+        _this10.Get_Reviews(_this10.serverParams.page);
       }, 500);
     });
   }
@@ -663,6 +816,203 @@ var render = function () {
                     [
                       _c(
                         "b-col",
+                        { staticClass: "mb-2", attrs: { md: "6" } },
+                        [
+                          _c("validation-provider", {
+                            attrs: { name: "user", rules: { required: true } },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (ref) {
+                                  var valid = ref.valid
+                                  var errors = ref.errors
+                                  return _c(
+                                    "b-form-group",
+                                    { attrs: { label: _vm.$t("user") } },
+                                    [
+                                      _c("v-select", {
+                                        class: {
+                                          "is-invalid": !!errors.length,
+                                        },
+                                        attrs: {
+                                          state: errors[0]
+                                            ? false
+                                            : valid
+                                            ? true
+                                            : null,
+                                          reduce: function (label) {
+                                            return label.value
+                                          },
+                                          placeholder: _vm.$t("Choose_user"),
+                                          options: _vm.users.map(function (
+                                            users
+                                          ) {
+                                            return {
+                                              label: users.email,
+                                              value: users.id,
+                                            }
+                                          }),
+                                        },
+                                        model: {
+                                          value: _vm.review.user_id,
+                                          callback: function ($$v) {
+                                            _vm.$set(_vm.review, "user_id", $$v)
+                                          },
+                                          expression: "review.user_id",
+                                        },
+                                      }),
+                                      _vm._v(" "),
+                                      _c("b-form-invalid-feedback", [
+                                        _vm._v(_vm._s(errors[0])),
+                                      ]),
+                                    ],
+                                    1
+                                  )
+                                },
+                              },
+                            ]),
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { staticClass: "mb-12", attrs: { md: "12" } },
+                        [
+                          _c("validation-provider", {
+                            attrs: { name: "Type", rules: { required: true } },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (ref) {
+                                  var valid = ref.valid
+                                  var errors = ref.errors
+                                  return _c(
+                                    "b-form-group",
+                                    { attrs: { label: _vm.$t("Type") } },
+                                    [
+                                      _c("v-select", {
+                                        class: {
+                                          "is-invalid": !!errors.length,
+                                        },
+                                        attrs: {
+                                          state: errors[0]
+                                            ? false
+                                            : valid
+                                            ? true
+                                            : null,
+                                          reduce: function (label) {
+                                            return label.value
+                                          },
+                                          placeholder: _vm.$t("Type"),
+                                          options: [
+                                            {
+                                              label: "SCHOOLS",
+                                              value: "SCHOOLS",
+                                            },
+                                            {
+                                              label: "KINDERGARTENS",
+                                              value: "KINDERGARTENS",
+                                            },
+                                            {
+                                              label: "SPECIALNEEDS",
+                                              value: "SPECIALNEEDS",
+                                            },
+                                            {
+                                              label: "CENTERS",
+                                              value: "CENTERS",
+                                            },
+                                          ],
+                                        },
+                                        on: { input: _vm.handleChange },
+                                        model: {
+                                          value: _vm.review.type,
+                                          callback: function ($$v) {
+                                            _vm.$set(_vm.review, "type", $$v)
+                                          },
+                                          expression: "review.type",
+                                        },
+                                      }),
+                                      _vm._v(" "),
+                                      _c("b-form-invalid-feedback", [
+                                        _vm._v(_vm._s(errors[0])),
+                                      ]),
+                                    ],
+                                    1
+                                  )
+                                },
+                              },
+                            ]),
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { staticClass: "mb-2", attrs: { md: "6" } },
+                        [
+                          _c("validation-provider", {
+                            attrs: { name: "user", rules: { required: true } },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (ref) {
+                                  var valid = ref.valid
+                                  var errors = ref.errors
+                                  return _c(
+                                    "b-form-group",
+                                    { attrs: { label: _vm.$t("insts") } },
+                                    [
+                                      _c("v-select", {
+                                        class: {
+                                          "is-invalid": !!errors.length,
+                                        },
+                                        attrs: {
+                                          state: errors[0]
+                                            ? false
+                                            : valid
+                                            ? true
+                                            : null,
+                                          reduce: function (label) {
+                                            return label.value
+                                          },
+                                          placeholder: _vm.$t("Choose_inst"),
+                                          options: _vm.insts.map(function (
+                                            insts
+                                          ) {
+                                            return {
+                                              label: insts.ar_name,
+                                              value: insts.id,
+                                            }
+                                          }),
+                                        },
+                                        model: {
+                                          value: _vm.review.inst_id,
+                                          callback: function ($$v) {
+                                            _vm.$set(_vm.review, "inst_id", $$v)
+                                          },
+                                          expression: "review.inst_id",
+                                        },
+                                      }),
+                                      _vm._v(" "),
+                                      _c("b-form-invalid-feedback", [
+                                        _vm._v(_vm._s(errors[0])),
+                                      ]),
+                                    ],
+                                    1
+                                  )
+                                },
+                              },
+                            ]),
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
                         {
                           staticClass: "mb-2",
                           attrs: { lg: "12", md: "6", sm: "12" },
@@ -709,15 +1059,11 @@ var render = function () {
                                           ],
                                         },
                                         model: {
-                                          value: _vm.review.tax_method,
+                                          value: _vm.review.approve,
                                           callback: function ($$v) {
-                                            _vm.$set(
-                                              _vm.review,
-                                              "tax_method",
-                                              $$v
-                                            )
+                                            _vm.$set(_vm.review, "approve", $$v)
                                           },
-                                          expression: "review.tax_method",
+                                          expression: "review.approve",
                                         },
                                       }),
                                       _vm._v(" "),
@@ -727,6 +1073,137 @@ var render = function () {
                                     ],
                                     1
                                   )
+                                },
+                              },
+                            ]),
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { staticClass: "mb-2", attrs: { md: "6" } },
+                        [
+                          _c("validation-provider", {
+                            attrs: {
+                              name: "Product Cost",
+                              rules: { required: true, regex: /^\d*\.?\d*$/ },
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (validationContext) {
+                                  return [
+                                    _c(
+                                      "b-form-group",
+                                      {
+                                        attrs: { label: _vm.$t("review_num") },
+                                      },
+                                      [
+                                        _c("b-form-input", {
+                                          attrs: {
+                                            state:
+                                              _vm.getValidationState(
+                                                validationContext
+                                              ),
+                                            "aria-describedby":
+                                              "ProductCost-feedback",
+                                            label: "review_num",
+                                            placeholder: _vm.$t("count"),
+                                          },
+                                          model: {
+                                            value: _vm.review.count,
+                                            callback: function ($$v) {
+                                              _vm.$set(_vm.review, "count", $$v)
+                                            },
+                                            expression: "review.count",
+                                          },
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-form-invalid-feedback",
+                                          {
+                                            attrs: {
+                                              id: "ProductCost-feedback",
+                                            },
+                                          },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                validationContext.errors[0]
+                                              )
+                                            ),
+                                          ]
+                                        ),
+                                      ],
+                                      1
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { attrs: { md: "12" } },
+                        [
+                          _c("validation-provider", {
+                            attrs: {
+                              name: "ar_Name",
+                              rules: { required: true, min: 3, max: 55 },
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (validationContext) {
+                                  return [
+                                    _c(
+                                      "b-form-group",
+                                      { attrs: { label: _vm.$t("review") } },
+                                      [
+                                        _c("b-form-input", {
+                                          attrs: {
+                                            state:
+                                              _vm.getValidationState(
+                                                validationContext
+                                              ),
+                                            "aria-describedby": "Name-feedback",
+                                            label: "ar_name",
+                                            placeholder: _vm.$t("Enter_review"),
+                                          },
+                                          model: {
+                                            value: _vm.review.review,
+                                            callback: function ($$v) {
+                                              _vm.$set(
+                                                _vm.review,
+                                                "review",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "review.review",
+                                          },
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-form-invalid-feedback",
+                                          { attrs: { id: "Name-feedback" } },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                validationContext.errors[0]
+                                              )
+                                            ),
+                                          ]
+                                        ),
+                                      ],
+                                      1
+                                    ),
+                                  ]
                                 },
                               },
                             ]),

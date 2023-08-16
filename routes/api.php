@@ -141,12 +141,12 @@ Route::get('Forms/Detail/{id}', 'FormsController@Get_Forms_Details');
 
 
     
-
+    Route::get('reviews/insts', 'ReviewsController@GetTheInsts');
     //------------------------------- Reviews--------------------------\
     //------------------------------------------------------------------\
     Route::resource('reviews', 'ReviewsController');
     Route::post('reviews/delete/by_selection', 'ReviewsController@delete_by_selection');
-    
+
 
 
      //-------------------------------Drops--------------------------\
