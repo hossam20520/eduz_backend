@@ -423,11 +423,7 @@
           </li>
  
         </ul>
-
-
-
-
-
+ 
 
 
 
@@ -999,6 +995,14 @@
             <router-link tag="a" class to="/app/settings/Categories">
               <i class="nav-icon i-Duplicate-Layer"></i>
               <span class="item-name">{{$t('Categories')}}</span>
+            </router-link>
+          </li>
+
+
+          <li class="nav-item" >
+            <router-link tag="a" class to="/app/settings/Reviews">
+              <i class="nav-icon i-Bookmark"></i>
+              <span class="item-name">{{   $t('Review') }}</span>
             </router-link>
           </li>
 

@@ -317,15 +317,19 @@ public function MapData(Request $request){
 
 
   if( $typeSearch == "ids"){
+
     $idsArray = explode(',', $idsString);
     $education = $model::where('deleted_at', '=', null)->where(function ($query) use ($idsArray) {
+
       foreach ($idsArray as $id) {
           $query->orWhereJsonContains('selected_ids', (int)$id);
-         }
-    })->get();
-
-
-
+           }
+           
+     
+     })->get();
+  
+   
+  
     return response()->json([
 
       'countries' => $areas ,

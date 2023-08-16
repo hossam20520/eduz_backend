@@ -1053,7 +1053,14 @@ const routes = [
                                         /* webpackChunkName: "store_permission" */
                                         "./views/app/pages/settings/permissions/Create_permission"
                                     ),
-                            },
+                            },                             // reviews
+                                {
+                                    name: "reviews",
+                                    path: "Reviews",
+                                    component: () =>
+                                        import(/* webpackChunkName: "Reviews" */"./views/app/pages/settings/reviews")
+                                },
+
                             {
                                 name: "edit_permission",
                                 path: "edit/:id",

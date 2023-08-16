@@ -140,6 +140,13 @@ Route::get('Forms/Detail/{id}', 'FormsController@Get_Forms_Details');
 
 
 
+    
+
+    //------------------------------- Reviews--------------------------\
+    //------------------------------------------------------------------\
+    Route::resource('reviews', 'ReviewsController');
+    Route::post('reviews/delete/by_selection', 'ReviewsController@delete_by_selection');
+    
 
 
      //-------------------------------Drops--------------------------\
