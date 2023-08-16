@@ -14,7 +14,7 @@ use App\Models\Educenter;
 use App\Models\Specialneed;
 use App\Models\Universitie;
 use App\Models\Institution;
-
+use App\Models\Review;
 
 
 use App\utils\helpers;
@@ -205,10 +205,12 @@ public function MapData(Request $request){
       }
 
       $data  = $model::where('id' , $id )->first();
-
+      
+      $reviews  =  Review::where('type' , $type )->where('inst_id' ,  $data->id )->get();
       return response()->json([
 
         'detail' =>  $data,
+        'reviews' =>   $reviews ,
         'files' => [
           [
             "id" => 1 ,
@@ -324,7 +326,7 @@ public function MapData(Request $request){
       foreach ($idsArray as $id) {
           $query->orWhereJsonContains('selected_ids', (int)$id);
            }
-           
+
      
      })->get();
   
