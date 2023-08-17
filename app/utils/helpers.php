@@ -29,15 +29,15 @@ class helpers
         $field->long_a = $request['long'];
         $field->area_id = $request['area_id'];
     
-        $field->second_lang = $request['second_lang'];
-        $field->first_lang = $request['first_lang'];
-        $field->other_lang = $request['other_lang'];
-        $field->years_accepted = $request['years_accepted'];
-        $field->weekend = $request['weekend'];
-        $field->expense_from = $request['expFrom'];
-        $field->expense_to = $request['expTo'];
-        $field->children_numbers = $request['children_numbers'];
-        $field->is_accept = $request['is_accept'];
+        // $field->second_lang = $request['second_lang'];
+        // $field->first_lang = $request['first_lang'];
+        // $field->other_lang = $request['other_lang'];
+        // $field->years_accepted = $request['years_accepted'];
+        // $field->weekend = $request['weekend'];
+        // $field->expense_from = $request['expFrom'];
+        // $field->expense_to = $request['expTo'];
+        // $field->children_numbers = $request['children_numbers'];
+        // $field->is_accept = $request['is_accept'];
 
 
         $field->exp_from = $request['exp_from'];
