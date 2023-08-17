@@ -96,20 +96,20 @@ class helpers
 
 
 
-        $item['second_lang'] =  $model->second_lang;
-        $item['first_lang'] =  $model->first_lang;
-        $item['other_lang'] =  $model->other_lang;
-        $item['years_accepted'] =  $model->years_accepted;
-        $item['weekend'] =  $model->weekend;
-        $item['expFrom'] =  $model->expense_from;
-        $item['expTo'] =  $model->expense_to;
-        $item['children_numbers'] =  $model->children_numbers;
-        $item['is_accept'] =  $model->is_accept;
+        // $item['second_lang'] =  $model->second_lang;
+        // $item['first_lang'] =  $model->first_lang;
+        // $item['other_lang'] =  $model->other_lang;
+        // $item['years_accepted'] =  $model->years_accepted;
+        // $item['weekend'] =  $model->weekend;
+        // $item['expFrom'] =  $model->expense_from;
+        // $item['expTo'] =  $model->expense_to;
+        // $item['children_numbers'] =  $model->children_numbers;
+        // $item['is_accept'] =  $model->is_accept;
         $item['selected_ids'] =  $model->selected_ids;
         $item['logo'] =  $model->logo;
         $item['banner'] =  $model->banner;
         $item['exp_from'] =  $model->exp_from;
-        $item['exp_to'] =  $model->exp_from;
+        $item['exp_to'] =  $model->exp_to;
         $item['paid_en_info'] =  $model->paid_en_info;
         $item['paid_ar_info'] =  $model->paid_ar_info;
         $item['paid_facilities_en'] =  $model->paid_facilities_en;
