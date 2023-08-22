@@ -489,7 +489,24 @@
             
                 </b-row>
 
+                <b-row class="form-group">
+                  <br> 
+                  <b-col md="12 mb-5">
+                    <div
+                      id="my-strictly-unique-vue-upload-multiple-image"
+                      class="d-flex justify-content-center"
+                    >
+ 
+                  <input type="file" ref="fileInput" multiple @change="handleFileChange">
+                  <button type="button" @click="uploadFiles">Upload</button>
+           
+                  
 
+
+                    </div>
+                  </b-col>
+            
+                </b-row>
 
               </div>
             </b-card>

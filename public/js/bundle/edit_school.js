@@ -543,6 +543,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2826,6 +2843,49 @@ var render = function () {
                                               }
                                             ),
                                             0
+                                          ),
+                                        ]
+                                      ),
+                                    ]),
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-row",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("br"),
+                                    _vm._v(" "),
+                                    _c("b-col", { attrs: { md: "12 mb-5" } }, [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "d-flex justify-content-center",
+                                          attrs: {
+                                            id: "my-strictly-unique-vue-upload-multiple-image",
+                                          },
+                                        },
+                                        [
+                                          _c("input", {
+                                            ref: "fileInput",
+                                            attrs: {
+                                              type: "file",
+                                              multiple: "",
+                                            },
+                                            on: {
+                                              change: _vm.handleFileChange,
+                                            },
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "button",
+                                            {
+                                              attrs: { type: "button" },
+                                              on: { click: _vm.uploadFiles },
+                                            },
+                                            [_vm._v("Upload")]
                                           ),
                                         ]
                                       ),
