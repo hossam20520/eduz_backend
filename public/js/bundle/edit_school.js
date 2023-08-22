@@ -500,6 +500,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -560,8 +603,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         expFrom: "",
         expTo: "",
         children_numbers: "",
-        is_accept: ""
+        is_accept: "",
+        activites_fiels: ""
       },
+      files_activetiy: [],
       code_exist: ""
     };
   },
@@ -571,58 +616,77 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     VueTagsInput: _johmun_vue_tags_input__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   methods: {
-    onFileSelectedBanner: function onFileSelectedBanner(e) {
+    deleteImage: function deleteImage(index) {
+      this.files_activetiy.splice(index, 1);
+      var strings = this.files_activetiy.join(',');
+      this.school.activites_fiels = strings;
+    },
+    handleFileChange: function handleFileChange(event) {
+      this.selectedFiles = Array.from(event.target.files);
+    },
+    uploadFiles: function uploadFiles() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var _yield$_this$$refs$Ba, valid;
-
+        var formData;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return _this.$refs.Banner.validate(e);
+                formData = new FormData();
 
-              case 2:
-                _yield$_this$$refs$Ba = _context.sent;
-                valid = _yield$_this$$refs$Ba.valid;
+                _this.selectedFiles.forEach(function (file) {
+                  formData.append('files[]', file);
+                });
 
-                if (valid) {
-                  _this.school.banner = e.target.files[0];
-                } else {
-                  _this.school.banner = "";
-                }
+                _context.prev = 2;
+                _context.next = 5;
+                return axios.post('/files/upload', formData).then(function (response) {
+                  console.log(response.data);
+                  _this.activites_fiels = response.data.files;
+                  _this.files_activetiy = response.data.files.split(",").map(function (item) {
+                    return item.trim();
+                  });
+                });
 
               case 5:
+                _context.next = 10;
+                break;
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](2);
+                console.error('Error uploading files', _context.t0);
+
+              case 10:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, null, [[2, 7]]);
       }))();
     },
-    onFileSelected: function onFileSelected(e) {
+    onFileSelectedBanner: function onFileSelectedBanner(e) {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var _yield$_this2$$refs$I, valid;
+        var _yield$_this2$$refs$B, valid;
 
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _this2.$refs.Image.validate(e);
+                return _this2.$refs.Banner.validate(e);
 
               case 2:
-                _yield$_this2$$refs$I = _context2.sent;
-                valid = _yield$_this2$$refs$I.valid;
+                _yield$_this2$$refs$B = _context2.sent;
+                valid = _yield$_this2$$refs$B.valid;
 
                 if (valid) {
-                  _this2.school.logo = e.target.files[0];
+                  _this2.school.banner = e.target.files[0];
                 } else {
-                  _this2.school.logo = "";
+                  _this2.school.banner = "";
                 }
 
               case 5:
@@ -633,28 +697,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    getSecions: function getSecions() {
+    onFileSelected: function onFileSelected(e) {
       var _this3 = this;
 
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var _yield$_this3$$refs$I, valid;
+
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.$refs.Image.validate(e);
+
+              case 2:
+                _yield$_this3$$refs$I = _context3.sent;
+                valid = _yield$_this3$$refs$I.valid;
+
+                if (valid) {
+                  _this3.school.logo = e.target.files[0];
+                } else {
+                  _this3.school.logo = "";
+                }
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    getSecions: function getSecions() {
+      var _this4 = this;
+
       axios.get("drops/list/data?type=SCHOOLS").then(function (response) {
-        _this3.sections = response.data.SECIONS;
+        _this4.sections = response.data.SECIONS;
       })["catch"](function (response) {
         setTimeout(function () {
-          _this3.isLoading = false;
+          _this4.isLoading = false;
         }, 500);
 
-        _this3.makeToast("danger", _this3.$t("InvalidData"), _this3.$t("Failed"));
+        _this4.makeToast("danger", _this4.$t("InvalidData"), _this4.$t("Failed"));
       });
     },
     //------------- Submit Validation Update School
     Submit_School: function Submit_School() {
-      var _this4 = this;
+      var _this5 = this;
 
       this.$refs.Edit_School.validate().then(function (success) {
         if (!success) {
-          _this4.makeToast("danger", _this4.$t("Please_fill_the_form_correctly"), _this4.$t("Failed"));
+          _this5.makeToast("danger", _this5.$t("Please_fill_the_form_correctly"), _this5.$t("Failed"));
         } else {
-          _this4.Update_School();
+          _this5.Update_School();
         }
       });
     },
@@ -693,34 +788,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //---------------------------------------Get School Elements ------------------------------\
     GetElements: function GetElements() {
-      var _this5 = this;
+      var _this6 = this;
 
       var id = this.$route.params.id;
       axios.get("Schools/".concat(id, "/edit")).then(function (response) {
         console.log(response.data.slider);
-        _this5.school = response.data.school;
-        _this5.areas = response.data.areas; // console.log( response.data.drop.SECTIONS)
+        _this6.school = response.data.school;
+        _this6.areas = response.data.areas;
+        _this6.files_activetiy = response.data.school.activites_fiels.split(",").map(function (item) {
+          return item.trim();
+        }); // console.log( response.data.drop.SECTIONS)
 
         var da = response.data.drops.original;
         da.forEach(function (section) {
-          _this5.$set(_this5.selectedOptions, section.id, section.drop.map(function (item) {
+          _this6.$set(_this6.selectedOptions, section.id, section.drop.map(function (item) {
             return item.id;
           }));
         });
         console.log("ddddddddddddddddddddddddddddddddddddd"); // this.selectedOptions = response.data.drops.original;
 
-        _this5.schools = response.data.schools;
-        _this5.images = response.data.school.images;
-        _this5.isLoading = false;
+        _this6.schools = response.data.schools;
+        _this6.images = response.data.school.images;
+        _this6.isLoading = false;
       })["catch"](function (response) {
         setTimeout(function () {
-          _this5.isLoading = false;
+          _this6.isLoading = false;
         }, 500);
       });
     },
     //------------------------------ Update School ------------------------------\
     Update_School: function Update_School() {
-      var _this6 = this;
+      var _this7 = this;
 
       nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.start();
       nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.set(0.1);
@@ -755,11 +853,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
         self.SubmitProcessing = false;
 
-        _this6.$router.push({
+        _this7.$router.push({
           name: "index_schools"
         });
 
-        _this6.makeToast("success", _this6.$t("Successfully_Updated"), _this6.$t("Success"));
+        _this7.makeToast("success", _this7.$t("Successfully_Updated"), _this7.$t("Success"));
       })["catch"](function (error) {
         if (error.errors.code.length > 0) {
           self.code_exist = error.errors.code[0];
@@ -767,7 +865,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
 
-        _this6.makeToast("danger", _this6.$t("InvalidData"), _this6.$t("Failed"));
+        _this7.makeToast("danger", _this7.$t("InvalidData"), _this7.$t("Failed"));
 
         self.SubmitProcessing = false;
       });
@@ -2179,7 +2277,7 @@ var render = function () {
                                               ],
                                               null,
                                               false,
-                                              3915009791
+                                              2282538751
                                             ),
                                           }),
                                         ],
@@ -2650,6 +2748,86 @@ var render = function () {
                                           }),
                                         ],
                                         1
+                                      ),
+                                    ]),
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "b-row",
+                                  { staticClass: "form-group" },
+                                  [
+                                    _c("br"),
+                                    _vm._v(" "),
+                                    _c("b-col", { attrs: { md: "12 mb-5" } }, [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "d-flex justify-content-center",
+                                          attrs: {
+                                            id: "my-strictly-unique-vue-upload-multiple-image",
+                                          },
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            _vm._l(
+                                              _vm.files_activetiy,
+                                              function (item, index) {
+                                                return _c(
+                                                  "div",
+                                                  {
+                                                    key: index,
+                                                    staticStyle: {
+                                                      display: "inline",
+                                                    },
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "span",
+                                                      {
+                                                        staticStyle: {
+                                                          "justify-content":
+                                                            "center",
+                                                          position: "absolute",
+                                                          padding: "5px",
+                                                          cursor: "pointer",
+                                                          "font-weight": "bold",
+                                                          "background-color":
+                                                            "#9f9f9f6b",
+                                                          color: "red",
+                                                          "/* display": "flex",
+                                                        },
+                                                        on: {
+                                                          click: function (
+                                                            $event
+                                                          ) {
+                                                            return _vm.deleteImage(
+                                                              index
+                                                            )
+                                                          },
+                                                        },
+                                                      },
+                                                      [_vm._v(" X")]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c("img", {
+                                                      attrs: {
+                                                        width: "50px",
+                                                        src:
+                                                          "/images/uploads/" +
+                                                          item,
+                                                      },
+                                                    }),
+                                                  ]
+                                                )
+                                              }
+                                            ),
+                                            0
+                                          ),
+                                        ]
                                       ),
                                     ]),
                                   ],

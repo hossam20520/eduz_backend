@@ -448,6 +448,49 @@
  
            
                 </b-row>
+
+
+
+
+
+
+                <b-row class="form-group">
+                  <br> 
+                  <b-col md="12 mb-5">
+                    <div
+                      id="my-strictly-unique-vue-upload-multiple-image"
+                      class="d-flex justify-content-center"
+                    >
+               
+                      <div>
+                        
+                        
+                         <div style="display: inline;" v-for="(item, index) in files_activetiy" :key="index"> 
+ 
+                         <span @click="deleteImage(index)" style="
+    justify-content: center;
+    position: absolute;
+    padding: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #9f9f9f6b;
+    color: red;
+    /* display: flex; */
+"> X</span> <img width="50px" :src="'/images/uploads/'+item">
+
+</div>
+ 
+
+
+           
+                   </div>
+                    </div>
+                  </b-col>
+            
+                </b-row>
+
+
+
               </div>
             </b-card>
           </b-col>
@@ -528,7 +571,9 @@ export default {
          expTo:"",
          children_numbers:"",
          is_accept:"",
+         activites_fiels:"",
             },
+            files_activetiy: [],
       code_exist: ""
     };
   },
@@ -540,6 +585,37 @@ export default {
   },
 
   methods: {
+    deleteImage(index) {
+   
+   this.files_activetiy.splice(index, 1);
+   let strings =  this.files_activetiy.join(',');
+   this.school.activites_fiels = strings;
+   
+ },
+
+ handleFileChange(event) {
+   this.selectedFiles = Array.from(event.target.files);
+ },
+ async uploadFiles() {
+   const formData = new FormData();
+   this.selectedFiles.forEach(file => {
+     formData.append('files[]', file);
+   });
+
+   try {
+     await axios.post('/files/upload', formData).then(response => { 
+       console.log(response.data);
+       this.activites_fiels = response.data.files;
+       this.files_activetiy = response.data.files.split(",").map(item => item.trim());
+
+       });// Assuming you're using Axios for HTTP requests
+    
+     
+   } catch (error) {
+     console.error('Error uploading files', error);
+   }
+ },
+ 
 
     async onFileSelectedBanner(e) {
       const { valid } = await this.$refs.Banner.validate(e);
@@ -644,6 +720,7 @@ export default {
           console.log(  response.data.slider );
           this.school = response.data.school;
           this.areas = response.data.areas;
+          this.files_activetiy = response.data.school.activites_fiels.split(",").map(item => item.trim());
           // console.log( response.data.drop.SECTIONS)
  
             let da = response.data.drops.original;

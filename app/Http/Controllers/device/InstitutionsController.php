@@ -60,6 +60,50 @@ class InstitutionsController extends Controller
 
     }
 
+
+
+    public function UploadFile(Request $request){
+
+  
+        if ($request->hasFile('files')) {
+          $uploadedFileNames = [];
+            foreach ($request->file('files') as $file) {
+                // Store or process each file as needed
+                // $file->store('uploads');
+                // $name = $file->getClientOriginalName();
+           
+
+                $originalName = $file->getClientOriginalName();
+                $extension = $file->getClientOriginalExtension();
+                
+                // Generate a unique filename
+                $newFileName = rand(11111111, 99999999) . '_' . $originalName;
+    
+                $path = public_path('images/uploads/');
+                
+                $file->move($path, $newFileName);
+
+
+
+                // Specify the directory where you want to store the files
+                // $path = public_path('images/uploads/');
+                
+                // Move the uploaded file to the specified path
+                // $file->move($path, $name);
+                $uploadedFileNames[] = $newFileName;
+                // $path = public_path() . '/images/educations/';
+                // $success = file_put_contents($path . $name, $fileData);
+
+            }
+            $fileNamesString = implode(",", $uploadedFileNames);
+           
+            return response()->json(['files' => $fileNamesString]);
+        }
+        return response()->json(['files' => 'noImage.png'], 400);
+   
+
+    }
+
     public function GetDetailEdu(Request $request ){
 
 

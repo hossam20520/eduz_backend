@@ -1289,6 +1289,79 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1875,8 +1948,8 @@ var render = function () {
                 "li",
                 {
                   staticClass: "nav-item",
-                  class: { active: _vm.selectedParentMenu == "teachers" },
-                  attrs: { "data-item": "teachers", "data-submenu": true },
+                  class: { active: _vm.selectedParentMenu == "blogs" },
+                  attrs: { "data-item": "blogs", "data-submenu": true },
                   on: { mouseenter: _vm.toggleSubMenu },
                 },
                 [
@@ -1886,13 +1959,13 @@ var render = function () {
                     [
                       _c("img", {
                         attrs: {
-                          src: "https://cdn-icons-png.flaticon.com/512/1048/1048950.png",
+                          src: "https://cdn-icons-png.flaticon.com/512/4581/4581944.png ",
                           width: "50%",
                         },
                       }),
                       _vm._v(" "),
                       _c("span", { staticClass: "nav-text" }, [
-                        _vm._v(_vm._s(_vm.$t("Teachers"))),
+                        _vm._v(_vm._s(_vm.$t("Blogs"))),
                       ]),
                     ]
                   ),
@@ -3455,6 +3528,54 @@ var render = function () {
               "ul",
               {
                 staticClass: "childNav d-none",
+                class: { "d-block": _vm.selectedParentMenu == "blogs" },
+                attrs: { "data-parent": "blogs" },
+              },
+              [
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { tag: "a", to: "/app/blogs/store" } },
+                      [
+                        _c("i", { staticClass: "nav-icon i-Add-File" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "item-name" }, [
+                          _vm._v(_vm._s(_vm.$t("AddBlog"))),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { tag: "a", to: "/app/blogs/list" } },
+                      [
+                        _c("i", { staticClass: "nav-icon i-Files" }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "item-name" }, [
+                          _vm._v(_vm._s(_vm.$t("blogsList"))),
+                        ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "ul",
+              {
+                staticClass: "childNav d-none",
                 class: { "d-block": _vm.selectedParentMenu == "settings" },
                 attrs: { "data-parent": "settings" },
               },
@@ -3487,6 +3608,54 @@ var render = function () {
                       1
                     )
                   : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "ul",
+                  {
+                    staticClass: "childNav d-none",
+                    class: { "d-block": _vm.selectedParentMenu == "blogs" },
+                    attrs: { "data-parent": "blogs" },
+                  },
+                  [
+                    _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { tag: "a", to: "/app/blogs/store" } },
+                          [
+                            _c("i", { staticClass: "nav-icon i-Add-File" }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "item-name" }, [
+                              _vm._v(_vm._s(_vm.$t("AddBlog"))),
+                            ]),
+                          ]
+                        ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { tag: "a", to: "/app/blogs/list" } },
+                          [
+                            _c("i", { staticClass: "nav-icon i-Files" }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "item-name" }, [
+                              _vm._v(_vm._s(_vm.$t("blogsList"))),
+                            ]),
+                          ]
+                        ),
+                      ],
+                      1
+                    ),
+                  ]
+                ),
                 _vm._v(" "),
                 _c(
                   "li",

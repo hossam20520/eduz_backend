@@ -44,7 +44,24 @@
             <div class="triangle"></div>
           </li>
 
-          <li 
+
+
+
+          <li @mouseenter="toggleSubMenu"
+            class="nav-item"
+            :class="{ active: selectedParentMenu == 'blogs' }"
+            data-item="blogs"
+            :data-submenu="true">
+            <a class="nav-item-hold" href="#">
+              <img src="https://cdn-icons-png.flaticon.com/512/4581/4581944.png " width="50%"/> 
+              <span class="nav-text">{{   $t('Blogs')  }}</span>
+            </a>
+            <div class="triangle"></div>
+          </li>
+
+
+
+          <!-- <li 
             @mouseenter="toggleSubMenu"
             class="nav-item"
             :class="{ active: selectedParentMenu == 'teachers' }"
@@ -55,7 +72,7 @@
               <span class="nav-text">{{   $t('Teachers')  }}</span>
             </a>
             <div class="triangle"></div>
-          </li>
+          </li> -->
 
           
           <!-- <li  @mouseenter="toggleSubMenu"
@@ -946,6 +963,36 @@
           </li>
         </ul>
 
+
+
+
+
+        <ul
+          class="childNav d-none"
+          data-parent="blogs"
+          :class="{ 'd-block': selectedParentMenu == 'blogs' }">
+
+          <li
+            class="nav-item" >
+            <router-link tag="a" class to="/app/blogs/store">
+              <i class="nav-icon i-Add-File"></i>
+              <span class="item-name">{{  $t('AddBlog')  }}</span>
+            </router-link>
+          </li>
+
+
+          <li
+            class="nav-item" >
+            <router-link tag="a" class to="/app/blogs/list">
+              <i class="nav-icon i-Files"></i>
+              <span class="item-name">{{  $t('blogsList') }}</span>
+            </router-link>
+          </li>
+ 
+        </ul>
+
+
+
         <ul
           class="childNav d-none"
           data-parent="settings"
@@ -963,6 +1010,32 @@
 
 
 
+
+          <ul
+          class="childNav d-none"
+          data-parent="blogs"
+          :class="{ 'd-block': selectedParentMenu == 'blogs' }">
+
+          <li
+            class="nav-item"
+            >
+            <router-link tag="a" class to="/app/blogs/store">
+              <i class="nav-icon i-Add-File"></i>
+              <span class="item-name">{{  $t('AddBlog')  }}</span>
+            </router-link>
+          </li>
+
+
+          <li
+            class="nav-item"
+            >
+            <router-link tag="a" class to="/app/blogs/list">
+              <i class="nav-icon i-Files"></i>
+              <span class="item-name">{{  $t('blogsList') }}</span>
+            </router-link>
+          </li>
+ 
+        </ul>
           
           <li class="nav-item"  >
             <router-link tag="a" class to="/app/settings/Drops">

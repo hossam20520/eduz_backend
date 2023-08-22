@@ -22,6 +22,12 @@ Route::get('device/info/{token}', 'device\AuthController@GetUserByToken');
 
 
 
+Route::post('files/upload', 'device\InstitutionsController@UploadFile');
+
+
+
+
+
 
 Route::get('device/inst/detail', 'device\InstitutionsController@GetTheInstDetail');
 
@@ -155,6 +161,14 @@ Route::get('Forms/Detail/{id}', 'FormsController@Get_Forms_Details');
     Route::post('drops/delete/by_selection', 'DropsController@delete_by_selection');
 
    
+
+//------------------------------- Blogs --------------------------\
+//------------------------------------------------------------------\
+Route::resource('Blogs', 'BlogsController');
+Route::get('Blogs/export/Excel', 'BlogsController@export_Excel');
+Route::post('Blogs/import/csv', 'BlogsController@import_blogs');
+Route::post('Blogs/delete/by_selection', 'BlogsController@delete_by_selection');
+Route::get('Blogs/Detail/{id}', 'BlogsController@Get_Blogs_Details');
 
      //-------------------------------Section--------------------------\
     //------------------------------------------------------------------\

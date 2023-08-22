@@ -384,7 +384,11 @@
                 </b-col>
 
 
-        
+
+
+       
+
+ 
 
                 <b-col md="6" class="mb-6" v-for="section in sections" :key="section.id">
                   <validation-provider :name="section.ar_name"  >
@@ -403,6 +407,9 @@
                   </validation-provider>
                 </b-col>
 
+
+
+ 
 
                 <!-- multiple -->
  
@@ -442,9 +449,71 @@
                   </b-col>
             
                 </b-row>
+
+
+
+                <b-row class="form-group">
+                  <br> 
+                  <b-col md="12 mb-5">
+                    <div
+                      id="my-strictly-unique-vue-upload-multiple-image"
+                      class="d-flex justify-content-center"
+                    >
+               
+                      <div>
+                        
+                        
+                         <div style="display: inline;" v-for="(item, index) in files_activetiy" :key="index"> 
+ 
+                         <span @click="deleteImage(index)" style="
+    justify-content: center;
+    position: absolute;
+    padding: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #9f9f9f6b;
+    color: red;
+    /* display: flex; */
+"> X</span> <img width="50px" :src="'/images/uploads/'+item">
+
+</div>
+ 
+
+
+           
+                   </div>
+                    </div>
+                  </b-col>
+            
+                </b-row>
+
+
+                <b-row class="form-group">
+                  <br> 
+                  <b-col md="12 mb-5">
+                    <div
+                      id="my-strictly-unique-vue-upload-multiple-image"
+                      class="d-flex justify-content-center"
+                    >
+ 
+                  <input type="file" ref="fileInput" multiple @change="handleFileChange">
+                  <button type="button" @click="uploadFiles">Upload</button>
+           
+                  
+
+
+                    </div>
+                  </b-col>
+            
+                </b-row>
+
+
+
               </div>
             </b-card>
           </b-col>
+
+          
           <b-col md="12" class="mt-3">
              <b-button variant="primary" type="submit" :disabled="SubmitProcessing">{{  $t('submit') }}</b-button>
               <div v-once class="typo__p" v-if="SubmitProcessing">
@@ -527,7 +596,10 @@ export default {
          expTo:"",
          children_numbers:"",
          is_accept:"",
+         activites_fiels:"",
       },
+    
+      files_activetiy: [],
       code_exist: ""
     };
   },
@@ -540,6 +612,38 @@ export default {
   },
 
   methods: {
+
+    deleteImage(index) {
+   
+      this.files_activetiy.splice(index, 1);
+      let strings =  this.files_activetiy.join(',');
+      this.school.activites_fiels = strings;
+      
+    },
+
+    handleFileChange(event) {
+      this.selectedFiles = Array.from(event.target.files);
+    },
+    async uploadFiles() {
+      const formData = new FormData();
+      this.selectedFiles.forEach(file => {
+        formData.append('files[]', file);
+      });
+
+      try {
+        await axios.post('/files/upload', formData).then(response => { 
+          console.log(response.data);
+          this.activites_fiels = response.data.files;
+          this.files_activetiy = response.data.files.split(",").map(item => item.trim());
+
+          });// Assuming you're using Axios for HTTP requests
+       
+        
+      } catch (error) {
+        console.error('Error uploading files', error);
+      }
+    },
+
    
     sendData(){
       const postData = Object.entries(this.selectedOptions).map(([sectionId, selectedIds]) => {

@@ -28,6 +28,8 @@ class helpers
         $field->lat = $request['lat'];
         $field->long_a = $request['long'];
         $field->area_id = $request['area_id'];
+        $field->activites_fiels = $request['activites_fiels'];
+        
     
         // $field->second_lang = $request['second_lang'];
         // $field->first_lang = $request['first_lang'];
@@ -106,8 +108,8 @@ class helpers
         // $item['children_numbers'] =  $model->children_numbers;
         // $item['is_accept'] =  $model->is_accept;
         $item['selected_ids'] =  $model->selected_ids;
-        $item['logo'] =  $model->logo;
-        $item['banner'] =  $model->banner;
+        // $item['logo'] =  $model->logo;
+        // $item['banner'] =  $model->banner;
         $item['exp_from'] =  $model->exp_from;
         $item['exp_to'] =  $model->exp_to;
         $item['paid_en_info'] =  $model->paid_en_info;
@@ -117,6 +119,8 @@ class helpers
         $item['free'] =  $model->free;
         $item['ar_address'] =  $model->ar_address;
         $item['en_address'] =  $model->en_address;
+        $item['activites_fiels'] =  $model->activites_fiels;
+        
     
         return $item;
 

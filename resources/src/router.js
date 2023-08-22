@@ -974,6 +974,43 @@ const routes = [
                 ],
             },
 
+                           //Blogs
+                           {
+                            path: "/app/blogs",
+                            component: () => import(/* webpackChunkName: "blogs" */ "./views/app/pages/blogs"),
+                            redirect: "app/blogs/list",
+                            children: [
+                                {
+                                    name: "index_blogs",
+                                    path: "list",
+                                    component: () =>
+                                        import(/* webpackChunkName: "index_blogs" */"./views/app/pages/blogs/index_blogs")
+                                },
+                                {
+                                    path: "store",
+                                    name: "store_blog",
+                                    component: () =>
+                                        import(/* webpackChunkName: "store_blog" */"./views/app/pages/blogs/Add_blog")
+                                },
+                                {
+                                    path: "edit/:id",
+                                    name: "edit_blog",
+                                    component: () =>
+                                        import(/* webpackChunkName: "edit_blog" */"./views/app/pages/blogs/Edit_blog")
+                                },
+                                {
+                                    path: "detail/:id",
+                                    name: "detail_blog",
+                                    component: () =>
+                                        import(/* webpackChunkName: "detail_blog" */"./views/app/pages/blogs/Detail_Blog")
+                                }
+                           
+                            ]
+                        },
+
+                        
+
+
             // People
             {
                 path: "/app/People",
@@ -1067,6 +1104,11 @@ const routes = [
                             },
                         ],
                     },
+
+
+
+
+                    
 
 
                     {

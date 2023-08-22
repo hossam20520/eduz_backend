@@ -331,16 +331,16 @@ public function StoreImage($name , $pathUrl , $request){
                     $filename = implode(",", $images);
                 }
 
-                $logo =  $this->UpdateImage( 'logo',  "educations" , $request , $request->logo , $School->logo );
+                // $logo =  $this->UpdateImage( 'logo',  "educations" , $request , $request->logo , $School->logo );
               
 
 
-                $banner =  $this->UpdateImage( 'banner',  "educations" , $request , $request->banner , $School->banner );
+                // $banner =  $this->UpdateImage( 'banner',  "educations" , $request , $request->banner , $School->banner );
 
          
  
-                $School->logo = $logo;
-                $School->banner = $banner;
+                // $School->logo = $logo;
+                // $School->banner = $banner;
                 $School->image = $filename;
                 $School->save();
 
