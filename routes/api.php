@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
  
 Route::get('device/blog', 'device\InstitutionsController@GetBlogs');
-
+Route::get('device/blog/detail', 'device\InstitutionsController@GetOneBlog');
 
 
 Route::get('device/info/{token}', 'device\AuthController@GetUserByToken');

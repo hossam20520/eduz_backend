@@ -61,6 +61,17 @@ class InstitutionsController extends Controller
     }
 
 
+    public function GetOneBlog(Request $request){
+      $id = $request->id;
+
+      $blog = Blog::where('deleted_at', '=', null)->where('id' ,$id )->first();
+      return response()->json([
+        'blog' => $blog,
+        
+    ]);
+
+    }
+
     public function GetBlogs(Request $request){
 
       $perPage = $request->limit;
