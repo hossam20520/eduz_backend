@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Education;
 use App\Models\Area;
 use App\Models\School;
-
+use App\Models\Blog;
 use App\Models\Kindergarten;
 use App\Models\Center;
 use App\Models\Educenter;
@@ -59,6 +59,38 @@ class InstitutionsController extends Controller
         ]);
 
     }
+
+
+    public function GetBlogs(Request $request){
+
+      $perPage = $request->limit;
+      $pageStart = \Request::get('page', 1);
+      // Start displaying items from this number;
+      $offSet = ($pageStart * $perPage) - $perPage;
+      $order = $request->SortField;
+      $dir = $request->SortType;
+      $helpers = new helpers();
+
+      $areas = Blog::where('deleted_at', '=', null)->where(function ($query) use ($request) {
+              return $query->when($request->filled('search'), function ($query) use ($request) {
+                  return $query->where('ar_name', 'LIKE', "%{$request->search}%")
+                      ->orWhere('en_name', 'LIKE', "%{$request->search}%");
+              });
+          });
+      $totalRows = $areas->count();
+      $areas = $areas->offset($offSet)
+          ->limit($perPage)
+          ->orderBy($order, $dir)
+          ->get();
+
+      return response()->json([
+          'blogs' => $areas,
+          'totalRows' => $totalRows,
+      ]);
+
+    }
+
+
 
 
 
