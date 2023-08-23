@@ -151,7 +151,7 @@ class AuthController extends Controller
         $type = $request->type;
         if($type == "PRODUCTS"){
             $products = Favourit::with('product')->where('deleted_at', '=', null )->where('user_id', $user->id )->get();  
-            return response()->json([ 'products'=> $products    ], 200);
+            return response()->json([ 'products'=> $products   , 'inst'=> [] ,  ], 200);
           }else{
 
               $inst = Instfav::where('deleted_at', '=', null )->where('user_id', $user->id )->get(); 
