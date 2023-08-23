@@ -107,6 +107,12 @@ Route::middleware(['auth:api', 'Is_Active'])->group(function () {
     Route::get("device/favourit", "device\AuthController@GetFavourit");
 
     
+
+    Route::get("device/favourit", "device\AuthController@GetFavouritData");
+ 
+
+
+    
     Route::get('device/mycart', 'device\ProductController@GetMyCart');
 
     Route::post('device/mycart', 'device\ProductController@AddToCart');

@@ -16,6 +16,12 @@ use App\Models\role_user;
 use App\Models\Calander;
 use App\Models\Favourit;
 use App\Models\Cart;
+use App\Models\Instfav;
+use App\Models\Universitie;
+use App\Models\School;
+use App\Models\Kindergarten;
+use App\Models\Center;
+use App\Models\Specialneed;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Cartitem;
@@ -138,6 +144,55 @@ class AuthController extends Controller
 
     }
 
+
+    public function GetFavouritData(Request $request){
+        $helpers = new helpers();
+        $user =  $helpers->getInfo();
+        $type = $request->type;
+        if($type == "PRODUCTS"){
+            $products = Favourit::with('product')->where('deleted_at', '=', null )->where('user_id', $user->id )->get();  
+            return response()->json([ 'products'=> $products    ], 200);
+          }else{
+
+              $inst = Instfav::where('deleted_at', '=', null )->where('user_id', $user->id )->get(); 
+              $model  = Kindergarten::class;
+        
+            if($type == "SCHOOLS"){
+              $model = School::class;
+            }else if($type == "KINDERGARTENS"){
+              $model  = Kindergarten::class;
+            }else if($type == "CENTERS"){
+              $model  = Center::class;
+            }else if($type == "SPECIALNEEDS"){
+              $model  = Specialneed::class;
+            }else if($type == "UNIVERSITIES"){
+                $model  = Universitie::class;
+              } 
+
+        $data = array();
+              
+      foreach ($inst as $eduItem) {
+        $inst_data  =  $model::where('deleted_at', '=', null )->where('id' , $eduItem->inst_id)->first();
+
+        $item['id'] =  $inst_data->id;
+        $item['en_name'] = $inst_data->en_name;
+        $item['ar_name'] = $inst_data->ar_name;
+        $firstimage = explode(',', $inst_data->image);
+        $item['image'] = $firstimage[0];
+        $data[] = $item;
+    }
+
+            
+
+            
+            return response()->json([ 'inst'=> $data    ], 200);
+        }
+
+    }
+
+
+
+
     public function GetFavourit(Request $request){
  
         $helpers = new helpers();
@@ -145,39 +200,35 @@ class AuthController extends Controller
         $type = $request->type;
 
         if($type == "TEACHERS"){
-            // $fav = Favourit::with('teachers')->where('deleted_at', '=', null )->where('type', $type )->where('user_id', $user->id )->get();  
+            // // $fav = Favourit::with('teachers')->where('deleted_at', '=', null )->where('type', $type )->where('user_id', $user->id )->get();  
          
-            $fav = Favourit::with(['teachers' => function ($query) {
-                $query->select('id',  'lat', 'long_a'  ,  'ar_name', 'en_name', 'ar_country', 'en_country', 'en_subject', 'ar_subject',    'share', 'image');
-            }])
-            ->select('id',   'title', 'teacher_id', 'product_id',   'type', 'created_at' )
-            ->where('deleted_at', null)
-            ->where('type', $type)
-            ->where('user_id', $user->id)
-            ->get(['id', 'user_id', 'title', 'teacher_id', 'product_id', 'inst_id', 'type']);
-           
-           
-            return response()->json(['teachers' => $fav ,  'products'=> []  , 'inst'=>  []  ], 200);
+            // $fav = Favourit::with(['teachers' => function ($query) {
+            //     $query->select('id',  'lat', 'long_a'  ,  'ar_name', 'en_name', 'ar_country', 'en_country', 'en_subject', 'ar_subject',    'share', 'image');
+            // }])
+            // ->select('id',   'title', 'teacher_id', 'product_id',   'type', 'created_at' )
+            // ->where('deleted_at', null)
+            // ->where('type', $type)
+            // ->where('user_id', $user->id)
+            // ->get(['id', 'user_id', 'title', 'teacher_id', 'product_id', 'inst_id', 'type']);
+ 
+            // return response()->json(['teachers' => $fav ,  'products'=> []  , 'inst'=>  []  ], 200);
       
       
         }else if($type == "PRODUCTS"){
-            $products = Favourit::with('product')->where('deleted_at', '=', null )->where('type',  $type )->where('user_id', $user->id )->get();  
-            return response()->json(['teachers' =>  [] ,  'products'=> $products  , 'inst'=>  []  ], 200);
+            // $products = Favourit::with('product')->where('deleted_at', '=', null )->where('type',  $type )->where('user_id', $user->id )->get();  
+            // return response()->json([   'products'=> $products  , 'inst'=>  []  ], 200);
         }else if($type == "INST"){
             // $inst = Favourit::with('inst')->where('deleted_at', '=', null )->where('type',  $type )->where('user_id', $user->id )->get();  
           
-            $inst = Favourit::with(['teachers' => function ($query) {
-                $query->select('ar_name', 'image');
-            }])
-            ->with(['inst' => function ($query) {
-                $query->select('id', 'type', 'en_name',   'lat', 'long_a'  ,'ar_name',   'url', 'phone', 'share', 'image');
-            }])
-            ->select('id', 'user_id', 'title', 'teacher_id', 'product_id', 'inst_id', 'type', )
-            ->where('deleted_at', null)
-            ->where('type', $type)
-            ->where('user_id', $user->id)
-            ->get(['id', 'user_id', 'title', 'teacher_id', 'product_id', 'inst_id', 'type',  ]);
-            return response()->json(['teachers' =>  [] ,  'products'=>  []  , 'inst'=> $inst   ], 200);
+        //     $inst = Favourit::with(['inst' => function ($query) {
+        //         $query->select('id', 'type', 'en_name',   'lat', 'long_a'  ,'ar_name',   'url', 'phone', 'share', 'image');
+        //     }])
+        //     ->select('id', 'user_id', 'title', 'teacher_id', 'product_id', 'inst_id', 'type', )
+        //     ->where('deleted_at', null)
+        //     ->where('type', $type)
+        //     ->where('user_id', $user->id)
+        //     ->get(['id', 'user_id', 'title', 'teacher_id', 'product_id', 'inst_id', 'type',  ]);
+        //     return response()->json([  'products'=>  []  , 'inst'=> $inst   ], 200);
         }
 
    
