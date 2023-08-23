@@ -185,7 +185,7 @@ class AuthController extends Controller
             
 
             
-            return response()->json([ 'inst'=> $data    ], 200);
+            return response()->json([ 'inst'=> $data , 'products'=> []    ], 200);
         }
 
     }
