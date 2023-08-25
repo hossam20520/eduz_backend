@@ -162,6 +162,9 @@ class ProductController extends Controller
         $item['cost'] = $Product->cost;
         $item['stock_alert'] = $Product->stock_alert;
         $item['taxe'] = $Product->TaxNet;
+        $item['isInFav'] = $helpers->IsInWhishlist($Product->id);
+        // $item['isInCart'] = $Product->TaxNet;
+        $item['taxe'] = $Product->TaxNet;
         $item['image'] = $firstimage[0];
         $item['tax_method'] = $Product->tax_method == '1' ? 'Exclusive' : 'Inclusive';
 

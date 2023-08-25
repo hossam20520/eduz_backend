@@ -4,11 +4,57 @@ namespace App\utils;
 use App\Models\Currency;
 use App\Models\Role;
 use App\Models\Setting;
+
+use App\Models\Cart;
+use App\Models\Cartitem;
+use App\Models\Favourit;
 use Illuminate\Support\Facades\Auth;
 
 class helpers
 {
 
+
+
+
+    public function IsInWhishlist($product_id  ){
+        $user  =  Auth::user();
+        $products = Favourit::where('deleted_at', '=', null)->where('product_id' , $product_id )->where('user_id' , $user->id )->first();
+
+        if($products){
+            return true;
+
+        }else{
+            return false;
+        }
+  
+
+    }
+
+
+
+
+    public function IsInCart($product_id , $user_id){
+        $cart = Cart::where('deleted_at', '=', null)->where('user_id' ,  $user_id)->where('order_id' ,  '='  , null )->first();
+ 
+
+        $cartItem =  Cartitem::where('deleted_at', '=', null)->where('product_id' , $product_id )->where('cart_id' ,  $cart->id )->first();
+
+
+  
+
+
+        if( $cartItem){
+
+            return true;
+
+        }else{
+            return false;
+        }
+      
+ 
+
+
+    }
 
 
 

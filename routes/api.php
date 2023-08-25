@@ -41,7 +41,7 @@ Route::get('device/map', 'device\InstitutionsController@MapData');
  Route::post("device/auth/login/", "device\AuthController@login");
  Route::get('device/products', 'device\ProductController@index');
 
- Route::get('device/product', 'device\ProductController@Get_Products_Details');
+
  
 
  Route::get('device/categories', 'device\CategoryController@GetCategories');
@@ -82,6 +82,10 @@ Route::group([
 Route::post('device/auth/password/change', 'device\AuthController@changePassword');
 Route::post("device/users/message/", "device\AuthController@GetUsers");
 Route::middleware(['auth:api', 'Is_Active'])->group(function () {
+
+    Route::get('device/product', 'device\ProductController@Get_Products_Details');
+
+    
 
     Route::post('device/profile/image', 'device\AuthController@changeImage');
 
