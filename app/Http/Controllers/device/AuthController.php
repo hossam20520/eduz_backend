@@ -25,6 +25,7 @@ use App\Models\Specialneed;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Cartitem;
+ 
 
 
 class AuthController extends Controller
@@ -122,6 +123,11 @@ class AuthController extends Controller
 
            return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
 
+        }else{
+            Instfav::where( 'inst_id' ,  $id)->where('user_id' , $user->id)->update([
+                'deleted_at' => Carbon::now(),
+            ]);
+            return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
         }
 
 
