@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Instfav extends Model
 {
-    use HasFactory;
+   
+    protected $fillable = [
+        'user_id', 
+          'inst_id' , 'type'
+   ];
+    
 }
