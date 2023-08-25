@@ -115,14 +115,14 @@ class AuthController extends Controller
         $user = Auth::user();
 
 
-  if($type == "PRODUCTS"){
+       if($type == "PRODUCTS"){
          Favourit::where( 'product_id' ,  $id)->where('user_id' , $user->id)->update([
                'deleted_at' => Carbon::now(),
            ]);
 
            return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
 
-     }
+        }
 
 
 
