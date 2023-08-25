@@ -145,7 +145,7 @@ class ProductController extends Controller
     {
 
          $id = $request->id;
-
+         $helpers = new helpers();
         $Product = Product::where('deleted_at', '=', null)->findOrFail($id);
         $firstimage = explode(',', $Product->image);
 
