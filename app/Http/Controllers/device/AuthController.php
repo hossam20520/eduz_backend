@@ -107,7 +107,7 @@ class AuthController extends Controller
             $fav = Instfav::where('deleted_at', '=', null )->where('user_id', $user->id )->where('inst_id', $request['id'])->first();
             if(!$fav){
                 Instfav::create([
-                    
+
                     'user_id' =>  $user->id,
                     'inst_id' => $request['id'],
                     'type' => $type,
@@ -196,23 +196,29 @@ class AuthController extends Controller
           }else{
 
               $inst = Instfav::where('deleted_at', '=', null )->where('user_id', $user->id )->orderBy( 'id',  'desc')->get(); 
-              $model  = Kindergarten::class;
+           
         
-            if($type == "SCHOOLS"){
-              $model = School::class;
-            }else if($type == "KINDERGARTENS"){
-              $model  = Kindergarten::class;
-            }else if($type == "CENTERS"){
-              $model  = Center::class;
-            }else if($type == "SPECIALNEEDS"){
-              $model  = Specialneed::class;
-            }else if($type == "UNIVERSITIES"){
-                $model  = Universitie::class;
-              } 
+      
 
         $data = array();
-              
+        $model  = Kindergarten::class;
       foreach ($inst as $eduItem) {
+            $typeEd = $eduItem->type;
+
+
+        if($typeEd  == "SCHOOLS"){
+            $model = School::class;
+          }else if($typeEd  == "KINDERGARTENS"){
+            $model  = Kindergarten::class;
+          }else if($typeEd  == "CENTERS"){
+            $model  = Center::class;
+          }else if($typeEd  == "SPECIALNEEDS"){
+            $model  = Specialneed::class;
+          }else if($typeEd  == "UNIVERSITIES"){
+              $model  = Universitie::class;
+            } 
+
+
         $inst_data  =  $model::where('deleted_at', '=', null )->where('id' , $eduItem->inst_id)->first();
 
         $item['id'] =  $inst_data->id;
