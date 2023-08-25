@@ -84,22 +84,27 @@ class AuthController extends Controller
      
     public function AddToFavourit(Request $request){
  
-        $helpers = new helpers();
-        $user =  $helpers->getInfo();
+        // $helpers = new helpers();
+        $user = Auth::user();
         $type = $request->type;
 
 
         // Favourit::where('deleted_at', '=', null )->where('user_id', $user->id )->where('user_id', $user->id )
+   
 
+        if($type == "PRODUCTS"){
+            Favourit::create([
+                'user_id' =>  $user->id,
+                'product_id' => $request['id'],
+            ]);
+        }else{
+            Instfav::create([
+                'user_id' =>  $user->id,
+                'inst_id' => $request['id'],
+            ]); 
+        }
      
-        Favourit::create([
-            'title' => $request['title'],
-            'user_id' =>  $user->id,
-            'teacher_id' =>  $request['teacher_id'],
-            'product_id' => $request['product_id'],
-            'inst_id' => $request['inst_id'],
-            'type' => $request['type'],
-        ]);
+    
 
         return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
     }

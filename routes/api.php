@@ -42,7 +42,7 @@ Route::get('device/map', 'device\InstitutionsController@MapData');
  Route::get('device/products', 'device\ProductController@index');
 
 
- 
+//  Route::get('device/products', 'device\ProductController@index');
 
  Route::get('device/categories', 'device\CategoryController@GetCategories');
  Route::post("device/auth/register/", "device\AuthController@register");
@@ -85,7 +85,7 @@ Route::middleware(['auth:api', 'Is_Active'])->group(function () {
 
     Route::get('device/product', 'device\ProductController@Get_Products_Details');
 
-    
+
 
     Route::post('device/profile/image', 'device\AuthController@changeImage');
 

@@ -127,9 +127,9 @@ class ProductController extends Controller
         $brands = Brand::where('deleted_at', null)->get(['id', 'name']);
 
         return response()->json([
-            'warehouses' => $warehouses,
+            // 'warehouses' => $warehouses,
             'categories' => $categories,
-            'brands' => $brands,
+            // 'brands' => $brands,
             'products' => $data,
             'totalRows' => $totalRows,
         ]);
