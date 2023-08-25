@@ -93,15 +93,25 @@ class AuthController extends Controller
    
 
         if($type == "PRODUCTS"){
-            Favourit::create([
-                'user_id' =>  $user->id,
-                'product_id' => $request['id'],
-            ]);
+            $fav = Favourit::where('deleted_at', '=', null )->where('user_id', $user->id )->where('product_id', $request['id'])->first();
+  
+            if(!$fav){
+                Favourit::create([
+                    'user_id' =>  $user->id,
+                    'product_id' => $request['id'],
+                ]);
+            }
+            
+        
         }else{
-            Instfav::create([
-                'user_id' =>  $user->id,
-                'inst_id' => $request['id'],
-            ]); 
+            $fav = Instfav::where('deleted_at', '=', null )->where('user_id', $user->id )->where('inst_id', $request['id'])->first();
+            if(!$fav){
+                Instfav::create([
+                    'user_id' =>  $user->id,
+                    'inst_id' => $request['id'],
+                ]); 
+            }
+         
         }
      
     
