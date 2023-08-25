@@ -111,13 +111,31 @@ class AuthController extends Controller
         $type = $request->type;
         $product_id = $request->product_id;
         $item = $request->item;
+
+        $user = Auth::user();
+
+
+  if($type == "PRODUCTS"){
+         Favourit::where( 'product_id' ,  $id)->where('user_id' , $user->id)->update([
+               'deleted_at' => Carbon::now(),
+           ]);
+
+           return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
+
+     }
+
+
+
+
      if( $type == "CART"){
         Favourit::where( 'product_id' ,  $id)->update([
             'deleted_at' => Carbon::now(),
         ]);
 
         return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
-     }else if( $type == "PRODUCT"){
+
+
+     }else if( $type == "PRODUCTS"){
 
 
         $ia = Cart::where('id',  $id )->first();

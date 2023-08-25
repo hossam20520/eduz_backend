@@ -25,17 +25,7 @@ Route::get('device/info/{token}', 'device\AuthController@GetUserByToken');
 
 
 Route::post('files/upload', 'device\InstitutionsController@UploadFile');
-
-
-
-
-
-
 Route::get('device/inst/detail', 'device\InstitutionsController@GetTheInstDetail');
-
-
-
-
 Route::get('device/educations/detail', 'device\InstitutionsController@GetDetailEdu');
 
 
@@ -86,8 +76,10 @@ Route::group([
     Route::post('reset', 'PasswordResetController@reset');
 });
 
-Route::post('device/auth/password/change', 'device\AuthController@changePassword');
 
+
+
+Route::post('device/auth/password/change', 'device\AuthController@changePassword');
 Route::post("device/users/message/", "device\AuthController@GetUsers");
 Route::middleware(['auth:api', 'Is_Active'])->group(function () {
 
