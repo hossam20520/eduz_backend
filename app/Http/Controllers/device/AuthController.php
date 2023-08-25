@@ -179,11 +179,11 @@ class AuthController extends Controller
         $user =  $helpers->getInfo();
         $type = $request->type;
         if($type == "PRODUCTS"){
-            $products = Favourit::with('product')->where('deleted_at', '=', null )->where('user_id', $user->id )->get();  
+            $products = Favourit::with('product')->where('deleted_at', '=', null )->where('user_id', $user->id )->orderBy( 'id',  'desc')->get();  
             return response()->json([ 'products'=> $products      ], 200);
           }else{
 
-              $inst = Instfav::where('deleted_at', '=', null )->where('user_id', $user->id )->get(); 
+              $inst = Instfav::where('deleted_at', '=', null )->where('user_id', $user->id )->orderBy( 'id',  'desc')->get(); 
               $model  = Kindergarten::class;
         
             if($type == "SCHOOLS"){
