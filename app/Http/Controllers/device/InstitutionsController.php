@@ -24,6 +24,38 @@ class InstitutionsController extends Controller
 {
     //
 
+
+
+    public function gettypesinst(Request $request){
+
+       $type = $request->type;
+       $model = School::class;
+      if($type == "SCHOOLS"){
+        $model = School::class;
+      }else if($type == "KINDERGARTENS"){
+        $model  = Kindergarten::class;
+      }else if($type == "CENTERS"){
+        $model  = Center::class;
+      }else if($type == "EDUCENTERS"){
+        $model  = Educenter::class;
+      }else if($type == "SPECIALNEEDS"){
+        $model  = Specialneed::class;
+      }else if($type == "UNIVERSITIES"){
+        $model  = Universitie::class;
+      } 
+ 
+      $list =  $model::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
+       
+      // $secion = Section::where('type',  $type)->where('deleted_at', '=', null)->get(['id', 'ar_name' ,'en_name' ]);
+
+      return response()->json(['types' => $list]);
+
+
+     
+ 
+
+    }
+
     public function index(Request $request)
     {
         // $this->authorizeForUser($request->user('api'), 'view', Institution::class);

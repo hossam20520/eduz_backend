@@ -109,6 +109,99 @@
                   </validation-provider>
             </b-col>
 
+
+                     <!-- Deal -->
+                     <b-col md="12">
+              <validation-provider
+                    name="en_Name"
+                    :rules="{required:true , min:3 , max:55}"
+                    v-slot="validationContext">
+                    <b-form-group :label="$t('ar_desc')">
+                      <b-form-input
+                        :state="getValidationState(validationContext)"
+                        aria-describedby="Name-feedback"
+                        label="ar_desc"
+                        :placeholder="$t('ar_desc')"
+                        v-model="deal.ar_desc"
+                      ></b-form-input>
+                      <b-form-invalid-feedback id="Name-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+            </b-col>
+
+
+
+
+
+
+                     <!-- Deal -->
+                     <b-col md="12">
+              <validation-provider
+                    name="en_Name"
+                    :rules="{required:true , min:3 , max:55}"
+                    v-slot="validationContext">
+                    <b-form-group :label="$t('Name_en_name')">
+                      <b-form-input
+                        :state="getValidationState(validationContext)"
+                        aria-describedby="Name-feedback"
+                        label="en_desc"
+                        :placeholder="$t('en_desc')"
+                        v-model="deal.en_desc"
+                      ></b-form-input>
+                      <b-form-invalid-feedback id="Name-feedback">{{ validationContext.errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+            </b-col>
+
+
+            <b-col md="12" class="mb-12">
+                  <validation-provider name="type" :rules="{ required: true}">
+                    <b-form-group slot-scope="{ valid, errors }" :label="$t('Type')">
+                      <v-select
+                        :class="{'is-invalid': !!errors.length}"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        v-model="deal.type"
+                        :reduce="label => label.value"
+                        :placeholder="$t('Type')"
+                        v-on:input="handleChange"
+                        :options="
+                            [
+
+                              {label: 'SCHOOLS', value: 'SCHOOLS'},
+                              {label: 'KINDERGARTENS', value: 'KINDERGARTENS'},
+                              {label: 'EDUCENTERS', value: 'EDUCENTERS'},
+                              {label: 'UNIVERSITIES', value: 'UNIVERSITIES'},
+                              {label: 'SPECIALNEEDS', value: 'SPECIALNEEDS'},
+                              {label: 'CENTERS', value: 'CENTERS'},
+                              {label: 'TEACHERS', value: 'TEACHERS'},
+
+            
+                            ]"
+                      ></v-select>
+                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
+           
+
+      
+                <b-col md="12" class="mb-12">
+                  <validation-provider name="Type" :rules="{ required: true}">
+                    <b-form-group slot-scope="{ valid, errors }" :label="$t('chooseInst')">
+                      <v-select
+                        :class="{'is-invalid': !!errors.length}"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        :reduce="label => label.value"
+                        :placeholder="$t('chooseInst')"
+                        v-model="deal.child_id"
+                        :options="types.map(types => ({label: types.ar_name, value: types.id}))"
+                      />
+                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
             <!-- -Deal Image -->
             <b-col md="12">
               <validation-provider name="Image" ref="Image" rules="mimes:image/*|size:200">
@@ -166,10 +259,15 @@ export default {
       editmode: false,
       deals: [],
       limit: "10",
+      types:[],
       deal: {
         id: "",
         ar_name: "",
         en_name: "",
+        ar_desc: "",
+        en_desc: "",
+        type: "",
+        child_id:"",
         image: ""
       }
     };
@@ -184,14 +282,21 @@ export default {
           thClass: "text-left"
         },
         {
-          label: this.$t("DealName"),
+          label: this.$t("en_name"),
           field: "en_name",
           tdClass: "text-left",
           thClass: "text-left"
         },
         {
-          label: this.$t("DealDescription"),
+          label: this.$t("ar_name"),
           field: "ar_name",
+          tdClass: "text-left",
+          thClass: "text-left"
+        },
+
+        {
+          label: this.$t("type"),
+          field: "type",
           tdClass: "text-left",
           thClass: "text-left"
         },
@@ -208,6 +313,44 @@ export default {
   },
 
   methods: {
+
+    handleChange(selectedValue){
+      
+      this.getItems(selectedValue);
+
+    },
+
+
+
+    getItems(type){
+
+  
+// Start the progress bar.
+// NProgress.start();
+// NProgress.set(0.1);
+axios.get(
+    "types/gettypesinst?type=" +  type 
+      
+  )
+  .then(response => {
+    this.sections = response.data.types;
+ 
+
+    // Complete the animation of theprogress bar.
+    // NProgress.done();
+    // this.isLoading = false;
+  })
+  .catch(response => {
+    // Complete the animation of theprogress bar.
+    NProgress.done();
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 500);
+  });
+
+},
+
+
     //---- update Params Table
     updateParams(newProps) {
       this.serverParams = Object.assign({}, this.serverParams, newProps);
@@ -358,6 +501,10 @@ export default {
       self.SubmitProcessing = true;
       self.data.append("ar_name", self.deal.ar_name);
       self.data.append("en_name", self.deal.en_name);
+      self.data.append("ar_desc", self.deal.ar_desc);
+      self.data.append("en_desc", self.deal.en_desc);
+      self.data.append("type", self.deal.type);
+      self.data.append("child_id", self.deal.child_id);
       self.data.append("image", self.deal.image);
       axios
         .post("deals", self.data)
@@ -383,6 +530,10 @@ export default {
        self.SubmitProcessing = true;
       self.data.append("en_name", self.deal.en_name);
       self.data.append("ar_name", self.deal.ar_name);
+      self.data.append("ar_desc", self.deal.ar_desc);
+      self.data.append("en_desc", self.deal.en_desc);
+      self.data.append("type", self.deal.type);
+      self.data.append("child_id", self.deal.child_id);
       self.data.append("image", self.deal.image);
       self.data.append("_method", "put");
 
@@ -410,6 +561,10 @@ export default {
         id: "",
         ar_name: "",
         en_name: "",
+        ar_desc: "",
+        en_desc: "",
+        type: "",
+        child_id: "",
         image: ""
       };
       this.data = new FormData();

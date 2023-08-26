@@ -160,6 +160,99 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   metaInfo: {
@@ -185,10 +278,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       editmode: false,
       deals: [],
       limit: "10",
+      types: [],
       deal: {
         id: "",
         ar_name: "",
         en_name: "",
+        ar_desc: "",
+        en_desc: "",
+        type: "",
+        child_id: "",
         image: ""
       }
     };
@@ -201,13 +299,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         tdClass: "text-left",
         thClass: "text-left"
       }, {
-        label: this.$t("DealName"),
+        label: this.$t("en_name"),
         field: "en_name",
         tdClass: "text-left",
         thClass: "text-left"
       }, {
-        label: this.$t("DealDescription"),
+        label: this.$t("ar_name"),
         field: "ar_name",
+        tdClass: "text-left",
+        thClass: "text-left"
+      }, {
+        label: this.$t("type"),
+        field: "type",
         tdClass: "text-left",
         thClass: "text-left"
       }, {
@@ -221,6 +324,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    handleChange: function handleChange(selectedValue) {
+      this.getItems(selectedValue);
+    },
+    getItems: function getItems(type) {
+      var _this = this;
+
+      // Start the progress bar.
+      // NProgress.start();
+      // NProgress.set(0.1);
+      axios.get("types/gettypesinst?type=" + type).then(function (response) {
+        _this.sections = response.data.types; // Complete the animation of theprogress bar.
+        // NProgress.done();
+        // this.isLoading = false;
+      })["catch"](function (response) {
+        // Complete the animation of theprogress bar.
+        nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
+        setTimeout(function () {
+          _this.isLoading = false;
+        }, 500);
+      });
+    },
     //---- update Params Table
     updateParams: function updateParams(newProps) {
       this.serverParams = Object.assign({}, this.serverParams, newProps);
@@ -261,12 +385,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //---- Event Select Rows
     selectionChanged: function selectionChanged(_ref3) {
-      var _this = this;
+      var _this2 = this;
 
       var selectedRows = _ref3.selectedRows;
       this.selectedIds = [];
       selectedRows.forEach(function (row, index) {
-        _this.selectedIds.push(row.id);
+        _this2.selectedIds.push(row.id);
       });
     },
     //---- Event on Search
@@ -284,16 +408,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //------------- Submit Validation Create & Edit Deal
     Submit_Deal: function Submit_Deal() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$refs.Create_deal.validate().then(function (success) {
         if (!success) {
-          _this2.makeToast("danger", _this2.$t("Please_fill_the_form_correctly"), _this2.$t("Failed"));
+          _this3.makeToast("danger", _this3.$t("Please_fill_the_form_correctly"), _this3.$t("Failed"));
         } else {
-          if (!_this2.editmode) {
-            _this2.Create_Deal();
+          if (!_this3.editmode) {
+            _this3.Create_Deal();
           } else {
-            _this2.Update_Deal();
+            _this3.Update_Deal();
           }
         }
       });
@@ -308,26 +432,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //------------------------------ Event Upload Image -------------------------------\
     onFileSelected: function onFileSelected(e) {
-      var _this3 = this;
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var _yield$_this3$$refs$I, valid;
+        var _yield$_this4$$refs$I, valid;
 
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this3.$refs.Image.validate(e);
+                return _this4.$refs.Image.validate(e);
 
               case 2:
-                _yield$_this3$$refs$I = _context.sent;
-                valid = _yield$_this3$$refs$I.valid;
+                _yield$_this4$$refs$I = _context.sent;
+                valid = _yield$_this4$$refs$I.valid;
 
                 if (valid) {
-                  _this3.deal.image = e.target.files[0];
+                  _this4.deal.image = e.target.files[0];
                 } else {
-                  _this3.deal.image = "";
+                  _this4.deal.image = "";
                 }
 
               case 5:
@@ -354,64 +478,72 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //---------------------------------------- Get All deals-----------------\
     Get_Deals: function Get_Deals(page) {
-      var _this4 = this;
+      var _this5 = this;
 
       // Start the progress bar.
       nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.start();
       nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.set(0.1);
       axios.get("deals?page=" + page + "&SortField=" + this.serverParams.sort.field + "&SortType=" + this.serverParams.sort.type + "&search=" + this.search + "&limit=" + this.limit).then(function (response) {
-        _this4.deals = response.data.deals;
-        _this4.totalRows = response.data.totalRows; // Complete the animation of theprogress bar.
+        _this5.deals = response.data.deals;
+        _this5.totalRows = response.data.totalRows; // Complete the animation of theprogress bar.
 
         nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
-        _this4.isLoading = false;
+        _this5.isLoading = false;
       })["catch"](function (response) {
         // Complete the animation of theprogress bar.
         nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
         setTimeout(function () {
-          _this4.isLoading = false;
+          _this5.isLoading = false;
         }, 500);
       });
     },
     //---------------------------------------- Create new deal-----------------\
     Create_Deal: function Create_Deal() {
-      var _this5 = this;
+      var _this6 = this;
 
       var self = this;
       self.SubmitProcessing = true;
       self.data.append("ar_name", self.deal.ar_name);
       self.data.append("en_name", self.deal.en_name);
+      self.data.append("ar_desc", self.deal.ar_desc);
+      self.data.append("en_desc", self.deal.en_desc);
+      self.data.append("type", self.deal.type);
+      self.data.append("child_id", self.deal.child_id);
       self.data.append("image", self.deal.image);
       axios.post("deals", self.data).then(function (response) {
         self.SubmitProcessing = false;
         Fire.$emit("Event_Deal");
 
-        _this5.makeToast("success", _this5.$t("Create.TitleDeal"), _this5.$t("Success"));
+        _this6.makeToast("success", _this6.$t("Create.TitleDeal"), _this6.$t("Success"));
       })["catch"](function (error) {
         self.SubmitProcessing = false;
 
-        _this5.makeToast("danger", _this5.$t("InvalidData"), _this5.$t("Failed"));
+        _this6.makeToast("danger", _this6.$t("InvalidData"), _this6.$t("Failed"));
       });
     },
     //---------------------------------------- Update Deal-----------------\
     Update_Deal: function Update_Deal() {
-      var _this6 = this;
+      var _this7 = this;
 
       var self = this;
       self.SubmitProcessing = true;
       self.data.append("en_name", self.deal.en_name);
       self.data.append("ar_name", self.deal.ar_name);
+      self.data.append("ar_desc", self.deal.ar_desc);
+      self.data.append("en_desc", self.deal.en_desc);
+      self.data.append("type", self.deal.type);
+      self.data.append("child_id", self.deal.child_id);
       self.data.append("image", self.deal.image);
       self.data.append("_method", "put");
       axios.post("deals/" + self.deal.id, self.data).then(function (response) {
         self.SubmitProcessing = false;
         Fire.$emit("Event_Deal");
 
-        _this6.makeToast("success", _this6.$t("Update.TitleDeal"), _this6.$t("Success"));
+        _this7.makeToast("success", _this7.$t("Update.TitleDeal"), _this7.$t("Success"));
       })["catch"](function (error) {
         self.SubmitProcessing = false;
 
-        _this6.makeToast("danger", _this6.$t("InvalidData"), _this6.$t("Failed"));
+        _this7.makeToast("danger", _this7.$t("InvalidData"), _this7.$t("Failed"));
       });
     },
     //---------------------------------------- Reset Form -----------------\
@@ -420,13 +552,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         id: "",
         ar_name: "",
         en_name: "",
+        ar_desc: "",
+        en_desc: "",
+        type: "",
+        child_id: "",
         image: ""
       };
       this.data = new FormData();
     },
     //---------------------------------------- Delete Deal -----------------\
     Delete_Deal: function Delete_Deal(id) {
-      var _this7 = this;
+      var _this8 = this;
 
       this.$swal({
         title: this.$t("Delete.Title"),
@@ -440,18 +576,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("deals/" + id).then(function () {
-            _this7.$swal(_this7.$t("Delete.Deleted"), _this7.$t("Delete.TitleDeal"), "success");
+            _this8.$swal(_this8.$t("Delete.Deleted"), _this8.$t("Delete.TitleDeal"), "success");
 
             Fire.$emit("Delete_Deal");
           })["catch"](function () {
-            _this7.$swal(_this7.$t("Delete.Failed"), _this7.$t("Delete.Therewassomethingwronge"), "warning");
+            _this8.$swal(_this8.$t("Delete.Failed"), _this8.$t("Delete.Therewassomethingwronge"), "warning");
           });
         }
       });
     },
     //---- Delete deals by selection
     delete_by_selected: function delete_by_selected() {
-      var _this8 = this;
+      var _this9 = this;
 
       this.$swal({
         title: this.$t("Delete.Title"),
@@ -468,9 +604,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.start();
           nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.set(0.1);
           axios.post("deals/delete/by_selection", {
-            selectedIds: _this8.selectedIds
+            selectedIds: _this9.selectedIds
           }).then(function () {
-            _this8.$swal(_this8.$t("Delete.Deleted"), _this8.$t("Delete.TitleDeal"), "success");
+            _this9.$swal(_this9.$t("Delete.Deleted"), _this9.$t("Delete.TitleDeal"), "success");
 
             Fire.$emit("Delete_Deal");
           })["catch"](function () {
@@ -479,7 +615,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
             }, 500);
 
-            _this8.$swal(_this8.$t("Delete.Failed"), _this8.$t("Delete.Therewassomethingwronge"), "warning");
+            _this9.$swal(_this9.$t("Delete.Failed"), _this9.$t("Delete.Therewassomethingwronge"), "warning");
           });
         }
       });
@@ -487,19 +623,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   //end Methods
   created: function created() {
-    var _this9 = this;
+    var _this10 = this;
 
     this.Get_Deals(1);
     Fire.$on("Event_Deal", function () {
       setTimeout(function () {
-        _this9.Get_Deals(_this9.serverParams.page);
+        _this10.Get_Deals(_this10.serverParams.page);
 
-        _this9.$bvModal.hide("New_deal");
+        _this10.$bvModal.hide("New_deal");
       }, 500);
     });
     Fire.$on("Delete_Deal", function () {
       setTimeout(function () {
-        _this9.Get_Deals(_this9.serverParams.page);
+        _this10.Get_Deals(_this10.serverParams.page);
       }, 500);
     });
   }
@@ -870,6 +1006,277 @@ var render = function () {
                                       1
                                     ),
                                   ]
+                                },
+                              },
+                            ]),
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { attrs: { md: "12" } },
+                        [
+                          _c("validation-provider", {
+                            attrs: {
+                              name: "en_Name",
+                              rules: { required: true, min: 3, max: 55 },
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (validationContext) {
+                                  return [
+                                    _c(
+                                      "b-form-group",
+                                      { attrs: { label: _vm.$t("ar_desc") } },
+                                      [
+                                        _c("b-form-input", {
+                                          attrs: {
+                                            state:
+                                              _vm.getValidationState(
+                                                validationContext
+                                              ),
+                                            "aria-describedby": "Name-feedback",
+                                            label: "ar_desc",
+                                            placeholder: _vm.$t("ar_desc"),
+                                          },
+                                          model: {
+                                            value: _vm.deal.ar_desc,
+                                            callback: function ($$v) {
+                                              _vm.$set(_vm.deal, "ar_desc", $$v)
+                                            },
+                                            expression: "deal.ar_desc",
+                                          },
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-form-invalid-feedback",
+                                          { attrs: { id: "Name-feedback" } },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                validationContext.errors[0]
+                                              )
+                                            ),
+                                          ]
+                                        ),
+                                      ],
+                                      1
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { attrs: { md: "12" } },
+                        [
+                          _c("validation-provider", {
+                            attrs: {
+                              name: "en_Name",
+                              rules: { required: true, min: 3, max: 55 },
+                            },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (validationContext) {
+                                  return [
+                                    _c(
+                                      "b-form-group",
+                                      {
+                                        attrs: {
+                                          label: _vm.$t("Name_en_name"),
+                                        },
+                                      },
+                                      [
+                                        _c("b-form-input", {
+                                          attrs: {
+                                            state:
+                                              _vm.getValidationState(
+                                                validationContext
+                                              ),
+                                            "aria-describedby": "Name-feedback",
+                                            label: "en_desc",
+                                            placeholder: _vm.$t("en_desc"),
+                                          },
+                                          model: {
+                                            value: _vm.deal.en_desc,
+                                            callback: function ($$v) {
+                                              _vm.$set(_vm.deal, "en_desc", $$v)
+                                            },
+                                            expression: "deal.en_desc",
+                                          },
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-form-invalid-feedback",
+                                          { attrs: { id: "Name-feedback" } },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                validationContext.errors[0]
+                                              )
+                                            ),
+                                          ]
+                                        ),
+                                      ],
+                                      1
+                                    ),
+                                  ]
+                                },
+                              },
+                            ]),
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { staticClass: "mb-12", attrs: { md: "12" } },
+                        [
+                          _c("validation-provider", {
+                            attrs: { name: "type", rules: { required: true } },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (ref) {
+                                  var valid = ref.valid
+                                  var errors = ref.errors
+                                  return _c(
+                                    "b-form-group",
+                                    { attrs: { label: _vm.$t("Type") } },
+                                    [
+                                      _c("v-select", {
+                                        class: {
+                                          "is-invalid": !!errors.length,
+                                        },
+                                        attrs: {
+                                          state: errors[0]
+                                            ? false
+                                            : valid
+                                            ? true
+                                            : null,
+                                          reduce: function (label) {
+                                            return label.value
+                                          },
+                                          placeholder: _vm.$t("Type"),
+                                          options: [
+                                            {
+                                              label: "SCHOOLS",
+                                              value: "SCHOOLS",
+                                            },
+                                            {
+                                              label: "KINDERGARTENS",
+                                              value: "KINDERGARTENS",
+                                            },
+                                            {
+                                              label: "EDUCENTERS",
+                                              value: "EDUCENTERS",
+                                            },
+                                            {
+                                              label: "UNIVERSITIES",
+                                              value: "UNIVERSITIES",
+                                            },
+                                            {
+                                              label: "SPECIALNEEDS",
+                                              value: "SPECIALNEEDS",
+                                            },
+                                            {
+                                              label: "CENTERS",
+                                              value: "CENTERS",
+                                            },
+                                            {
+                                              label: "TEACHERS",
+                                              value: "TEACHERS",
+                                            },
+                                          ],
+                                        },
+                                        on: { input: _vm.handleChange },
+                                        model: {
+                                          value: _vm.deal.type,
+                                          callback: function ($$v) {
+                                            _vm.$set(_vm.deal, "type", $$v)
+                                          },
+                                          expression: "deal.type",
+                                        },
+                                      }),
+                                      _vm._v(" "),
+                                      _c("b-form-invalid-feedback", [
+                                        _vm._v(_vm._s(errors[0])),
+                                      ]),
+                                    ],
+                                    1
+                                  )
+                                },
+                              },
+                            ]),
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        { staticClass: "mb-12", attrs: { md: "12" } },
+                        [
+                          _c("validation-provider", {
+                            attrs: { name: "Type", rules: { required: true } },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (ref) {
+                                  var valid = ref.valid
+                                  var errors = ref.errors
+                                  return _c(
+                                    "b-form-group",
+                                    { attrs: { label: _vm.$t("chooseInst") } },
+                                    [
+                                      _c("v-select", {
+                                        class: {
+                                          "is-invalid": !!errors.length,
+                                        },
+                                        attrs: {
+                                          state: errors[0]
+                                            ? false
+                                            : valid
+                                            ? true
+                                            : null,
+                                          reduce: function (label) {
+                                            return label.value
+                                          },
+                                          placeholder: _vm.$t("chooseInst"),
+                                          options: _vm.types.map(function (
+                                            types
+                                          ) {
+                                            return {
+                                              label: types.ar_name,
+                                              value: types.id,
+                                            }
+                                          }),
+                                        },
+                                        model: {
+                                          value: _vm.deal.child_id,
+                                          callback: function ($$v) {
+                                            _vm.$set(_vm.deal, "child_id", $$v)
+                                          },
+                                          expression: "deal.child_id",
+                                        },
+                                      }),
+                                      _vm._v(" "),
+                                      _c("b-form-invalid-feedback", [
+                                        _vm._v(_vm._s(errors[0])),
+                                      ]),
+                                    ],
+                                    1
+                                  )
                                 },
                               },
                             ]),
