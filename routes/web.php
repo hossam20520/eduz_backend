@@ -110,6 +110,9 @@ if ($installed === false) {
     });
 }
 
+Route::get('public/images/educations/{filename}', 'S3ProxyController@show')
+    ->where('filename', '.*');
+
 //------------------------------------------------------------------\\
 
 Route::group(['middleware' => ['auth', 'Is_Active']], function () {
