@@ -568,7 +568,7 @@ class SpecialneedsController extends BaseController
             //     }
             // }
 
-
+            foreach (explode(',', $Specialneed->image) as $img) {
             $s3Path = 'images/educations/' . $img;
 
             if (Storage::disk('s3')->exists($s3Path)) {
@@ -581,6 +581,8 @@ class SpecialneedsController extends BaseController
                 $item['images'][] = $itemImg;
             }
 
+        }
+ 
 
         } else {
             $item['images'] = [];
