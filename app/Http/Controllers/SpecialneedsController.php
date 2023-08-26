@@ -136,8 +136,8 @@ class SpecialneedsController extends BaseController
                         $name = rand(11111111, 99999999) . $file['name'];
                         // $path = public_path() . '/images/educations/';
                         // $success = file_put_contents($path . $name, $fileData);
-                        $imageData = preg_replace('#^data:image/\w+;base64,#i', '', $imageData); // Remove base64 prefix
-                        $image = Image::make(base64_decode($imageData));
+                        $file = preg_replace('#^data:image/\w+;base64,#i', '', $file); // Remove base64 prefix
+                        $image = Image::make(base64_decode($file));
                         $path = 'images/educations/' . $name;
 
                         // Upload the image to S3
