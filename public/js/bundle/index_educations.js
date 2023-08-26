@@ -748,7 +748,8 @@ var render = function () {
                                       width: "50",
                                       fluid: "",
                                       src:
-                                        "/images/educations/" + props.row.image,
+                                        "/path/images/educations/" +
+                                        props.row.image,
                                       alt: "image",
                                     },
                                   }),
