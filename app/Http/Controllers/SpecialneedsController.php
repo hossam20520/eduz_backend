@@ -246,15 +246,51 @@ class SpecialneedsController extends BaseController
 
  
 
-                if ($request['images'] === null) {
+                // if ($request['images'] === null) {
 
+                //     if ($Specialneed->image !== null) {
+                //         foreach (explode(',', $Specialneed->image) as $img) {
+                //             $pathIMG = public_path() . '/images/educations/' . $img;
+                //             if (file_exists($pathIMG)) {
+                //                 if ($img != 'no-image.png') {
+                //                     @unlink($pathIMG);
+                //                 }
+                //             }
+                //         }
+                //     }
+                //     $filename = 'no-image.png';
+                // } else {
+                //     if ($Specialneed->image !== null) {
+                //         foreach (explode(',', $Specialneed->image) as $img) {
+                //             $pathIMG = public_path() . '/images/educations/' . $img;
+                //             if (file_exists($pathIMG)) {
+                //                 if ($img != 'no-image.png') {
+                //                     @unlink($pathIMG);
+                //                 }
+                //             }
+                //         }
+                //     }
+                //     $files = $request['images'];
+                //     foreach ($files as $file) {
+                //         $fileData =  base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path']));
+                //         // $fileData->resize(200, 200);
+                //         $name = rand(11111111, 99999999) . $file['name'];
+                //         $path = public_path() . '/images/educations/';
+                //         $success = file_put_contents($path . $name, $fileData);
+                //         $images[] = $name;
+                //     }
+                //     $filename = implode(",", $images);
+                // }
+
+
+
+                if ($request['images'] === null) {
                     if ($Specialneed->image !== null) {
                         foreach (explode(',', $Specialneed->image) as $img) {
-                            $pathIMG = public_path() . '/images/educations/' . $img;
-                            if (file_exists($pathIMG)) {
-                                if ($img != 'no-image.png') {
-                                    @unlink($pathIMG);
-                                }
+                            $s3Path = 'images/educations/' . $img;
+                
+                            if (Storage::disk('s3')->exists($s3Path)) {
+                                Storage::disk('s3')->delete($s3Path);
                             }
                         }
                     }
@@ -262,23 +298,25 @@ class SpecialneedsController extends BaseController
                 } else {
                     if ($Specialneed->image !== null) {
                         foreach (explode(',', $Specialneed->image) as $img) {
-                            $pathIMG = public_path() . '/images/educations/' . $img;
-                            if (file_exists($pathIMG)) {
-                                if ($img != 'no-image.png') {
-                                    @unlink($pathIMG);
-                                }
+                            $s3Path = 'images/educations/' . $img;
+                
+                            if (Storage::disk('s3')->exists($s3Path)) {
+                                Storage::disk('s3')->delete($s3Path);
                             }
                         }
                     }
-                    $files = $request['images'];
-                    foreach ($files as $file) {
-                        $fileData =  base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path']));
-                        // $fileData->resize(200, 200);
+                
+                    $images = [];
+                
+                    foreach ($request['images'] as $file) {
+                        $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path']));
                         $name = rand(11111111, 99999999) . $file['name'];
-                        $path = public_path() . '/images/educations/';
-                        $success = file_put_contents($path . $name, $fileData);
+                        $s3Path = 'images/educations/' . $name;
+                
+                        Storage::disk('s3')->put($s3Path, $fileData);
                         $images[] = $name;
                     }
+                
                     $filename = implode(",", $images);
                 }
 
