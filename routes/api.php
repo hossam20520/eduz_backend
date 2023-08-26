@@ -52,7 +52,7 @@ Route::get('device/educations/detail', 'device\InstitutionsController@GetDetailE
  Route::get('device/inst', 'device\InstitutionsController@get');
 
  Route::get('drops/gettypes', 'DropsController@getTypes');
- Route::get('type/gettypesinst', 'device\InstitutionsController@gettypesinst');
+ Route::get('types/gettypesinst', 'device\InstitutionsController@gettypesinst');
 
  
  
