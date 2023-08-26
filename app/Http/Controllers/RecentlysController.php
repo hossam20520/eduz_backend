@@ -77,11 +77,13 @@ class RecentlysController extends Controller
                 $item['ar_name'] =  $modV->ar_name;
                 $item['en_name'] =  $modV->en_name;
         
+
+                $data[] = $item;
                 # code...
             }
 
         return response()->json([
-            'recentlys' => $recentlys,
+            'recentlys' =>  $data,
             'totalRows' => $totalRows,
         ]);
 
