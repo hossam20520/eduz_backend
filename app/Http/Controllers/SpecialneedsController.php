@@ -556,17 +556,32 @@ class SpecialneedsController extends BaseController
  
         $item['images'] = [];
         if ($Specialneed->image != '' && $Specialneed->image != 'no-image.png') {
-            foreach (explode(',', $Specialneed->image) as $img) {
-                $path = public_path() . '/images/educations/' . $img;
-                if (file_exists($path)) {
-                    $itemImg['name'] = $img;
-                    $type = pathinfo($path, PATHINFO_EXTENSION);
-                    $data = file_get_contents($path);
-                    $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            // foreach (explode(',', $Specialneed->image) as $img) {
+            //     $path = public_path() . '/images/educations/' . $img;
+            //     if (file_exists($path)) {
+            //         $itemImg['name'] = $img;
+            //         $type = pathinfo($path, PATHINFO_EXTENSION);
+            //         $data = file_get_contents($path);
+            //         $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-                    $item['images'][] = $itemImg;
-                }
+            //         $item['images'][] = $itemImg;
+            //     }
+            // }
+
+
+            $s3Path = 'images/educations/' . $img;
+
+            if (Storage::disk('s3')->exists($s3Path)) {
+                $imageData = Storage::disk('s3')->get($s3Path);
+    
+                $itemImg['name'] = $img;
+                $type = pathinfo($img, PATHINFO_EXTENSION);
+                $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($imageData);
+    
+                $item['images'][] = $itemImg;
             }
+
+
         } else {
             $item['images'] = [];
         }
