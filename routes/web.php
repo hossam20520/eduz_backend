@@ -103,7 +103,7 @@ if ($installed === false) {
         return view("front.messages");
     })->name('messages');
 
-    Route::get('public/images/educations/{filename}', 'S3ProxyController@show')
+    Route::get('path/images/educations/{filename}', 'S3ProxyController@show')
     ->where('filename', '.*');
 
     Route::any('/setup/{vue}', function () {
