@@ -53,7 +53,7 @@ class RecentlysController extends Controller
 
             $data = array();
 
-            foreach ($data as  $recen) {
+            foreach ($recentlys as  $recen) {
 
              $type =  $recen->type;
 
