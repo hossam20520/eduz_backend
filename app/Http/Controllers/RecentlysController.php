@@ -50,9 +50,9 @@ class RecentlysController extends Controller
     {
         // $this->authorizeForUser($request->user('api'), 'create', Recently::class);
 
-        request()->validate([
-            'ar_name' => 'required',
-        ]);
+        // request()->validate([
+        //     'ar_name' => 'required',
+        // ]);
 
         \DB::transaction(function () use ($request) {
 
@@ -96,9 +96,9 @@ class RecentlysController extends Controller
  
         //  $this->authorizeForUser($request->user('api'), 'update', Recently::class);
  
-         request()->validate([
-             'ar_name' => 'required',
-         ]);
+        //  request()->validate([
+        //      'ar_name' => 'required',
+        //  ]);
          \DB::transaction(function () use ($request, $id) {
              $Recently = Recently::findOrFail($id);
              $currentImage = $Recently->image;
