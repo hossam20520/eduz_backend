@@ -8,6 +8,7 @@
     "/js/bundle/Cats.js": "/js/bundle/Cats.js",
     "/js/bundle/Currencies.js": "/js/bundle/Currencies.js",
     "/js/bundle/Customers.js": "/js/bundle/Customers.js",
+    "/js/bundle/Deals.js": "/js/bundle/Deals.js",
     "/js/bundle/Drops.js": "/js/bundle/Drops.js",
     "/js/bundle/Institutions.js": "/js/bundle/Institutions.js",
     "/js/bundle/Kindergrants.js": "/js/bundle/Kindergrants.js",
@@ -143,15 +144,10 @@
     "/js/bundle/vendors~barcode~detail_blog~detail_center~detail_education~detail_educenter~detail_form~detail_kinde~1d7b0bb8.js": "/js/bundle/vendors~barcode~detail_blog~detail_center~detail_education~detail_educenter~detail_form~detail_kinde~1d7b0bb8.js",
     "/js/bundle/vendors~dashboard~warehouse_report.js": "/js/bundle/vendors~dashboard~warehouse_report.js",
     "/js/bundle/vendors~edit_blog~edit_center~edit_education~edit_educenter~edit_kindergarten~edit_kindergrant~edit_~144959ec.js": "/js/bundle/vendors~edit_blog~edit_center~edit_education~edit_educenter~edit_kindergarten~edit_kindergrant~edit_~144959ec.js",
-    "/js/bundle/vendors~edit_center~edit_education~edit_educenter~edit_kindergarten~edit_school~edit_specialneed~edi~382d9c5a.js": "/js/bundle/vendors~edit_center~edit_education~edit_educenter~edit_kindergarten~edit_school~edit_specialneed~edi~382d9c5a.js",
+    "/js/bundle/vendors~edit_blog~edit_center~edit_education~edit_educenter~edit_kindergarten~edit_school~edit_speci~e2e9ac12.js": "/js/bundle/vendors~edit_blog~edit_center~edit_education~edit_educenter~edit_kindergarten~edit_school~edit_speci~e2e9ac12.js",
     "/js/bundle/vendors~index_sales~pos.js": "/js/bundle/vendors~index_sales~pos.js",
     "/js/bundle/vendors~largeSidebar.js": "/js/bundle/vendors~largeSidebar.js",
     "/js/bundle/vendors~largeSidebar~pos.js": "/js/bundle/vendors~largeSidebar~pos.js",
     "/js/bundle/vendors~vue-perfect-scrollbar.js": "/js/bundle/vendors~vue-perfect-scrollbar.js",
-    "/js/bundle/warehouse_report.js": "/js/bundle/warehouse_report.js",
-    "/js/bundle/vendors~edit_center~edit_education~edit_educenter~edit_kindergarten~edit_school~edit_specialneed~edi~5e4dce67.js": "/js/bundle/vendors~edit_center~edit_education~edit_educenter~edit_kindergarten~edit_school~edit_specialneed~edi~5e4dce67.js",
-    "/js/bundle/vendors~edit_blog~edit_center~edit_education~edit_educenter~edit_kindergarten~edit_school~edit_speci~e2e9ac12.js": "/js/bundle/vendors~edit_blog~edit_center~edit_education~edit_educenter~edit_kindergarten~edit_school~edit_speci~e2e9ac12.js",
-    "/js/bundle/vendors~Institutions~edit_blog~edit_center~edit_education~edit_educenter~edit_kindergarten~edit_kind~68fff5e3.js": "/js/bundle/vendors~Institutions~edit_blog~edit_center~edit_education~edit_educenter~edit_kindergarten~edit_kind~68fff5e3.js",
-    "/js/bundle/vendors~edit_blog~edit_center~edit_education~edit_educenter~edit_kindergarten~edit_kindergrant~edit_~400989fb.js": "/js/bundle/vendors~edit_blog~edit_center~edit_education~edit_educenter~edit_kindergarten~edit_kindergrant~edit_~400989fb.js",
-    "/js/bundle/vendors~edit_blog~edit_center~edit_education~edit_educenter~edit_kindergarten~edit_school~edit_speci~8d21ae6b.js": "/js/bundle/vendors~edit_blog~edit_center~edit_education~edit_educenter~edit_kindergarten~edit_school~edit_speci~8d21ae6b.js"
+    "/js/bundle/warehouse_report.js": "/js/bundle/warehouse_report.js"
 }

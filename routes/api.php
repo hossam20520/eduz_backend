@@ -31,7 +31,7 @@ Route::get('device/educations/detail', 'device\InstitutionsController@GetDetailE
 
 
  
-Route::get('device/map', 'device\InstitutionsController@MapData');
+ Route::get('device/map', 'device\InstitutionsController@MapData');
 
 
  Route::get('device/educations', 'device\InstitutionsController@GetAllEducation');
@@ -102,8 +102,6 @@ Route::middleware(['auth:api', 'Is_Active'])->group(function () {
     Route::post("device/favourit", "device\AuthController@AddToFavourit");
     Route::get("device/favourit", "device\AuthController@GetFavourit");
 
-    
-
     Route::get("device/favourit", "device\AuthController@GetFavouritData");
  
 
@@ -123,6 +121,13 @@ Route::middleware(['auth:api', 'Is_Active'])->group(function () {
 
     Route::resource('Numbers', 'NumbersController');
 
+
+
+    
+    //------------------------------- Deals--------------------------\
+    //------------------------------------------------------------------\
+    Route::resource('deals', 'DealsController');
+    Route::post('deals/delete/by_selection', 'DealsController@delete_by_selection');
 
 
     //------------------------------- Kindergrants --------------------------\

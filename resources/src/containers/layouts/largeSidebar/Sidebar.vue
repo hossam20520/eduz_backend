@@ -1071,7 +1071,14 @@
             </router-link>
           </li>
 
+          <li class="nav-item" >
+            <router-link tag="a" class to="/app/settings/Deals">
+              <i class="nav-icon i-Bookmark"></i>
+              <span class="item-name">{{   $t('Deal') }}</span>
+            </router-link>
+          </li>
 
+          
           <li class="nav-item" >
             <router-link tag="a" class to="/app/settings/Reviews">
               <i class="nav-icon i-Bookmark"></i>

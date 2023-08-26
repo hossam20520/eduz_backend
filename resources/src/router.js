@@ -1128,6 +1128,15 @@ const routes = [
                             ),
                     },
 
+
+                                // deals
+                                {
+                                    name: "deals",
+                                    path: "Deals",
+                                    component: () =>
+                                        import(/* webpackChunkName: "Deals" */"./views/app/pages/settings/deals")
+                                },
+
                     // sections
                     {
                         name: "sections",
