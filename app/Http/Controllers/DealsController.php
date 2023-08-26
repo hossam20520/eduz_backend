@@ -15,7 +15,7 @@ class DealsController extends Controller
 
     public function index(Request $request)
     {
-        $this->authorizeForUser($request->user('api'), 'view', Deal::class);
+        // $this->authorizeForUser($request->user('api'), 'view', Deal::class);
         // How many items do you want to display.
         $perPage = $request->limit;
         $pageStart = \Request::get('page', 1);
@@ -48,7 +48,7 @@ class DealsController extends Controller
 
     public function store(Request $request)
     {
-        $this->authorizeForUser($request->user('api'), 'create', Deal::class);
+        // $this->authorizeForUser($request->user('api'), 'create', Deal::class);
 
         request()->validate([
             'ar_name' => 'required',
@@ -97,7 +97,7 @@ class DealsController extends Controller
      public function update(Request $request, $id)
      {
  
-         $this->authorizeForUser($request->user('api'), 'update', Deal::class);
+        //  $this->authorizeForUser($request->user('api'), 'update', Deal::class);
  
          request()->validate([
              'ar_name' => 'required',
@@ -128,7 +128,7 @@ class DealsController extends Controller
                  $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
  
                  $image_resize = Image::make($image->getRealPath());
-                 $image_resize->resize(200, 200);
+                //  $image_resize->resize(200, 200);
                  $image_resize->save(public_path('/images/deals/' . $filename));
              }
  
@@ -155,7 +155,7 @@ class DealsController extends Controller
 
     public function destroy(Request $request, $id)
     {
-        $this->authorizeForUser($request->user('api'), 'delete', Deal::class);
+        // $this->authorizeForUser($request->user('api'), 'delete', Deal::class);
 
         Deal::whereId($id)->update([
             'deleted_at' => Carbon::now(),
@@ -168,7 +168,7 @@ class DealsController extends Controller
     public function delete_by_selection(Request $request)
     {
 
-        $this->authorizeForUser($request->user('api'), 'delete', Deal::class);
+        // $this->authorizeForUser($request->user('api'), 'delete', Deal::class);
 
         $selectedIds = $request->selectedIds;
         foreach ($selectedIds as $deal_id) {
