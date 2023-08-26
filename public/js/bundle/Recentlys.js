@@ -182,6 +182,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       editmode: false,
       recentlys: [],
       limit: "10",
+      types: [],
       recently: {
         id: "",
         child_id: "",

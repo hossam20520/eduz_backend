@@ -163,6 +163,7 @@ export default {
       editmode: false,
       recentlys: [],
       limit: "10",
+      types:[],
       recently: {
         id: "",
         child_id: "",
