@@ -29,6 +29,8 @@ class InstitutionsController extends Controller
     public function gettypesinst(Request $request){
 
        $type = $request->type;
+
+       
        $model = School::class;
       if($type == "SCHOOLS"){
         $model = School::class;

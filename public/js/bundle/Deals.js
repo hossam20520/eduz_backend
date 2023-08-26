@@ -334,9 +334,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       // NProgress.start();
       // NProgress.set(0.1);
       axios.get("types/gettypesinst?type=" + type).then(function (response) {
-        _this.types = response.data.types; // Complete the animation of theprogress bar.
-        // NProgress.done();
-        // this.isLoading = false;
+        _this.types = response.data.types;
       })["catch"](function (response) {
         // Complete the animation of theprogress bar.
         nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
@@ -1291,10 +1289,7 @@ var render = function () {
                         [
                           _c("validation-provider", {
                             ref: "Image",
-                            attrs: {
-                              name: "Image",
-                              rules: "mimes:image/*|size:200",
-                            },
+                            attrs: { name: "Image", rules: "mimes:image/*" },
                             scopedSlots: _vm._u([
                               {
                                 key: "default",

@@ -204,7 +204,7 @@
 
             <!-- -Deal Image -->
             <b-col md="12">
-              <validation-provider name="Image" ref="Image" rules="mimes:image/*|size:200">
+              <validation-provider name="Image" ref="Image" rules="mimes:image/*">
                 <b-form-group slot-scope="{validate, valid, errors }" :label="$t('DealImage')">
                   <input
                     :state="errors[0] ? false : (valid ? true : null)"
@@ -335,10 +335,7 @@ axios.get(
   .then(response => {
     this.types = response.data.types;
  
-
-    // Complete the animation of theprogress bar.
-    // NProgress.done();
-    // this.isLoading = false;
+ 
   })
   .catch(response => {
     // Complete the animation of theprogress bar.
