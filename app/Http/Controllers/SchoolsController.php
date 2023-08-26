@@ -129,6 +129,7 @@ class SchoolsController extends BaseController
                         $name = rand(11111111, 99999999) . $file['name'];
                         $path = public_path() . '/images/educations/';
                         $success = file_put_contents($path . $name, $fileData);
+ 
                         $images[] = $name;
                     }
                     $filename = implode(",", $images);
