@@ -333,7 +333,7 @@ axios.get(
       
   )
   .then(response => {
-    this.sections = response.data.types;
+    this.types = response.data.types;
  
 
     // Complete the animation of theprogress bar.
@@ -527,20 +527,19 @@ axios.get(
     //---------------------------------------- Update Deal-----------------\
     Update_Deal() {
       var self = this;
-       self.SubmitProcessing = true;
+      self.SubmitProcessing = true;
       self.data.append("en_name", self.deal.en_name);
       self.data.append("ar_name", self.deal.ar_name);
       self.data.append("ar_desc", self.deal.ar_desc);
       self.data.append("en_desc", self.deal.en_desc);
       self.data.append("type", self.deal.type);
       self.data.append("child_id", self.deal.child_id);
+
       self.data.append("image", self.deal.image);
       self.data.append("_method", "put");
 
-      axios
-        .post("deals/" + self.deal.id, self.data)
-        .then(response => {
-           self.SubmitProcessing = false;
+      axios.post("deals/" + self.deal.id, self.data).then(response => {
+          self.SubmitProcessing = false;
           Fire.$emit("Event_Deal");
 
           this.makeToast(
@@ -548,10 +547,11 @@ axios.get(
             this.$t("Update.TitleDeal"),
             this.$t("Success")
           );
-        })
-        .catch(error => {
+        }).catch(error => {
+
            self.SubmitProcessing = false;
-          this.makeToast("danger", this.$t("InvalidData"), this.$t("Failed"));
+           this.makeToast("danger", this.$t("InvalidData"), this.$t("Failed"));
+
         });
     },
 

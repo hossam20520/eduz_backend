@@ -334,7 +334,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       // NProgress.start();
       // NProgress.set(0.1);
       axios.get("types/gettypesinst?type=" + type).then(function (response) {
-        _this.sections = response.data.types; // Complete the animation of theprogress bar.
+        _this.types = response.data.types; // Complete the animation of theprogress bar.
         // NProgress.done();
         // this.isLoading = false;
       })["catch"](function (response) {

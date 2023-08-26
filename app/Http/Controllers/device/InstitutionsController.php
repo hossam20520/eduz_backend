@@ -49,9 +49,6 @@ class InstitutionsController extends Controller
       // $secion = Section::where('type',  $type)->where('deleted_at', '=', null)->get(['id', 'ar_name' ,'en_name' ]);
 
       return response()->json(['types' => $list]);
-
-
-     
  
 
     }
