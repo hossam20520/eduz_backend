@@ -161,6 +161,13 @@ Route::get('Forms/Detail/{id}', 'FormsController@Get_Forms_Details');
 
 
     
+    //------------------------------- Recentlys--------------------------\
+    //------------------------------------------------------------------\
+    Route::resource('recentlys', 'RecentlysController');
+    Route::post('recentlys/delete/by_selection', 'RecentlysController@delete_by_selection');
+
+    
+    
     Route::get('reviews/insts', 'ReviewsController@GetTheInsts');
     //------------------------------- Reviews--------------------------\
     //------------------------------------------------------------------\

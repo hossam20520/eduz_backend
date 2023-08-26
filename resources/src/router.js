@@ -1137,6 +1137,16 @@ const routes = [
                                         import(/* webpackChunkName: "Deals" */"./views/app/pages/settings/deals")
                                 },
 
+
+                                
+                          // recentlys
+                    {
+                        name: "recentlys",
+                        path: "Recentlys",
+                        component: () =>
+                            import(/* webpackChunkName: "Recentlys" */"./views/app/pages/settings/recentlys")
+                    },
+
                     // sections
                     {
                         name: "sections",

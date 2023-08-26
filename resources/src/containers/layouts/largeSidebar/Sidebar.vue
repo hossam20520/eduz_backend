@@ -1078,11 +1078,20 @@
             </router-link>
           </li>
 
-          
+
           <li class="nav-item" >
             <router-link tag="a" class to="/app/settings/Reviews">
               <i class="nav-icon i-Bookmark"></i>
               <span class="item-name">{{   $t('Review') }}</span>
+            </router-link>
+          </li>
+
+
+          <li
+            class="nav-item"  >
+            <router-link tag="a" class to="/app/settings/Recentlys">
+              <i class="nav-icon i-Bookmark"></i>
+              <span class="item-name">{{   $t('Recently') }}</span>
             </router-link>
           </li>
 
