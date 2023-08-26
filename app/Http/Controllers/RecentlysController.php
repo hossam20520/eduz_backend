@@ -7,6 +7,23 @@ use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
+use App\Models\Education;
+use App\Models\Area;
+use App\Models\School;
+use App\Models\Blog;
+use App\Models\Kindergarten;
+use App\Models\Center;
+use App\Models\Educenter;
+use App\Models\Specialneed;
+use App\Models\Universitie;
+use App\Models\Institution;
+use App\Models\Review;
+
+
+use App\utils\helpers;
+use Carbon\Carbon;
+use App\Models\Teacher;
+
 
 class RecentlysController extends Controller
 {
@@ -36,6 +53,36 @@ class RecentlysController extends Controller
             ->limit($perPage)
             ->orderBy($order, $dir)
             ->get();
+
+
+            $data = array();
+
+            foreach ($data as  $recen) {
+
+             $type =  $recen->type;
+
+             $model = School::class;
+             if($type == "SCHOOLS"){
+               $model = School::class;
+             }else if($type == "KINDERGARTENS"){
+               $model  = Kindergarten::class;
+             }else if($type == "CENTERS"){
+               $model  = Center::class;
+             }else if($type == "EDUCENTERS"){
+               $model  = Educenter::class;
+             }else if($type == "SPECIALNEEDS"){
+               $model  = Specialneed::class;
+             }else if($type == "UNIVERSITIES"){
+               $model  = Universitie::class;
+             } 
+             
+             $modV  = $model::where('id' ,$recen->child_id )->where('type' ,  $model )->first();
+
+                $item['ar_name'] =  $modV->ar_name;
+                $item['en_name'] =  $modV->en_name;
+        
+                # code...
+            }
 
         return response()->json([
             'recentlys' => $recentlys,
