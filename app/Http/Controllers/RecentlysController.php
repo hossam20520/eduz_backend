@@ -73,7 +73,7 @@ class RecentlysController extends Controller
              } 
              
              $modV  = $model::where('id' ,$recen->child_id )->first();
-
+                $item['id'] =  $recen->id;
                 $item['ar_name'] =  $modV->ar_name;
                 $item['en_name'] =  $modV->en_name;
         
