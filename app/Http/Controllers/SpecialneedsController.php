@@ -131,17 +131,17 @@ class SpecialneedsController extends BaseController
                 if ($request['images']) {
                     $files = $request['images'];
                     foreach ($files as $file) {
-                        $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])));
+                        $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])) );
                         // $fileData->resize(200, 200);
                         $name = rand(11111111, 99999999) . $file['name'];
                         // $path = public_path() . '/images/educations/';
                         // $success = file_put_contents($path . $name, $fileData);
-                        $file = preg_replace('#^data:image/\w+;base64,#i', '', $file); // Remove base64 prefix
-                        $image = Image::make(base64_decode($file));
+                        $file = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])); // Remove base64 prefix
+                        // $image = Image::make(base64_decode($file));
                         $path = 'images/educations/' . $name;
 
                         // Upload the image to S3
-                        Storage::disk('s3')->put($path, (string)$image->encode());
+                        Storage::disk('s3')->put($path, $file);
 
                         $images[] = $name;
                     }
