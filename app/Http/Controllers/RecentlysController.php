@@ -101,18 +101,7 @@ class RecentlysController extends Controller
 
         \DB::transaction(function () use ($request) {
 
-            if ($request->hasFile('image')) {
-
-                $image = $request->file('image');
-                $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
-
-                $image_resize = Image::make($image->getRealPath());
-                $image_resize->resize(200, 200);
-                $image_resize->save(public_path('/images/recentlys/' . $filename));
-
-            } else {
-                $filename = 'no-image.png';
-            }
+     
 
             $Recently = new Recently;
 
@@ -148,37 +137,7 @@ class RecentlysController extends Controller
              $Recently = Recently::findOrFail($id);
              $currentImage = $Recently->image;
  
-             // dd($request->image);
-             if ($currentImage && $request->image != $currentImage) {
-                 $image = $request->file('image');
-                 $path = public_path() . '/images/recentlys';
-                 $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
- 
-                 $image_resize = Image::make($image->getRealPath());
-                 $image_resize->resize(200, 200);
-                 $image_resize->save(public_path('/images/recentlys/' . $filename));
- 
-                 $RecentlyImage = $path . '/' . $currentImage;
-                 if (file_exists($RecentlyImage)) {
-                     if ($currentImage != 'no-image.png') {
-                         @unlink($RecentlyImage);
-                     }
-                 }
-             } else if (!$currentImage && $request->image !='null'){
-                 $image = $request->file('image');
-                 $path = public_path() . '/images/recentlys';
-                 $filename = rand(11111111, 99999999) . $image->getClientOriginalName();
- 
-                 $image_resize = Image::make($image->getRealPath());
-                 $image_resize->resize(200, 200);
-                 $image_resize->save(public_path('/images/recentlys/' . $filename));
-             }
- 
-             else {
-                 $filename = $currentImage?$currentImage:'no-image.png';
-             }
- 
-
+    
              
             // $Recently->type = $request['type'];
             // $Recently->child_id = $request['child_id'];
