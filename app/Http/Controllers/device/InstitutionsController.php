@@ -327,7 +327,9 @@ class InstitutionsController extends Controller
           $model  = Center::class;
         }else if($type == "SPECIALNEEDS"){
           $model  = Specialneed::class;
-        }
+        }else if($type == "UNIVERSITIES"){
+          $model  = Universitie::class;
+        } 
  
         $education = $model::where('deleted_at', '=', null)->where('institution_id' ,  $id  )->where(function ($query) use ($request) {
           return $query->when($request->filled('search'), function ($query) use ($request) {

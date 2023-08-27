@@ -1,6 +1,6 @@
 <template>
   <div class="main-content">
-    <breadcumb :page="$t('universitiesList')" :folder="$t('Universities')"/>
+    <breadcumb :page="$t('Entertainment')" :folder="$t('Entertainment')"/>
     <div v-if="isLoading" class="loading_page spinner spinner-primary mr-3"></div>
     <div v-else>
       <vue-good-table
@@ -41,7 +41,7 @@
  
           <router-link
             class="btn-sm btn btn-primary btn-icon m-1"
-            v-if="currentUserPermissions && currentUserPermissions.includes('universities_add')"
+             
             to="/app/universities/store">
             <span class="ul-btn__icon">
               <i class="i-Add"></i>

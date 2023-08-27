@@ -608,8 +608,8 @@ var render = function () {
     [
       _c("breadcumb", {
         attrs: {
-          page: _vm.$t("universitiesList"),
-          folder: _vm.$t("Universities"),
+          page: _vm.$t("Entertainment"),
+          folder: _vm.$t("Entertainment"),
         },
       }),
       _vm._v(" "),
@@ -811,26 +811,22 @@ var render = function () {
                         ]
                       ),
                       _vm._v(" "),
-                      _vm.currentUserPermissions &&
-                      _vm.currentUserPermissions.includes("universities_add")
-                        ? _c(
-                            "router-link",
-                            {
-                              staticClass:
-                                "btn-sm btn btn-primary btn-icon m-1",
-                              attrs: { to: "/app/universities/store" },
-                            },
-                            [
-                              _c("span", { staticClass: "ul-btn__icon" }, [
-                                _c("i", { staticClass: "i-Add" }),
-                              ]),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "ul-btn__text ml-1" }, [
-                                _vm._v(_vm._s(_vm.$t("Add"))),
-                              ]),
-                            ]
-                          )
-                        : _vm._e(),
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "btn-sm btn btn-primary btn-icon m-1",
+                          attrs: { to: "/app/universities/store" },
+                        },
+                        [
+                          _c("span", { staticClass: "ul-btn__icon" }, [
+                            _c("i", { staticClass: "i-Add" }),
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "ul-btn__text ml-1" }, [
+                            _vm._v(_vm._s(_vm.$t("Add"))),
+                          ]),
+                        ]
+                      ),
                     ],
                     1
                   ),

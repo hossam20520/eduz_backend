@@ -2161,7 +2161,7 @@ var render = function () {
                       }),
                       _vm._v(" "),
                       _c("span", { staticClass: "nav-text" }, [
-                        _vm._v(_vm._s(_vm.$t("universities"))),
+                        _vm._v(_vm._s(_vm.$t("Entertainment"))),
                       ]),
                     ]
                   ),

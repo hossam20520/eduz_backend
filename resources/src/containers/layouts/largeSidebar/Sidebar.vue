@@ -215,7 +215,7 @@
             :data-submenu="true">
             <a class="nav-item-hold" href="#">
               <img src="https://cdn-icons-png.flaticon.com/512/2997/2997322.png" width="50%"/> 
-              <span class="nav-text">{{   $t('universities')  }}</span>
+              <span class="nav-text">{{   $t('Entertainment')  }}</span>
             </a>
             <div class="triangle"></div>
           </li>
