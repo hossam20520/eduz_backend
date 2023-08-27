@@ -76,7 +76,7 @@ class RecentlysController extends Controller
                 $item['id'] =  $recen->id;
                 $item['ar_name'] =  $modV->ar_name;
                 $item['en_name'] =  $modV->en_name;
-        
+                $item['type'] =  $modV->type;
 
                 $data[] = $item;
                 # code...
