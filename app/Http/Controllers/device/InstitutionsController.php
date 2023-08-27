@@ -439,7 +439,9 @@ public function MapData(Request $request){
         $model  = Center::class;
       }else if($type == "SPECIALNEEDS"){
         $model  = Specialneed::class;
-      }
+      }else if($type == "UNIVERSITIES"){
+        $model  = Universitie::class;
+      } 
 
       $data  = $model::where('id' , $id )->first();
       
