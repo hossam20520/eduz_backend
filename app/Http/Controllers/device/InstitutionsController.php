@@ -63,7 +63,7 @@ class InstitutionsController extends Controller
                 $item['en_desc'] = $deal->en_desc;
                 $item['type'] = $deal->type;
                 $item['child_id'] = $deal->child_id;
-                $item['image'] = $deal->child_id;
+                $item['image'] =   '/public/images/deals/'. $deal->image;
  
 
                 $data[] = $item;
