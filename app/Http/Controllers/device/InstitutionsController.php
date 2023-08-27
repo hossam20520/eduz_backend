@@ -15,6 +15,7 @@ use App\Models\Specialneed;
 use App\Models\Universitie;
 use App\Models\Institution;
 use App\Models\Review;
+use App\Models\Recently;
 
 
 use App\utils\helpers;
