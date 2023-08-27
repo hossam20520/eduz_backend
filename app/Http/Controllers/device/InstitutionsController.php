@@ -58,7 +58,7 @@ class InstitutionsController extends Controller
           $data = array();
             foreach ( $reviews  as   $value) {
                $item['name']  = $value->user->firstname." ". $value->user->lastname;
-               $item['image']  =  "public/images/avatar/".$value->user->avatar;
+               $item['image']  =  "/public/images/avatar/".$value->user->avatar;
                $item['count']  = $value->count;
                $item['review'] = $value->review;
                $data[] = $item;
