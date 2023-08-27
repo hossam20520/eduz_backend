@@ -54,8 +54,24 @@ class InstitutionsController extends Controller
           ->orderBy($order, $dir)
           ->get();
 
+          $data = array();
+            foreach ($deals as   $deal) {
+                $item['id'] = $deal->id;
+                $item['ar_name'] = $deal->ar_name;
+                $item['en_name'] = $deal->en_name;
+                $item['ar_desc'] = $deal->ar_desc;
+                $item['en_desc'] = $deal->en_desc;
+                $item['type'] = $deal->type;
+                $item['child_id'] = $deal->child_id;
+                $item['image'] = $deal->child_id;
+ 
+
+                $data[] = $item;
+              # code...
+            }
+
       return response()->json([
-          'deals' => $deals,
+          'deals' => $data,
           'totalRows' => $totalRows,
       ]);
 
