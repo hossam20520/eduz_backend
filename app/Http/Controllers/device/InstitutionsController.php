@@ -26,6 +26,72 @@ class InstitutionsController extends Controller
 
 
 
+
+    public function GetRecently(Request $request){
+    
+          // $this->authorizeForUser($request->user('api'), 'view', Recently::class);
+          // How many items do you want to display.
+          $perPage = $request->limit;
+          $pageStart = \Request::get('page', 1);
+          // Start displaying items from this number;
+          $offSet = ($pageStart * $perPage) - $perPage;
+          $order = $request->SortField;
+          $dir = $request->SortType;
+          $helpers = new helpers();
+  
+          $recentlys = Recently::where('deleted_at', '=', null)->where(function ($query) use ($request) {
+                  return $query->when($request->filled('search'), function ($query) use ($request) {
+                      return $query->where('ar_name', 'LIKE', "%{$request->search}%")
+                          ->orWhere('en_name', 'LIKE', "%{$request->search}%");
+                  });
+              });
+          $totalRows = $recentlys->count();
+          $recentlys = $recentlys->offset($offSet)
+              ->limit($perPage)
+              ->orderBy($order, $dir)
+              ->get();
+  
+  
+              $data = array();
+  
+              foreach ($recentlys as  $recen) {
+  
+               $type =  $recen->type;
+  
+               $model = School::class;
+               if($type == "SCHOOLS"){
+                 $model = School::class;
+               }else if($type == "KINDERGARTENS"){
+                 $model  = Kindergarten::class;
+               }else if($type == "CENTERS"){
+                 $model  = Center::class;
+               }else if($type == "EDUCENTERS"){
+                 $model  = Educenter::class;
+               }else if($type == "SPECIALNEEDS"){
+                 $model  = Specialneed::class;
+               }else if($type == "UNIVERSITIES"){
+                 $model  = Universitie::class;
+               } 
+               
+               $modV  = $model::where('id' ,$recen->child_id )->first();
+                  $item['id'] =  $modV->id;
+                  $item['ar_name'] =  $modV->ar_name;
+                  $item['en_name'] =  $modV->en_name;
+                  $item['type'] =  $modV->type;
+                  $firstimage = explode(',', $modV->image);
+                  $item['image'] = $firstimage[0];
+                  $data[] = $item;
+                  # code...
+              }
+  
+          return response()->json([
+              'recentlys' =>  $data,
+              'totalRows' => $totalRows,
+          ]);
+  
+     
+    }
+
     public function gettypesinst(Request $request){
 
        $type = $request->type;

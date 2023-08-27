@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
+
+ Route::get('recently/get', 'device\InstitutionsController@GetRecently');
+
+
+
  
 Route::get('device/blog', 'device\InstitutionsController@GetBlogs');
 Route::get('device/blog/detail', 'device\InstitutionsController@GetOneBlog');
