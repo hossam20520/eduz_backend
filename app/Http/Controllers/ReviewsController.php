@@ -43,7 +43,9 @@ class ReviewsController extends Controller
           $model  = Center::class;
         }else if($type == "SPECIALNEEDS"){
           $model  = Specialneed::class;
-        }
+        }else if($type == "UNIVERSITIES"){
+            $model  = Universitie::class;
+          } 
 
        $data =  $model::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
 
@@ -102,9 +104,9 @@ class ReviewsController extends Controller
     {
         // $this->authorizeForUser($request->user('api'), 'create', Review::class);
 
-        request()->validate([
-            'ar_name' => 'required',
-        ]);
+        // request()->validate([
+        //     'ar_name' => 'required',
+        // ]);
 
         \DB::transaction(function () use ($request) {
 
