@@ -21,12 +21,46 @@ use App\Models\Recently;
 use App\utils\helpers;
 use Carbon\Carbon;
 use App\Models\Teacher;
+use App\Models\Deal;
+
+
+
 class InstitutionsController extends Controller
 {
     //
 
 
 
+
+    public function deals(Request $request){
+
+      $perPage = $request->limit;
+      $pageStart = \Request::get('page', 1);
+      // Start displaying items from this number;
+      $offSet = ($pageStart * $perPage) - $perPage;
+      $order = $request->SortField;
+      $dir = $request->SortType;
+      $helpers = new helpers();
+
+      $deals = Deal::where('deleted_at', '=', null)->where(function ($query) use ($request) {
+              return $query->when($request->filled('search'), function ($query) use ($request) {
+                  return $query->where('ar_name', 'LIKE', "%{$request->search}%")
+                      ->orWhere('en_name', 'LIKE', "%{$request->search}%");
+              });
+          });
+      $totalRows = $deals->count();
+      $deals = $deals->offset($offSet)
+          ->limit($perPage)
+          ->orderBy($order, $dir)
+          ->get();
+
+      return response()->json([
+          'deals' => $deals,
+          'totalRows' => $totalRows,
+      ]);
+
+
+    }
 
     public function GetRecently(Request $request){
     
