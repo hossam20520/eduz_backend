@@ -78,7 +78,7 @@ class InstitutionsController extends Controller
                   $item['id'] =  $modV->id;
                   $item['ar_name'] =  $modV->ar_name;
                   $item['en_name'] =  $modV->en_name;
-                  $item['type'] =  $modV->type;
+                  $item['type'] =  $recen->type;
                   $firstimage = explode(',', $modV->image);
                   $item['image'] = $firstimage[0];
                   $data[] = $item;
