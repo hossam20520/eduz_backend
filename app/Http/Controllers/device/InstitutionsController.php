@@ -31,6 +31,50 @@ class InstitutionsController extends Controller
 
 
 
+    public function reviews(Request $request){
+        // $this->authorizeForUser($request->user('api'), 'view', Review::class);
+        // How many items do you want to display.
+        $perPage = $request->limit;
+        $pageStart = \Request::get('page', 1);
+        // Start displaying items from this number;
+        $offSet = ($pageStart * $perPage) - $perPage;
+        $order = $request->SortField;
+        $dir = $request->SortType;
+        $helpers = new helpers();
+
+        $reviews = Review::with('user')->where('deleted_at', '=', null)->where(function ($query) use ($request) {
+                return $query->when($request->filled('search'), function ($query) use ($request) {
+                    return $query->where('ar_name', 'LIKE', "%{$request->search}%")
+                        ->orWhere('en_name', 'LIKE', "%{$request->search}%");
+                });
+            });
+        $totalRows = $reviews->count();
+        $reviews = $reviews->offset($offSet)
+            ->limit($perPage)
+            ->orderBy($order, $dir)
+            ->get();
+
+
+          $data = array();
+            foreach ( $reviews  as   $value) {
+               $item['name']  = $value->user->firstname." ". $value->user->lastname;
+               $item['image']  =  "public/images/avatar/".$value->user->avatar;
+               $item['count']  = $value->count;
+               $item['review'] = $value->review;
+               $data[] = $item;
+
+            }
+
+        return response()->json([
+            'reviews' => $data,
+       
+            // 'totalRows' => $totalRows,
+        ]);
+
+
+
+    }
+
 
     public function deals(Request $request){
 
