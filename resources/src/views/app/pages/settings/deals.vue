@@ -168,6 +168,8 @@
                             [
 
                               {label: 'SCHOOLS', value: 'SCHOOLS'},
+                              {label: 'EDUSERVICES', value: 'EDUSERVICES'},
+                              
                               {label: 'KINDERGARTENS', value: 'KINDERGARTENS'},
                               {label: 'EDUCENTERS', value: 'EDUCENTERS'},
                               {label: 'UNIVERSITIES', value: 'UNIVERSITIES'},

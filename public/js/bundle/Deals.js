@@ -253,6 +253,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   metaInfo: {
@@ -1171,6 +1173,11 @@ var render = function () {
                                               label: "SCHOOLS",
                                               value: "SCHOOLS",
                                             },
+                                            {
+                                              label: "EDUSERVICES",
+                                              value: "EDUSERVICES",
+                                            },
+
                                             {
                                               label: "KINDERGARTENS",
                                               value: "KINDERGARTENS",
