@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\Route;
  */
 
 
+ 
+
+ Route::get('device/search', 'device\InstitutionsController@search');
+
+
+
  Route::get('recently/get', 'device\InstitutionsController@GetRecently');
 
  Route::get('device/deals', 'device\InstitutionsController@deals');

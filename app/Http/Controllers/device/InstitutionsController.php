@@ -76,6 +76,81 @@ class InstitutionsController extends Controller
     }
 
 
+    public function GetSearchData($model , $search , $type ){
+
+
+      $deals = $model::where('deleted_at', '=', null)->where(function ($query) use ($request) {
+              return $query->when($search, function ($query) use ($search) {
+                  return $query->where('ar_name', 'LIKE', "%{$search}%")
+                      ->orWhere('en_name', 'LIKE', "%{$search}%");
+              });
+          });
+
+
+      $totalRows = $deals->count();
+      $deals = $deals->offset($offSet)
+          ->limit($perPage)
+          ->orderBy($order, $dir)
+          ->get();
+
+  
+            $data = array();
+            foreach ($deals as   $deal) {
+                $item['id'] = $deal->id;
+                $item['ar_name'] = $deal->ar_name;
+                $item['en_name'] = $deal->en_name;
+                $item['type'] = $type;
+                $item['image'] =   '/public/images/deals/'. $deal->image;
+                $data[] = $item;
+              
+            }
+
+      return   $data;
+    }
+
+
+    public function search(Request $request){
+
+      $perPage = $request->limit;
+      $pageStart = \Request::get('page', 1);
+      // Start displaying items from this number;
+      $offSet = ($pageStart * $perPage) - $perPage;
+      $order = $request->SortField;
+      $dir = $request->SortType;
+      $helpers = new helpers();
+      
+
+       
+      $data = $this->GetSearchData(School::class ,   $request->search , "SCHOOLS" );
+
+
+   
+
+
+
+      return response()->json([
+        'data' => $data ,
+      
+    ]);
+
+      // $model = School::class;
+      // if($type == "SCHOOLS"){
+      //   $model = School::class;
+      // }else if($type == "KINDERGARTENS"){
+      //   $model  = Kindergarten::class;
+      // }else if($type == "CENTERS"){
+      //   $model  = Center::class;
+      // }else if($type == "EDUCENTERS"){
+      //   $model  = Educenter::class;
+      // }else if($type == "SPECIALNEEDS"){
+      //   $model  = Specialneed::class;
+      // }else if($type == "UNIVERSITIES"){
+      //   $model  = Universitie::class;
+      // } 
+
+    }
+
+
     public function deals(Request $request){
 
       $perPage = $request->limit;
