@@ -18,6 +18,7 @@ use App\Models\Review;
 use App\Models\Recently;
 
 
+use App\Models\Product;
 use App\utils\helpers;
 use Carbon\Carbon;
 use App\Models\Teacher;
