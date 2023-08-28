@@ -79,7 +79,7 @@ class InstitutionsController extends Controller
     public function GetSearchData($model , $search , $type ){
 
 
-      $deals = $model::where('deleted_at', '=', null)->where(function ($query) use ($request) {
+      $deals = $model::where('deleted_at', '=', null)->where(function ($query) use ($search) {
               return $query->when($search, function ($query) use ($search) {
                   return $query->where('ar_name', 'LIKE', "%{$search}%")
                       ->orWhere('en_name', 'LIKE', "%{$search}%");
