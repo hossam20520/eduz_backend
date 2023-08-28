@@ -76,7 +76,7 @@ class InstitutionsController extends Controller
     }
 
 
-    public function GetSearchData($model , $search , $type ){
+    public function GetSearchData($model , $search , $type  , $offSet , $perPage , $order , $dir ){
 
 
       $deals = $model::where('deleted_at', '=', null)->where(function ($query) use ($search) {
@@ -118,10 +118,9 @@ class InstitutionsController extends Controller
       $order = $request->SortField;
       $dir = $request->SortType;
       $helpers = new helpers();
-      
-
+   
        
-      $data = $this->GetSearchData(School::class ,   $request->search , "SCHOOLS" );
+      $data = $this->GetSearchData(School::class ,   $request->search , "SCHOOLS" , $offSet ,$perPage   ,  $order  ,  $dir );
 
 
    
