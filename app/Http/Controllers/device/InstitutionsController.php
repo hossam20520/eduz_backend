@@ -164,7 +164,7 @@ class InstitutionsController extends Controller
 
 
       return response()->json([
-        'data' => $allResults  ,
+        'search' => $allResults  ,
       
     ]);
 
