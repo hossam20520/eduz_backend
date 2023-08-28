@@ -79,12 +79,22 @@ class InstitutionsController extends Controller
     public function GetSearchData($model , $search , $type  , $offSet , $perPage , $order , $dir ){
 
 
-      $deals = $model::where('deleted_at', '=', null)->where(function ($query) use ($search) {
-              return $query->when($search, function ($query) use ($search) {
-                  return $query->where('ar_name', 'LIKE', "%{$search}%")
-                      ->orWhere('en_name', 'LIKE', "%{$search}%");
-              });
+      if($type == "EDUSERVICES"){
+        $deals = $model::where('deleted_at', '=', null)->where(function ($query) use ($search) {
+          return $query->when($search, function ($query) use ($search) {
+              return $query->where('ar_name', 'LIKE', "%{$search}%")
+                  ->orWhere('en_name', 'LIKE', "%{$search}%");
           });
+      });
+      }else{
+        $deals = $model::where('deleted_at', '=', null)->where(function ($query) use ($search) {
+          return $query->when($search, function ($query) use ($search) {
+              return $query->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('code', 'LIKE', "%{$search}%");
+          });
+      });
+      }
+
 
 
       $totalRows = $deals->count();
@@ -93,17 +103,32 @@ class InstitutionsController extends Controller
           ->orderBy($order, $dir)
           ->get();
 
-  
-            $data = array();
+          $data = array();
+          if($type == "EDUSERVICES"){
             foreach ($deals as   $deal) {
-                $item['id'] = $deal->id;
-                $item['ar_name'] = $deal->ar_name;
-                $item['en_name'] = $deal->en_name;
-                $item['type'] = $type;
-                $item['image'] =   '/public/images/deals/'. $deal->image;
-                $data[] = $item;
-              
-            }
+              $item['id'] = $deal->id;
+              $item['ar_name'] = $deal->name;
+              $item['en_name'] = $deal->code;
+              $item['type'] = $type;
+              $item['image'] =   '/public/images/products/'. $deal->image;
+              $data[] = $item;
+            
+          }
+
+          }else{
+            foreach ($deals as   $deal) {
+              $item['id'] = $deal->id;
+              $item['ar_name'] = $deal->ar_name;
+              $item['en_name'] = $deal->en_name;
+              $item['type'] = $type;
+              $item['image'] =   '/public/images/educations/'. $deal->image;
+              $data[] = $item;
+            
+          }
+          }
+  
+           
+       
 
       return   $data;
     }
@@ -125,6 +150,8 @@ class InstitutionsController extends Controller
       $SPECIALNEEDS = $this->GetSearchData(Specialneed::class ,   $request->search , "SPECIALNEEDS" , $offSet ,$perPage   ,  $order  ,  $dir );
       $UNIVERSITIES = $this->GetSearchData(Universitie::class ,   $request->search , "UNIVERSITIES" , $offSet ,$perPage   ,  $order  ,  $dir );
       $CENTERS = $this->GetSearchData(Center::class ,   $request->search , "CENTERS" , $offSet ,$perPage   ,  $order  ,  $dir );
+      $EDUSERVICES = $this->GetSearchData(Product::class ,   $request->search , "EDUSERVICES" , $offSet ,$perPage   ,  $order  ,  $dir );
+
 
       $allResults = array_merge($SCHOOLS, $KINDERGARTENS, $SPECIALNEEDS, $UNIVERSITIES, $CENTERS);
 
