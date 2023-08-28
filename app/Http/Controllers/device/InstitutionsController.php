@@ -160,7 +160,7 @@ class InstitutionsController extends Controller
       $EDUSERVICES = $this->GetSearchData(Product::class ,   $request->search , "EDUSERVICES" , $offSet ,$perPage   ,  $order  ,  $dir );
 
 
-      $allResults = array_merge($SCHOOLS, $KINDERGARTENS, $SPECIALNEEDS, $UNIVERSITIES, $CENTERS);
+      $allResults = array_merge($SCHOOLS, $KINDERGARTENS, $SPECIALNEEDS, $UNIVERSITIES, $CENTERS , $EDUSERVICES);
 
 
       return response()->json([
