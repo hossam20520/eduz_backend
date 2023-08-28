@@ -120,15 +120,17 @@ class InstitutionsController extends Controller
       $helpers = new helpers();
    
        
-      $data = $this->GetSearchData(School::class ,   $request->search , "SCHOOLS" , $offSet ,$perPage   ,  $order  ,  $dir );
+      $SCHOOLS = $this->GetSearchData(School::class ,   $request->search , "SCHOOLS" , $offSet ,$perPage   ,  $order  ,  $dir );
+      $KINDERGARTENS = $this->GetSearchData(Kindergarten::class ,   $request->search , "KINDERGARTENS" , $offSet ,$perPage   ,  $order  ,  $dir );
+      $SPECIALNEEDS = $this->GetSearchData(Specialneed::class ,   $request->search , "SPECIALNEEDS" , $offSet ,$perPage   ,  $order  ,  $dir );
+      $UNIVERSITIES = $this->GetSearchData(Universitie::class ,   $request->search , "UNIVERSITIES" , $offSet ,$perPage   ,  $order  ,  $dir );
+      $CENTERS = $this->GetSearchData(Center::class ,   $request->search , "CENTERS" , $offSet ,$perPage   ,  $order  ,  $dir );
 
-
-   
-
+      $allResults = array_merge($SCHOOLS, $KINDERGARTENS, $SPECIALNEEDS, $UNIVERSITIES, $CENTERS);
 
 
       return response()->json([
-        'data' => $data ,
+        'data' => $allResults  ,
       
     ]);
 
