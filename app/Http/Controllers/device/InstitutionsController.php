@@ -80,17 +80,23 @@ class InstitutionsController extends Controller
 
 
       if($type == "EDUSERVICES"){
-        $deals = $model::where('deleted_at', '=', null)->where(function ($query) use ($search) {
-          return $query->when($search, function ($query) use ($search) {
-              return $query->where('ar_name', 'LIKE', "%{$search}%")
-                  ->orWhere('en_name', 'LIKE', "%{$search}%");
-          });
-      });
-      }else{
+
+
         $deals = $model::where('deleted_at', '=', null)->where(function ($query) use ($search) {
           return $query->when($search, function ($query) use ($search) {
               return $query->where('name', 'LIKE', "%{$search}%")
                   ->orWhere('code', 'LIKE', "%{$search}%");
+          });
+      });
+
+
+ 
+
+      }else{
+        $deals = $model::where('deleted_at', '=', null)->where(function ($query) use ($search) {
+          return $query->when($search, function ($query) use ($search) {
+              return $query->where('ar_name', 'LIKE', "%{$search}%")
+                  ->orWhere('en_name', 'LIKE', "%{$search}%");
           });
       });
       }
