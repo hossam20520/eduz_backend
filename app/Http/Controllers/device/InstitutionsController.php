@@ -102,7 +102,7 @@ class InstitutionsController extends Controller
       });
       }
 
-
+  
 
       $totalRows = $deals->count();
       $deals = $deals->offset($offSet)
@@ -117,7 +117,8 @@ class InstitutionsController extends Controller
               $item['ar_name'] = $deal->name;
               $item['en_name'] = $deal->code;
               $item['type'] = $type;
-              $item['image'] =   '/public/images/products/'. $deal->image;
+              $firstimage = explode(',', $deal->image);
+              $item['image'] =   '/public/images/products/'. $firstimage[0];
               $data[] = $item;
             
           }
@@ -128,7 +129,8 @@ class InstitutionsController extends Controller
               $item['ar_name'] = $deal->ar_name;
               $item['en_name'] = $deal->en_name;
               $item['type'] = $type;
-              $item['image'] =   '/public/images/educations/'. $deal->image;
+              $firstimage = explode(',', $deal->image);
+              $item['image'] =   '/public/images/educations/'. $firstimage[0];
               $data[] = $item;
             
           }
