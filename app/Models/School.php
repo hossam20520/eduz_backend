@@ -6,7 +6,7 @@ class School extends Model
 {
     protected $table = 'schools';
     protected $dates = ['deleted_at'];
-    protected $appends = ['inFav'];
+    protected $appends = ['InFav'];
     protected $fillable = [
          'en_name', 'ar_name', 'en_info', 
          'ar_info', 'facilities_ar', 'facilities_en',  
@@ -27,7 +27,7 @@ class School extends Model
     ];
 
 
-    public function getIsinFavAttribute()
+    public function getInFavAttribute()
     {
         // Access the role_name through the relationship
         // $avatar =  '/public/images/avatar/'.$this->avatar;
