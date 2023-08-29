@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-
+//  isInFav
  
 
  Route::get('device/search', 'device\InstitutionsController@search');
