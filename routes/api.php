@@ -36,7 +36,7 @@ Route::get('device/info/{token}', 'device\AuthController@GetUserByToken');
 
 
 Route::post('files/upload', 'device\InstitutionsController@UploadFile');
-Route::get('device/inst/detail', 'device\InstitutionsController@GetTheInstDetail');
+
 Route::get('device/educations/detail', 'device\InstitutionsController@GetDetailEdu');
 
 
@@ -101,7 +101,7 @@ Route::middleware(['auth:api', 'Is_Active'])->group(function () {
 
     Route::get('device/product', 'device\ProductController@Get_Products_Details');
 
-
+    Route::get('device/inst/detail', 'device\InstitutionsController@GetTheInstDetail');
 
     Route::post('device/profile/image', 'device\AuthController@changeImage');
 

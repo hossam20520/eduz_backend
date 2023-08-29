@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
-
+use App\utils\helpers;
 class School extends Model
 {
     protected $table = 'schools';
@@ -9,7 +9,7 @@ class School extends Model
     protected $appends = ['Fav'];
 
     protected $fillable = [
-         'en_name', 'ar_name', 'en_info', 
+        'id' ,     'en_name', 'ar_name', 'en_info', 
          'ar_info', 'facilities_ar', 'facilities_en',  
          'activities_ar', 'activities_en', 'url',
          'phone', 'activities_image', 'institution_id',    'review_id',  'share', 'image',
@@ -30,12 +30,14 @@ class School extends Model
 
     public function getFavAttribute()
     {
+        $helpers = new helpers();
+        $found = $helpers->IsInWhishlistInst($this->id ,  "SCHOOLS");
         // Access the role_name through the relationship
         // $avatar =  '/public/images/avatar/'.$this->avatar;
 
         // Modify the role_name as needed
         // For example, you can convert it to uppercase
-        return true;
+        return  $found;
     }
 }
 
