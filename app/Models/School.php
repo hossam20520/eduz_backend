@@ -7,6 +7,7 @@ class School extends Model
     protected $table = 'schools';
     protected $dates = ['deleted_at'];
     protected $appends = ['InFav'];
+    
     protected $fillable = [
          'en_name', 'ar_name', 'en_info', 
          'ar_info', 'facilities_ar', 'facilities_en',  
