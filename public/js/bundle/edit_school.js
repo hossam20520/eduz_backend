@@ -560,6 +560,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -572,6 +589,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       tag: "",
       len: 8,
+      dataArray: [{
+        "ar_name": "منهج بريطاني",
+        "value": "British"
+      }, {
+        "ar_name": "منهج منتسوري",
+        "value": "Montessori"
+      }, {
+        "ar_name": "اخصائي تعديل سلوك",
+        "value": "Specialist"
+      }, {
+        "ar_name": "وجبه للطفل",
+        "value": "Meal"
+      }, {
+        "ar_name": "استضافه",
+        "value": "Hosting"
+      }, {
+        "ar_name": "تحفيظ قران",
+        "value": "Quran"
+      }, {
+        "ar_name": "حمام سباحه",
+        "value": "Swimming"
+      }, {
+        "ar_name": "مواصلات",
+        "value": "Transportation"
+      }],
       images: [],
       imageArray: [],
       areas: [],
@@ -587,6 +629,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       school: {
         exp_from: "",
         exp_to: "",
+        actives: "",
         paid_en_info: "",
         paid_ar_info: "",
         paid_facilities_ar: "",
@@ -814,7 +857,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this6.areas = response.data.areas;
         _this6.files_activetiy = response.data.school.activites_fiels.split(",").map(function (item) {
           return item.trim();
-        }); // console.log( response.data.drop.SECTIONS)
+        });
+        _this6.school.actives = response.data.school.actives; // this.files_activetiy = response.data.school.activites_fiels.split(",").map(item => item.trim());
+        // console.log( response.data.drop.SECTIONS)
 
         var da = response.data.drops.original;
         da.forEach(function (section) {
@@ -2586,6 +2631,107 @@ var render = function () {
                                               null,
                                               false,
                                               986475697
+                                            ),
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-6",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: { name: _vm.dataArray },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (ref) {
+                                                    var valid = ref.valid
+                                                    var errors = ref.errors
+                                                    return _c(
+                                                      "b-form-group",
+                                                      {
+                                                        attrs: {
+                                                          label:
+                                                            _vm.$t("activites"),
+                                                        },
+                                                      },
+                                                      [
+                                                        _c("v-select", {
+                                                          class: {
+                                                            "is-invalid":
+                                                              !!errors.length,
+                                                          },
+                                                          attrs: {
+                                                            state: errors[0]
+                                                              ? false
+                                                              : valid
+                                                              ? true
+                                                              : null,
+                                                            reduce: function (
+                                                              label
+                                                            ) {
+                                                              return label.value
+                                                            },
+                                                            placeholder:
+                                                              _vm.$t(
+                                                                "activites"
+                                                              ),
+                                                            multiple: "",
+                                                            options:
+                                                              _vm.dataArray.map(
+                                                                function (
+                                                                  dataArray
+                                                                ) {
+                                                                  return {
+                                                                    label:
+                                                                      dataArray.ar_name,
+                                                                    value:
+                                                                      dataArray.value,
+                                                                  }
+                                                                }
+                                                              ),
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.school
+                                                                .actives,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.school,
+                                                                "actives",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "school.actives",
+                                                          },
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "b-form-invalid-feedback",
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(errors[0])
+                                                            ),
+                                                          ]
+                                                        ),
+                                                      ],
+                                                      1
+                                                    )
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              234686516
                                             ),
                                           }),
                                         ],

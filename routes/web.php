@@ -89,11 +89,38 @@ if ($installed === false) {
     });
 
 } else {
+    // Route::get('localization/{locale}','LocalizationController@index');
 
+    // Route::get('/{locale}', function () {
+    //     return view("front.index");
+    // })->name('home');
 
-    Route::get('/', function () {
+    Route::get('/language/{lang}', function (Request $request , $lang) {
+        if( $lang){
+            
+            if( $lang == "ar" ||  $lang == "en" ){
+            App::setLocale( $lang);
+      
+            session()->put('locale',  $lang); 
+            }
+        }
+        
+        
+        return back();   
+    });
+
+    Route::get('/', function (Request $request  ) {
+        // if( $lang){
+            
+        //     if( $lang == "ar" ||  $lang == "en" ){
+        //     App::setLocale( $lang);
+      
+        //     session()->put('locale',  $lang); 
+        //     }
+        // }
+ 
         return view("front.index");
-    })->name('home');
+    });
 
     Route::get('/chat', function () {
         return view("front.chat");
@@ -110,6 +137,7 @@ if ($installed === false) {
         abort(403);
     });
 }
+
 
 
 

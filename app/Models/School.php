@@ -20,6 +20,7 @@ class School extends Model
           'expense_from' ,
           'expense_to' ,
           'second_lang' , 'first_lang'  , 
+          'actives',
     ];
 
  

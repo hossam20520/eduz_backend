@@ -384,10 +384,27 @@
                 </b-col>
 
 
-
+                <b-col md="6" class="mb-6" >
+                  <validation-provider :name="dataArray"  >
+                    <b-form-group slot-scope="{ valid, errors }" :label="$t( 'activites')">
+                      <v-select
+                        :class="{'is-invalid': !!errors.length}"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        v-model="school.actives"
+                        :reduce="label => label.value"
+                        :placeholder="$t('activites')"
+                        multiple
+                        :options="dataArray.map(dataArray => ({ label: dataArray.ar_name, value: dataArray.value }))"
+                      ></v-select>
+                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
 
        
 
+
+                
  
 
                 <b-col md="6" class="mb-6" v-for="section in sections" :key="section.id">
@@ -544,9 +561,21 @@ export default {
     return {
       tag: "",
       len: 8,
+      dataArray:[ 
+        {"ar_name": "منهج بريطاني" , "value": "British"} ,
+        {"ar_name": "منهج منتسوري" , "value": "Montessori"},
+        {"ar_name": "اخصائي تعديل سلوك" , "value": "Specialist"},
+        {"ar_name": "وجبه للطفل" , "value": "Meal"},
+        {"ar_name": "استضافه" , "value": "Hosting"},
+        {"ar_name": "تحفيظ قران" , "value": "Quran"},
+        {"ar_name": "حمام سباحه" , "value": "Swimming"},
+        {"ar_name": "مواصلات" , "value": "Transportation"},
+
+    ],
       images: [],
       imageArray: [],
       selectedOptions: {},
+      selectedOptionsData: {},
       change: false,
       isLoading: true,
       SubmitProcessing:false,
@@ -559,6 +588,7 @@ export default {
       sections:[],
       school: {
         exp_from:"",
+        actives:"",
         exp_to:"",
         paid_en_info: "",
         paid_ar_info: "",
@@ -796,6 +826,8 @@ export default {
 
     //------------------------------ Create new School ------------------------------\
     Create_School() {
+
+      
       // Start the progress bar.
       NProgress.start();
       NProgress.set(0.1);

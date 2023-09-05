@@ -93,7 +93,7 @@ class helpers
         $field->area_id = $request['area_id'];
         $field->activites_fiels = $request['activites_fiels'];
         
-    
+        $field->actives = $request['actives'];
         // $field->second_lang = $request['second_lang'];
         // $field->first_lang = $request['first_lang'];
         // $field->other_lang = $request['other_lang'];
@@ -158,8 +158,8 @@ class helpers
 
         $item['lat'] =  $model->lat;
         $item['long'] =  $model->long_a;
-
-
+        $item['actives'] =  $model->actives;
+      
 
         // $item['second_lang'] =  $model->second_lang;
         // $item['first_lang'] =  $model->first_lang;

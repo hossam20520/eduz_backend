@@ -47,7 +47,7 @@
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="#welcome" class="active">Home</a></li>
+                            <li class="scroll-to-section"><a href="#welcome" class="active">{{ trans('lang.Home') }} </a></li>
                             <li class="scroll-to-section"><a href="#about">About</a></li>
                             <li class="scroll-to-section"><a href="#services">Services</a></li>
                             <li class="scroll-to-section"><a href="#frequently-question">Frequently Questions</a></li>

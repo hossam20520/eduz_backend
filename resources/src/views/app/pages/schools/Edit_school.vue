@@ -356,6 +356,23 @@
 
 
  
+                <b-col md="6" class="mb-6" >
+                  <validation-provider :name="dataArray"  >
+                    <b-form-group slot-scope="{ valid, errors }" :label="$t( 'activites')">
+                      <v-select
+                        :class="{'is-invalid': !!errors.length}"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        v-model="school.actives"
+                        :reduce="label => label.value"
+                        :placeholder="$t('activites')"
+                        multiple
+                        :options="dataArray.map(dataArray => ({ label: dataArray.ar_name, value: dataArray.value }))"
+                      ></v-select>
+                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
    
                 <!-- <b-col md="12"  class="mb-2">
               <validation-provider name="Image" ref="Image" rules="mimes:image/*">
@@ -536,6 +553,17 @@ export default {
     return {
       tag: "",
       len: 8,
+      dataArray:[ 
+        {"ar_name": "منهج بريطاني" , "value": "British"} ,
+        {"ar_name": "منهج منتسوري" , "value": "Montessori"},
+        {"ar_name": "اخصائي تعديل سلوك" , "value": "Specialist"},
+        {"ar_name": "وجبه للطفل" , "value": "Meal"},
+        {"ar_name": "استضافه" , "value": "Hosting"},
+        {"ar_name": "تحفيظ قران" , "value": "Quran"},
+        {"ar_name": "حمام سباحه" , "value": "Swimming"},
+        {"ar_name": "مواصلات" , "value": "Transportation"},
+
+    ],
       images: [],
       imageArray: [],
       areas:[],
@@ -551,6 +579,7 @@ export default {
       school: {
         exp_from:"",
         exp_to:"",
+        actives:"",
         paid_en_info: "",
         paid_ar_info: "",
         paid_facilities_ar: "",
@@ -738,6 +767,8 @@ export default {
           this.school = response.data.school;
           this.areas = response.data.areas;
           this.files_activetiy = response.data.school.activites_fiels.split(",").map(item => item.trim());
+          this.school.actives =    response.data.school.actives 
+          // this.files_activetiy = response.data.school.activites_fiels.split(",").map(item => item.trim());
           // console.log( response.data.drop.SECTIONS)
  
             let da = response.data.drops.original;

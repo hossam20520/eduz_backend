@@ -152,8 +152,6 @@ class InstitutionsController extends Controller
       $order = $request->SortField;
       $dir = $request->SortType;
       $helpers = new helpers();
-   
-       
       $SCHOOLS = $this->GetSearchData(School::class ,   $request->search , "SCHOOLS" , $offSet ,$perPage   ,  $order  ,  $dir );
       $KINDERGARTENS = $this->GetSearchData(Kindergarten::class ,   $request->search , "KINDERGARTENS" , $offSet ,$perPage   ,  $order  ,  $dir );
       $SPECIALNEEDS = $this->GetSearchData(Specialneed::class ,   $request->search , "SPECIALNEEDS" , $offSet ,$perPage   ,  $order  ,  $dir );
@@ -519,7 +517,7 @@ class InstitutionsController extends Controller
         $item['lat'] = $edu->lat;
         $item['long'] = $edu->long_a;
         $item['logo'] = $firstimage[0];
-
+        $item['acti'] = $edu->actives;
 
         $data[] = $item;
     }
