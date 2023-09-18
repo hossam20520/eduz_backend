@@ -10,7 +10,8 @@ use App\Models\Cartitem;
 use App\Models\Favourit;
 use App\Models\Instfav;
 use Illuminate\Support\Facades\Auth;
-
+use \Gumlet\ImageResize;
+use Intervention\Image\ImageManagerStatic as Image;
 class helpers
 {
 
@@ -127,6 +128,51 @@ class helpers
     }
 
 
+
+    public function editImageV($model , $imagename, $singleImage){
+        $firstimage = explode(',', $model);
+        $item[$singleImage] = $firstimage[0];
+        $item[$imagename] = [];
+        if ($model != '' && $model != 'no-image.png') {
+            foreach (explode(',',$model) as $img) {
+                $path = public_path() . '/images/educations/' . $img;
+                if (file_exists($path)) {
+                    $itemImg['name'] = $img;
+                    $type = pathinfo($path, PATHINFO_EXTENSION);
+                    $data = file_get_contents($path);
+                    $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+                    $item[$imagename][] = $itemImg;
+                }
+            }
+        } else {
+            $item[$imagename] = [];
+        }
+
+       return  $item;
+
+    }
+
+
+    public function StoreImagesV($request , $imagename){
+        if ($request[$imagename]) {
+            $files = $request[$imagename];
+            foreach ($files as $file) {
+                $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])));
+                // $fileData->resize(200, 200);
+                $name = rand(11111111, 99999999) . $file['name'];
+                $path = public_path() . '/images/educations/';
+                $success = file_put_contents($path . $name, $fileData);
+
+                $images[] = $name;
+            }
+            $filename = implode(",", $images);
+        } else {
+            $filename = 'no-image.png';
+        }
+
+        return $filename;
+    }
 
 
     public function edit($model){

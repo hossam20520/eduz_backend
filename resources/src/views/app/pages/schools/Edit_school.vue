@@ -468,62 +468,21 @@
 
 
 
-
-
-
                 <b-row class="form-group">
-                  <br> 
                   <b-col md="12 mb-5">
-                    <div
-                      id="my-strictly-unique-vue-upload-multiple-image"
-                      class="d-flex justify-content-center"
-                    >
-               
-                      <div>
-                        
-                        
-                         <div style="display: inline;" v-for="(item, index) in files_activetiy" :key="index"> 
- 
-                         <span @click="deleteImage(index)" style="
-    justify-content: center;
-    position: absolute;
-    padding: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    background-color: #9f9f9f6b;
-    color: red;
-    /* display: flex; */
-"> X</span> <img width="50px" :src="'/images/uploads/'+item">
-
-</div>
- 
-
-
-           
-                   </div>
+                    <div id="my-strictly-unique-vue-upload-multiple-image" class="d-flex justify-content-center">
+                      <vue-upload-multiple-image @upload-success="uploadImageSuccess_tow" @before-remove="beforeRemove_tow"
+                        dragText="Drag & Drop Multiple images For school" dropText="Drag & Drop image"
+                        browseText="(or) Select" accept=image/gif,image/jpeg,image/png,image/bmp,image/jpg
+                        primaryText='success' markIsPrimaryText='success' popupText='have been successfully uploaded'
+                        :data-images="images_tow" idUpload="myIdUploadTow" :showEdit="false" />
                     </div>
                   </b-col>
-            
+
                 </b-row>
 
-                <b-row class="form-group">
-                  <br> 
-                  <b-col md="12 mb-5">
-                    <div
-                      id="my-strictly-unique-vue-upload-multiple-image"
-                      class="d-flex justify-content-center"
-                    >
  
-                  <input type="file" ref="fileInput" multiple @change="handleFileChange">
-                  <button type="button" @click="uploadFiles">Upload</button>
-           
-                  
-
-
-                    </div>
-                  </b-col>
-            
-                </b-row>
+ 
 
               </div>
             </b-card>
@@ -565,6 +524,7 @@ export default {
 
     ],
       images: [],
+      images_tow:[],
       imageArray: [],
       areas:[],
       change: false,
@@ -583,17 +543,15 @@ export default {
         paid_en_info: "",
         paid_ar_info: "",
         paid_facilities_ar: "",
-        paid_facilities_en: "",
-        free:"",
-        ar_address:"",
-        en_address:"",
-
-
-           logo:"",
- 
-           banner:"",
-           area_id:"",
-           institution_id:"",
+  paid_facilities_en: "",
+               free:"",
+         ar_address:"",
+         en_address:"",
+        images_tow: "",
+               logo:"",
+             banner:"",
+            area_id:"",
+     institution_id:"",
            ar_name:"",
             en_name:"",
             url: "",
@@ -638,6 +596,28 @@ export default {
    this.school.activites_fiels = strings;
    
  },
+
+
+
+         //------ Event upload Image Success
+    uploadImageSuccess_tow(formData, index, fileList, imageArray) {
+      this.images_tow = fileList;
+    },
+
+
+
+
+    //------ Event before Remove Image
+    beforeRemove_tow(index, done, fileList) {
+      var remove = confirm("remove image");
+      if (remove == true) {
+        this.images_tow = fileList;
+        done();
+      } else {
+      }
+    },
+
+
 
  handleFileChange(event) {
    this.selectedFiles = Array.from(event.target.files);
@@ -763,10 +743,10 @@ export default {
       axios
         .get(`Schools/${id}/edit`)
         .then(response => {
-          console.log(  response.data.slider );
+         
           this.school = response.data.school;
           this.areas = response.data.areas;
-          this.files_activetiy = response.data.school.activites_fiels.split(",").map(item => item.trim());
+          // this.files_activetiy = response.data.school.activites_fiels.split(",").map(item => item.trim());
           this.school.actives =    response.data.school.actives 
           // this.files_activetiy = response.data.school.activites_fiels.split(",").map(item => item.trim());
           // console.log( response.data.drop.SECTIONS)
@@ -777,12 +757,13 @@ export default {
       });
 
 
-          console.log("ddddddddddddddddddddddddddddddddddddd")
-          // this.selectedOptions = response.data.drops.original;
+          // console.log("ddddddddddddddddddddddddddddddddddddd")
+          // // this.selectedOptions = response.data.drops.original;
 
           this.schools =  response.data.schools;
           this.images = response.data.school.images;
-    
+          this.images_tow = response.data.school.images_tow;
+          // this.image_tow = response.data.school.image_tow;
           this.isLoading = false;
         })
         .catch(response => {
@@ -818,6 +799,17 @@ export default {
         for (var k = 0; k < self.images.length; k++) {
           Object.entries(self.images[k]).forEach(([key, value]) => {
               self.data.append("images[" + k + "][" + key + "]", value);
+          });
+        }
+      }
+
+
+      
+            //append array images
+            if (self.images_tow.length > 0) {
+        for (var k = 0; k < self.images_tow.length; k++) {
+          Object.entries(self.images_tow[k]).forEach(([key, value]) => {
+            self.data.append("images_tow[" + k + "][" + key + "]", value);
           });
         }
       }

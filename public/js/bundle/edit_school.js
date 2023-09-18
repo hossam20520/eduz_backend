@@ -536,47 +536,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -615,6 +574,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         "value": "Transportation"
       }],
       images: [],
+      images_tow: [],
       imageArray: [],
       areas: [],
       change: false,
@@ -637,6 +597,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         free: "",
         ar_address: "",
         en_address: "",
+        images_tow: "",
         logo: "",
         banner: "",
         area_id: "",
@@ -680,6 +641,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.files_activetiy.splice(index, 1);
       var strings = this.files_activetiy.join(',');
       this.school.activites_fiels = strings;
+    },
+    //------ Event upload Image Success
+    uploadImageSuccess_tow: function uploadImageSuccess_tow(formData, index, fileList, imageArray) {
+      this.images_tow = fileList;
+    },
+    //------ Event before Remove Image
+    beforeRemove_tow: function beforeRemove_tow(index, done, fileList) {
+      var remove = confirm("remove image");
+
+      if (remove == true) {
+        this.images_tow = fileList;
+        done();
+      } else {}
     },
     handleFileChange: function handleFileChange(event) {
       this.selectedFiles = Array.from(event.target.files);
@@ -852,12 +826,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var id = this.$route.params.id;
       axios.get("Schools/".concat(id, "/edit")).then(function (response) {
-        console.log(response.data.slider);
         _this6.school = response.data.school;
-        _this6.areas = response.data.areas;
-        _this6.files_activetiy = response.data.school.activites_fiels.split(",").map(function (item) {
-          return item.trim();
-        });
+        _this6.areas = response.data.areas; // this.files_activetiy = response.data.school.activites_fiels.split(",").map(item => item.trim());
+
         _this6.school.actives = response.data.school.actives; // this.files_activetiy = response.data.school.activites_fiels.split(",").map(item => item.trim());
         // console.log( response.data.drop.SECTIONS)
 
@@ -866,11 +837,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           _this6.$set(_this6.selectedOptions, section.id, section.drop.map(function (item) {
             return item.id;
           }));
-        });
-        console.log("ddddddddddddddddddddddddddddddddddddd"); // this.selectedOptions = response.data.drops.original;
+        }); // console.log("ddddddddddddddddddddddddddddddddddddd")
+        // // this.selectedOptions = response.data.drops.original;
 
         _this6.schools = response.data.schools;
         _this6.images = response.data.school.images;
+        _this6.images_tow = response.data.school.images_tow; // this.image_tow = response.data.school.image_tow;
+
         _this6.isLoading = false;
       })["catch"](function (response) {
         setTimeout(function () {
@@ -905,6 +878,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 value = _ref5[1];
 
             self.data.append("images[" + k + "][" + key + "]", value);
+          });
+        }
+      } //append array images
+
+
+      if (self.images_tow.length > 0) {
+        for (var k = 0; k < self.images_tow.length; k++) {
+          Object.entries(self.images_tow[k]).forEach(function (_ref6) {
+            var _ref7 = _slicedToArray(_ref6, 2),
+                key = _ref7[0],
+                value = _ref7[1];
+
+            self.data.append("images_tow[" + k + "][" + key + "]", value);
           });
         }
       }
@@ -2339,7 +2325,7 @@ var render = function () {
                                               ],
                                               null,
                                               false,
-                                              2282538751
+                                              3915009791
                                             ),
                                           }),
                                         ],
@@ -2921,8 +2907,6 @@ var render = function () {
                                   "b-row",
                                   { staticClass: "form-group" },
                                   [
-                                    _c("br"),
-                                    _vm._v(" "),
                                     _c("b-col", { attrs: { md: "12 mb-5" } }, [
                                       _c(
                                         "div",
@@ -2934,106 +2918,31 @@ var render = function () {
                                           },
                                         },
                                         [
-                                          _c(
-                                            "div",
-                                            _vm._l(
-                                              _vm.files_activetiy,
-                                              function (item, index) {
-                                                return _c(
-                                                  "div",
-                                                  {
-                                                    key: index,
-                                                    staticStyle: {
-                                                      display: "inline",
-                                                    },
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "span",
-                                                      {
-                                                        staticStyle: {
-                                                          "justify-content":
-                                                            "center",
-                                                          position: "absolute",
-                                                          padding: "5px",
-                                                          cursor: "pointer",
-                                                          "font-weight": "bold",
-                                                          "background-color":
-                                                            "#9f9f9f6b",
-                                                          color: "red",
-                                                          "/* display": "flex",
-                                                        },
-                                                        on: {
-                                                          click: function (
-                                                            $event
-                                                          ) {
-                                                            return _vm.deleteImage(
-                                                              index
-                                                            )
-                                                          },
-                                                        },
-                                                      },
-                                                      [_vm._v(" X")]
-                                                    ),
-                                                    _vm._v(" "),
-                                                    _c("img", {
-                                                      attrs: {
-                                                        width: "50px",
-                                                        src:
-                                                          "/images/uploads/" +
-                                                          item,
-                                                      },
-                                                    }),
-                                                  ]
-                                                )
-                                              }
-                                            ),
-                                            0
-                                          ),
-                                        ]
-                                      ),
-                                    ]),
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-row",
-                                  { staticClass: "form-group" },
-                                  [
-                                    _c("br"),
-                                    _vm._v(" "),
-                                    _c("b-col", { attrs: { md: "12 mb-5" } }, [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass:
-                                            "d-flex justify-content-center",
-                                          attrs: {
-                                            id: "my-strictly-unique-vue-upload-multiple-image",
-                                          },
-                                        },
-                                        [
-                                          _c("input", {
-                                            ref: "fileInput",
+                                          _c("vue-upload-multiple-image", {
                                             attrs: {
-                                              type: "file",
-                                              multiple: "",
+                                              dragText:
+                                                "Drag & Drop Multiple images For school",
+                                              dropText: "Drag & Drop image",
+                                              browseText: "(or) Select",
+                                              accept:
+                                                "image/gif,image/jpeg,image/png,image/bmp,image/jpg",
+                                              primaryText: "success",
+                                              markIsPrimaryText: "success",
+                                              popupText:
+                                                "have been successfully uploaded",
+                                              "data-images": _vm.images_tow,
+                                              idUpload: "myIdUploadTow",
+                                              showEdit: false,
                                             },
                                             on: {
-                                              change: _vm.handleFileChange,
+                                              "upload-success":
+                                                _vm.uploadImageSuccess_tow,
+                                              "before-remove":
+                                                _vm.beforeRemove_tow,
                                             },
                                           }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "button",
-                                            {
-                                              attrs: { type: "button" },
-                                              on: { click: _vm.uploadFiles },
-                                            },
-                                            [_vm._v("Upload")]
-                                          ),
-                                        ]
+                                        ],
+                                        1
                                       ),
                                     ]),
                                   ],

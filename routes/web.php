@@ -95,32 +95,32 @@ if ($installed === false) {
     //     return view("front.index");
     // })->name('home');
 
-    Route::get('/language/{lang}', function (Request $request , $lang) {
-        if( $lang){
+    // Route::get('/language/{lang}', function (Request $request , $lang) {
+    //     if( $lang){
             
-            if( $lang == "ar" ||  $lang == "en" ){
-            App::setLocale( $lang);
+    //         if( $lang == "ar" ||  $lang == "en" ){
+    //         App::setLocale( $lang);
       
-            session()->put('locale',  $lang); 
-            }
-        }
+    //         session()->put('locale',  $lang); 
+    //         }
+    //     }
         
         
-        return back();   
-    });
+    //     return back();   
+    // });
 
-    Route::get('/', function (Request $request  ) {
-        // if( $lang){
+    // Route::get('/', function (Request $request  ) {
+    //     // if( $lang){
             
-        //     if( $lang == "ar" ||  $lang == "en" ){
-        //     App::setLocale( $lang);
+    //     //     if( $lang == "ar" ||  $lang == "en" ){
+    //     //     App::setLocale( $lang);
       
-        //     session()->put('locale',  $lang); 
-        //     }
-        // }
+    //     //     session()->put('locale',  $lang); 
+    //     //     }
+    //     // }
  
-        return view("front.index");
-    });
+    //     return view("front.index");
+    // });
 
     Route::get('/chat', function () {
         return view("front.chat");

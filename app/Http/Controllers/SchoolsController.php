@@ -121,31 +121,41 @@ class SchoolsController extends BaseController
 
 
 
-                if ($request['images']) {
-                    $files = $request['images'];
-                    foreach ($files as $file) {
-                        $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])));
-                        // $fileData->resize(200, 200);
-                        $name = rand(11111111, 99999999) . $file['name'];
-                        $path = public_path() . '/images/educations/';
-                        $success = file_put_contents($path . $name, $fileData);
+
+
+                
+
+
+             $helpers = new helpers();
+             $images =  $helpers->StoreImagesV($request , "images");
+             $images_tow =   $helpers->StoreImagesV($request , "images_tow");
+
+                // if ($request['images']) {
+                //     $files = $request['images'];
+                //     foreach ($files as $file) {
+                //         $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])));
+                //         // $fileData->resize(200, 200);
+                //         $name = rand(11111111, 99999999) . $file['name'];
+                //         $path = public_path() . '/images/educations/';
+                //         $success = file_put_contents($path . $name, $fileData);
  
-                        $images[] = $name;
-                    }
-                    $filename = implode(",", $images);
-                } else {
-                    $filename = 'no-image.png';
-                }
+                //         $images[] = $name;
+                //     }
+                //     $filename = implode(",", $images);
+                // } else {
+                //     $filename = 'no-image.png';
+                // }
 
 
 
  
 
-                $School->logo =  $this->StoreImage("logo" , "educations" , $request);
-                $School->banner =  $this->StoreImage("banner" , "educations" , $request);
+                // $School->logo =  $this->StoreImage("logo" , "educations" , $request);
+                // $School->banner =  $this->StoreImage("banner" , "educations" , $request);
 
 
-                $School->image = $filename;
+                $School->image =  $images;
+                $School->images_tow =  $images_tow ;
                 $School->save();
 
   
@@ -540,30 +550,34 @@ public function StoreImage($name , $pathUrl , $request){
 
         $helpers = new helpers();
         $item =  $helpers->edit( $School );
-  
+        $images = $helpers->editImageV($School->image, "images",  "image");
+          $images_tow = $helpers->editImageV($School->images_tow, "images_tow",  "image_tow");
+        
 
-        $firstimage = explode(',', $School->image);
-        $item['image'] = $firstimage[0];
-          
- 
- 
-        $item['images'] = [];
-        if ($School->image != '' && $School->image != 'no-image.png') {
-            foreach (explode(',', $School->image) as $img) {
-                $path = public_path() . '/images/educations/' . $img;
-                if (file_exists($path)) {
-                    $itemImg['name'] = $img;
-                    $type = pathinfo($path, PATHINFO_EXTENSION);
-                    $data = file_get_contents($path);
-                    $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        $item[]   = $images;
+        $item[]   =  $images_tow;
+        // $firstimage = explode(',', $School->image);
+        // $item['image'] = $firstimage[0];
+        // $item['images'] = [];
+        // if ($School->image != '' && $School->image != 'no-image.png') {
+        //     foreach (explode(',', $School->image) as $img) {
+        //         $path = public_path() . '/images/educations/' . $img;
+        //         if (file_exists($path)) {
+        //             $itemImg['name'] = $img;
+        //             $type = pathinfo($path, PATHINFO_EXTENSION);
+        //             $data = file_get_contents($path);
+        //             $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-                    $item['images'][] = $itemImg;
-                }
-            }
-        } else {
-            $item['images'] = [];
-        }
- 
+        //             $item['images'][] = $itemImg;
+        //         }
+        //     }
+        // } else {
+        //     $item['images'] = [];
+        // }
+        // $item[]   = $images_tow;
+
+        $data = array();
+       
         $data = $item;
 
 
@@ -572,7 +586,7 @@ public function StoreImage($name , $pathUrl , $request){
         $drops =  $this->getSectionsWithDrops( $School->selected_ids);
    
         return response()->json([
-            'slider' => $item['images'],
+           
             'school' => $data,
             'drops' => $drops,
             'schools' =>  $School_data ,

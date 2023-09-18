@@ -31,6 +31,8 @@ class Schools extends Migration
             $table->text('logo')->nullable();
             $table->text('banner')->nullable();
 
+            $table->text('images_tow')->nullable();
+ 
             $table->text('address_ar')->nullable();
             $table->text('address_en')->nullable();
             $table->text('exp_from')->nullable();

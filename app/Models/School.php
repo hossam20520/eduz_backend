@@ -21,6 +21,7 @@ class School extends Model
           'expense_to' ,
           'second_lang' , 'first_lang'  , 
           'actives',
+          'images_tow'
     ];
 
  

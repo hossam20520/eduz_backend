@@ -16,58 +16,27 @@ use Illuminate\Support\Facades\Route;
 
 //  isInFav
  
-
- Route::get('device/search', 'device\InstitutionsController@search');
-
-
-
- Route::get('recently/get', 'device\InstitutionsController@GetRecently');
-
- Route::get('device/deals', 'device\InstitutionsController@deals');
- Route::get('device/reviews/get', 'device\InstitutionsController@reviews');
- 
+Route::get('device/search', 'device\InstitutionsController@search');
+Route::get('recently/get', 'device\InstitutionsController@GetRecently');
+Route::get('device/deals', 'device\InstitutionsController@deals');
+Route::get('device/reviews/get', 'device\InstitutionsController@reviews');
 Route::get('device/blog', 'device\InstitutionsController@GetBlogs');
 Route::get('device/blog/detail', 'device\InstitutionsController@GetOneBlog');
-
-
 Route::get('device/info/{token}', 'device\AuthController@GetUserByToken');
-
-
-
-
 Route::post('files/upload', 'device\InstitutionsController@UploadFile');
-
 Route::get('device/educations/detail', 'device\InstitutionsController@GetDetailEdu');
-
-
-
- 
- Route::get('device/map', 'device\InstitutionsController@MapData');
-
-
- Route::get('device/educations', 'device\InstitutionsController@GetAllEducation');
-
- Route::post('device/auth/social', 'device\AuthController@loginWithSocial');
-
- Route::post("device/auth/login/", "device\AuthController@login");
- Route::get('device/products', 'device\ProductController@index');
-
-
+Route::get('device/map', 'device\InstitutionsController@MapData');
+Route::get('device/educations', 'device\InstitutionsController@GetAllEducation');
+Route::post('device/auth/social', 'device\AuthController@loginWithSocial');
+Route::post("device/auth/login/", "device\AuthController@login");
+Route::get('device/products', 'device\ProductController@index');
 //  Route::get('device/products', 'device\ProductController@index');
-
- Route::get('device/categories', 'device\CategoryController@GetCategories');
- Route::post("device/auth/register/", "device\AuthController@register");
-
- Route::post("device/auth/login/", "device\AuthController@login");
-
- Route::get('device/inst', 'device\InstitutionsController@get');
-
- Route::get('drops/gettypes', 'DropsController@getTypes');
- Route::get('types/gettypesinst', 'device\InstitutionsController@gettypesinst');
-
- 
- 
-
+Route::get('device/categories', 'device\CategoryController@GetCategories');
+Route::post("device/auth/register/", "device\AuthController@register");
+Route::post("device/auth/login/", "device\AuthController@login");
+Route::get('device/inst', 'device\InstitutionsController@get');
+Route::get('drops/gettypes', 'DropsController@getTypes');
+Route::get('types/gettypesinst', 'device\InstitutionsController@gettypesinst');
 
  Route::get('drops/list/data', 'DropsController@listITems');
 
