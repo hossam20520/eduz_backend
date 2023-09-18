@@ -551,7 +551,7 @@ public function StoreImage($name , $pathUrl , $request){
         $helpers = new helpers();
         $item =  $helpers->edit( $School );
         $images = $helpers->editImageV($School->image, "images",  "image");
-          $images_tow = $helpers->editImageV($School->images_tow, "images_tow",  "image_tow");
+        $images_tow = $helpers->editImageV($School->images_tow, "images_tow",  "image_tow");
         
 
         $item[]   = $images;
@@ -576,7 +576,7 @@ public function StoreImage($name , $pathUrl , $request){
         // }
         // $item[]   = $images_tow;
 
-        $data = array();
+        // $data = array();
        
         $data = $item;
 
