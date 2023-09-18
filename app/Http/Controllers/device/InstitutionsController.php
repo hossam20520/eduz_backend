@@ -152,14 +152,17 @@ class InstitutionsController extends Controller
       $order = $request->SortField;
       $dir = $request->SortType;
       $helpers = new helpers();
+
+
+
+
+      
       $SCHOOLS = $this->GetSearchData(School::class ,   $request->search , "SCHOOLS" , $offSet ,$perPage   ,  $order  ,  $dir );
       $KINDERGARTENS = $this->GetSearchData(Kindergarten::class ,   $request->search , "KINDERGARTENS" , $offSet ,$perPage   ,  $order  ,  $dir );
       $SPECIALNEEDS = $this->GetSearchData(Specialneed::class ,   $request->search , "SPECIALNEEDS" , $offSet ,$perPage   ,  $order  ,  $dir );
       $UNIVERSITIES = $this->GetSearchData(Universitie::class ,   $request->search , "UNIVERSITIES" , $offSet ,$perPage   ,  $order  ,  $dir );
       $CENTERS = $this->GetSearchData(Center::class ,   $request->search , "CENTERS" , $offSet ,$perPage   ,  $order  ,  $dir );
       $EDUSERVICES = $this->GetSearchData(Product::class ,   $request->search , "EDUSERVICES" , $offSet ,$perPage   ,  $order  ,  $dir );
-
-
       $allResults = array_merge($SCHOOLS, $KINDERGARTENS, $SPECIALNEEDS, $UNIVERSITIES, $CENTERS , $EDUSERVICES);
 
 
@@ -574,6 +577,63 @@ public function MapData(Request $request){
     ]);
 
 }
+
+
+
+
+public function GetTheInstDetailNoAuth(Request $request ){
+
+        
+  $model = School::class;
+
+
+  $type = $request->type;
+  $id = $request->id;
+
+  if($type == "SCHOOLS"){
+    $model = School::class;
+  }else if($type == "KINDERGARTENS"){
+    $model  = Kindergarten::class;
+  }else if($type == "CENTERS"){
+    $model  = Center::class;
+  }else if($type == "SPECIALNEEDS"){
+    $model  = Specialneed::class;
+  }else if($type == "UNIVERSITIES"){
+    $model  = Universitie::class;
+  } 
+
+  $data  = $model::where('id' , $id )->first();
+  
+  $reviews  =  Review::with('user')->where('type' , $type )->where('inst_id' ,  $data->id )->get();
+
+
+  
+  return response()->json([
+
+    'detail' =>  $data,
+    'reviews' =>   $reviews ,
+    'files' => [
+      [
+        "id" => 1 ,
+        "file" => "https://th.bing.com/th/id/OIG.lVXjWwlHyIo4QdjnC1YE",
+        "type" => "image"
+      ],
+      [
+        "id" => 2 ,
+        "file" => "nPt8bK2gbaU",
+        "type" => "video"
+      ],
+
+
+      
+    ]
+
+  
+  ]);
+
+
+}
+
 
 
     public function GetTheInstDetail(Request $request ){

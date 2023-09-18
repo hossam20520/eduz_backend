@@ -62,6 +62,9 @@ Route::group([
 });
 
 
+Route::get('device/inst/detail/noauth', 'device\InstitutionsController@GetTheInstDetailNoAuth');
+
+
 
 
 Route::post('device/auth/password/change', 'device\AuthController@changePassword');
