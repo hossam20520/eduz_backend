@@ -609,7 +609,7 @@ public function GetTheInstDetailNoAuth(Request $request ){
 
 
    $data_images = array();
-   foreach (explode(',', $Product->images_tow) as $img) {
+   foreach (explode(',', $data->images_tow) as $img) {
         $item['file'] =  "/images/educations". $img;
         $item['type'] = "image";
 
