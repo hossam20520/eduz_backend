@@ -306,53 +306,17 @@ public function StoreImage($name , $pathUrl , $request){
 
  
 
-                if ($request['images'] === null) {
-
-                    if ($School->image !== null) {
-                        foreach (explode(',', $School->image) as $img) {
-                            $pathIMG = public_path() . '/images/educations/' . $img;
-                            if (file_exists($pathIMG)) {
-                                if ($img != 'no-image.png') {
-                                    @unlink($pathIMG);
-                                }
-                            }
-                        }
-                    }
-                    $filename = 'no-image.png';
-                } else {
-                    if ($School->image !== null) {
-                        foreach (explode(',', $School->image) as $img) {
-                            $pathIMG = public_path() . '/images/educations/' . $img;
-                            if (file_exists($pathIMG)) {
-                                if ($img != 'no-image.png') {
-                                    @unlink($pathIMG);
-                                }
-                            }
-                        }
-                    }
-                    $files = $request['images'];
-                    foreach ($files as $file) {
-                        $fileData =  base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path']));
-                        // $fileData->resize(200, 200);
-                        $name = rand(11111111, 99999999) . $file['name'];
-                        $path = public_path() . '/images/educations/';
-                        $success = file_put_contents($path . $name, $fileData);
-                        $images[] = $name;
-                    }
-                    $filename = implode(",", $images);
-                }
-
+   
                 // $logo =  $this->UpdateImage( 'logo',  "educations" , $request , $request->logo , $School->logo );
               
-
+                  $imagesa  = $helpers->updateImagesActiv($request , $School->image,  "images");
+                  $images_tow  = $helpers->updateImagesActiv($request , $School->images_tow,  "images_tow");
 
                 // $banner =  $this->UpdateImage( 'banner',  "educations" , $request , $request->banner , $School->banner );
-
-         
  
-                // $School->logo = $logo;
-                // $School->banner = $banner;
-                $School->image = $filename;
+                $School->image =  $imagesa;
+                $School->images_tow =  $images_tow;
+       
                 $School->save();
 
             }, 10);
@@ -550,38 +514,64 @@ public function StoreImage($name , $pathUrl , $request){
 
         $helpers = new helpers();
         $item =  $helpers->edit( $School );
-        $images = $helpers->editImageV($School->image, "images",  "image");
-        $images_tow = $helpers->editImageV($School->images_tow, "images_tow",  "image_tow");
+        // $images = $helpers->editImageV($School->image, "images",  "image");
+        // $images_tow = $helpers->editImageV($School->images_tow, "images_tow",  "image_tow");
         
 
-        $item[]   = $images;
-        $item[]   =  $images_tow;
-        // $firstimage = explode(',', $School->image);
-        // $item['image'] = $firstimage[0];
-        // $item['images'] = [];
-        // if ($School->image != '' && $School->image != 'no-image.png') {
-        //     foreach (explode(',', $School->image) as $img) {
-        //         $path = public_path() . '/images/educations/' . $img;
-        //         if (file_exists($path)) {
-        //             $itemImg['name'] = $img;
-        //             $type = pathinfo($path, PATHINFO_EXTENSION);
-        //             $data = file_get_contents($path);
-        //             $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        // $item[]   = $images;
+        // $item[]   =  $images_tow;
 
-        //             $item['images'][] = $itemImg;
-        //         }
-        //     }
-        // } else {
-        //     $item['images'] = [];
-        // }
+
+        $firstimage = explode(',', $School->image);
+        $item['image'] = $firstimage[0];
+        $item['images'] = [];
+        if ($School->image != '' && $School->image != 'no-image.png') {
+            foreach (explode(',', $School->image) as $img) {
+                $path = public_path() . '/images/educations/' . $img;
+                if (file_exists($path)) {
+                    $itemImg['name'] = $img;
+                    $type = pathinfo($path, PATHINFO_EXTENSION);
+                    $data = file_get_contents($path);
+                    $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+                    $item['images'][] = $itemImg;
+                }
+            }
+        } else {
+            $item['images'] = [];
+        }
+
+
+
+
+
+
+        $firstimage = explode(',', $School->images_tow);
+        $item['image_tow'] = $firstimage[0];
+        $item['images_tow'] = [];
+        if ($School->images_tow != '' && $School->images_tow != 'no-image.png') {
+            foreach (explode(',', $School->images_tow) as $img) {
+                $path = public_path() . '/images/educations/' . $img;
+                if (file_exists($path)) {
+                    $itemImg['name'] = $img;
+                    $type = pathinfo($path, PATHINFO_EXTENSION);
+                    $data = file_get_contents($path);
+                    $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+                    $item['images_tow'][] = $itemImg;
+                }
+            }
+        } else {
+            $item['images_tow'] = [];
+        }
+
+
         // $item[]   = $images_tow;
 
         // $data = array();
        
         $data = $item;
-
-
-        
+ 
         $area = Area::where('deleted_at', '=', null)->get(['id', 'ar_name']);
         $drops =  $this->getSectionsWithDrops( $School->selected_ids);
    
