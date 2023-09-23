@@ -610,7 +610,7 @@ public function GetTheInstDetailNoAuth(Request $request ){
 
    $data_images = array();
    foreach (explode(',', $data->images_tow) as $img) {
-        $item['file'] =  "/images/educations". $img;
+        $item['file'] =  "/images/educations/". $img;
         $item['type'] = "image";
 
         $data_images[] = $item;
@@ -659,7 +659,7 @@ public function GetTheInstDetailNoAuth(Request $request ){
 
       $data_images = array();
       foreach (explode(',', $data->images_tow) as $img) {
-           $item['file'] =  "/images/educations". $img;
+           $item['file'] =  "/images/educations/". $img;
            $item['type'] = "image";
    
            $data_images[] = $item;
