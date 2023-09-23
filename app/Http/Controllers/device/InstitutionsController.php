@@ -657,26 +657,21 @@ public function GetTheInstDetailNoAuth(Request $request ){
       $reviews  =  Review::with('user')->where('type' , $type )->where('inst_id' ,  $data->id )->get();
 
 
+      $data_images = array();
+      foreach (explode(',', $data->images_tow) as $img) {
+           $item['file'] =  "/images/educations". $img;
+           $item['type'] = "image";
+   
+           $data_images[] = $item;
+   
+        }
+
       
       return response()->json([
 
         'detail' =>  $data,
         'reviews' =>   $reviews ,
-        'files' => [
-          [
-            "id" => 1 ,
-            "file" => "https://th.bing.com/th/id/OIG.lVXjWwlHyIo4QdjnC1YE",
-            "type" => "image"
-          ],
-          [
-            "id" => 2 ,
-            "file" => "nPt8bK2gbaU",
-            "type" => "video"
-          ],
-
-
-          
-        ]
+        'files' =>  $data_images
  
       
       ]);
