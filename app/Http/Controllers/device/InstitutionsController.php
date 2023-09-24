@@ -153,12 +153,12 @@ class InstitutionsController extends Controller
       $dir = $request->SortType;
       $helpers = new helpers();
 
-      $typeinsta = $request->type;
-      if( $typeinsta == "filter"){
+      
+      if( $request->type == "filter"){
 
- 
+        $typeinsta = $request->type_inst;
       $ids = $request->ids;
-      $type_inst = $request->type_inst;
+      
       $selected_id = $request->selected_id;
 
       $model = School::class;
