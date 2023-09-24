@@ -213,8 +213,11 @@ class InstitutionsController extends Controller
               $data_search[] = $item;
              }
 
-
-             return $data_search;
+             return response()->json([
+              'search' =>  $data_search  ,
+            
+          ]);
+       
  
       }
 
