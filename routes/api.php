@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 //  isInFav
- 
+Route::post('device/auth/passowrd/reset/user', 'device\AuthController@resetPassword');
 Route::get('device/search', 'device\InstitutionsController@search');
 Route::get('recently/get', 'device\InstitutionsController@GetRecently');
 Route::get('device/deals', 'device\InstitutionsController@deals');
