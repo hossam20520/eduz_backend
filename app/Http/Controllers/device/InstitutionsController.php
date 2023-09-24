@@ -183,7 +183,7 @@ class InstitutionsController extends Controller
 
 // Convert the string of IDs into an array
             $idsArray = explode(', ', $ids);
-
+           return $idsArray;
             $results = $model::where(function($query) use ($idsArray) {
               foreach ($idsArray as $id) {
                   $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
