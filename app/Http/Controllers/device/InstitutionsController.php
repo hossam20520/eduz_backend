@@ -182,7 +182,7 @@ class InstitutionsController extends Controller
         // $idsToSearch = "20, 26"; // String containing IDs
 
 // Convert the string of IDs into an array
-            $idsArray = explode(', ', $ids);
+            $idsArray = explode(',', $ids);
            return $idsArray;
             $results = $model::where(function($query) use ($idsArray) {
               foreach ($idsArray as $id) {
