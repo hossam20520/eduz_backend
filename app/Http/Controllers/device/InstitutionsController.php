@@ -196,7 +196,9 @@ class InstitutionsController extends Controller
               $item['ar_name'] = $da->ar_name;
               $item['en_name'] = $da->en_name;
               $item['type'] =  $typeinsta;
-              $item['image'] = "/images/educations/". $da->image;
+              $firstimage = explode(',', $da->image);
+         
+              $item['image'] = "/images/educations/".$firstimage[0];
               $data_search[] = $item;
              }
 
