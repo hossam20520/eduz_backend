@@ -64,7 +64,7 @@ Route::group([
 
 Route::get('device/inst/detail/noauth', 'device\InstitutionsController@GetTheInstDetailNoAuth');
 
-
+Route::get('device/product/noauth', 'device\ProductController@Get_Products_DetailsNoauth');
 
 
 Route::post('device/auth/password/change', 'device\AuthController@changePassword');
@@ -77,6 +77,9 @@ Route::middleware(['auth:api', 'Is_Active'])->group(function () {
     
 
     Route::get('device/product', 'device\ProductController@Get_Products_Details');
+
+
+    
 
     Route::get('device/inst/detail', 'device\InstitutionsController@GetTheInstDetail');
 
