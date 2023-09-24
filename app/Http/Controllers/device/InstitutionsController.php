@@ -153,8 +153,8 @@ class InstitutionsController extends Controller
       $dir = $request->SortType;
       $helpers = new helpers();
 
-
-      if($request->type == "filter"){
+      $typeinsta = $request->type;
+      if( $typeinsta == "filter"){
 
  
       $ids = $request->ids;
@@ -162,17 +162,17 @@ class InstitutionsController extends Controller
       $selected_id = $request->selected_id;
 
       $model = School::class;
-      if($type == "SCHOOLS"){
+      if( $typeinsta == "SCHOOLS"){
         $model = School::class;
-      }else if($type == "KINDERGARTENS"){
+      }else if( $typeinsta == "KINDERGARTENS"){
         $model  = Kindergarten::class;
-      }else if($type == "CENTERS"){
+      }else if( $typeinsta == "CENTERS"){
         $model  = Center::class;
-      }else if($type == "EDUCENTERS"){
+      }else if( $typeinsta == "EDUCENTERS"){
         $model  = Educenter::class;
       }else if($type == "SPECIALNEEDS"){
         $model  = Specialneed::class;
-      }else if($type == "UNIVERSITIES"){
+      }else if( $typeinsta == "UNIVERSITIES"){
         $model  = Universitie::class;
       } 
      
@@ -190,13 +190,19 @@ class InstitutionsController extends Controller
               }
             })->get();
 
-        // {
-        //   "id": 197,
-        //   "ar_name": "مدرسة نيو كاسل للغات",
-        //   "en_name": "New Castle Language School",
-        //   "type": "SCHOOLS",
-        //   "image": "/public/images/educations/635411428445950574455873305660019_469526378523182_5058053760718906812_n.png"
-        // },
+            $data_search = array();
+             foreach ($results as   $da) {
+              $item['id'] = $da->id;
+              $item['ar_name'] = $da->ar_name;
+              $item['en_name'] = $da->en_name;
+              $item['type'] =  $typeinsta;
+              $item['image'] = "/images/educations/". $da->image;
+              $data_search[] = $item;
+             }
+
+
+             return $data_search;
+ 
       }
 
 
