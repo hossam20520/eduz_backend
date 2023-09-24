@@ -191,7 +191,7 @@ class InstitutionsController extends Controller
             // })->get();
 
 
-              $query = model::query();
+              $query = $model::query();
 
               foreach ($idsArray as $id) {
               $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
