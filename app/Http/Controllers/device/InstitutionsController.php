@@ -170,7 +170,7 @@ class InstitutionsController extends Controller
         $model  = Center::class;
       }else if( $typeinsta == "EDUCENTERS"){
         $model  = Educenter::class;
-      }else if($type == "SPECIALNEEDS"){
+      }else if($typeinsta == "SPECIALNEEDS"){
         $model  = Specialneed::class;
       }else if( $typeinsta == "UNIVERSITIES"){
         $model  = Universitie::class;
