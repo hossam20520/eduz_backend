@@ -72,9 +72,9 @@ Route::post("device/users/message/", "device\AuthController@GetUsers");
 Route::middleware(['auth:api', 'Is_Active'])->group(function () {
 
 
-    Route::get('device/cart/delete', 'device\ProductsController@deleteCart');
+    Route::get('device/cart/delete', 'device\ProductController@deleteCart');
 
-
+    
 
     Route::get('device/product', 'device\ProductController@Get_Products_Details');
 
