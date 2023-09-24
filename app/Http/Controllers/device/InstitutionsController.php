@@ -200,6 +200,7 @@ class InstitutionsController extends Controller
               $results = $query->get();
 
 
+              $count = $query->count();
 
             $data_search = array();
              foreach ($results as   $da) {
@@ -215,6 +216,7 @@ class InstitutionsController extends Controller
 
              return response()->json([
               'search' =>  $data_search  ,
+              'count'=>  $count,
             
           ]);
        
