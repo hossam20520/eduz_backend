@@ -71,6 +71,11 @@ Route::post('device/auth/password/change', 'device\AuthController@changePassword
 Route::post("device/users/message/", "device\AuthController@GetUsers");
 Route::middleware(['auth:api', 'Is_Active'])->group(function () {
 
+
+    Route::post('device/cart/delete', 'device\ProductsController@deleteCart');
+
+
+
     Route::get('device/product', 'device\ProductController@Get_Products_Details');
 
     Route::get('device/inst/detail', 'device\InstitutionsController@GetTheInstDetail');

@@ -136,7 +136,35 @@ class ProductController extends Controller
     }
 
 
+    public function deleteCart(Request $request){
 
+
+
+        $user = Auth::user();
+        $product_id = $request->product_id;
+        $cart = Cart::where('user_id', $user->id )->where('order_id' , '=' , null)->first();
+
+        if(!$cart){
+            return response()->json(['status' => "fail" ,  'message'=> 'Product  not found'   ], 404);
+        }
+        $cart_id = $cart->id;
+
+
+        $cartItemc = Cartitem::where('cart_id' ,   $cart_id)->where('product_id' ,   $product_id )->first();
+      
+        if(!$cartItemc){
+            return response()->json(['status' => "fail" ,  'message'=> 'Product not found'   ], 404);
+        }else{
+             Cartitem::where('cart_id' ,   $cart_id)->where('product_id' ,   $product_id )->delete();
+
+
+             Cart::whereId( $cart->id )->update([
+                'total' => floatval( $cart->total ) -  floatval(  $cartItemc->subtotal )  ,
+            ]);
+             return response()->json(['status' => "success" ,  'message'=> 'success Deleted'   ], 200);
+        }
+ 
+    }
 
 
     //--------------  Show Product Details ---------------\\
