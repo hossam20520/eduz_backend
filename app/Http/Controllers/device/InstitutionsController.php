@@ -557,7 +557,7 @@ class InstitutionsController extends Controller
           $model  = Universitie::class;
         } 
  
-        $education = $model::where('deleted_at', '=', null)->where('institution_id' ,  $id  )->where(function ($query) use ($request) {
+        $education = $model::where('deleted_at', '=', null)->where(function ($query) use ($request) {
           return $query->when($request->filled('search'), function ($query) use ($request) {
               return $query->where('ar_name', 'LIKE', "%{$request->search}%")
                   ->orWhere('en_name', 'LIKE', "%{$request->search}%");
