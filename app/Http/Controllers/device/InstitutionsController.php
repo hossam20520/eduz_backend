@@ -598,6 +598,7 @@ class InstitutionsController extends Controller
       return response()->json([
 
         'inst' =>  $data,
+        'total'=>  $totalRows
  
       
       ]);

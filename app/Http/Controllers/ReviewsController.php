@@ -120,8 +120,25 @@ class ReviewsController extends Controller
             $Review->user_id = $request['user_id'];
             $Review->inst_id = $request['inst_id'];
             $Review->inst_id = $request['type'];
-  
             $Review->save();
+
+
+            // $factory = (new Factory)->withServiceAccount(config('services.firebase.credentials.file'));
+            // $firestore = $factory->createFirestore();
+            // $databases = $firestore->database();
+            // $testRe = $databases->collection('users')->newDocument();
+    
+            // $testRe->set([
+            //    "id"=> $User->id,
+            //    "name"=> $request['firstname']. " ".$request['lastname'] ,
+            //    "email"=>  $request['email'],
+            //    "phone"=> $request['phone'],
+            //    "avatar"=> "/images/avatar/".$filename,
+            //    "status"=> "online",
+            //    "time"=> Carbon::now(),
+            // ]);
+
+
 
         }, 10);
 
