@@ -41,6 +41,7 @@ class InstitutionsController extends Controller
           'count'=> $count
       ]);
      
+      return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
        
     }
 
