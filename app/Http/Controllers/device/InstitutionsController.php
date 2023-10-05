@@ -31,6 +31,21 @@ class InstitutionsController extends Controller
     //
 
 
+    public function SendReview(Request $request){  
+      $review_id = $request->id;
+      $count = $request->count;
+      $review = $request->review;
+ 
+      Review::where('deleted_at', '=', null)->where('id' , $review_id)->update([
+          'review'=> $review,
+          'count'=> $count
+      ]);
+     
+       
+    }
+
+
+
 
     public function reviews(Request $request){
         // $this->authorizeForUser($request->user('api'), 'view', Review::class);
