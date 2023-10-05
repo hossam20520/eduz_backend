@@ -74,7 +74,7 @@ Route::middleware(['auth:api', 'Is_Active'])->group(function () {
 
     
 
-    Route::get('device/review/send', 'device\InstitutionsController@SendReview');
+    Route::post('device/review/send', 'device\InstitutionsController@SendReview');
 
 
     Route::get('device/cart/delete', 'device\ProductController@deleteCart');
