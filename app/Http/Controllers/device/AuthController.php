@@ -495,7 +495,7 @@ class AuthController extends Controller
         $User = new User;
         $User->firstname = $request['firstname'];
         $User->lastname  = $request['lastname'];
-        $User->username  = $username[0];
+        $User->username  = $request['phone'];
         $User->email     = $request['email'];
         $User->phone     = $request['phone'];
         $User->password  = Hash::make($request['password']);
@@ -548,8 +548,6 @@ class AuthController extends Controller
  
            $helpers = new helpers();
            $user =  $helpers->getInfo();
- 
-     
             $currentAvatar = $user->avatar;
  
 
