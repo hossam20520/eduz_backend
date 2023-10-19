@@ -689,7 +689,7 @@ public function GetTheInstDetailNoAuth(Request $request ){
   } 
 
   $data  = $model::where('id' , $id )->first();
-  
+   $model->getFavAttribute();
   $reviews  =  Review::with('user')->where('type' , $type )->where('inst_id' ,  $data->id )->get();
  
 

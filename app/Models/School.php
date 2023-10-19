@@ -41,5 +41,8 @@ class School extends Model
         // For example, you can convert it to uppercase
         return  $found;
     }
+
+
+    
 }
 

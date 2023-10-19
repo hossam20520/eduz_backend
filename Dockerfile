@@ -60,9 +60,6 @@ RUN service apache2 restart
 # RUN a2enconf redirect.conf
 
 COPY . /var/www/html
-
- 
-
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
     && chown -R www-data:www-data /var/www/html/storage \
