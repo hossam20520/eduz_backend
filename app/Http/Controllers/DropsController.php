@@ -21,12 +21,17 @@ class DropsController extends Controller
     public function listITemsDev(Request $request){
         $type = $request->type;
         $SECTION = Section::with('drop')->where('deleted_at', '=', null)->where('type',  $type )->get();
-        $goves = Gov::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
+        $goves = Gov::where('deleted_at', '=', null)->get(['ar_name' , 'en_name'  , 'id']);
+
+
         return response()->json([
          'SECIONS' => $SECTION,
          'govs' => $goves,
-        
-     ]);
+
+        ]);
+
+
+
      }
 
 
