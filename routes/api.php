@@ -66,6 +66,10 @@ Route::get('device/inst/detail/noauth', 'device\InstitutionsController@GetTheIns
 
 Route::get('device/product/noauth', 'device\ProductController@Get_Products_DetailsNoauth');
 Route::get('drops/getarea', 'device\InstitutionsController@getAreaa');
+Route::get('drops/getgov', 'device\InstitutionsController@getgov');
+
+
+
 
 Route::post('device/auth/password/change', 'device\AuthController@changePassword');
 Route::post("device/users/message/", "device\AuthController@GetUsers");

@@ -23,7 +23,7 @@ use App\utils\helpers;
 use Carbon\Carbon;
 use App\Models\Teacher;
 use App\Models\Deal;
-
+use App\Models\Gov;
 
 
 class InstitutionsController extends Controller
@@ -31,7 +31,11 @@ class InstitutionsController extends Controller
     //
 
 
+  public function getgov(Request $request){
+    $area = Gov::where('deleted_at' , '=' ,   null  )->get();
+    return response()->json([   'govs'=>    $area ], 200);
 
+  }
     public function getAreaa(Request $request){
       $gov_id = $request->gov_id;
       $area = Area::where('gov_id' ,$gov_id )->get();
