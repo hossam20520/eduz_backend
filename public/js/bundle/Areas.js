@@ -136,6 +136,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   metaInfo: {
@@ -160,11 +176,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       data: new FormData(),
       editmode: false,
       areas: [],
+      govs: [],
       limit: "10",
       area: {
         id: "",
         ar_name: "",
-        en_name: ""
+        en_name: "",
+        gov_id: ""
       }
     };
   },
@@ -178,6 +196,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, {
         label: this.$t("ar_name"),
         field: "ar_name",
+        tdClass: "text-left",
+        thClass: "text-left"
+      }, {
+        label: this.$t("gov"),
+        field: "gov",
         tdClass: "text-left",
         thClass: "text-left"
       }, {
@@ -331,7 +354,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.set(0.1);
       axios.get("areas?page=" + page + "&SortField=" + this.serverParams.sort.field + "&SortType=" + this.serverParams.sort.type + "&search=" + this.search + "&limit=" + this.limit).then(function (response) {
         _this4.areas = response.data.areas;
-        _this4.totalRows = response.data.totalRows; // Complete the animation of theprogress bar.
+        _this4.totalRows = response.data.totalRows;
+        _this4.govs = response.data.govs; // Complete the animation of theprogress bar.
 
         nprogress__WEBPACK_IMPORTED_MODULE_0___default.a.done();
         _this4.isLoading = false;
@@ -351,6 +375,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       self.SubmitProcessing = true;
       self.data.append("ar_name", self.area.ar_name);
       self.data.append("en_name", self.area.en_name);
+      self.data.append("gov_id", self.area.gov_id);
       axios.post("areas", self.data).then(function (response) {
         self.SubmitProcessing = false;
         Fire.$emit("Event_Area");
@@ -370,6 +395,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       self.SubmitProcessing = true;
       self.data.append("en_name", self.area.en_name);
       self.data.append("ar_name", self.area.ar_name);
+      self.data.append("gov_id", self.area.gov_id);
       self.data.append("_method", "put");
       axios.post("areas/" + self.area.id, self.data).then(function (response) {
         self.SubmitProcessing = false;
@@ -387,7 +413,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.area = {
         id: "",
         ar_name: "",
-        en_name: ""
+        en_name: "",
+        gov_id: ""
       };
       this.data = new FormData();
     },
@@ -698,6 +725,68 @@ var render = function () {
                   _c(
                     "b-row",
                     [
+                      _c(
+                        "b-col",
+                        { staticClass: "mb-2", attrs: { md: "12" } },
+                        [
+                          _c("validation-provider", {
+                            attrs: { name: "govs", rules: { required: true } },
+                            scopedSlots: _vm._u([
+                              {
+                                key: "default",
+                                fn: function (ref) {
+                                  var valid = ref.valid
+                                  var errors = ref.errors
+                                  return _c(
+                                    "b-form-group",
+                                    { attrs: { label: _vm.$t("govs") } },
+                                    [
+                                      _c("v-select", {
+                                        class: {
+                                          "is-invalid": !!errors.length,
+                                        },
+                                        attrs: {
+                                          state: errors[0]
+                                            ? false
+                                            : valid
+                                            ? true
+                                            : null,
+                                          reduce: function (label) {
+                                            return label.value
+                                          },
+                                          placeholder: _vm.$t("govs"),
+                                          options: _vm.govs.map(function (
+                                            govs
+                                          ) {
+                                            return {
+                                              label: govs.ar_name,
+                                              value: govs.id,
+                                            }
+                                          }),
+                                        },
+                                        model: {
+                                          value: _vm.area.gov_id,
+                                          callback: function ($$v) {
+                                            _vm.$set(_vm.area, "gov_id", $$v)
+                                          },
+                                          expression: "area.gov_id",
+                                        },
+                                      }),
+                                      _vm._v(" "),
+                                      _c("b-form-invalid-feedback", [
+                                        _vm._v(_vm._s(errors[0])),
+                                      ]),
+                                    ],
+                                    1
+                                  )
+                                },
+                              },
+                            ]),
+                          }),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
                       _c(
                         "b-col",
                         { attrs: { md: "12" } },

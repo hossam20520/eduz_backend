@@ -1108,7 +1108,13 @@ const routes = [
 
 
 
-                    
+                    // govs
+                    {
+                    name: "govs",
+                    path: "Govs",
+                    component: () =>
+                        import(/* webpackChunkName: "Govs" */"./views/app/pages/settings/govs")
+                    },
 
 
                     {
@@ -1288,6 +1294,8 @@ const routes = [
                                 "./views/app/pages/reports/payments/payments_sales"
                             ),
                     },
+
+
                     {
                         name: "payments_purchases_returns",
                         path: "payments_purchases_returns",

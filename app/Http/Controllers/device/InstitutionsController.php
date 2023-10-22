@@ -31,6 +31,16 @@ class InstitutionsController extends Controller
     //
 
 
+
+    public function getAreaa(Request $request){
+      $gov_id = $request->gov_id;
+      $area = Area::where('gov_id' ,$gov_id )->get();
+
+      
+      return response()->json([   'areas'=>    $area ], 200);
+
+    }
+
     public function SendReview(Request $request){  
       $review_id = $request->id;
       $count = $request->count;
@@ -689,7 +699,7 @@ public function GetTheInstDetailNoAuth(Request $request ){
   } 
 
   $data  = $model::where('id' , $id )->first();
-   $model->getFavAttribute();
+  $model->getFavAttribute();
   $reviews  =  Review::with('user')->where('type' , $type )->where('inst_id' ,  $data->id )->get();
  
 

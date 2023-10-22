@@ -65,7 +65,7 @@ Route::group([
 Route::get('device/inst/detail/noauth', 'device\InstitutionsController@GetTheInstDetailNoAuth');
 
 Route::get('device/product/noauth', 'device\ProductController@Get_Products_DetailsNoauth');
-
+Route::get('drops/getarea', 'device\InstitutionsController@getAreaa');
 
 Route::post('device/auth/password/change', 'device\AuthController@changePassword');
 Route::post("device/users/message/", "device\AuthController@GetUsers");
@@ -85,6 +85,12 @@ Route::middleware(['auth:api', 'Is_Active'])->group(function () {
 
 
     
+
+    //------------------------------- Govs--------------------------\
+    //------------------------------------------------------------------\
+    Route::resource('govs', 'GovsController');
+    Route::post('govs/delete/by_selection', 'GovsController@delete_by_selection');
+
 
     Route::get('device/inst/detail', 'device\InstitutionsController@GetTheInstDetail');
 

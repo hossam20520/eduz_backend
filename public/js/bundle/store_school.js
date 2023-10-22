@@ -442,6 +442,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -491,6 +504,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       schools: [],
       areas: [],
       roles: {},
+      govs: [],
       facilites: [],
       school_types: [],
       sections: [],
@@ -505,6 +519,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         free: "",
         ar_address: "",
         en_address: "",
+        gov_id: "",
         banner: "",
         logo: "",
         area_id: "",
@@ -544,6 +559,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     VueTagsInput: _johmun_vue_tags_input__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   methods: {
+    handleChange: function handleChange(selectedValue) {
+      this.getItems(selectedValue);
+    },
+    getItems: function getItems(id) {
+      var _this = this;
+
+      // Start the progress bar.
+      // NProgress.start();
+      // NProgress.set(0.1);
+      axios.get("drops/getarea?gov_id=" + id).then(function (response) {
+        _this.areas = response.data.areas; // Complete the animation of theprogress bar.
+        // NProgress.done();
+        // this.isLoading = false;
+      })["catch"](function (response) {
+        // Complete the animation of theprogress bar.
+        nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
+        setTimeout(function () {
+          _this.isLoading = false;
+        }, 500);
+      });
+    },
     deleteImage: function deleteImage(index) {
       this.files_activetiy.splice(index, 1);
       var strings = this.files_activetiy.join(',');
@@ -553,7 +589,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.selectedFiles = Array.from(event.target.files);
     },
     uploadFiles: function uploadFiles() {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var formData;
@@ -563,7 +599,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 formData = new FormData();
 
-                _this.selectedFiles.forEach(function (file) {
+                _this2.selectedFiles.forEach(function (file) {
                   formData.append('files[]', file);
                 });
 
@@ -571,8 +607,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 5;
                 return axios.post('/files/upload', formData).then(function (response) {
                   console.log(response.data);
-                  _this.activites_fiels = response.data.files;
-                  _this.files_activetiy = response.data.files.split(",").map(function (item) {
+                  _this2.activites_fiels = response.data.files;
+                  _this2.files_activetiy = response.data.files.split(",").map(function (item) {
                     return item.trim();
                   });
                 });
@@ -595,14 +631,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     sendData: function sendData() {
-      var _this2 = this;
+      var _this3 = this;
 
       var postData = Object.entries(this.selectedOptions).map(function (_ref) {
         var _ref2 = _slicedToArray(_ref, 2),
             sectionId = _ref2[0],
             selectedIds = _ref2[1];
 
-        var section = _this2.sections.find(function (section) {
+        var section = _this3.sections.find(function (section) {
           return section.id === parseInt(sectionId);
         });
 
@@ -624,26 +660,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     onFileSelected: function onFileSelected(e) {
-      var _this3 = this;
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var _yield$_this3$$refs$I, valid;
+        var _yield$_this4$$refs$I, valid;
 
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return _this3.$refs.Image.validate(e);
+                return _this4.$refs.Image.validate(e);
 
               case 2:
-                _yield$_this3$$refs$I = _context2.sent;
-                valid = _yield$_this3$$refs$I.valid;
+                _yield$_this4$$refs$I = _context2.sent;
+                valid = _yield$_this4$$refs$I.valid;
 
                 if (valid) {
-                  _this3.school.logo = e.target.files[0];
+                  _this4.school.logo = e.target.files[0];
                 } else {
-                  _this3.school.logo = "";
+                  _this4.school.logo = "";
                 }
 
               case 5:
@@ -655,26 +691,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     onFileSelectedBanner: function onFileSelectedBanner(e) {
-      var _this4 = this;
+      var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var _yield$_this4$$refs$B, valid;
+        var _yield$_this5$$refs$B, valid;
 
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return _this4.$refs.Banner.validate(e);
+                return _this5.$refs.Banner.validate(e);
 
               case 2:
-                _yield$_this4$$refs$B = _context3.sent;
-                valid = _yield$_this4$$refs$B.valid;
+                _yield$_this5$$refs$B = _context3.sent;
+                valid = _yield$_this5$$refs$B.valid;
 
                 if (valid) {
-                  _this4.school.banner = e.target.files[0];
+                  _this5.school.banner = e.target.files[0];
                 } else {
-                  _this4.school.banner = "";
+                  _this5.school.banner = "";
                 }
 
               case 5:
@@ -687,14 +723,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //------------- Submit Validation Create School
     Submit_School: function Submit_School() {
-      var _this5 = this;
+      var _this6 = this;
 
       // this.sendData()
       this.$refs.Create_School.validate().then(function (success) {
         if (!success) {
-          _this5.makeToast("danger", _this5.$t("Please_fill_the_form_correctly"), _this5.$t("Failed"));
+          _this6.makeToast("danger", _this6.$t("Please_fill_the_form_correctly"), _this6.$t("Failed"));
         } else {
-          _this5.Create_School();
+          _this6.Create_School();
         }
       });
     },
@@ -746,25 +782,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //-------------- School Get Elements
     GetElements: function GetElements() {
-      var _this6 = this;
-
-      axios.get("Schools/create").then(function (response) {
-        _this6.schools = response.data.schools;
-        _this6.areas = response.data.areas;
-        _this6.isLoading = false;
-      })["catch"](function (response) {
-        setTimeout(function () {
-          _this6.isLoading = false;
-        }, 500);
-
-        _this6.makeToast("danger", _this6.$t("InvalidData"), _this6.$t("Failed"));
-      });
-    },
-    getSecions: function getSecions() {
       var _this7 = this;
 
-      axios.get("drops/list/data?type=SCHOOLS").then(function (response) {
-        _this7.sections = response.data.SECIONS;
+      axios.get("Schools/create").then(function (response) {
+        _this7.schools = response.data.schools;
+        _this7.govs = response.data.govs;
+        _this7.areas = response.data.areas;
+        _this7.isLoading = false;
       })["catch"](function (response) {
         setTimeout(function () {
           _this7.isLoading = false;
@@ -773,9 +797,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this7.makeToast("danger", _this7.$t("InvalidData"), _this7.$t("Failed"));
       });
     },
+    getSecions: function getSecions() {
+      var _this8 = this;
+
+      axios.get("drops/list/data?type=SCHOOLS").then(function (response) {
+        _this8.sections = response.data.SECIONS;
+      })["catch"](function (response) {
+        setTimeout(function () {
+          _this8.isLoading = false;
+        }, 500);
+
+        _this8.makeToast("danger", _this8.$t("InvalidData"), _this8.$t("Failed"));
+      });
+    },
     //------------------------------ Create new School ------------------------------\
     Create_School: function Create_School() {
-      var _this8 = this;
+      var _this9 = this;
 
       // Start the progress bar.
       nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.start();
@@ -820,16 +857,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
       axios.post("Schools", self.data).then(function (response) {
-        console.log(_this8.selectedOptions); // Complete the animation of theprogress bar.
+        console.log(_this9.selectedOptions); // Complete the animation of theprogress bar.
 
         nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
         self.SubmitProcessing = false;
 
-        _this8.$router.push({
+        _this9.$router.push({
           name: "index_schools"
         });
 
-        _this8.makeToast("success", _this8.$t("Successfully_Created"), _this8.$t("Success"));
+        _this9.makeToast("success", _this9.$t("Successfully_Created"), _this9.$t("Success"));
       })["catch"](function (error) {
         // Complete the animation of theprogress bar.
         nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
@@ -838,7 +875,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           self.code_exist = error.errors.code[0];
         }
 
-        _this8.makeToast("danger", _this8.$t("InvalidData"), _this8.$t("Failed"));
+        _this9.makeToast("danger", _this9.$t("InvalidData"), _this9.$t("Failed"));
 
         self.SubmitProcessing = false;
       });
@@ -1623,6 +1660,102 @@ var render = function () {
                                           null,
                                           false,
                                           2105091757
+                                        ),
+                                      }),
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-col",
+                                    { staticClass: "mb-2", attrs: { md: "6" } },
+                                    [
+                                      _c("validation-provider", {
+                                        attrs: {
+                                          name: "Govs",
+                                          rules: { required: true },
+                                        },
+                                        scopedSlots: _vm._u(
+                                          [
+                                            {
+                                              key: "default",
+                                              fn: function (ref) {
+                                                var valid = ref.valid
+                                                var errors = ref.errors
+                                                return _c(
+                                                  "b-form-group",
+                                                  {
+                                                    attrs: {
+                                                      label:
+                                                        _vm.$t("Choose_Gov"),
+                                                    },
+                                                  },
+                                                  [
+                                                    _c("v-select", {
+                                                      class: {
+                                                        "is-invalid":
+                                                          !!errors.length,
+                                                      },
+                                                      attrs: {
+                                                        state: errors[0]
+                                                          ? false
+                                                          : valid
+                                                          ? true
+                                                          : null,
+                                                        reduce: function (
+                                                          label
+                                                        ) {
+                                                          return label.value
+                                                        },
+                                                        placeholder:
+                                                          _vm.$t("choosGov"),
+                                                        options: _vm.govs.map(
+                                                          function (govs) {
+                                                            return {
+                                                              label:
+                                                                govs.ar_name,
+                                                              value: govs.id,
+                                                            }
+                                                          }
+                                                        ),
+                                                      },
+                                                      on: {
+                                                        input: _vm.handleChange,
+                                                      },
+                                                      model: {
+                                                        value:
+                                                          _vm.school.gov_id,
+                                                        callback: function (
+                                                          $$v
+                                                        ) {
+                                                          _vm.$set(
+                                                            _vm.school,
+                                                            "gov_id",
+                                                            $$v
+                                                          )
+                                                        },
+                                                        expression:
+                                                          "school.gov_id",
+                                                      },
+                                                    }),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "b-form-invalid-feedback",
+                                                      [
+                                                        _vm._v(
+                                                          _vm._s(errors[0])
+                                                        ),
+                                                      ]
+                                                    ),
+                                                  ],
+                                                  1
+                                                )
+                                              },
+                                            },
+                                          ],
+                                          null,
+                                          false,
+                                          775750636
                                         ),
                                       }),
                                     ],

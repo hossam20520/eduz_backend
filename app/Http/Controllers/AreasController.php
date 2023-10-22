@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
+use App\Models\Gov;
+
 use App\utils\helpers;
 use Carbon\Carbon;
 use DB;
@@ -25,7 +27,7 @@ class AreasController extends Controller
         $dir = $request->SortType;
         $helpers = new helpers();
 
-        $areas = Area::where('deleted_at', '=', null)->where(function ($query) use ($request) {
+        $areas = Area::with('Gov')->where('deleted_at', '=', null)->where(function ($query) use ($request) {
                 return $query->when($request->filled('search'), function ($query) use ($request) {
                     return $query->where('ar_name', 'LIKE', "%{$request->search}%")
                         ->orWhere('en_name', 'LIKE', "%{$request->search}%");
@@ -37,8 +39,21 @@ class AreasController extends Controller
             ->orderBy($order, $dir)
             ->get();
 
+           
+          $data = array(); 
+          foreach ($areas as  $value) {
+            $item['id'] = $value->id;
+            $item['ar_name'] = $value->ar_name;
+            $item['en_name'] = $value->en_name;
+            $item['gov'] = $value->Gov->ar_name;
+            $data[] =  $item;
+
+           }
+
+            $goves = Gov::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
         return response()->json([
-            'areas' => $areas,
+            'areas' =>  $data,
+            'govs' => $goves,
             'totalRows' => $totalRows,
         ]);
 
@@ -62,7 +77,7 @@ class AreasController extends Controller
 
             $Area->en_name = $request['en_name'];
             $Area->ar_name = $request['ar_name'];
-       
+            $Area->gov_id = $request['gov_id'];
             $Area->save();
 
         }, 10);
@@ -90,12 +105,12 @@ class AreasController extends Controller
          ]);
          \DB::transaction(function () use ($request, $id) {
              $Area = Area::findOrFail($id);
- 
+  
  
              Area::whereId($id)->update([
                  'ar_name' => $request['ar_name'],
                  'en_name' => $request['en_name'],
-              
+                 'gov_id' => $request['gov_id'],
              ]);
  
          }, 10);

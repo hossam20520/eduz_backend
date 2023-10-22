@@ -541,6 +541,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -553,9 +566,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       tag: "",
       len: 8,
+      dataArray: [{
+        "ar_name": "منهج بريطاني",
+        "value": "British"
+      }, {
+        "ar_name": "منهج منتسوري",
+        "value": "Montessori"
+      }, {
+        "ar_name": "اخصائي تعديل سلوك",
+        "value": "Specialist"
+      }, {
+        "ar_name": "وجبه للطفل",
+        "value": "Meal"
+      }, {
+        "ar_name": "استضافه",
+        "value": "Hosting"
+      }, {
+        "ar_name": "تحفيظ قران",
+        "value": "Quran"
+      }, {
+        "ar_name": "حمام سباحه",
+        "value": "Swimming"
+      }, {
+        "ar_name": "مواصلات",
+        "value": "Transportation"
+      }],
       images: [],
+      images_tow: [],
       imageArray: [],
       areas: [],
+      govs: [],
       change: false,
       isLoading: true,
       SubmitProcessing: false,
@@ -568,6 +608,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       kindergarten: {
         exp_from: "",
         exp_to: "",
+        actives: "",
         paid_en_info: "",
         paid_ar_info: "",
         paid_facilities_ar: "",
@@ -575,7 +616,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         free: "",
         ar_address: "",
         en_address: "",
+        images_tow: "",
+        logo: "",
+        banner: "",
         area_id: "",
+        gov_id: "",
         institution_id: "",
         ar_name: "",
         en_name: "",
@@ -612,16 +657,50 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     VueTagsInput: _johmun_vue_tags_input__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   methods: {
+    handleChange: function handleChange(selectedValue) {
+      this.getItems(selectedValue);
+    },
+    getItems: function getItems(id) {
+      var _this = this;
+
+      // Start the progress bar.
+      // NProgress.start();
+      // NProgress.set(0.1);
+      axios.get("drops/getarea?gov_id=" + id).then(function (response) {
+        _this.areas = response.data.areas; // Complete the animation of theprogress bar.
+        // NProgress.done();
+        // this.isLoading = false;
+      })["catch"](function (response) {
+        // Complete the animation of theprogress bar.
+        nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
+        setTimeout(function () {
+          _this.isLoading = false;
+        }, 500);
+      });
+    },
     deleteImage: function deleteImage(index) {
       this.files_activetiy.splice(index, 1);
       var strings = this.files_activetiy.join(',');
       this.kindergarten.activites_fiels = strings;
     },
+    //------ Event upload Image Success
+    uploadImageSuccess_tow: function uploadImageSuccess_tow(formData, index, fileList, imageArray) {
+      this.images_tow = fileList;
+    },
+    //------ Event before Remove Image
+    beforeRemove_tow: function beforeRemove_tow(index, done, fileList) {
+      var remove = confirm("remove image");
+
+      if (remove == true) {
+        this.images_tow = fileList;
+        done();
+      } else {}
+    },
     handleFileChange: function handleFileChange(event) {
       this.selectedFiles = Array.from(event.target.files);
     },
     uploadFiles: function uploadFiles() {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var formData;
@@ -631,7 +710,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 formData = new FormData();
 
-                _this.selectedFiles.forEach(function (file) {
+                _this2.selectedFiles.forEach(function (file) {
                   formData.append('files[]', file);
                 });
 
@@ -639,8 +718,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 5;
                 return axios.post('/files/upload', formData).then(function (response) {
                   console.log(response.data);
-                  _this.kindergarten.activites_fiels = response.data.files;
-                  _this.files_activetiy = response.data.files.split(",").map(function (item) {
+                  _this2.activites_fiels = response.data.files;
+                  _this2.files_activetiy = response.data.files.split(",").map(function (item) {
                     return item.trim();
                   });
                 });
@@ -662,28 +741,90 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, null, [[2, 7]]);
       }))();
     },
+    onFileSelectedBanner: function onFileSelectedBanner(e) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var _yield$_this3$$refs$B, valid;
+
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this3.$refs.Banner.validate(e);
+
+              case 2:
+                _yield$_this3$$refs$B = _context2.sent;
+                valid = _yield$_this3$$refs$B.valid;
+
+                if (valid) {
+                  _this3.kindergarten.banner = e.target.files[0];
+                } else {
+                  _this3.kindergarten.banner = "";
+                }
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    onFileSelected: function onFileSelected(e) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var _yield$_this4$$refs$I, valid;
+
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this4.$refs.Image.validate(e);
+
+              case 2:
+                _yield$_this4$$refs$I = _context3.sent;
+                valid = _yield$_this4$$refs$I.valid;
+
+                if (valid) {
+                  _this4.kindergarten.logo = e.target.files[0];
+                } else {
+                  _this4.kindergarten.logo = "";
+                }
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
     getSecions: function getSecions() {
-      var _this2 = this;
+      var _this5 = this;
 
       axios.get("drops/list/data?type=KINDERGARTENS").then(function (response) {
-        _this2.sections = response.data.SECIONS;
+        _this5.sections = response.data.SECIONS;
       })["catch"](function (response) {
         setTimeout(function () {
-          _this2.isLoading = false;
+          _this5.isLoading = false;
         }, 500);
 
-        _this2.makeToast("danger", _this2.$t("InvalidData"), _this2.$t("Failed"));
+        _this5.makeToast("danger", _this5.$t("InvalidData"), _this5.$t("Failed"));
       });
     },
     //------------- Submit Validation Update Kindergarten
     Submit_Kindergarten: function Submit_Kindergarten() {
-      var _this3 = this;
+      var _this6 = this;
 
       this.$refs.Edit_Kindergarten.validate().then(function (success) {
         if (!success) {
-          _this3.makeToast("danger", _this3.$t("Please_fill_the_form_correctly"), _this3.$t("Failed"));
+          _this6.makeToast("danger", _this6.$t("Please_fill_the_form_correctly"), _this6.$t("Failed"));
         } else {
-          _this3.Update_Kindergarten();
+          _this6.Update_Kindergarten();
         }
       });
     },
@@ -722,36 +863,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     //---------------------------------------Get Kindergarten Elements ------------------------------\
     GetElements: function GetElements() {
-      var _this4 = this;
+      var _this7 = this;
 
       var id = this.$route.params.id;
       axios.get("Kindergartens/".concat(id, "/edit")).then(function (response) {
-        _this4.kindergarten = response.data.kindergarten;
-        _this4.areas = response.data.areas;
-        _this4.files_activetiy = response.data.kindergarten.activites_fiels.split(",").map(function (item) {
-          return item.trim();
-        }); // console.log( response.data.drop.SECTIONS)
+        _this7.kindergarten = response.data.kindergarten;
+        _this7.areas = response.data.areas;
+        _this7.govs = response.data.govs;
+        console.log(response.data.govs); // this.files_activetiy = response.data.kindergarten.activites_fiels.split(",").map(item => item.trim());
+
+        _this7.kindergarten.actives = response.data.kindergarten.actives; // this.files_activetiy = response.data.kindergarten.activites_fiels.split(",").map(item => item.trim());
+        // console.log( response.data.drop.SECTIONS)
 
         var da = response.data.drops.original;
         da.forEach(function (section) {
-          _this4.$set(_this4.selectedOptions, section.id, section.drop.map(function (item) {
+          _this7.$set(_this7.selectedOptions, section.id, section.drop.map(function (item) {
             return item.id;
           }));
-        });
-        console.log("ddddddddddddddddddddddddddddddddddddd"); // this.selectedOptions = response.data.drops.original;
+        }); // console.log("ddddddddddddddddddddddddddddddddddddd")
+        // // this.selectedOptions = response.data.drops.original;
 
-        _this4.kindergartens = response.data.kindergartens;
-        _this4.images = response.data.kindergarten.images;
-        _this4.isLoading = false;
+        _this7.kindergartens = response.data.kindergartens;
+        _this7.images = response.data.kindergarten.images;
+        _this7.images_tow = response.data.kindergarten.images_tow; // this.image_tow = response.data.kindergarten.image_tow;
+
+        _this7.isLoading = false;
       })["catch"](function (response) {
         setTimeout(function () {
-          _this4.isLoading = false;
+          _this7.isLoading = false;
         }, 500);
       });
     },
     //------------------------------ Update Kindergarten ------------------------------\
     Update_Kindergarten: function Update_Kindergarten() {
-      var _this5 = this;
+      var _this8 = this;
 
       nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.start();
       nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.set(0.1);
@@ -778,6 +923,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             self.data.append("images[" + k + "][" + key + "]", value);
           });
         }
+      } //append array images
+
+
+      if (self.images_tow.length > 0) {
+        for (var k = 0; k < self.images_tow.length; k++) {
+          Object.entries(self.images_tow[k]).forEach(function (_ref6) {
+            var _ref7 = _slicedToArray(_ref6, 2),
+                key = _ref7[0],
+                value = _ref7[1];
+
+            self.data.append("images_tow[" + k + "][" + key + "]", value);
+          });
+        }
       }
 
       self.data.append("_method", "put"); //send Data with axios
@@ -786,11 +944,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
         self.SubmitProcessing = false;
 
-        _this5.$router.push({
+        _this8.$router.push({
           name: "index_kindergartens"
         });
 
-        _this5.makeToast("success", _this5.$t("Successfully_Updated"), _this5.$t("Success"));
+        _this8.makeToast("success", _this8.$t("Successfully_Updated"), _this8.$t("Success"));
       })["catch"](function (error) {
         if (error.errors.code.length > 0) {
           self.code_exist = error.errors.code[0];
@@ -798,7 +956,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
 
-        _this5.makeToast("danger", _this5.$t("InvalidData"), _this5.$t("Failed"));
+        _this8.makeToast("danger", _this8.$t("InvalidData"), _this8.$t("Failed"));
 
         self.SubmitProcessing = false;
       });
@@ -1361,6 +1519,220 @@ var render = function () {
                                         [
                                           _c("validation-provider", {
                                             attrs: {
+                                              name: "Govs",
+                                              rules: { required: true },
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (ref) {
+                                                    var valid = ref.valid
+                                                    var errors = ref.errors
+                                                    return _c(
+                                                      "b-form-group",
+                                                      {
+                                                        attrs: {
+                                                          label:
+                                                            _vm.$t(
+                                                              "Choose_Gov"
+                                                            ),
+                                                        },
+                                                      },
+                                                      [
+                                                        _c("v-select", {
+                                                          class: {
+                                                            "is-invalid":
+                                                              !!errors.length,
+                                                          },
+                                                          attrs: {
+                                                            state: errors[0]
+                                                              ? false
+                                                              : valid
+                                                              ? true
+                                                              : null,
+                                                            reduce: function (
+                                                              label
+                                                            ) {
+                                                              return label.value
+                                                            },
+                                                            placeholder:
+                                                              _vm.$t(
+                                                                "choosGov"
+                                                              ),
+                                                            options:
+                                                              _vm.govs.map(
+                                                                function (
+                                                                  govs
+                                                                ) {
+                                                                  return {
+                                                                    label:
+                                                                      govs.ar_name,
+                                                                    value:
+                                                                      govs.id,
+                                                                  }
+                                                                }
+                                                              ),
+                                                          },
+                                                          on: {
+                                                            input:
+                                                              _vm.handleChange,
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.kindergarten
+                                                                .gov_id,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.kindergarten,
+                                                                "gov_id",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "kindergarten.gov_id",
+                                                          },
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "b-form-invalid-feedback",
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(errors[0])
+                                                            ),
+                                                          ]
+                                                        ),
+                                                      ],
+                                                      1
+                                                    )
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              255726188
+                                            ),
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: {
+                                              name: "Areas",
+                                              rules: { required: true },
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (ref) {
+                                                    var valid = ref.valid
+                                                    var errors = ref.errors
+                                                    return _c(
+                                                      "b-form-group",
+                                                      {
+                                                        attrs: {
+                                                          label:
+                                                            _vm.$t(
+                                                              "Choose_Area"
+                                                            ),
+                                                        },
+                                                      },
+                                                      [
+                                                        _c("v-select", {
+                                                          class: {
+                                                            "is-invalid":
+                                                              !!errors.length,
+                                                          },
+                                                          attrs: {
+                                                            state: errors[0]
+                                                              ? false
+                                                              : valid
+                                                              ? true
+                                                              : null,
+                                                            reduce: function (
+                                                              label
+                                                            ) {
+                                                              return label.value
+                                                            },
+                                                            placeholder:
+                                                              _vm.$t(
+                                                                "Choose_Area"
+                                                              ),
+                                                            options:
+                                                              _vm.areas.map(
+                                                                function (
+                                                                  areas
+                                                                ) {
+                                                                  return {
+                                                                    label:
+                                                                      areas.ar_name,
+                                                                    value:
+                                                                      areas.id,
+                                                                  }
+                                                                }
+                                                              ),
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.kindergarten
+                                                                .area_id,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.kindergarten,
+                                                                "area_id",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "kindergarten.area_id",
+                                                          },
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "b-form-invalid-feedback",
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(errors[0])
+                                                            ),
+                                                          ]
+                                                        ),
+                                                      ],
+                                                      1
+                                                    )
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              1787498030
+                                            ),
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: {
                                               name: "phone",
                                               rules: {
                                                 required: true,
@@ -1545,111 +1917,6 @@ var render = function () {
                                               null,
                                               false,
                                               1269481133
-                                            ),
-                                          }),
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-col",
-                                        {
-                                          staticClass: "mb-2",
-                                          attrs: { md: "6" },
-                                        },
-                                        [
-                                          _c("validation-provider", {
-                                            attrs: {
-                                              name: "area_id",
-                                              rules: { required: true },
-                                            },
-                                            scopedSlots: _vm._u(
-                                              [
-                                                {
-                                                  key: "default",
-                                                  fn: function (ref) {
-                                                    var valid = ref.valid
-                                                    var errors = ref.errors
-                                                    return _c(
-                                                      "b-form-group",
-                                                      {
-                                                        attrs: {
-                                                          label:
-                                                            _vm.$t(
-                                                              "Choose_Area"
-                                                            ),
-                                                        },
-                                                      },
-                                                      [
-                                                        _c("v-select", {
-                                                          class: {
-                                                            "is-invalid":
-                                                              !!errors.length,
-                                                          },
-                                                          attrs: {
-                                                            state: errors[0]
-                                                              ? false
-                                                              : valid
-                                                              ? true
-                                                              : null,
-                                                            reduce: function (
-                                                              label
-                                                            ) {
-                                                              return label.value
-                                                            },
-                                                            placeholder:
-                                                              _vm.$t(
-                                                                "Choose_Area"
-                                                              ),
-                                                            options:
-                                                              _vm.areas.map(
-                                                                function (
-                                                                  areas
-                                                                ) {
-                                                                  return {
-                                                                    label:
-                                                                      areas.ar_name,
-                                                                    value:
-                                                                      areas.id,
-                                                                  }
-                                                                }
-                                                              ),
-                                                          },
-                                                          model: {
-                                                            value:
-                                                              _vm.kindergarten
-                                                                .area_id,
-                                                            callback: function (
-                                                              $$v
-                                                            ) {
-                                                              _vm.$set(
-                                                                _vm.kindergarten,
-                                                                "area_id",
-                                                                $$v
-                                                              )
-                                                            },
-                                                            expression:
-                                                              "kindergarten.area_id",
-                                                          },
-                                                        }),
-                                                        _vm._v(" "),
-                                                        _c(
-                                                          "b-form-invalid-feedback",
-                                                          [
-                                                            _vm._v(
-                                                              _vm._s(errors[0])
-                                                            ),
-                                                          ]
-                                                        ),
-                                                      ],
-                                                      1
-                                                    )
-                                                  },
-                                                },
-                                              ],
-                                              null,
-                                              false,
-                                              20540142
                                             ),
                                           }),
                                         ],
@@ -2224,100 +2491,7 @@ var render = function () {
                                               ],
                                               null,
                                               false,
-                                              2605241215
-                                            ),
-                                          }),
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "b-col",
-                                        {
-                                          staticClass: "mb-2",
-                                          attrs: { md: "6" },
-                                        },
-                                        [
-                                          _c("validation-provider", {
-                                            attrs: {
-                                              name: "Product Cost",
-                                              rules: {
-                                                required: true,
-                                                regex: /^\d*\.?\d*$/,
-                                              },
-                                            },
-                                            scopedSlots: _vm._u(
-                                              [
-                                                {
-                                                  key: "default",
-                                                  fn: function (
-                                                    validationContext
-                                                  ) {
-                                                    return [
-                                                      _c(
-                                                        "b-form-group",
-                                                        {
-                                                          attrs: {
-                                                            label:
-                                                              _vm.$t("from"),
-                                                          },
-                                                        },
-                                                        [
-                                                          _c("b-form-input", {
-                                                            attrs: {
-                                                              state:
-                                                                _vm.getValidationState(
-                                                                  validationContext
-                                                                ),
-                                                              "aria-describedby":
-                                                                "ProductCost-feedback",
-                                                              label: "Cost",
-                                                              placeholder:
-                                                                _vm.$t("from"),
-                                                            },
-                                                            model: {
-                                                              value:
-                                                                _vm.kindergarten
-                                                                  .exp_from,
-                                                              callback:
-                                                                function ($$v) {
-                                                                  _vm.$set(
-                                                                    _vm.kindergarten,
-                                                                    "exp_from",
-                                                                    $$v
-                                                                  )
-                                                                },
-                                                              expression:
-                                                                "kindergarten.exp_from",
-                                                            },
-                                                          }),
-                                                          _vm._v(" "),
-                                                          _c(
-                                                            "b-form-invalid-feedback",
-                                                            {
-                                                              attrs: {
-                                                                id: "ProductCost-feedback",
-                                                              },
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  validationContext
-                                                                    .errors[0]
-                                                                )
-                                                              ),
-                                                            ]
-                                                          ),
-                                                        ],
-                                                        1
-                                                      ),
-                                                    ]
-                                                  },
-                                                },
-                                              ],
-                                              null,
-                                              false,
-                                              3398905521
+                                              1771166591
                                             ),
                                           }),
                                         ],
@@ -2615,6 +2789,107 @@ var render = function () {
                                         1
                                       ),
                                       _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-6",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: { name: _vm.dataArray },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (ref) {
+                                                    var valid = ref.valid
+                                                    var errors = ref.errors
+                                                    return _c(
+                                                      "b-form-group",
+                                                      {
+                                                        attrs: {
+                                                          label:
+                                                            _vm.$t("activites"),
+                                                        },
+                                                      },
+                                                      [
+                                                        _c("v-select", {
+                                                          class: {
+                                                            "is-invalid":
+                                                              !!errors.length,
+                                                          },
+                                                          attrs: {
+                                                            state: errors[0]
+                                                              ? false
+                                                              : valid
+                                                              ? true
+                                                              : null,
+                                                            reduce: function (
+                                                              label
+                                                            ) {
+                                                              return label.value
+                                                            },
+                                                            placeholder:
+                                                              _vm.$t(
+                                                                "activites"
+                                                              ),
+                                                            multiple: "",
+                                                            options:
+                                                              _vm.dataArray.map(
+                                                                function (
+                                                                  dataArray
+                                                                ) {
+                                                                  return {
+                                                                    label:
+                                                                      dataArray.ar_name,
+                                                                    value:
+                                                                      dataArray.value,
+                                                                  }
+                                                                }
+                                                              ),
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.kindergarten
+                                                                .actives,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.kindergarten,
+                                                                "actives",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "kindergarten.actives",
+                                                          },
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "b-form-invalid-feedback",
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(errors[0])
+                                                            ),
+                                                          ]
+                                                        ),
+                                                      ],
+                                                      1
+                                                    )
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              2439458996
+                                            ),
+                                          }),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
                                       _vm._l(_vm.sections, function (section) {
                                         return _c(
                                           "b-col",
@@ -2798,8 +3073,6 @@ var render = function () {
                                   "b-row",
                                   { staticClass: "form-group" },
                                   [
-                                    _c("br"),
-                                    _vm._v(" "),
                                     _c("b-col", { attrs: { md: "12 mb-5" } }, [
                                       _c(
                                         "div",
@@ -2811,106 +3084,31 @@ var render = function () {
                                           },
                                         },
                                         [
-                                          _c(
-                                            "div",
-                                            _vm._l(
-                                              _vm.files_activetiy,
-                                              function (item, index) {
-                                                return _c(
-                                                  "div",
-                                                  {
-                                                    key: index,
-                                                    staticStyle: {
-                                                      display: "inline",
-                                                    },
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "span",
-                                                      {
-                                                        staticStyle: {
-                                                          "justify-content":
-                                                            "center",
-                                                          position: "absolute",
-                                                          padding: "5px",
-                                                          cursor: "pointer",
-                                                          "font-weight": "bold",
-                                                          "background-color":
-                                                            "#9f9f9f6b",
-                                                          color: "red",
-                                                          "/* display": "flex",
-                                                        },
-                                                        on: {
-                                                          click: function (
-                                                            $event
-                                                          ) {
-                                                            return _vm.deleteImage(
-                                                              index
-                                                            )
-                                                          },
-                                                        },
-                                                      },
-                                                      [_vm._v(" X")]
-                                                    ),
-                                                    _vm._v(" "),
-                                                    _c("img", {
-                                                      attrs: {
-                                                        width: "50px",
-                                                        src:
-                                                          "/images/uploads/" +
-                                                          item,
-                                                      },
-                                                    }),
-                                                  ]
-                                                )
-                                              }
-                                            ),
-                                            0
-                                          ),
-                                        ]
-                                      ),
-                                    ]),
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "b-row",
-                                  { staticClass: "form-group" },
-                                  [
-                                    _c("br"),
-                                    _vm._v(" "),
-                                    _c("b-col", { attrs: { md: "12 mb-5" } }, [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass:
-                                            "d-flex justify-content-center",
-                                          attrs: {
-                                            id: "my-strictly-unique-vue-upload-multiple-image",
-                                          },
-                                        },
-                                        [
-                                          _c("input", {
-                                            ref: "fileInput",
+                                          _c("vue-upload-multiple-image", {
                                             attrs: {
-                                              type: "file",
-                                              multiple: "",
+                                              dragText:
+                                                "Drag & Drop Multiple images For kindergarten",
+                                              dropText: "Drag & Drop image",
+                                              browseText: "(or) Select",
+                                              accept:
+                                                "image/gif,image/jpeg,image/png,image/bmp,image/jpg",
+                                              primaryText: "success",
+                                              markIsPrimaryText: "success",
+                                              popupText:
+                                                "have been successfully uploaded",
+                                              "data-images": _vm.images_tow,
+                                              idUpload: "myIdUploadTow",
+                                              showEdit: false,
                                             },
                                             on: {
-                                              change: _vm.handleFileChange,
+                                              "upload-success":
+                                                _vm.uploadImageSuccess_tow,
+                                              "before-remove":
+                                                _vm.beforeRemove_tow,
                                             },
                                           }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "button",
-                                            {
-                                              attrs: { type: "button" },
-                                              on: { click: _vm.uploadFiles },
-                                            },
-                                            [_vm._v("Upload")]
-                                          ),
-                                        ]
+                                        ],
+                                        1
                                       ),
                                     ]),
                                   ],

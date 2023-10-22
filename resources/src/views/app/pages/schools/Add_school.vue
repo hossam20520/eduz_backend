@@ -121,6 +121,19 @@
 
 
 
+                <b-col md="6" class="mb-2">
+                  <validation-provider name="Govs" :rules="{ required: true }">
+                    <b-form-group slot-scope="{ valid, errors }" :label="$t('Choose_Gov')">
+                      <v-select :class="{ 'is-invalid': !!errors.length }"
+                        :state="errors[0] ? false : (valid ? true : null)" :reduce="label => label.value"
+                        :placeholder="$t('choosGov')" v-model="school.gov_id"
+                        v-on:input="handleChange"
+                        :options="govs.map(govs => ({ label: govs.ar_name, value: govs.id }))" />
+                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
 
 
                 <b-col md="6" class="mb-2">
@@ -443,6 +456,7 @@ export default {
       schools: [],
       areas: [],
       roles: {},
+      govs:[],
       facilites: [],
       school_types: [],
       sections: [],
@@ -457,8 +471,7 @@ export default {
         free: "",
         ar_address: "",
         en_address: "",
-
-
+        gov_id:"",
         banner: "",
         logo: "",
         area_id: "",
@@ -504,6 +517,40 @@ export default {
 
   methods: {
 
+    handleChange(selectedValue){
+   
+      this.getItems(selectedValue);
+
+    },
+
+    getItems(id){
+
+  
+// Start the progress bar.
+// NProgress.start();
+// NProgress.set(0.1);
+axios.get(
+    "drops/getarea?gov_id=" +  id 
+      
+  )
+  .then(response => {
+    this.areas = response.data.areas;
+  
+ 
+
+    // Complete the animation of theprogress bar.
+    // NProgress.done();
+    // this.isLoading = false;
+  })
+  .catch(response => {
+    // Complete the animation of theprogress bar.
+    NProgress.done();
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 500);
+  });
+
+},
     deleteImage(index) {
 
       this.files_activetiy.splice(index, 1);
@@ -671,7 +718,7 @@ export default {
         .get("Schools/create")
         .then(response => {
           this.schools = response.data.schools;
-
+          this.govs = response.data.govs;
           this.areas = response.data.areas;
 
           this.isLoading = false;

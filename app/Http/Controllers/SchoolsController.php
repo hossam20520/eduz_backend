@@ -4,6 +4,8 @@ use App\Exports\SchoolsExport;
 use App\Models\School;
 use App\Models\Area;
 use App\Models\Section;
+use App\Models\Gov;
+
 
 use App\Models\Institution;
 use App\utils\helpers;
@@ -130,30 +132,7 @@ class SchoolsController extends BaseController
              $images =  $helpers->StoreImagesV($request , "images");
              $images_tow =   $helpers->StoreImagesV($request , "images_tow");
 
-                // if ($request['images']) {
-                //     $files = $request['images'];
-                //     foreach ($files as $file) {
-                //         $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])));
-                //         // $fileData->resize(200, 200);
-                //         $name = rand(11111111, 99999999) . $file['name'];
-                //         $path = public_path() . '/images/educations/';
-                //         $success = file_put_contents($path . $name, $fileData);
- 
-                //         $images[] = $name;
-                //     }
-                //     $filename = implode(",", $images);
-                // } else {
-                //     $filename = 'no-image.png';
-                // }
-
-
-
- 
-
-                // $School->logo =  $this->StoreImage("logo" , "educations" , $request);
-                // $School->banner =  $this->StoreImage("banner" , "educations" , $request);
-
-
+   
                 $School->image =  $images;
                 $School->images_tow =  $images_tow ;
                 $School->save();
@@ -491,8 +470,9 @@ public function StoreImage($name , $pathUrl , $request){
         // $this->authorizeForUser($request->user('api'), 'create', School::class);
         $School_data = Institution::where('deleted_at', '=', null)->get(['id', 'ar_name']);
         $area = Area::where('deleted_at', '=', null)->get(['id', 'ar_name']);
-
+        $govs = Gov::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
         return response()->json([
+            'govs' => $govs , 
             'schools' =>  $School_data ,
             'areas' =>  $area
         ]);
@@ -510,8 +490,8 @@ public function StoreImage($name , $pathUrl , $request){
     
         // $this->authorizeForUser($request->user('api'), 'update', School::class);
         $School = School::where('deleted_at', '=', null)->findOrFail($id);
- 
-
+        
+        
         $helpers = new helpers();
         $item =  $helpers->edit( $School );
         // $images = $helpers->editImageV($School->image, "images",  "image");
@@ -574,11 +554,13 @@ public function StoreImage($name , $pathUrl , $request){
  
         $area = Area::where('deleted_at', '=', null)->get(['id', 'ar_name']);
         $drops =  $this->getSectionsWithDrops( $School->selected_ids);
-   
+        $goves = Gov::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
         return response()->json([
            
-            'school' => $data,
+            'school' => $data, 
+            'govs' => $goves,
             'drops' => $drops,
+       
             'schools' =>  $School_data ,
             'areas'=>$area 
         ]);

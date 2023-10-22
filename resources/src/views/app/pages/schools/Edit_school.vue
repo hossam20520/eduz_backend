@@ -105,6 +105,34 @@
                   </validation-provider>
                 </b-col>
 
+
+                <b-col md="6" class="mb-2">
+                  <validation-provider name="Govs" :rules="{ required: true }">
+                    <b-form-group slot-scope="{ valid, errors }" :label="$t('Choose_Gov')">
+                      <v-select :class="{ 'is-invalid': !!errors.length }"
+                        :state="errors[0] ? false : (valid ? true : null)" :reduce="label => label.value"
+                        :placeholder="$t('choosGov')" v-model="school.gov_id"
+                        v-on:input="handleChange"
+                        :options="govs.map(govs => ({ label: govs.ar_name, value: govs.id }))" />
+                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
+
+
+                <b-col md="6" class="mb-2">
+                  <validation-provider name="Areas" :rules="{ required: true }">
+                    <b-form-group slot-scope="{ valid, errors }" :label="$t('Choose_Area')">
+                      <v-select :class="{ 'is-invalid': !!errors.length }"
+                        :state="errors[0] ? false : (valid ? true : null)" :reduce="label => label.value"
+                        :placeholder="$t('Choose_Area')" v-model="school.area_id"
+                        :options="areas.map(areas => ({ label: areas.ar_name, value: areas.id }))" />
+                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
                 <b-col md="6" class="mb-2">
                   <validation-provider
                     name="phone"
@@ -148,21 +176,7 @@
 
 
       
-                <b-col md="6" class="mb-2">
-                  <validation-provider name="area_id" :rules="{ required: true}">
-                    <b-form-group slot-scope="{ valid, errors }" :label="$t('Choose_Area')">
-                      <v-select
-                        :class="{'is-invalid': !!errors.length}"
-                        :state="errors[0] ? false : (valid ? true : null)"
-                        :reduce="label => label.value"
-                        :placeholder="$t('Choose_Area')"
-                        v-model="school.area_id"
-                        :options="areas.map(areas => ({label: areas.ar_name, value: areas.id}))"
-                      />
-                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
-                    </b-form-group>
-                  </validation-provider>
-                </b-col>
+  
 
 
                 <b-col md="12" class="mb-12">
@@ -373,6 +387,10 @@
                   </validation-provider>
                 </b-col>
 
+
+
+
+
    
                 <!-- <b-col md="12"  class="mb-2">
               <validation-provider name="Image" ref="Image" rules="mimes:image/*">
@@ -527,6 +545,7 @@ export default {
       images_tow:[],
       imageArray: [],
       areas:[],
+      govs:[],
       change: false,
       isLoading: true,
       SubmitProcessing:false,
@@ -551,6 +570,7 @@ export default {
                logo:"",
              banner:"",
             area_id:"",
+            gov_id:"",
      institution_id:"",
            ar_name:"",
             en_name:"",
@@ -589,6 +609,46 @@ export default {
   },
 
   methods: {
+
+
+
+    handleChange(selectedValue){
+   
+   this.getItems(selectedValue);
+
+ },
+
+ getItems(id){
+
+
+// Start the progress bar.
+// NProgress.start();
+// NProgress.set(0.1);
+axios.get(
+ "drops/getarea?gov_id=" +  id 
+   
+)
+.then(response => {
+ this.areas = response.data.areas;
+
+
+
+ // Complete the animation of theprogress bar.
+ // NProgress.done();
+ // this.isLoading = false;
+})
+.catch(response => {
+ // Complete the animation of theprogress bar.
+ NProgress.done();
+ setTimeout(() => {
+   this.isLoading = false;
+ }, 500);
+});
+
+},
+
+
+
     deleteImage(index) {
    
    this.files_activetiy.splice(index, 1);
@@ -746,6 +806,8 @@ export default {
          
           this.school = response.data.school;
           this.areas = response.data.areas;
+          this.govs = response.data.govs;
+          console.log( response.data.govs);
           // this.files_activetiy = response.data.school.activites_fiels.split(",").map(item => item.trim());
           this.school.actives =    response.data.school.actives 
           // this.files_activetiy = response.data.school.activites_fiels.split(",").map(item => item.trim());

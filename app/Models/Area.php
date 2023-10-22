@@ -9,14 +9,17 @@ class Area extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'ar_name', 'en_name',  
+        'ar_name', 'en_name',   'gov_id'
     ];
 
     protected $casts = [
  
     ];
 
-
+    public function Gov()
+    {
+        return $this->belongsTo('App\Models\Gov' , 'gov_id');
+    }
 
 }
 

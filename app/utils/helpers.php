@@ -98,6 +98,9 @@ class helpers
         $field->activites_fiels = $request['activites_fiels'];
         
         $field->actives = $request['actives'];
+
+      
+
         // $field->second_lang = $request['second_lang'];
         // $field->first_lang = $request['first_lang'];
         // $field->other_lang = $request['other_lang'];
@@ -123,6 +126,12 @@ class helpers
         // $School->activities_image = $request['activities_image'];
         $field->institution_id = $request['institution_id'];
         // $School->review_id = $request['review_id'];
+
+
+        $field->area_id = $request['area_id'];
+        $field->gov_id = $request['gov_id'];
+
+        
    return $field;
 
        
@@ -253,6 +262,9 @@ class helpers
         $item['actives'] =  $model->actives;
       
 
+        $item['area_id'] =  $model->area_id;
+        $item['gov_id'] =  $model->gov_id;
+    
         // $item['second_lang'] =  $model->second_lang;
         // $item['first_lang'] =  $model->first_lang;
         // $item['other_lang'] =  $model->other_lang;

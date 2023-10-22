@@ -61,6 +61,22 @@
           <b-row>
             <!-- Area Name -->
 
+          <!-- Category -->
+          <b-col md="12" class="mb-2">
+                  <validation-provider name="govs" :rules="{ required: true}">
+                    <b-form-group slot-scope="{ valid, errors }" :label="$t('govs')">
+                      <v-select
+                        :class="{'is-invalid': !!errors.length}"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        :reduce="label => label.value"
+                        :placeholder="$t('govs')"
+                        v-model="area.gov_id"
+                        :options="govs.map(govs => ({label: govs.ar_name, value: govs.id}))"
+                      />
+                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
 
 
             <b-col md="12">
@@ -141,11 +157,13 @@ export default {
       data: new FormData(),
       editmode: false,
       areas: [],
+      govs:[],
       limit: "10",
       area: {
         id: "",
         ar_name: "",
         en_name: "",
+        gov_id:"",
       
       }
     };
@@ -163,6 +181,13 @@ export default {
         {
           label: this.$t("ar_name"),
           field: "ar_name",
+          tdClass: "text-left",
+          thClass: "text-left"
+        },
+
+        {
+          label: this.$t("gov"),
+          field: "gov",
           tdClass: "text-left",
           thClass: "text-left"
         },
@@ -309,7 +334,7 @@ export default {
         .then(response => {
           this.areas = response.data.areas;
           this.totalRows = response.data.totalRows;
-
+          this.govs = response.data.govs;
           // Complete the animation of theprogress bar.
           NProgress.done();
           this.isLoading = false;
@@ -329,6 +354,9 @@ export default {
       self.SubmitProcessing = true;
       self.data.append("ar_name", self.area.ar_name);
       self.data.append("en_name", self.area.en_name);
+      self.data.append("gov_id", self.area.gov_id);
+
+      
  
       axios
         .post("areas", self.data)
@@ -354,7 +382,7 @@ export default {
        self.SubmitProcessing = true;
       self.data.append("en_name", self.area.en_name);
       self.data.append("ar_name", self.area.ar_name);
- 
+      self.data.append("gov_id", self.area.gov_id);
       self.data.append("_method", "put");
 
       axios
@@ -381,6 +409,7 @@ export default {
         id: "",
         ar_name: "",
         en_name: "",
+        gov_id:"",
       
       };
       this.data = new FormData();

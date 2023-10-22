@@ -4,6 +4,8 @@ use App\Exports\KindergartensExport;
 use App\Models\Kindergarten;
 use App\Models\Area;
 use App\Models\Section;
+use App\Models\Gov;
+
 
 use App\Models\Institution;
 use App\utils\helpers;
@@ -16,7 +18,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
 use \Gumlet\ImageResize;
-
+use Intervention\Image\ImageManagerStatic as Image;
 
 class KindergartensController extends BaseController
 {
@@ -110,30 +112,29 @@ class KindergartensController extends BaseController
 
             \DB::transaction(function () use ($request) {
 
-
  
-                $Kindergarten = new Kindergarten;
                 $helpers = new helpers();
-                $Kindergarten =  $helpers->store( $Kindergarten , $request);
- 
- 
+                $Kindergarten = new Kindergarten;
+                $Kindergarten =  $helpers->store($Kindergarten , $request);
+                //-- Create New Kindergarten
+                // $Kindergarten = new Kindergarten;
+                //-- Field Required
 
-                if ($request['images']) {
-                    $files = $request['images'];
-                    foreach ($files as $file) {
-                        $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])));
-                        // $fileData->resize(200, 200);
-                        $name = rand(11111111, 99999999) . $file['name'];
-                        $path = public_path() . '/images/educations/';
-                        $success = file_put_contents($path . $name, $fileData);
-                        $images[] = $name;
-                    }
-                    $filename = implode(",", $images);
-                } else {
-                    $filename = 'no-image.png';
-                }
 
-                $Kindergarten->image = $filename;
+
+
+
+
+                
+
+
+             $helpers = new helpers();
+             $images =  $helpers->StoreImagesV($request , "images");
+             $images_tow =   $helpers->StoreImagesV($request , "images_tow");
+
+   
+                $Kindergarten->image =  $images;
+                $Kindergarten->images_tow =  $images_tow ;
                 $Kindergarten->save();
 
   
@@ -199,6 +200,62 @@ class KindergartensController extends BaseController
         return response()->json($result);
     }
 
+
+public function StoreImage($name , $pathUrl , $request){
+    if ($request->hasFile($name)) {
+
+        $image = $request->file($name);
+        $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+        $image_resize = Image::make($image->getRealPath());
+        // $image_resize->resize(200, 200);
+        $image_resize->save(public_path('/images/'.$pathUrl."/".$filename_logo));
+
+    } else {
+        $filename_logo = 'no-image.png';
+    }
+
+ 
+
+    return  $filename_logo;
+}
+
+  public function UpdateImage($name , $pathURL , $request ,  $requImage , $currentImage ){
+    if ($currentImage &&  $requImage != $currentImage) {
+        $image = $request->file($name);
+        $path = public_path() . '/images/'. $pathURL;
+        $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+        $image_resize = Image::make($image->getRealPath());
+        // $image_resize->resize(200, 200);
+        $image_resize->save(public_path('/images/'.$pathURL.'/'. $filename_logo));
+
+        $BrandImage = $path . '/' . $currentImage;
+        if (file_exists($BrandImage)) {
+            if ($currentImage != 'no-image.png') {
+                @unlink($BrandImage);
+            }
+        }
+    } else if (!$currentImage && $requImage !='null'){
+        $image = $request->file($name);
+        $path = public_path() . '/images/'.$pathURL;
+        $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+        $image_resize = Image::make($image->getRealPath());
+        // $image_resize->resize(200, 200);
+        $image_resize->save(public_path('/images/'.$pathURL.'/'.  $filename_logo));
+    }
+
+    else {
+        $filename_logo = $currentImage?$currentImage:'no-image.png';
+    }
+
+
+    return $filename_logo;
+  }
+
+
+
     public function update(Request $request, $id)
     {
         // $this->authorizeForUser($request->user('api'), 'update', Kindergarten::class);
@@ -216,50 +273,29 @@ class KindergartensController extends BaseController
                     ->where('deleted_at', '=', null)
                     ->first();
  
-                
-                    $helpers = new helpers();
-                    $Kindergarten =  $helpers->store( $Kindergarten , $request);
-     
+ 
+                     
+                $helpers = new helpers();
+
+
+            
+                $Kindergarten =  $helpers->store($Kindergarten , $request);
+                //-- Update Kindergarten
+               
 
  
 
-                if ($request['images'] === null) {
+   
+                // $logo =  $this->UpdateImage( 'logo',  "educations" , $request , $request->logo , $Kindergarten->logo );
+              
+                  $imagesa  = $helpers->updateImagesActiv($request , $Kindergarten->image,  "images");
+                  $images_tow  = $helpers->updateImagesActiv($request , $Kindergarten->images_tow,  "images_tow");
 
-                    if ($Kindergarten->image !== null) {
-                        foreach (explode(',', $Kindergarten->image) as $img) {
-                            $pathIMG = public_path() . '/images/educations/' . $img;
-                            if (file_exists($pathIMG)) {
-                                if ($img != 'no-image.png') {
-                                    @unlink($pathIMG);
-                                }
-                            }
-                        }
-                    }
-                    $filename = 'no-image.png';
-                } else {
-                    if ($Kindergarten->image !== null) {
-                        foreach (explode(',', $Kindergarten->image) as $img) {
-                            $pathIMG = public_path() . '/images/educations/' . $img;
-                            if (file_exists($pathIMG)) {
-                                if ($img != 'no-image.png') {
-                                    @unlink($pathIMG);
-                                }
-                            }
-                        }
-                    }
-                    $files = $request['images'];
-                    foreach ($files as $file) {
-                        $fileData =  base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path']));
-                        // $fileData->resize(200, 200);
-                        $name = rand(11111111, 99999999) . $file['name'];
-                        $path = public_path() . '/images/educations/';
-                        $success = file_put_contents($path . $name, $fileData);
-                        $images[] = $name;
-                    }
-                    $filename = implode(",", $images);
-                }
-
-                $Kindergarten->image = $filename;
+                // $banner =  $this->UpdateImage( 'banner',  "educations" , $request , $request->banner , $Kindergarten->banner );
+ 
+                $Kindergarten->image =  $imagesa;
+                $Kindergarten->images_tow =  $images_tow;
+       
                 $Kindergarten->save();
 
             }, 10);
@@ -398,74 +434,7 @@ class KindergartensController extends BaseController
 
     //------------ Get Kindergartens By Warehouse -----------------\
 
-    public function Kindergartens_by_Warehouse(request $request, $id)
-    {
-        $data = [];
-        $kindergarten_warehouse_data = kindergarten_warehouse::with('warehouse', 'Kindergarten', 'kindergartenVariant')
-            ->where('warehouse_id', $id)
-            ->where('deleted_at', '=', null)
-            ->where(function ($query) use ($request) {
-                if ($request->stock == '1') {
-                    return $query->where('qte', '>', 0);
-                }
-            })->get();
-
-        foreach ($kindergarten_warehouse_data as $kindergarten_warehouse) {
-
-            if ($kindergarten_warehouse->kindergarten_variant_id) {
-                $item['kindergarten_variant_id'] = $kindergarten_warehouse->kindergarten_variant_id;
-                $item['code'] = $kindergarten_warehouse['kindergartenVariant']->name . '-' . $kindergarten_warehouse['kindergarten']->code;
-                $item['Variant'] = $kindergarten_warehouse['kindergartenVariant']->name;
-            } else {
-                $item['kindergarten_variant_id'] = null;
-                $item['Variant'] = null;
-                $item['code'] = $kindergarten_warehouse['kindergarten']->code;
-            }
-
-            $item['id'] = $kindergarten_warehouse->kindergarten_id;
-            $item['name'] = $kindergarten_warehouse['kindergarten']->name;
-            $item['barcode'] = $kindergarten_warehouse['kindergarten']->code;
-            $item['Type_barcode'] = $kindergarten_warehouse['kindergarten']->Type_barcode;
-            $firstimage = explode(',', $kindergarten_warehouse['kindergarten']->image);
-            $item['image'] = $firstimage[0];
-
-            if ($kindergarten_warehouse['kindergarten']['unitSale']->operator == '/') {
-                $item['qte_sale'] = $kindergarten_warehouse->qte * $kindergarten_warehouse['kindergarten']['unitSale']->operator_value;
-                $price = $kindergarten_warehouse['kindergarten']->price / $kindergarten_warehouse['kindergarten']['unitSale']->operator_value;
-            } else {
-                $item['qte_sale'] = $kindergarten_warehouse->qte / $kindergarten_warehouse['kindergarten']['unitSale']->operator_value;
-                $price = $kindergarten_warehouse['kindergarten']->price * $kindergarten_warehouse['kindergarten']['unitSale']->operator_value;
-            }
-
-            if ($kindergarten_warehouse['kindergarten']['unitPurchase']->operator == '/') {
-                $item['qte_purchase'] = round($kindergarten_warehouse->qte * $kindergarten_warehouse['kindergarten']['unitPurchase']->operator_value, 5);
-            } else {
-                $item['qte_purchase'] = round($kindergarten_warehouse->qte / $kindergarten_warehouse['kindergarten']['unitPurchase']->operator_value, 5);
-            }
-
-            $item['qte'] = $kindergarten_warehouse->qte;
-            $item['unitSale'] = $kindergarten_warehouse['kindergarten']['unitSale']->ShortName;
-            $item['unitPurchase'] = $kindergarten_warehouse['kindergarten']['unitPurchase']->ShortName;
-
-            if ($kindergarten_warehouse['kindergarten']->TaxNet !== 0.0) {
-                //Exclusive
-                if ($kindergarten_warehouse['kindergarten']->tax_method == '1') {
-                    $tax_price = $price * $kindergarten_warehouse['kindergarten']->TaxNet / 100;
-                    $item['Net_price'] = $price + $tax_price;
-                    // Inxclusive
-                } else {
-                    $item['Net_price'] = $price;
-                }
-            } else {
-                $item['Net_price'] = $price;
-            }
-
-            $data[] = $item;
-        }
-
-        return response()->json($data);
-    }
-
+ 
     //------------ Get kindergarten By ID -----------------\
 
     public function show($id)
@@ -501,8 +470,9 @@ class KindergartensController extends BaseController
         // $this->authorizeForUser($request->user('api'), 'create', Kindergarten::class);
         $Kindergarten_data = Institution::where('deleted_at', '=', null)->get(['id', 'ar_name']);
         $area = Area::where('deleted_at', '=', null)->get(['id', 'ar_name']);
-
+        $govs = Gov::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
         return response()->json([
+            'govs' => $govs , 
             'kindergartens' =>  $Kindergarten_data ,
             'areas' =>  $area
         ]);
@@ -520,18 +490,20 @@ class KindergartensController extends BaseController
     
         // $this->authorizeForUser($request->user('api'), 'update', Kindergarten::class);
         $Kindergarten = Kindergarten::where('deleted_at', '=', null)->findOrFail($id);
- 
-
+        
         
         $helpers = new helpers();
         $item =  $helpers->edit( $Kindergarten );
-         
+        // $images = $helpers->editImageV($Kindergarten->image, "images",  "image");
+        // $images_tow = $helpers->editImageV($Kindergarten->images_tow, "images_tow",  "image_tow");
+        
+
+        // $item[]   = $images;
+        // $item[]   =  $images_tow;
+
 
         $firstimage = explode(',', $Kindergarten->image);
         $item['image'] = $firstimage[0];
-          
- 
- 
         $item['images'] = [];
         if ($Kindergarten->image != '' && $Kindergarten->image != 'no-image.png') {
             foreach (explode(',', $Kindergarten->image) as $img) {
@@ -548,17 +520,47 @@ class KindergartensController extends BaseController
         } else {
             $item['images'] = [];
         }
- 
+
+
+
+
+
+
+        $firstimage = explode(',', $Kindergarten->images_tow);
+        $item['image_tow'] = $firstimage[0];
+        $item['images_tow'] = [];
+        if ($Kindergarten->images_tow != '' && $Kindergarten->images_tow != 'no-image.png') {
+            foreach (explode(',', $Kindergarten->images_tow) as $img) {
+                $path = public_path() . '/images/educations/' . $img;
+                if (file_exists($path)) {
+                    $itemImg['name'] = $img;
+                    $type = pathinfo($path, PATHINFO_EXTENSION);
+                    $data = file_get_contents($path);
+                    $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+                    $item['images_tow'][] = $itemImg;
+                }
+            }
+        } else {
+            $item['images_tow'] = [];
+        }
+
+
+        // $item[]   = $images_tow;
+
+        // $data = array();
+       
         $data = $item;
-
-
-        
+ 
         $area = Area::where('deleted_at', '=', null)->get(['id', 'ar_name']);
         $drops =  $this->getSectionsWithDrops( $Kindergarten->selected_ids);
-   
+        $goves = Gov::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
         return response()->json([
-            'kindergarten' => $data,
+           
+            'kindergarten' => $data, 
+            'govs' => $goves,
             'drops' => $drops,
+       
             'kindergartens' =>  $Kindergarten_data ,
             'areas'=>$area 
         ]);

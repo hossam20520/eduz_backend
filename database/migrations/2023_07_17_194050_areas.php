@@ -16,6 +16,7 @@ class Areas extends Migration
         Schema::create('areas', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 			$table->integer('id', true);
+            $table->string('gov_id', 192)->nullable();
 			$table->string('ar_name', 192)->nullable();
             $table->string('en_name', 192)->nullable();
 			$table->timestamps(6);
