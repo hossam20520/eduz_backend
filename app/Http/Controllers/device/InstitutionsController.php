@@ -183,7 +183,7 @@ class InstitutionsController extends Controller
       $dir = $request->SortType;
       $helpers = new helpers();
 
-      
+      $area_id = $request->area_id;
       if( $request->type == "filter"){
 
         $typeinsta = $request->type_inst;
@@ -206,23 +206,12 @@ class InstitutionsController extends Controller
         $model  = Universitie::class;
       } 
      
-        // $model::where('deleted_at' , '=' , null)->get();
- 
-
-        // $idsToSearch = "20, 26"; // String containing IDs
-
-// Convert the string of IDs into an array
+     
             $idsArray = explode(',', $ids);
-           
-            // $results = $model::where(function($query) use ($idsArray) {
-            //   foreach ($idsArray as $id) {
-            //       $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-            //   }
-            // })->get();
-
+  
 
               $query = $model::query();
-
+              $query->where('area_id', $area_id);
               foreach ($idsArray as $id) {
               $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
               }
@@ -270,20 +259,7 @@ class InstitutionsController extends Controller
       
     ]);
 
-      // $model = School::class;
-      // if($type == "SCHOOLS"){
-      //   $model = School::class;
-      // }else if($type == "KINDERGARTENS"){
-      //   $model  = Kindergarten::class;
-      // }else if($type == "CENTERS"){
-      //   $model  = Center::class;
-      // }else if($type == "EDUCENTERS"){
-      //   $model  = Educenter::class;
-      // }else if($type == "SPECIALNEEDS"){
-      //   $model  = Specialneed::class;
-      // }else if($type == "UNIVERSITIES"){
-      //   $model  = Universitie::class;
-      // } 
+    
 
     }
 
