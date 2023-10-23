@@ -211,11 +211,11 @@ class InstitutionsController extends Controller
   
 
               $query = $model::query();
-              $query->where('area_id', $area_id);
+             
               foreach ($idsArray as $id) {
               $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
               }
-
+              $query->where('area_id', $area_id);
               $results = $query->get();
 
 
