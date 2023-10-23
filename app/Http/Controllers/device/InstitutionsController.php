@@ -215,7 +215,7 @@ class InstitutionsController extends Controller
               foreach ($idsArray as $id) {
               $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
               }
-              $query->where('area_id', $area_id);
+              // $query->where('area_id', $area_id);
               $results = $query->get();
 
 
