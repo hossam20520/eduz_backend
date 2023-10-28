@@ -25,10 +25,16 @@ class helpers
         $products = Instfav::where('deleted_at', '=', null)->where('inst_id' , $inst_id )->where('type' , $type)->where('user_id' , $user->id)->first();
 
         if($products){
+
+            
             return true;
 
+
         }else{
+
             return false;
+
+
         }
   
 

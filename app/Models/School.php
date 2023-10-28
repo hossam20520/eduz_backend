@@ -31,8 +31,11 @@ class School extends Model
     ];
 
 
-    public function getFavAttribute()
+    public function getFavAttribute($val = false)
     {
+        if($val){
+          return false;
+        }
         $helpers = new helpers();
         $found = $helpers->IsInWhishlistInst($this->id ,  "SCHOOLS");
         // Access the role_name through the relationship
@@ -43,6 +46,18 @@ class School extends Model
         return  $found;
     }
 
+
+
+    // public function getFavaAttribute()
+    // {
+     
+    //     // Access the role_name through the relationship
+    //     // $avatar =  '/public/images/avatar/'.$this->avatar;
+
+    //     // Modify the role_name as needed
+    //     // For example, you can convert it to uppercase
+    //     return  false;
+    // }
 
     
 }
