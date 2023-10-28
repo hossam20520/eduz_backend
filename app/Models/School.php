@@ -31,11 +31,9 @@ class School extends Model
     ];
 
 
-    public function getFavAttribute($val = false)
+    public function getFavAttribute()
     {
-        if($val){
-          return false;
-        }
+    
         $helpers = new helpers();
         $found = $helpers->IsInWhishlistInst($this->id ,  "SCHOOLS");
         // Access the role_name through the relationship
