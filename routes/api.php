@@ -79,12 +79,7 @@ Route::middleware(['auth:api', 'Is_Active'])->group(function () {
     
 
     Route::post('device/review/send', 'device\InstitutionsController@SendReview');
-
-
     Route::get('device/cart/delete', 'device\ProductController@deleteCart');
-
-    
-
     Route::get('device/product', 'device\ProductController@Get_Products_Details');
 
 
@@ -107,12 +102,11 @@ Route::middleware(['auth:api', 'Is_Active'])->group(function () {
 
 
 
+    
     Route::get("device/calander", "device\AuthController@GetClanader");
     Route::post("device/calander", "device\AuthController@AddToCalander");
-
     Route::post("device/favourit", "device\AuthController@AddToFavourit");
     Route::get("device/favourit", "device\AuthController@GetFavourit");
-
     Route::get("device/favourit", "device\AuthController@GetFavouritData");
  
 
