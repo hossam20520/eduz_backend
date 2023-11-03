@@ -61,8 +61,7 @@ class EducentersController extends BaseController
             $item['en_name'] = $educenter->en_name;
             $item['ar_name'] = $educenter->ar_name;
 
-          
-
+        
             $item['en_info'] = $educenter->en_info;
             $item['ar_info'] = $educenter->ar_info;
             $item['facilities_ar'] = $educenter->facilities_ar;
@@ -114,59 +113,23 @@ class EducentersController extends BaseController
 
 
 
-                
-    
-      
- 
- 
-
-                //-- Create New Educenter
+                $helpers = new helpers();
                 $Educenter = new Educenter;
-                //-- Field Required
-                $Educenter->en_info = $request['en_info'];
-                $Educenter->ar_info = $request['ar_info'];
-                $Educenter->facilities_ar = $request['facilities_ar'];
-                $Educenter->facilities_en = $request['facilities_en'];
-                $Educenter->activities_ar = $request['activities_ar'];
-                $Educenter->activities_en = $request['activities_en'];
-                $Educenter->url = $request['url'];
-                $Educenter->phone = $request['phone'];
-                $Educenter->share = $request['share'];
-                $Educenter->en_name = $request['en_name'];
-                $Educenter->ar_name = $request['ar_name'];
-                $Educenter->lat = $request['lat'];
-                $Educenter->long_a = $request['long'];
-                $Educenter->area_id = $request['area_id'];
+                $Educenter =  $helpers->store($Educenter , $request);
 
- 
-                $Educenter->selected_ids = $request['selected_ids'];
-              
-             
-                // $Educenter->activities_image = $request['activities_image'];
-                $Educenter->institution_id = $request['inst_id'];
-                // $Educenter->review_id = $request['review_id'];
 
- 
 
-                if ($request['images']) {
-                    $files = $request['images'];
-                    foreach ($files as $file) {
-                        $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])));
-                        // $fileData->resize(200, 200);
-                        $name = rand(11111111, 99999999) . $file['name'];
-                        $path = public_path() . '/images/educations/';
-                        $success = file_put_contents($path . $name, $fileData);
-                        $images[] = $name;
-                    }
-                    $filename = implode(",", $images);
-                } else {
-                    $filename = 'no-image.png';
-                }
+             $helpers = new helpers();
+             $images =  $helpers->StoreImagesV($request , "images");
+             $images_tow =   $helpers->StoreImagesV($request , "images_tow");
 
-                $Educenter->image = $filename;
+   
+                $Educenter->image =  $images;
+                $Educenter->images_tow =  $images_tow ;
                 $Educenter->save();
 
-  
+
+ 
 
             }, 10);
 
