@@ -634,6 +634,8 @@ public function MapData(Request $request){
       $model  = Center::class;
     }else if($type == "SPECIALNEEDS"){
       $model  = Specialneed::class;
+    } else if($type == "EDUCENTERS"){
+      $model  = Specialneed::class;
     } 
 
      $dataa  = $model::where('deleted_at', '=', null )->orderBy('id', 'desc')->get(['ar_name' , 'id',  'en_name' , 'lat', 'long_a' , 'image']);
