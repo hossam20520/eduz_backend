@@ -371,11 +371,7 @@
                 </b-row>
 
 
- 
 
-
-       
-        
                   <b-row class="form-group">
                   <b-col md="12 mb-5">
                     <div id="my-strictly-unique-vue-upload-multiple-image" class="d-flex justify-content-center">
