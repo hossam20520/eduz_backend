@@ -4,7 +4,6 @@ use App\Exports\EducentersExport;
 use App\Models\Educenter;
 use App\Models\Area;
 use App\Models\Gov;
-
 use App\Models\Section;
 
 use App\Models\Institution;
@@ -563,13 +562,14 @@ class EducentersController extends BaseController
         // $this->authorizeForUser($request->user('api'), 'create', Educenter::class);
         $Educenter_data = Institution::where('deleted_at', '=', null)->get(['id', 'ar_name']);
         $area = Area::where('deleted_at', '=', null)->get(['id', 'ar_name']);
-
         $govs = Gov::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
         return response()->json([
             'govs' => $govs , 
-            'schools' =>  $School_data ,
+            'educenters' =>  $Educenter_data ,
             'areas' =>  $area
         ]);
+
+ 
 
     }
 
