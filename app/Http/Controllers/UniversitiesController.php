@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 use App\Exports\UniversitiesExport;
 use App\Models\Universitie;
 use App\Models\Area;
+use App\Models\Gov;
+
 use App\Models\Section;
 
 use App\Models\Institution;
@@ -111,60 +113,21 @@ class UniversitiesController extends BaseController
             \DB::transaction(function () use ($request) {
 
 
-
-
-                
-    
-      
- 
  
 
-                //-- Create New Universitie
-                $Universitie = new Universitie;
+            
                 //-- Field Required
-                $Universitie->en_info = $request['en_info'];
-                $Universitie->ar_info = $request['ar_info'];
-                $Universitie->facilities_ar = $request['facilities_ar'];
-                $Universitie->facilities_en = $request['facilities_en'];
-                $Universitie->activities_ar = $request['activities_ar'];
-                $Universitie->activities_en = $request['activities_en'];
-                $Universitie->url = $request['url'];
-                $Universitie->phone = $request['phone'];
-                $Universitie->share = $request['share'];
-                $Universitie->en_name = $request['en_name'];
-                $Universitie->ar_name = $request['ar_name'];
-                $Universitie->lat = $request['lat'];
-                $Universitie->long_a = $request['long'];
-                $Universitie->area_id = $request['area_id'];
+                $helpers = new helpers();
+                $Universitie = new Universitie;
+                $Universitie =  $helpers->store($Universitie , $request);
 
- 
-                $Universitie->selected_ids = $request['selected_ids'];
-              
-             
-                // $Universitie->activities_image = $request['activities_image'];
-                $Universitie->institution_id = $request['inst_id'];
-                // $Universitie->review_id = $request['review_id'];
-
- 
-
-                if ($request['images']) {
-                    $files = $request['images'];
-                    foreach ($files as $file) {
-                        $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])));
-                        // $fileData->resize(200, 200);
-                        $name = rand(11111111, 99999999) . $file['name'];
-                        $path = public_path() . '/images/educations/';
-                        $success = file_put_contents($path . $name, $fileData);
-                        $images[] = $name;
-                    }
-                    $filename = implode(",", $images);
-                } else {
-                    $filename = 'no-image.png';
-                }
-
-                $Universitie->image = $filename;
+                $images =  $helpers->StoreImagesV($request , "images");
+                $images_tow =   $helpers->StoreImagesV($request , "images_tow");
+                $Universitie->image =  $images;
+                $Universitie->images_tow =  $images_tow ;
                 $Universitie->save();
 
+            
   
 
             }, 10);
@@ -245,82 +208,15 @@ class UniversitiesController extends BaseController
                     ->where('deleted_at', '=', null)
                     ->first();
  
-
-                    
-                //-- Update Universitie
-                $Universitie->en_info = $request['en_info'];
-                $Universitie->ar_info = $request['ar_info'];
-                $Universitie->facilities_ar = $request['facilities_ar'];
-                $Universitie->facilities_en = $request['facilities_en'];
-                $Universitie->activities_ar = $request['activities_ar'];
-                $Universitie->activities_en = $request['activities_en'];
-                $Universitie->url = $request['url'];
-                $Universitie->phone = $request['phone'];
-                $Universitie->share = $request['share'];
-
-                $Universitie->en_name = $request['en_name'];
-                $Universitie->ar_name = $request['ar_name'];
-
-                $Universitie->area_id = $request['area_id'];
-                
-
-                // $Universitie->activities_image = $request['activities_image'];
-                // $Universitie->institution_id = $request['institution_id'];
-                $Universitie->institution_id = $request['institution_id'];
-                $Universitie->lat = $request['lat'];
-                $Universitie->long_a = $request['long'];
-
  
-
-
- 
-                $Universitie->selected_ids = $request['selected_ids'];
-                 
-         
-         
-    
-
-
- 
-
-                if ($request['images'] === null) {
-
-                    if ($Universitie->image !== null) {
-                        foreach (explode(',', $Universitie->image) as $img) {
-                            $pathIMG = public_path() . '/images/educations/' . $img;
-                            if (file_exists($pathIMG)) {
-                                if ($img != 'no-image.png') {
-                                    @unlink($pathIMG);
-                                }
-                            }
-                        }
-                    }
-                    $filename = 'no-image.png';
-                } else {
-                    if ($Universitie->image !== null) {
-                        foreach (explode(',', $Universitie->image) as $img) {
-                            $pathIMG = public_path() . '/images/educations/' . $img;
-                            if (file_exists($pathIMG)) {
-                                if ($img != 'no-image.png') {
-                                    @unlink($pathIMG);
-                                }
-                            }
-                        }
-                    }
-                    $files = $request['images'];
-                    foreach ($files as $file) {
-                        $fileData =  base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path']));
-                        // $fileData->resize(200, 200);
-                        $name = rand(11111111, 99999999) . $file['name'];
-                        $path = public_path() . '/images/educations/';
-                        $success = file_put_contents($path . $name, $fileData);
-                        $images[] = $name;
-                    }
-                    $filename = implode(",", $images);
-                }
-
-                $Universitie->image = $filename;
-                $Universitie->save();
+                             
+                    $helpers = new helpers();
+                    $Universitie =  $helpers->store($Universitie , $request);
+                    $imagesa  = $helpers->updateImagesActiv($request , $Universitie->image,  "images");
+                    $images_tow  = $helpers->updateImagesActiv($request , $Universitie->images_tow,  "images_tow");
+                    $Universitie->image =  $imagesa;
+                    $Universitie->images_tow =  $images_tow;
+                    $Universitie->save();
 
             }, 10);
 
@@ -561,8 +457,9 @@ class UniversitiesController extends BaseController
         // $this->authorizeForUser($request->user('api'), 'create', Universitie::class);
         $Universitie_data = Institution::where('deleted_at', '=', null)->get(['id', 'ar_name']);
         $area = Area::where('deleted_at', '=', null)->get(['id', 'ar_name']);
-
+        $govs = Gov::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
         return response()->json([
+            'govs' => $govs , 
             'universities' =>  $Universitie_data ,
             'areas' =>  $area
         ]);

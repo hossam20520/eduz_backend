@@ -118,7 +118,7 @@ class SchoolsController extends BaseController
                 $School =  $helpers->store($School , $request);
  
 
-             $helpers = new helpers();
+          
              $images =  $helpers->StoreImagesV($request , "images");
              $images_tow =   $helpers->StoreImagesV($request , "images_tow");
 
@@ -266,26 +266,12 @@ public function StoreImage($name , $pathUrl , $request){
  
                      
                 $helpers = new helpers();
-
-
-            
                 $School =  $helpers->store($School , $request);
-                //-- Update School
-               
 
- 
-
-   
-                // $logo =  $this->UpdateImage( 'logo',  "educations" , $request , $request->logo , $School->logo );
-              
                   $imagesa  = $helpers->updateImagesActiv($request , $School->image,  "images");
                   $images_tow  = $helpers->updateImagesActiv($request , $School->images_tow,  "images_tow");
-
-                // $banner =  $this->UpdateImage( 'banner',  "educations" , $request , $request->banner , $School->banner );
- 
                 $School->image =  $imagesa;
                 $School->images_tow =  $images_tow;
-       
                 $School->save();
 
             }, 10);
