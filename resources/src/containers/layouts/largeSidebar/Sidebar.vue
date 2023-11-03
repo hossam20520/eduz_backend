@@ -156,7 +156,7 @@
 
 
 
-          <li 
+          <!-- <li 
             @mouseenter="toggleSubMenu"
             class="nav-item"
             :class="{ active: selectedParentMenu == 'centers' }"
@@ -167,7 +167,7 @@
               <span class="nav-text">{{   $t('centers')  }}</span>
             </a>
             <div class="triangle"></div>
-          </li>
+          </li> -->
 
 
 
@@ -182,7 +182,7 @@
             :data-submenu="true">
             <a class="nav-item-hold" href="#">
               <img src="https://cdn-icons-png.flaticon.com/512/1237/1237798.png" width="50%"/> 
-              <span class="nav-text">{{   $t('educenters')  }}</span>
+              <span class="nav-text">{{   $t('training_centers')  }}</span>
             </a>
             <div class="triangle"></div>
           </li>
@@ -552,7 +552,7 @@
             class="nav-item"  >
             <router-link tag="a" class to="/app/educenters/store">
               <i class="nav-icon i-Add-File"></i>
-              <span class="item-name">{{  $t('educenters')  }}</span>
+              <span class="item-name">{{  $t('add')  }}</span>
             </router-link>
           </li>
 
@@ -561,7 +561,7 @@
             class="nav-item" >
             <router-link tag="a" class to="/app/educenters/list">
               <i class="nav-icon i-Files"></i>
-              <span class="item-name">{{  $t('educentersList') }}</span>
+              <span class="item-name">{{  $t('list') }}</span>
             </router-link>
           </li>
  
