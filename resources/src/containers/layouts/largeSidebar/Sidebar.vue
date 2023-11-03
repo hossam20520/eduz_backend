@@ -486,7 +486,7 @@
             class="nav-item"  >
             <router-link tag="a" class to="/app/universities/store">
               <i class="nav-icon i-Add-File"></i>
-              <span class="item-name">{{  $t('adduniversities')  }}</span>
+              <span class="item-name">{{  $t('add')  }}</span>
             </router-link>
           </li>
 
@@ -495,7 +495,7 @@
             class="nav-item" >
             <router-link tag="a" class to="/app/universities/list">
               <i class="nav-icon i-Files"></i>
-              <span class="item-name">{{  $t('universitiesList') }}</span>
+              <span class="item-name">{{  $t('list') }}</span>
             </router-link>
           </li>
  

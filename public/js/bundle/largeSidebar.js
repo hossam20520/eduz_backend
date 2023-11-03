@@ -2619,7 +2619,7 @@ var render = function () {
                         _c("i", { staticClass: "nav-icon i-Add-File" }),
                         _vm._v(" "),
                         _c("span", { staticClass: "item-name" }, [
-                          _vm._v(_vm._s(_vm.$t("adduniversities"))),
+                          _vm._v(_vm._s(_vm.$t("add"))),
                         ]),
                       ]
                     ),
@@ -2638,7 +2638,7 @@ var render = function () {
                         _c("i", { staticClass: "nav-icon i-Files" }),
                         _vm._v(" "),
                         _c("span", { staticClass: "item-name" }, [
-                          _vm._v(_vm._s(_vm.$t("universitiesList"))),
+                          _vm._v(_vm._s(_vm.$t("list"))),
                         ]),
                       ]
                     ),
