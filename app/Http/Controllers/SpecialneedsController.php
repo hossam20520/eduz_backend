@@ -578,8 +578,7 @@ class SpecialneedsController extends BaseController
 
         $firstimage = explode(',', $Specialneed->image);
         $item['image'] = $firstimage[0];
-          
- 
+        
  
         $item['images'] = [];
         if ($Specialneed->image != '' && $Specialneed->image != 'no-image.png') {
@@ -621,9 +620,10 @@ class SpecialneedsController extends BaseController
         
         $area = Area::where('deleted_at', '=', null)->get(['id', 'ar_name']);
         $drops =  $this->getSectionsWithDrops( $Specialneed->selected_ids);
-   
+        $goves = Gov::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
         return response()->json([
             'specialneed' => $data,
+            'govs' => $goves,
             'drops' => $drops,
             'specialneeds' =>  $Specialneed_data ,
             'areas'=>$area 

@@ -547,40 +547,8 @@ class EducentersController extends BaseController
     
         // $this->authorizeForUser($request->user('api'), 'update', Educenter::class);
         $Educenter = Educenter::where('deleted_at', '=', null)->findOrFail($id);
-        $item['id'] = $Educenter->id;
-        $item['en_info'] = $Educenter->en_info;
-        $item['ar_info'] = $Educenter->ar_info;
-
-        $item['facilities_ar'] = $Educenter->facilities_ar;
-        $item['facilities_en'] = $Educenter->facilities_en;
-
-
-        $item['activities_ar'] = $Educenter->activities_ar;
-        $item['activities_en'] = $Educenter->activities_en;
-        $item['area_id'] = $Educenter->area_id;
-        $item['url'] = $Educenter->url;
-        $item['phone'] = $Educenter->phone;
-
-
-        $item['share'] = $Educenter->share;
-        $item['institution_id'] = $Educenter->institution_id;
-
-
-        $item['en_name'] =  $Educenter->en_name;
-        $item['ar_name'] =  $Educenter->ar_name;
-
-
-        $item['lat'] =  $Educenter->lat;
-        $item['long'] =  $Educenter->long_a;
-
-
-
-
-        
-        $item['selected_ids'] =  $Educenter->selected_ids;
-
- 
-         
+        $helpers = new helpers();
+        $item =  $helpers->edit( $Educenter );
 
         $firstimage = explode(',', $Educenter->image);
         $item['image'] = $firstimage[0];
@@ -610,9 +578,10 @@ class EducentersController extends BaseController
         
         $area = Area::where('deleted_at', '=', null)->get(['id', 'ar_name']);
         $drops =  $this->getSectionsWithDrops( $Educenter->selected_ids);
-   
+        $goves = Gov::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
         return response()->json([
             'educenter' => $data,
+            'govs' => $goves,
             'drops' => $drops,
             'educenters' =>  $Educenter_data ,
             'areas'=>$area 
