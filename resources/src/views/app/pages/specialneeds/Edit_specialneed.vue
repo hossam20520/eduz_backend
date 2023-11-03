@@ -105,6 +105,34 @@
                   </validation-provider>
                 </b-col>
 
+
+                <b-col md="6" class="mb-2">
+                  <validation-provider name="Govs" :rules="{ required: true }">
+                    <b-form-group slot-scope="{ valid, errors }" :label="$t('Choose_Gov')">
+                      <v-select :class="{ 'is-invalid': !!errors.length }"
+                        :state="errors[0] ? false : (valid ? true : null)" :reduce="label => label.value"
+                        :placeholder="$t('choosGov')" v-model="specialneed.gov_id"
+                        v-on:input="handleChange"
+                        :options="govs.map(govs => ({ label: govs.ar_name, value: govs.id }))" />
+                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
+
+
+                <b-col md="6" class="mb-2">
+                  <validation-provider name="Areas" :rules="{ required: true }">
+                    <b-form-group slot-scope="{ valid, errors }" :label="$t('Choose_Area')">
+                      <v-select :class="{ 'is-invalid': !!errors.length }"
+                        :state="errors[0] ? false : (valid ? true : null)" :reduce="label => label.value"
+                        :placeholder="$t('Choose_Area')" v-model="specialneed.area_id"
+                        :options="areas.map(areas => ({ label: areas.ar_name, value: areas.id }))" />
+                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
+
                 <b-col md="6" class="mb-2">
                   <validation-provider
                     name="phone"
@@ -148,21 +176,7 @@
 
 
       
-                <b-col md="6" class="mb-2">
-                  <validation-provider name="area_id" :rules="{ required: true}">
-                    <b-form-group slot-scope="{ valid, errors }" :label="$t('Choose_Area')">
-                      <v-select
-                        :class="{'is-invalid': !!errors.length}"
-                        :state="errors[0] ? false : (valid ? true : null)"
-                        :reduce="label => label.value"
-                        :placeholder="$t('Choose_Area')"
-                        v-model="specialneed.area_id"
-                        :options="areas.map(areas => ({label: areas.ar_name, value: areas.id}))"
-                      />
-                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
-                    </b-form-group>
-                  </validation-provider>
-                </b-col>
+  
 
 
                 <b-col md="12" class="mb-12">
@@ -230,11 +244,10 @@
                   </b-form-group>
                 </b-col>
 
-   
-         
 
 
-                
+
+
 
                 <b-col md="12" class="mb-2">
                   <b-form-group :label="$t('paid_en_info')">
@@ -267,7 +280,7 @@
                 </b-col>
 
 
- 
+
                 <!-- free free  -->
                 <b-col md="6" class="mb-2">
                   <validation-provider name="subscription" :rules="{ required: true}">
@@ -291,29 +304,9 @@
                 </b-col>
 
 
-                <b-col md="6" class="mb-2">
-                  <validation-provider
-                    name="Product Cost"
-                    :rules="{ required: true , regex: /^\d*\.?\d*$/}"
-                    v-slot="validationContext"
-                  >
-                    <b-form-group :label="$t('from')">
-                      <b-form-input
-                        :state="getValidationState(validationContext)"
-                        aria-describedby="ProductCost-feedback"
-                        label="Cost"
-                        :placeholder="$t('from')"
-                        v-model="specialneed.exp_from"
-                      ></b-form-input>
-                      <b-form-invalid-feedback
-                        id="ProductCost-feedback"
-                      >{{ validationContext.errors[0] }}</b-form-invalid-feedback>
-                    </b-form-group>
-                  </validation-provider>
-                </b-col>
 
 
-                
+
                 <b-col md="6" class="mb-2">
                   <validation-provider
                     name="exp_to Cost"
@@ -334,6 +327,7 @@
                     </b-form-group>
                   </validation-provider>
                 </b-col>
+
 
 
                 <b-col md="6" class="mb-2">
@@ -375,10 +369,64 @@
                 </b-col>
 
 
+ 
+                <b-col md="6" class="mb-6" >
+                  <validation-provider :name="dataArray"  >
+                    <b-form-group slot-scope="{ valid, errors }" :label="$t( 'activites')">
+                      <v-select
+                        :class="{'is-invalid': !!errors.length}"
+                        :state="errors[0] ? false : (valid ? true : null)"
+                        v-model="specialneed.actives"
+                        :reduce="label => label.value"
+                        :placeholder="$t('activites')"
+                        multiple
+                        :options="dataArray.map(dataArray => ({ label: dataArray.ar_name, value: dataArray.value }))"
+                      ></v-select>
+                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
 
 
 
 
+
+   
+                <!-- <b-col md="12"  class="mb-2">
+              <validation-provider name="Image" ref="Image" rules="mimes:image/*">
+                <b-form-group slot-scope="{validate, valid, errors }" :label="$t('Logo')">
+                  <input
+                    :state="errors[0] ? false : (valid ? true : null)"
+                    :class="{'is-invalid': !!errors.length}"
+                    @change="onFileSelected"
+                    label="Choose Image"
+                    type="file"
+                  >
+                  <b-form-invalid-feedback id="Image-feedback">{{ errors[0] }}</b-form-invalid-feedback>
+                </b-form-group>
+              </validation-provider>
+            </b-col> -->
+
+
+            <!-- <b-col md="12"  class="mb-2">
+              <validation-provider name="Banner" ref="Banner" rules="mimes:image/*">
+                <b-form-group slot-scope="{validate, valid, errors }" :label="$t('Banner')">
+                  <input
+                    :state="errors[0] ? false : (valid ? true : null)"
+                    :class="{'is-invalid': !!errors.length}"
+                    @change="onFileSelectedBanner"
+                    label="Choose Image"
+                    type="file"
+                  >
+                  <b-form-invalid-feedback id="Image-feedback">{{ errors[0] }}</b-form-invalid-feedback>
+                </b-form-group>
+              </validation-provider>
+            </b-col> -->
+
+
+            
+ 
+         
                 <b-col md="6" class="mb-6" v-for="section in sections" :key="section.id">
                   <validation-provider :name="section.ar_name"  >
                     <b-form-group slot-scope="{ valid, errors }" :label="$t(section.ar_name)">
@@ -396,7 +444,9 @@
                   </validation-provider>
                 </b-col>
 
-                
+
+
+
 
  
                 </b-row>
@@ -433,6 +483,25 @@
  
            
                 </b-row>
+
+
+
+                <b-row class="form-group">
+                  <b-col md="12 mb-5">
+                    <div id="my-strictly-unique-vue-upload-multiple-image" class="d-flex justify-content-center">
+                      <vue-upload-multiple-image @upload-success="uploadImageSuccess_tow" @before-remove="beforeRemove_tow"
+                        dragText="Drag & Drop Multiple images For specialneed" dropText="Drag & Drop image"
+                        browseText="(or) Select" accept=image/gif,image/jpeg,image/png,image/bmp,image/jpg
+                        primaryText='success' markIsPrimaryText='success' popupText='have been successfully uploaded'
+                        :data-images="images_tow" idUpload="myIdUploadTow" :showEdit="false" />
+                    </div>
+                  </b-col>
+
+                </b-row>
+
+ 
+ 
+
               </div>
             </b-card>
           </b-col>
@@ -461,9 +530,22 @@ export default {
     return {
       tag: "",
       len: 8,
+      dataArray:[ 
+        {"ar_name": "منهج بريطاني" , "value": "British"} ,
+        {"ar_name": "منهج منتسوري" , "value": "Montessori"},
+        {"ar_name": "اخصائي تعديل سلوك" , "value": "Specialist"},
+        {"ar_name": "وجبه للطفل" , "value": "Meal"},
+        {"ar_name": "استضافه" , "value": "Hosting"},
+        {"ar_name": "تحفيظ قران" , "value": "Quran"},
+        {"ar_name": "حمام سباحه" , "value": "Swimming"},
+        {"ar_name": "مواصلات" , "value": "Transportation"},
+
+    ],
       images: [],
+      images_tow:[],
       imageArray: [],
       areas:[],
+      govs:[],
       change: false,
       isLoading: true,
       SubmitProcessing:false,
@@ -476,17 +558,20 @@ export default {
       specialneed: {
         exp_from:"",
         exp_to:"",
+        actives:"",
         paid_en_info: "",
         paid_ar_info: "",
         paid_facilities_ar: "",
-        paid_facilities_en: "",
-        free:"",
-        ar_address:"",
-        en_address:"",
-
-
-           area_id:"",
-           institution_id:"",
+  paid_facilities_en: "",
+               free:"",
+         ar_address:"",
+         en_address:"",
+        images_tow: "",
+               logo:"",
+             banner:"",
+            area_id:"",
+            gov_id:"",
+     institution_id:"",
            ar_name:"",
             en_name:"",
             url: "",
@@ -510,7 +595,9 @@ export default {
          expTo:"",
          children_numbers:"",
          is_accept:"",
+         activites_fiels:"",
             },
+            files_activetiy: [],
       code_exist: ""
     };
   },
@@ -523,13 +610,130 @@ export default {
 
   methods: {
 
+
+
+    handleChange(selectedValue){
+   
+   this.getItems(selectedValue);
+
+ },
+
+ getItems(id){
+
+
+// Start the progress bar.
+// NProgress.start();
+// NProgress.set(0.1);
+axios.get(
+ "drops/getarea?gov_id=" +  id 
+   
+)
+.then(response => {
+ this.areas = response.data.areas;
+
+
+
+ // Complete the animation of theprogress bar.
+ // NProgress.done();
+ // this.isLoading = false;
+})
+.catch(response => {
+ // Complete the animation of theprogress bar.
+ NProgress.done();
+ setTimeout(() => {
+   this.isLoading = false;
+ }, 500);
+});
+
+},
+
+
+
+    deleteImage(index) {
+   
+   this.files_activetiy.splice(index, 1);
+   let strings =  this.files_activetiy.join(',');
+   this.specialneed.activites_fiels = strings;
+   
+ },
+
+
+
+         //------ Event upload Image Success
+    uploadImageSuccess_tow(formData, index, fileList, imageArray) {
+      this.images_tow = fileList;
+    },
+
+
+
+
+    //------ Event before Remove Image
+    beforeRemove_tow(index, done, fileList) {
+      var remove = confirm("remove image");
+      if (remove == true) {
+        this.images_tow = fileList;
+        done();
+      } else {
+      }
+    },
+
+
+
+ handleFileChange(event) {
+   this.selectedFiles = Array.from(event.target.files);
+ },
+ async uploadFiles() {
+   const formData = new FormData();
+   this.selectedFiles.forEach(file => {
+     formData.append('files[]', file);
+   });
+
+   try {
+     await axios.post('/files/upload', formData).then(response => { 
+       console.log(response.data);
+       this.activites_fiels = response.data.files;
+       this.files_activetiy = response.data.files.split(",").map(item => item.trim());
+
+       });// Assuming you're using Axios for HTTP requests
+    
+     
+   } catch (error) {
+     console.error('Error uploading files', error);
+   }
+ },
+ 
+
+    async onFileSelectedBanner(e) {
+      const { valid } = await this.$refs.Banner.validate(e);
+
+      if (valid) {
+        this.specialneed.banner = e.target.files[0];
+      } else {
+        this.specialneed.banner = "";
+      }
+    },
+
+
+    async onFileSelected(e) {
+      const { valid } = await this.$refs.Image.validate(e);
+
+      if (valid) {
+        this.specialneed.logo = e.target.files[0];
+      } else {
+        this.specialneed.logo = "";
+      }
+    },
+
     getSecions() {
       axios
       .get("drops/list/data?type=SPECIALNEEDS")
         .then(response => {
           this.sections = response.data.SECIONS;
-        console.log(response.data.SECIONS);
-   
+ 
+       
+ 
+
+    
         })
         .catch(response => {
           setTimeout(() => {
@@ -599,8 +803,14 @@ export default {
       axios
         .get(`Specialneeds/${id}/edit`)
         .then(response => {
+         
           this.specialneed = response.data.specialneed;
           this.areas = response.data.areas;
+          this.govs = response.data.govs;
+          console.log( response.data.govs);
+          // this.files_activetiy = response.data.specialneed.activites_fiels.split(",").map(item => item.trim());
+          this.specialneed.actives =    response.data.specialneed.actives 
+          // this.files_activetiy = response.data.specialneed.activites_fiels.split(",").map(item => item.trim());
           // console.log( response.data.drop.SECTIONS)
  
             let da = response.data.drops.original;
@@ -609,12 +819,13 @@ export default {
       });
 
 
-          console.log("ddddddddddddddddddddddddddddddddddddd")
-          // this.selectedOptions = response.data.drops.original;
+          // console.log("ddddddddddddddddddddddddddddddddddddd")
+          // // this.selectedOptions = response.data.drops.original;
 
           this.specialneeds =  response.data.specialneeds;
           this.images = response.data.specialneed.images;
-    
+          this.images_tow = response.data.specialneed.images_tow;
+          // this.image_tow = response.data.specialneed.image_tow;
           this.isLoading = false;
         })
         .catch(response => {
@@ -650,6 +861,17 @@ export default {
         for (var k = 0; k < self.images.length; k++) {
           Object.entries(self.images[k]).forEach(([key, value]) => {
               self.data.append("images[" + k + "][" + key + "]", value);
+          });
+        }
+      }
+
+
+      
+            //append array images
+            if (self.images_tow.length > 0) {
+        for (var k = 0; k < self.images_tow.length; k++) {
+          Object.entries(self.images_tow[k]).forEach(([key, value]) => {
+            self.data.append("images_tow[" + k + "][" + key + "]", value);
           });
         }
       }

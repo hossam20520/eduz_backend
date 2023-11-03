@@ -175,15 +175,16 @@ class helpers
     public function StoreImagesV($request , $imagename){
         if ($request[$imagename]) {
             $files = $request[$imagename];
-            foreach ($files as $file) {
+
+            foreach ($files as $file){
                 $fileData =  base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path']));
-                // $fileData->resize(200, 200);
                 $name = rand(11111111, 99999999) . $file['name'];
                 $path = public_path() . '/images/educations/';
                 $success = file_put_contents($path . $name, $fileData);
-
-                $images[] = $name;
+                $images[] = $name;    
             }
+            
+
             $filename = implode(",", $images);
         } else {
             $filename = 'no-image.png';
