@@ -451,6 +451,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 
@@ -1858,97 +1861,46 @@ var render = function () {
                                   ),
                                   _vm._v(" "),
                                   _c(
-                                    "b-col",
+                                    "validation-provider",
                                     {
-                                      staticClass: "mb-2",
-                                      attrs: { md: "12" },
+                                      attrs: {
+                                        name: "category",
+                                        rules: { required: true },
+                                      },
                                     },
                                     [
                                       _c(
-                                        "b-form-group",
-                                        { attrs: { label: _vm.$t("en_info") } },
-                                        [
-                                          _c("vue-editor", {
-                                            model: {
-                                              value: _vm.educenter.en_info,
-                                              callback: function ($$v) {
-                                                _vm.$set(
-                                                  _vm.educenter,
-                                                  "en_info",
-                                                  $$v
-                                                )
-                                              },
-                                              expression: "educenter.en_info",
-                                            },
-                                          }),
-                                        ],
-                                        1
-                                      ),
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-col",
-                                    {
-                                      staticClass: "mb-2",
-                                      attrs: { md: "12" },
-                                    },
-                                    [
-                                      _c(
-                                        "b-form-group",
-                                        { attrs: { label: _vm.$t("ar_info") } },
-                                        [
-                                          _c("vue-editor", {
-                                            model: {
-                                              value: _vm.educenter.ar_info,
-                                              callback: function ($$v) {
-                                                _vm.$set(
-                                                  _vm.educenter,
-                                                  "ar_info",
-                                                  $$v
-                                                )
-                                              },
-                                              expression: "educenter.ar_info",
-                                            },
-                                          }),
-                                        ],
-                                        1
-                                      ),
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "b-col",
-                                    {
-                                      staticClass: "mb-2",
-                                      attrs: { md: "12" },
-                                    },
-                                    [
-                                      _c(
-                                        "b-form-group",
+                                        "b-col",
                                         {
-                                          attrs: {
-                                            label: _vm.$t("facilities_ar"),
-                                          },
+                                          staticClass: "mb-2",
+                                          attrs: { md: "12" },
                                         },
                                         [
-                                          _c("vue-editor", {
-                                            model: {
-                                              value:
-                                                _vm.educenter.facilities_ar,
-                                              callback: function ($$v) {
-                                                _vm.$set(
-                                                  _vm.educenter,
-                                                  "facilities_ar",
-                                                  $$v
-                                                )
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                label: _vm.$t("en_info"),
                                               },
-                                              expression:
-                                                "educenter.facilities_ar",
                                             },
-                                          }),
+                                            [
+                                              _c("vue-editor", {
+                                                model: {
+                                                  value: _vm.educenter.en_info,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.educenter,
+                                                      "en_info",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "educenter.en_info",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
                                         ],
                                         1
                                       ),
@@ -1957,35 +1909,144 @@ var render = function () {
                                   ),
                                   _vm._v(" "),
                                   _c(
-                                    "b-col",
+                                    "validation-provider",
                                     {
-                                      staticClass: "mb-2",
-                                      attrs: { md: "12" },
+                                      attrs: {
+                                        name: "category",
+                                        rules: { required: true },
+                                      },
                                     },
                                     [
                                       _c(
-                                        "b-form-group",
+                                        "b-col",
                                         {
-                                          attrs: {
-                                            label: _vm.$t("facilities_en"),
-                                          },
+                                          staticClass: "mb-2",
+                                          attrs: { md: "12" },
                                         },
                                         [
-                                          _c("vue-editor", {
-                                            model: {
-                                              value:
-                                                _vm.educenter.facilities_en,
-                                              callback: function ($$v) {
-                                                _vm.$set(
-                                                  _vm.educenter,
-                                                  "facilities_en",
-                                                  $$v
-                                                )
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                label: _vm.$t("ar_info"),
                                               },
-                                              expression:
-                                                "educenter.facilities_en",
                                             },
-                                          }),
+                                            [
+                                              _c("vue-editor", {
+                                                model: {
+                                                  value: _vm.educenter.ar_info,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.educenter,
+                                                      "ar_info",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "educenter.ar_info",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "validation-provider",
+                                    {
+                                      attrs: {
+                                        name: "category",
+                                        rules: { required: true },
+                                      },
+                                    },
+                                    [
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                label: _vm.$t("facilities_ar"),
+                                              },
+                                            },
+                                            [
+                                              _c("vue-editor", {
+                                                model: {
+                                                  value:
+                                                    _vm.educenter.facilities_ar,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.educenter,
+                                                      "facilities_ar",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "educenter.facilities_ar",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
+                                        ],
+                                        1
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "validation-provider",
+                                    {
+                                      attrs: {
+                                        name: "category",
+                                        rules: { required: true },
+                                      },
+                                    },
+                                    [
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "12" },
+                                        },
+                                        [
+                                          _c(
+                                            "b-form-group",
+                                            {
+                                              attrs: {
+                                                label: _vm.$t("facilities_en"),
+                                              },
+                                            },
+                                            [
+                                              _c("vue-editor", {
+                                                model: {
+                                                  value:
+                                                    _vm.educenter.facilities_en,
+                                                  callback: function ($$v) {
+                                                    _vm.$set(
+                                                      _vm.educenter,
+                                                      "facilities_en",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression:
+                                                    "educenter.facilities_en",
+                                                },
+                                              }),
+                                            ],
+                                            1
+                                          ),
                                         ],
                                         1
                                       ),
@@ -2303,7 +2364,7 @@ var render = function () {
                                           ],
                                           null,
                                           false,
-                                          2802929748
+                                          2475000148
                                         ),
                                       }),
                                     ],

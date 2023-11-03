@@ -148,37 +148,40 @@
                   </validation-provider>
                 </b-col>
 
-
+                <validation-provider name="category" :rules="{ required: true }">
                 <b-col md="12" class="mb-2">
                   <b-form-group :label="$t('en_info')">
                     <vue-editor v-model="educenter.en_info" />
                   </b-form-group>
                 </b-col>
+       </validation-provider>
 
-
-
+       <validation-provider name="category" :rules="{ required: true }">
                 <b-col md="12" class="mb-2">
                   <b-form-group :label="$t('ar_info')">
                     <vue-editor v-model="educenter.ar_info" />
                   </b-form-group>
                 </b-col>
+</validation-provider>
 
 
-
+<validation-provider name="category" :rules="{ required: true }">
                 <b-col md="12" class="mb-2">
                   <b-form-group :label="$t('facilities_ar')">
                     <vue-editor v-model="educenter.facilities_ar" />
                   </b-form-group>
                 </b-col>
+</validation-provider>
 
 
 
+         <validation-provider name="category" :rules="{ required: true }">
                 <b-col md="12" class="mb-2">
                   <b-form-group :label="$t('facilities_en')">
                     <vue-editor v-model="educenter.facilities_en" />
                   </b-form-group>
                 </b-col>
-
+         </validation-provider>
 
 
                 <b-col md="12" class="mb-2">
