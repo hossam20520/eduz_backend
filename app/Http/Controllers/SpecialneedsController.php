@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 use App\Exports\SpecialneedsExport;
 use App\Models\Specialneed;
 use App\Models\Area;
+use App\Models\Gov;
+
 use App\Models\Section;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Institution;
@@ -127,33 +129,19 @@ class SpecialneedsController extends BaseController
                 $Specialneed =  $helpers->store( $Specialneed , $request);
 
  
+             
+                $Specialneed =  $helpers->store($Specialneed , $request);
+ 
 
-                if ($request['images']) {
-                    $files = $request['images'];
-                    foreach ($files as $file) {
-                        $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])) );
-                        // $fileData->resize(200, 200);
-                        $name = rand(11111111, 99999999) . $file['name'];
-                        // $path = public_path() . '/images/educations/';
-                        // $success = file_put_contents($path . $name, $fileData);
-                        $file = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])); // Remove base64 prefix
-                        // $image = Image::make(base64_decode($file));
-                        $path = 'images/educations/' . $name;
+             $helpers = new helpers();
+             $images =  $helpers->StoreImagesV($request , "images");
+             $images_tow =   $helpers->StoreImagesV($request , "images_tow");
 
-                        // Upload the image to S3
-                        Storage::disk('s3')->put($path, $file);
-
-                        $images[] = $name;
-                    }
-                    $filename = implode(",", $images);
-                } else {
-                    $filename = 'no-image.png';
-                }
-
-                $Specialneed->image = $filename;
+   
+                $Specialneed->image =  $images;
+                $Specialneed->images_tow =  $images_tow ;
                 $Specialneed->save();
-
-  
+      
 
             }, 10);
 
@@ -562,8 +550,9 @@ class SpecialneedsController extends BaseController
         // $this->authorizeForUser($request->user('api'), 'create', Specialneed::class);
         $Specialneed_data = Institution::where('deleted_at', '=', null)->get(['id', 'ar_name']);
         $area = Area::where('deleted_at', '=', null)->get(['id', 'ar_name']);
-
+        $govs = Gov::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
         return response()->json([
+            'govs' => $govs , 
             'specialneeds' =>  $Specialneed_data ,
             'areas' =>  $area
         ]);

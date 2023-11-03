@@ -116,17 +116,7 @@ class SchoolsController extends BaseController
                 $helpers = new helpers();
                 $School = new School;
                 $School =  $helpers->store($School , $request);
-                //-- Create New School
-                // $School = new School;
-                //-- Field Required
-
-
-
-
-
-
-                
-
+ 
 
              $helpers = new helpers();
              $images =  $helpers->StoreImagesV($request , "images");
