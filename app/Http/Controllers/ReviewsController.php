@@ -123,20 +123,23 @@ class ReviewsController extends Controller
             $Review->save();
 
 
-            // $factory = (new Factory)->withServiceAccount(config('services.firebase.credentials.file'));
-            // $firestore = $factory->createFirestore();
-            // $databases = $firestore->database();
-            // $testRe = $databases->collection('users')->newDocument();
+
+     
+            
+            $factory = (new Factory)->withServiceAccount(config('services.firebase.credentials.file'));
+            $firestore = $factory->createFirestore();
+            $databases = $firestore->database();
+            $testRe = $databases->collection('notifications')->newDocument();
     
-            // $testRe->set([
-            //    "id"=> $User->id,
-            //    "name"=> $request['firstname']. " ".$request['lastname'] ,
-            //    "email"=>  $request['email'],
-            //    "phone"=> $request['phone'],
-            //    "avatar"=> "/images/avatar/".$filename,
-            //    "status"=> "online",
-            //    "time"=> Carbon::now(),
-            // ]);
+            $testRe->set([
+               "message"=>  "Click here to have a review"  ,
+               "rate_id"=>  $Review->id ,
+               "status"=>   "unread",
+               "title"=>  "Reveiw",
+               "url"=> " ",
+               "user_id"=> $request['user_id'],
+              
+            ]);
 
 
 
