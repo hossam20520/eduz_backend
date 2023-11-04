@@ -146,6 +146,8 @@ class InstitutionsController extends Controller
               $item['id'] = $deal->id;
               $item['ar_name'] = $deal->name;
               $item['en_name'] = $deal->code;
+
+
               $item['type'] = $type;
               $firstimage = explode(',', $deal->image);
               $item['image'] =   '/public/images/products/'. $firstimage[0];
@@ -159,6 +161,10 @@ class InstitutionsController extends Controller
               $item['ar_name'] = $deal->ar_name;
               $item['en_name'] = $deal->en_name;
               $item['type'] = $type;
+              $item['ar_address'] = $deal->ar_address;
+              $item['en_address'] = $deal->en_address;
+              $item['acti']  = $deal->actives;
+
               $firstimage = explode(',', $deal->image);
               $item['image'] =   '/public/images/educations/'. $firstimage[0];
               $data[] = $item;
