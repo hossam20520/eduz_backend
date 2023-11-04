@@ -210,82 +210,21 @@ class EducentersController extends BaseController
                     ->first();
  
 
+ 
+ 
+ 
+                     
+                $helpers = new helpers();
+                $Educenter =  $helpers->store($Educenter , $request);
+
+                  $imagesa  = $helpers->updateImagesActiv($request , $Educenter->image,  "images");
+                  $images_tow  = $helpers->updateImagesActiv($request , $Educenter->images_tow,  "images_tow");
+                $Educenter->image =  $imagesa;
+                $Educenter->images_tow =  $images_tow;
+                $Educenter->save();
                     
                 //-- Update Educenter
-                $Educenter->en_info = $request['en_info'];
-                $Educenter->ar_info = $request['ar_info'];
-                $Educenter->facilities_ar = $request['facilities_ar'];
-                $Educenter->facilities_en = $request['facilities_en'];
-                $Educenter->activities_ar = $request['activities_ar'];
-                $Educenter->activities_en = $request['activities_en'];
-                $Educenter->url = $request['url'];
-                $Educenter->phone = $request['phone'];
-                $Educenter->share = $request['share'];
-
-                $Educenter->en_name = $request['en_name'];
-                $Educenter->ar_name = $request['ar_name'];
-
-                $Educenter->area_id = $request['area_id'];
-                
-
-                // $Educenter->activities_image = $request['activities_image'];
-                // $Educenter->institution_id = $request['institution_id'];
-                $Educenter->institution_id = $request['institution_id'];
-                $Educenter->lat = $request['lat'];
-                $Educenter->long_a = $request['long'];
-
- 
-
-
- 
-                $Educenter->selected_ids = $request['selected_ids'];
-                 
-         
-         
-    
-
-
- 
-
-                if ($request['images'] === null) {
-
-                    if ($Educenter->image !== null) {
-                        foreach (explode(',', $Educenter->image) as $img) {
-                            $pathIMG = public_path() . '/images/educations/' . $img;
-                            if (file_exists($pathIMG)) {
-                                if ($img != 'no-image.png') {
-                                    @unlink($pathIMG);
-                                }
-                            }
-                        }
-                    }
-                    $filename = 'no-image.png';
-                } else {
-                    if ($Educenter->image !== null) {
-                        foreach (explode(',', $Educenter->image) as $img) {
-                            $pathIMG = public_path() . '/images/educations/' . $img;
-                            if (file_exists($pathIMG)) {
-                                if ($img != 'no-image.png') {
-                                    @unlink($pathIMG);
-                                }
-                            }
-                        }
-                    }
-                    $files = $request['images'];
-                    foreach ($files as $file) {
-                        $fileData =  base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path']));
-                        // $fileData->resize(200, 200);
-                        $name = rand(11111111, 99999999) . $file['name'];
-                        $path = public_path() . '/images/educations/';
-                        $success = file_put_contents($path . $name, $fileData);
-                        $images[] = $name;
-                    }
-                    $filename = implode(",", $images);
-                }
-
-                $Educenter->image = $filename;
-                $Educenter->save();
-
+              
             }, 10);
 
             return response()->json(['success' => true]);
