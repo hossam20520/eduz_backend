@@ -221,11 +221,23 @@ class InstitutionsController extends Controller
               if( $area_id  != "0"){
                 $query->where('area_id', $area_id);
               }
+
         
+              // foreach ($idsArray as $id) {
+              //   // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+        
+
+
+                
+              //   }
+
+              // foreach ($idsArray as $id) {
+              // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
               
-              foreach ($idsArray as $id) {
-              $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-              }
+              // }
+
+
+
            
             //   $query->where(function ($query) use ($idsArray) {
             //     foreach ($idsArray as $id) {
@@ -233,8 +245,11 @@ class InstitutionsController extends Controller
             //     }
             // });  
 
-              $results = $query->get();
-
+              // $results = $query->get();
+              $results = $query->whereIn('id', $idsArray)
+              ->groupBy('id')
+              ->havingRaw('COUNT(*)', '=', count($idsArray))
+              ->get();
 
               $count = $query->count();
 
