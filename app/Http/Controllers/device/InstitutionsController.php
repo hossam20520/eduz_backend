@@ -221,12 +221,12 @@ class InstitutionsController extends Controller
               // if( $area_id  != "0"){
               //   $query->where('area_id', $area_id);
               // }
+              $idsToRemove = [9, 10]; // Numbers to be removed
 
+              $idsArray = array_diff($idsArray, $idsToRemove);
         
               foreach ($idsArray as $id) {
-                if($id == 9){
-                  $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-                }
+             
                 $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
       
                 }
