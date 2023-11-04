@@ -253,15 +253,15 @@ class InstitutionsController extends Controller
       }
 
 
-
-      
+ 
+        $EDUCENTERS = $this->GetSearchData(Educenter::class ,   $request->search , "EDUCENTERS" , $offSet ,$perPage   ,  $order  ,  $dir );
       $SCHOOLS = $this->GetSearchData(School::class ,   $request->search , "SCHOOLS" , $offSet ,$perPage   ,  $order  ,  $dir );
       $KINDERGARTENS = $this->GetSearchData(Kindergarten::class ,   $request->search , "KINDERGARTENS" , $offSet ,$perPage   ,  $order  ,  $dir );
       $SPECIALNEEDS = $this->GetSearchData(Specialneed::class ,   $request->search , "SPECIALNEEDS" , $offSet ,$perPage   ,  $order  ,  $dir );
       $UNIVERSITIES = $this->GetSearchData(Universitie::class ,   $request->search , "UNIVERSITIES" , $offSet ,$perPage   ,  $order  ,  $dir );
       $CENTERS = $this->GetSearchData(Center::class ,   $request->search , "CENTERS" , $offSet ,$perPage   ,  $order  ,  $dir );
       $EDUSERVICES = $this->GetSearchData(Product::class ,   $request->search , "EDUSERVICES" , $offSet ,$perPage   ,  $order  ,  $dir );
-      $allResults = array_merge($SCHOOLS, $KINDERGARTENS, $SPECIALNEEDS, $UNIVERSITIES, $CENTERS , $EDUSERVICES);
+      $allResults = array_merge($SCHOOLS, $KINDERGARTENS, $SPECIALNEEDS, $UNIVERSITIES, $CENTERS , $EDUSERVICES ,  $EDUCENTERS);
 
 
       return response()->json([
@@ -641,7 +641,10 @@ public function MapData(Request $request){
     } else if($type == "EDUCENTERS"){
       $model  = Specialneed::class;
     } 
-
+    else if( $typeinsta == "EDUCENTERS"){
+      $model  = Educenter::class;
+    }
+    
      $dataa  = $model::where('deleted_at', '=', null )->orderBy('id', 'desc')->get(['ar_name' , 'id',  'en_name' , 'lat', 'long_a' , 'image']);
 
    
@@ -690,7 +693,9 @@ public function GetTheInstDetailNoAuth(Request $request ){
     $model  = Specialneed::class;
   }else if($type == "UNIVERSITIES"){
     $model  = Universitie::class;
-  } 
+  } else if( $typeinsta == "EDUCENTERS"){
+    $model  = Educenter::class;
+  }
 
   $data  = $model::where('id' , $id )->first();
   // $model->getFavAttribute(true);
@@ -740,7 +745,9 @@ public function GetTheInstDetailNoAuth(Request $request ){
         $model  = Specialneed::class;
       }else if($type == "UNIVERSITIES"){
         $model  = Universitie::class;
-      } 
+      }  else if( $typeinsta == "EDUCENTERS"){
+        $model  = Educenter::class;
+      }
 
       $data  = $model::where('id' , $id )->first();
       
