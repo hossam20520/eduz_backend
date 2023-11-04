@@ -224,6 +224,9 @@ class InstitutionsController extends Controller
 
         
               foreach ($idsArray as $id) {
+                if($id == 9){
+                  $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                }
                 $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
       
                 }
