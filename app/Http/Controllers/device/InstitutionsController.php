@@ -648,9 +648,9 @@ public function MapData(Request $request){
     }else if($type == "SPECIALNEEDS"){
       $model  = Specialneed::class;
     }  
-    else if( $typeinsta == "EDUCENTERS"){
+    else if( $type == "EDUCENTERS"){
       $model  = Educenter::class;
-    } else if( $typeinsta == "UNIVERSITIES"){
+    } else if( $type == "UNIVERSITIES"){
       $model  = Universitie::class;
     }
     
