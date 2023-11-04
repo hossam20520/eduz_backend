@@ -236,6 +236,9 @@ class InstitutionsController extends Controller
               $item['id'] = $da->id;
               $item['ar_name'] = $da->ar_name;
               $item['en_name'] = $da->en_name;
+              $item['ar_address'] = $da->ar_address;
+              $item['en_address'] = $da->en_address;
+              $item['acti']  = $da->actives;
               $item['type'] =  $typeinsta;
               $firstimage = explode(',', $da->image);
          
