@@ -218,9 +218,9 @@ class InstitutionsController extends Controller
          
               $query = $model::query();
               
-              if( $area_id  != "0"){
-                $query->where('area_id', $area_id);
-              }
+              // if( $area_id  != "0"){
+              //   $query->where('area_id', $area_id);
+              // }
 
         
               foreach ($idsArray as $id) {
