@@ -223,13 +223,10 @@ class InstitutionsController extends Controller
               }
 
         
-              // foreach ($idsArray as $id) {
-              //   // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-        
-
-
-                
-              //   }
+              foreach ($idsArray as $id) {
+                $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+      
+                }
 
               // foreach ($idsArray as $id) {
               // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
@@ -245,11 +242,11 @@ class InstitutionsController extends Controller
             //     }
             // });  
 
-              // $results = $query->get();
-              $results = $query->whereIn('id', $idsArray)
-              ->groupBy('id')
-              ->havingRaw('COUNT(*)', '=', count($idsArray))
-              ->get();
+              $results = $query->get();
+              // $results = $query->whereIn('id', $idsArray)
+              // ->groupBy('id')
+              // ->havingRaw('COUNT(*)', '=', count($idsArray))
+              // ->get();
 
               $count = $query->count();
 
