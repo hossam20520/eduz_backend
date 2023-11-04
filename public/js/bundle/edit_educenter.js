@@ -938,7 +938,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       }
 
-      self.data.append("_method", "put"); //send Data with axios
+      self.data.append("_method", "put");
+      console.log("dddddddddd"); //send Data with axios
 
       axios.post("Educenters/" + this.educenter.id, self.data).then(function (response) {
         nprogress__WEBPACK_IMPORTED_MODULE_2___default.a.done();
@@ -1558,7 +1559,7 @@ var render = function () {
                                                             },
                                                             placeholder:
                                                               _vm.$t(
-                                                                "choosGov"
+                                                                "chxxoosGov"
                                                               ),
                                                             options:
                                                               _vm.govs.map(
@@ -1612,7 +1613,7 @@ var render = function () {
                                               ],
                                               null,
                                               false,
-                                              3150771815
+                                              2181250663
                                             ),
                                           }),
                                         ],

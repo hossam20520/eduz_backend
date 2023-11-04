@@ -3,8 +3,9 @@ namespace App\Http\Controllers;
 use App\Exports\EducentersExport;
 use App\Models\Educenter;
 use App\Models\Area;
-use App\Models\Gov;
 use App\Models\Section;
+use App\Models\Gov;
+
 
 use App\Models\Institution;
 use App\utils\helpers;
@@ -17,7 +18,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
 use \Gumlet\ImageResize;
-
+use Intervention\Image\ImageManagerStatic as Image;
 
 class EducentersController extends BaseController
 {
@@ -61,7 +62,8 @@ class EducentersController extends BaseController
             $item['en_name'] = $educenter->en_name;
             $item['ar_name'] = $educenter->ar_name;
 
-        
+          
+
             $item['en_info'] = $educenter->en_info;
             $item['ar_info'] = $educenter->ar_info;
             $item['facilities_ar'] = $educenter->facilities_ar;
@@ -110,16 +112,13 @@ class EducentersController extends BaseController
 
             \DB::transaction(function () use ($request) {
 
-
-
-
+ 
                 $helpers = new helpers();
                 $Educenter = new Educenter;
                 $Educenter =  $helpers->store($Educenter , $request);
+ 
 
-
-
-             $helpers = new helpers();
+          
              $images =  $helpers->StoreImagesV($request , "images");
              $images_tow =   $helpers->StoreImagesV($request , "images_tow");
 
@@ -128,8 +127,7 @@ class EducentersController extends BaseController
                 $Educenter->images_tow =  $images_tow ;
                 $Educenter->save();
 
-
- 
+  
 
             }, 10);
 
@@ -192,6 +190,62 @@ class EducentersController extends BaseController
         return response()->json($result);
     }
 
+
+public function StoreImage($name , $pathUrl , $request){
+    if ($request->hasFile($name)) {
+
+        $image = $request->file($name);
+        $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+        $image_resize = Image::make($image->getRealPath());
+        // $image_resize->resize(200, 200);
+        $image_resize->save(public_path('/images/'.$pathUrl."/".$filename_logo));
+
+    } else {
+        $filename_logo = 'no-image.png';
+    }
+
+ 
+
+    return  $filename_logo;
+}
+
+  public function UpdateImage($name , $pathURL , $request ,  $requImage , $currentImage ){
+    if ($currentImage &&  $requImage != $currentImage) {
+        $image = $request->file($name);
+        $path = public_path() . '/images/'. $pathURL;
+        $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+        $image_resize = Image::make($image->getRealPath());
+        // $image_resize->resize(200, 200);
+        $image_resize->save(public_path('/images/'.$pathURL.'/'. $filename_logo));
+
+        $BrandImage = $path . '/' . $currentImage;
+        if (file_exists($BrandImage)) {
+            if ($currentImage != 'no-image.png') {
+                @unlink($BrandImage);
+            }
+        }
+    } else if (!$currentImage && $requImage !='null'){
+        $image = $request->file($name);
+        $path = public_path() . '/images/'.$pathURL;
+        $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+        $image_resize = Image::make($image->getRealPath());
+        // $image_resize->resize(200, 200);
+        $image_resize->save(public_path('/images/'.$pathURL.'/'.  $filename_logo));
+    }
+
+    else {
+        $filename_logo = $currentImage?$currentImage:'no-image.png';
+    }
+
+
+    return $filename_logo;
+  }
+
+
+
     public function update(Request $request, $id)
     {
         // $this->authorizeForUser($request->user('api'), 'update', Educenter::class);
@@ -209,9 +263,6 @@ class EducentersController extends BaseController
                     ->where('deleted_at', '=', null)
                     ->first();
  
-
- 
- 
  
                      
                 $helpers = new helpers();
@@ -222,9 +273,7 @@ class EducentersController extends BaseController
                 $Educenter->image =  $imagesa;
                 $Educenter->images_tow =  $images_tow;
                 $Educenter->save();
-                    
-                //-- Update Educenter
-              
+
             }, 10);
 
             return response()->json(['success' => true]);
@@ -361,74 +410,7 @@ class EducentersController extends BaseController
 
     //------------ Get Educenters By Warehouse -----------------\
 
-    public function Educenters_by_Warehouse(request $request, $id)
-    {
-        $data = [];
-        $educenter_warehouse_data = educenter_warehouse::with('warehouse', 'Educenter', 'educenterVariant')
-            ->where('warehouse_id', $id)
-            ->where('deleted_at', '=', null)
-            ->where(function ($query) use ($request) {
-                if ($request->stock == '1') {
-                    return $query->where('qte', '>', 0);
-                }
-            })->get();
-
-        foreach ($educenter_warehouse_data as $educenter_warehouse) {
-
-            if ($educenter_warehouse->educenter_variant_id) {
-                $item['educenter_variant_id'] = $educenter_warehouse->educenter_variant_id;
-                $item['code'] = $educenter_warehouse['educenterVariant']->name . '-' . $educenter_warehouse['educenter']->code;
-                $item['Variant'] = $educenter_warehouse['educenterVariant']->name;
-            } else {
-                $item['educenter_variant_id'] = null;
-                $item['Variant'] = null;
-                $item['code'] = $educenter_warehouse['educenter']->code;
-            }
-
-            $item['id'] = $educenter_warehouse->educenter_id;
-            $item['name'] = $educenter_warehouse['educenter']->name;
-            $item['barcode'] = $educenter_warehouse['educenter']->code;
-            $item['Type_barcode'] = $educenter_warehouse['educenter']->Type_barcode;
-            $firstimage = explode(',', $educenter_warehouse['educenter']->image);
-            $item['image'] = $firstimage[0];
-
-            if ($educenter_warehouse['educenter']['unitSale']->operator == '/') {
-                $item['qte_sale'] = $educenter_warehouse->qte * $educenter_warehouse['educenter']['unitSale']->operator_value;
-                $price = $educenter_warehouse['educenter']->price / $educenter_warehouse['educenter']['unitSale']->operator_value;
-            } else {
-                $item['qte_sale'] = $educenter_warehouse->qte / $educenter_warehouse['educenter']['unitSale']->operator_value;
-                $price = $educenter_warehouse['educenter']->price * $educenter_warehouse['educenter']['unitSale']->operator_value;
-            }
-
-            if ($educenter_warehouse['educenter']['unitPurchase']->operator == '/') {
-                $item['qte_purchase'] = round($educenter_warehouse->qte * $educenter_warehouse['educenter']['unitPurchase']->operator_value, 5);
-            } else {
-                $item['qte_purchase'] = round($educenter_warehouse->qte / $educenter_warehouse['educenter']['unitPurchase']->operator_value, 5);
-            }
-
-            $item['qte'] = $educenter_warehouse->qte;
-            $item['unitSale'] = $educenter_warehouse['educenter']['unitSale']->ShortName;
-            $item['unitPurchase'] = $educenter_warehouse['educenter']['unitPurchase']->ShortName;
-
-            if ($educenter_warehouse['educenter']->TaxNet !== 0.0) {
-                //Exclusive
-                if ($educenter_warehouse['educenter']->tax_method == '1') {
-                    $tax_price = $price * $educenter_warehouse['educenter']->TaxNet / 100;
-                    $item['Net_price'] = $price + $tax_price;
-                    // Inxclusive
-                } else {
-                    $item['Net_price'] = $price;
-                }
-            } else {
-                $item['Net_price'] = $price;
-            }
-
-            $data[] = $item;
-        }
-
-        return response()->json($data);
-    }
-
+ 
     //------------ Get educenter By ID -----------------\
 
     public function show($id)
@@ -471,8 +453,6 @@ class EducentersController extends BaseController
             'areas' =>  $area
         ]);
 
- 
-
     }
 
  
@@ -486,14 +466,20 @@ class EducentersController extends BaseController
     
         // $this->authorizeForUser($request->user('api'), 'update', Educenter::class);
         $Educenter = Educenter::where('deleted_at', '=', null)->findOrFail($id);
+        
+        
         $helpers = new helpers();
         $item =  $helpers->edit( $Educenter );
+        // $images = $helpers->editImageV($Educenter->image, "images",  "image");
+        // $images_tow = $helpers->editImageV($Educenter->images_tow, "images_tow",  "image_tow");
+        
+
+        // $item[]   = $images;
+        // $item[]   =  $images_tow;
+
 
         $firstimage = explode(',', $Educenter->image);
         $item['image'] = $firstimage[0];
-          
- 
- 
         $item['images'] = [];
         if ($Educenter->image != '' && $Educenter->image != 'no-image.png') {
             foreach (explode(',', $Educenter->image) as $img) {
@@ -510,18 +496,47 @@ class EducentersController extends BaseController
         } else {
             $item['images'] = [];
         }
- 
+
+
+
+
+
+
+        $firstimage = explode(',', $Educenter->images_tow);
+        $item['image_tow'] = $firstimage[0];
+        $item['images_tow'] = [];
+        if ($Educenter->images_tow != '' && $Educenter->images_tow != 'no-image.png') {
+            foreach (explode(',', $Educenter->images_tow) as $img) {
+                $path = public_path() . '/images/educations/' . $img;
+                if (file_exists($path)) {
+                    $itemImg['name'] = $img;
+                    $type = pathinfo($path, PATHINFO_EXTENSION);
+                    $data = file_get_contents($path);
+                    $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+                    $item['images_tow'][] = $itemImg;
+                }
+            }
+        } else {
+            $item['images_tow'] = [];
+        }
+
+
+        // $item[]   = $images_tow;
+
+        // $data = array();
+       
         $data = $item;
-
-
-        
+ 
         $area = Area::where('deleted_at', '=', null)->get(['id', 'ar_name']);
         $drops =  $this->getSectionsWithDrops( $Educenter->selected_ids);
         $goves = Gov::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
         return response()->json([
-            'educenter' => $data,
+           
+            'educenter' => $data, 
             'govs' => $goves,
             'drops' => $drops,
+       
             'educenters' =>  $Educenter_data ,
             'areas'=>$area 
         ]);

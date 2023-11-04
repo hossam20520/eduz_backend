@@ -3,10 +3,10 @@ namespace App\Http\Controllers;
 use App\Exports\SpecialneedsExport;
 use App\Models\Specialneed;
 use App\Models\Area;
+use App\Models\Section;
 use App\Models\Gov;
 
-use App\Models\Section;
-use Illuminate\Support\Facades\Storage;
+
 use App\Models\Institution;
 use App\utils\helpers;
 use Carbon\Carbon;
@@ -18,7 +18,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
 use \Gumlet\ImageResize;
-use Intervention\Image\Facades\Image; 
+use Intervention\Image\ImageManagerStatic as Image;
 
 class SpecialneedsController extends BaseController
 {
@@ -112,28 +112,13 @@ class SpecialneedsController extends BaseController
 
             \DB::transaction(function () use ($request) {
 
-
-
-
-                
-    
-      
  
- 
-
-                //-- Create New Specialneed
-                $Specialneed = new Specialneed;
-
                 $helpers = new helpers();
-           
-                $Specialneed =  $helpers->store( $Specialneed , $request);
-
- 
-             
+                $Specialneed = new Specialneed;
                 $Specialneed =  $helpers->store($Specialneed , $request);
  
 
-             $helpers = new helpers();
+          
              $images =  $helpers->StoreImagesV($request , "images");
              $images_tow =   $helpers->StoreImagesV($request , "images_tow");
 
@@ -141,7 +126,8 @@ class SpecialneedsController extends BaseController
                 $Specialneed->image =  $images;
                 $Specialneed->images_tow =  $images_tow ;
                 $Specialneed->save();
-      
+
+  
 
             }, 10);
 
@@ -204,6 +190,62 @@ class SpecialneedsController extends BaseController
         return response()->json($result);
     }
 
+
+public function StoreImage($name , $pathUrl , $request){
+    if ($request->hasFile($name)) {
+
+        $image = $request->file($name);
+        $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+        $image_resize = Image::make($image->getRealPath());
+        // $image_resize->resize(200, 200);
+        $image_resize->save(public_path('/images/'.$pathUrl."/".$filename_logo));
+
+    } else {
+        $filename_logo = 'no-image.png';
+    }
+
+ 
+
+    return  $filename_logo;
+}
+
+  public function UpdateImage($name , $pathURL , $request ,  $requImage , $currentImage ){
+    if ($currentImage &&  $requImage != $currentImage) {
+        $image = $request->file($name);
+        $path = public_path() . '/images/'. $pathURL;
+        $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+        $image_resize = Image::make($image->getRealPath());
+        // $image_resize->resize(200, 200);
+        $image_resize->save(public_path('/images/'.$pathURL.'/'. $filename_logo));
+
+        $BrandImage = $path . '/' . $currentImage;
+        if (file_exists($BrandImage)) {
+            if ($currentImage != 'no-image.png') {
+                @unlink($BrandImage);
+            }
+        }
+    } else if (!$currentImage && $requImage !='null'){
+        $image = $request->file($name);
+        $path = public_path() . '/images/'.$pathURL;
+        $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+        $image_resize = Image::make($image->getRealPath());
+        // $image_resize->resize(200, 200);
+        $image_resize->save(public_path('/images/'.$pathURL.'/'.  $filename_logo));
+    }
+
+    else {
+        $filename_logo = $currentImage?$currentImage:'no-image.png';
+    }
+
+
+    return $filename_logo;
+  }
+
+
+
     public function update(Request $request, $id)
     {
         // $this->authorizeForUser($request->user('api'), 'update', Specialneed::class);
@@ -221,94 +263,15 @@ class SpecialneedsController extends BaseController
                     ->where('deleted_at', '=', null)
                     ->first();
  
-
-
-                    $Specialneed = new Specialneed;
-                    $helpers = new helpers();
-                    $Specialneed =  $helpers->store( $Specialneed , $request);
-
-                    
-                    
-                    // institution_id
-
-
  
+                     
+                $helpers = new helpers();
+                $Specialneed =  $helpers->store($Specialneed , $request);
 
-                // if ($request['images'] === null) {
-
-                //     if ($Specialneed->image !== null) {
-                //         foreach (explode(',', $Specialneed->image) as $img) {
-                //             $pathIMG = public_path() . '/images/educations/' . $img;
-                //             if (file_exists($pathIMG)) {
-                //                 if ($img != 'no-image.png') {
-                //                     @unlink($pathIMG);
-                //                 }
-                //             }
-                //         }
-                //     }
-                //     $filename = 'no-image.png';
-                // } else {
-                //     if ($Specialneed->image !== null) {
-                //         foreach (explode(',', $Specialneed->image) as $img) {
-                //             $pathIMG = public_path() . '/images/educations/' . $img;
-                //             if (file_exists($pathIMG)) {
-                //                 if ($img != 'no-image.png') {
-                //                     @unlink($pathIMG);
-                //                 }
-                //             }
-                //         }
-                //     }
-                //     $files = $request['images'];
-                //     foreach ($files as $file) {
-                //         $fileData =  base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path']));
-                //         // $fileData->resize(200, 200);
-                //         $name = rand(11111111, 99999999) . $file['name'];
-                //         $path = public_path() . '/images/educations/';
-                //         $success = file_put_contents($path . $name, $fileData);
-                //         $images[] = $name;
-                //     }
-                //     $filename = implode(",", $images);
-                // }
-
-
-
-                if ($request['images'] === null) {
-                    if ($Specialneed->image !== null) {
-                        foreach (explode(',', $Specialneed->image) as $img) {
-                            $s3Path = 'images/educations/' . $img;
-                
-                            if (Storage::disk('s3')->exists($s3Path)) {
-                                Storage::disk('s3')->delete($s3Path);
-                            }
-                        }
-                    }
-                    $filename = 'no-image.png';
-                } else {
-                    if ($Specialneed->image !== null) {
-                        foreach (explode(',', $Specialneed->image) as $img) {
-                            $s3Path = 'images/educations/' . $img;
-                
-                            if (Storage::disk('s3')->exists($s3Path)) {
-                                Storage::disk('s3')->delete($s3Path);
-                            }
-                        }
-                    }
-                
-                    $images = [];
-                
-                    foreach ($request['images'] as $file) {
-                        $fileData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path']));
-                        $name = rand(11111111, 99999999) . $file['name'];
-                        $s3Path = 'images/educations/' . $name;
-                
-                        Storage::disk('s3')->put($s3Path, $fileData);
-                        $images[] = $name;
-                    }
-                
-                    $filename = implode(",", $images);
-                }
-
-                $Specialneed->image = $filename;
+                  $imagesa  = $helpers->updateImagesActiv($request , $Specialneed->image,  "images");
+                  $images_tow  = $helpers->updateImagesActiv($request , $Specialneed->images_tow,  "images_tow");
+                $Specialneed->image =  $imagesa;
+                $Specialneed->images_tow =  $images_tow;
                 $Specialneed->save();
 
             }, 10);
@@ -447,74 +410,7 @@ class SpecialneedsController extends BaseController
 
     //------------ Get Specialneeds By Warehouse -----------------\
 
-    public function Specialneeds_by_Warehouse(request $request, $id)
-    {
-        $data = [];
-        $specialneed_warehouse_data = specialneed_warehouse::with('warehouse', 'Specialneed', 'specialneedVariant')
-            ->where('warehouse_id', $id)
-            ->where('deleted_at', '=', null)
-            ->where(function ($query) use ($request) {
-                if ($request->stock == '1') {
-                    return $query->where('qte', '>', 0);
-                }
-            })->get();
-
-        foreach ($specialneed_warehouse_data as $specialneed_warehouse) {
-
-            if ($specialneed_warehouse->specialneed_variant_id) {
-                $item['specialneed_variant_id'] = $specialneed_warehouse->specialneed_variant_id;
-                $item['code'] = $specialneed_warehouse['specialneedVariant']->name . '-' . $specialneed_warehouse['specialneed']->code;
-                $item['Variant'] = $specialneed_warehouse['specialneedVariant']->name;
-            } else {
-                $item['specialneed_variant_id'] = null;
-                $item['Variant'] = null;
-                $item['code'] = $specialneed_warehouse['specialneed']->code;
-            }
-
-            $item['id'] = $specialneed_warehouse->specialneed_id;
-            $item['name'] = $specialneed_warehouse['specialneed']->name;
-            $item['barcode'] = $specialneed_warehouse['specialneed']->code;
-            $item['Type_barcode'] = $specialneed_warehouse['specialneed']->Type_barcode;
-            $firstimage = explode(',', $specialneed_warehouse['specialneed']->image);
-            $item['image'] = $firstimage[0];
-
-            if ($specialneed_warehouse['specialneed']['unitSale']->operator == '/') {
-                $item['qte_sale'] = $specialneed_warehouse->qte * $specialneed_warehouse['specialneed']['unitSale']->operator_value;
-                $price = $specialneed_warehouse['specialneed']->price / $specialneed_warehouse['specialneed']['unitSale']->operator_value;
-            } else {
-                $item['qte_sale'] = $specialneed_warehouse->qte / $specialneed_warehouse['specialneed']['unitSale']->operator_value;
-                $price = $specialneed_warehouse['specialneed']->price * $specialneed_warehouse['specialneed']['unitSale']->operator_value;
-            }
-
-            if ($specialneed_warehouse['specialneed']['unitPurchase']->operator == '/') {
-                $item['qte_purchase'] = round($specialneed_warehouse->qte * $specialneed_warehouse['specialneed']['unitPurchase']->operator_value, 5);
-            } else {
-                $item['qte_purchase'] = round($specialneed_warehouse->qte / $specialneed_warehouse['specialneed']['unitPurchase']->operator_value, 5);
-            }
-
-            $item['qte'] = $specialneed_warehouse->qte;
-            $item['unitSale'] = $specialneed_warehouse['specialneed']['unitSale']->ShortName;
-            $item['unitPurchase'] = $specialneed_warehouse['specialneed']['unitPurchase']->ShortName;
-
-            if ($specialneed_warehouse['specialneed']->TaxNet !== 0.0) {
-                //Exclusive
-                if ($specialneed_warehouse['specialneed']->tax_method == '1') {
-                    $tax_price = $price * $specialneed_warehouse['specialneed']->TaxNet / 100;
-                    $item['Net_price'] = $price + $tax_price;
-                    // Inxclusive
-                } else {
-                    $item['Net_price'] = $price;
-                }
-            } else {
-                $item['Net_price'] = $price;
-            }
-
-            $data[] = $item;
-        }
-
-        return response()->json($data);
-    }
-
+ 
     //------------ Get specialneed By ID -----------------\
 
     public function show($id)
@@ -571,60 +467,76 @@ class SpecialneedsController extends BaseController
         // $this->authorizeForUser($request->user('api'), 'update', Specialneed::class);
         $Specialneed = Specialneed::where('deleted_at', '=', null)->findOrFail($id);
         
-
+        
         $helpers = new helpers();
-        $item =  $helpers->edit( $Specialneed  );
-         
+        $item =  $helpers->edit( $Specialneed );
+        // $images = $helpers->editImageV($Specialneed->image, "images",  "image");
+        // $images_tow = $helpers->editImageV($Specialneed->images_tow, "images_tow",  "image_tow");
+        
+
+        // $item[]   = $images;
+        // $item[]   =  $images_tow;
+
 
         $firstimage = explode(',', $Specialneed->image);
         $item['image'] = $firstimage[0];
-        
- 
         $item['images'] = [];
         if ($Specialneed->image != '' && $Specialneed->image != 'no-image.png') {
-            // foreach (explode(',', $Specialneed->image) as $img) {
-            //     $path = public_path() . '/images/educations/' . $img;
-            //     if (file_exists($path)) {
-            //         $itemImg['name'] = $img;
-            //         $type = pathinfo($path, PATHINFO_EXTENSION);
-            //         $data = file_get_contents($path);
-            //         $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
-
-            //         $item['images'][] = $itemImg;
-            //     }
-            // }
-
             foreach (explode(',', $Specialneed->image) as $img) {
-            $s3Path = 'images/educations/' . $img;
+                $path = public_path() . '/images/educations/' . $img;
+                if (file_exists($path)) {
+                    $itemImg['name'] = $img;
+                    $type = pathinfo($path, PATHINFO_EXTENSION);
+                    $data = file_get_contents($path);
+                    $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-            if (Storage::disk('s3')->exists($s3Path)) {
-                $imageData = Storage::disk('s3')->get($s3Path);
-    
-                $itemImg['name'] = $img;
-                $type = pathinfo($img, PATHINFO_EXTENSION);
-                $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($imageData);
-    
-                $item['images'][] = $itemImg;
+                    $item['images'][] = $itemImg;
+                }
             }
-
-        }
- 
-
         } else {
             $item['images'] = [];
         }
- 
+
+
+
+
+
+
+        $firstimage = explode(',', $Specialneed->images_tow);
+        $item['image_tow'] = $firstimage[0];
+        $item['images_tow'] = [];
+        if ($Specialneed->images_tow != '' && $Specialneed->images_tow != 'no-image.png') {
+            foreach (explode(',', $Specialneed->images_tow) as $img) {
+                $path = public_path() . '/images/educations/' . $img;
+                if (file_exists($path)) {
+                    $itemImg['name'] = $img;
+                    $type = pathinfo($path, PATHINFO_EXTENSION);
+                    $data = file_get_contents($path);
+                    $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+                    $item['images_tow'][] = $itemImg;
+                }
+            }
+        } else {
+            $item['images_tow'] = [];
+        }
+
+
+        // $item[]   = $images_tow;
+
+        // $data = array();
+       
         $data = $item;
-
-
-        
+ 
         $area = Area::where('deleted_at', '=', null)->get(['id', 'ar_name']);
         $drops =  $this->getSectionsWithDrops( $Specialneed->selected_ids);
         $goves = Gov::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
         return response()->json([
-            'specialneed' => $data,
+           
+            'specialneed' => $data, 
             'govs' => $goves,
             'drops' => $drops,
+       
             'specialneeds' =>  $Specialneed_data ,
             'areas'=>$area 
         ]);

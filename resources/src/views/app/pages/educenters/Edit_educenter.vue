@@ -111,7 +111,7 @@
                     <b-form-group slot-scope="{ valid, errors }" :label="$t('Choose_Gov')">
                       <v-select :class="{ 'is-invalid': !!errors.length }"
                         :state="errors[0] ? false : (valid ? true : null)" :reduce="label => label.value"
-                        :placeholder="$t('choosGov')" v-model="educenter.gov_id"
+                        :placeholder="$t('chxxoosGov')" v-model="educenter.gov_id"
                         v-on:input="handleChange"
                         :options="govs.map(govs => ({ label: govs.ar_name, value: govs.id }))" />
                       <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
@@ -853,9 +853,7 @@ axios.get(
 
       const allSelectedIds = Object.values(this.selectedOptions).flat();
       self.data.append('selected_ids', JSON.stringify(allSelectedIds));
-
-     
-
+ 
       //append array images
       if (self.images.length > 0) {
         for (var k = 0; k < self.images.length; k++) {
@@ -877,7 +875,7 @@ axios.get(
       }
 
       self.data.append("_method", "put");
-
+   console.log("dddddddddd")
       //send Data with axios
       axios.post("Educenters/" + this.educenter.id, self.data).then(response => {
           NProgress.done();
