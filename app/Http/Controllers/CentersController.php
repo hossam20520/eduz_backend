@@ -4,6 +4,8 @@ use App\Exports\CentersExport;
 use App\Models\Center;
 use App\Models\Area;
 use App\Models\Section;
+use App\Models\Gov;
+
 
 use App\Models\Institution;
 use App\utils\helpers;
@@ -16,7 +18,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
 use \Gumlet\ImageResize;
-
+use Intervention\Image\ImageManagerStatic as Image;
 
 class CentersController extends BaseController
 {
@@ -110,59 +112,19 @@ class CentersController extends BaseController
 
             \DB::transaction(function () use ($request) {
 
-
-
-
-                
-    
-      
  
- 
-
-                //-- Create New Center
+                $helpers = new helpers();
                 $Center = new Center;
-                //-- Field Required
-                $Center->en_info = $request['en_info'];
-                $Center->ar_info = $request['ar_info'];
-                $Center->facilities_ar = $request['facilities_ar'];
-                $Center->facilities_en = $request['facilities_en'];
-                $Center->activities_ar = $request['activities_ar'];
-                $Center->activities_en = $request['activities_en'];
-                $Center->url = $request['url'];
-                $Center->phone = $request['phone'];
-                $Center->share = $request['share'];
-                $Center->en_name = $request['en_name'];
-                $Center->ar_name = $request['ar_name'];
-                $Center->lat = $request['lat'];
-                $Center->long_a = $request['long'];
-                $Center->area_id = $request['area_id'];
-
- 
-                $Center->selected_ids = $request['selected_ids'];
-              
-             
-                // $Center->activities_image = $request['activities_image'];
-                $Center->institution_id = $request['inst_id'];
-                // $Center->review_id = $request['review_id'];
-
+                $Center =  $helpers->store($Center , $request);
  
 
-                if ($request['images']) {
-                    $files = $request['images'];
-                    foreach ($files as $file) {
-                        $fileData = ImageResize::createFromString(base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path'])));
-                        // $fileData->resize(200, 200);
-                        $name = rand(11111111, 99999999) . $file['name'];
-                        $path = public_path() . '/images/educations/';
-                        $success = file_put_contents($path . $name, $fileData);
-                        $images[] = $name;
-                    }
-                    $filename = implode(",", $images);
-                } else {
-                    $filename = 'no-image.png';
-                }
+          
+             $images =  $helpers->StoreImagesV($request , "images");
+             $images_tow =   $helpers->StoreImagesV($request , "images_tow");
 
-                $Center->image = $filename;
+   
+                $Center->image =  $images;
+                $Center->images_tow =  $images_tow ;
                 $Center->save();
 
   
@@ -228,6 +190,62 @@ class CentersController extends BaseController
         return response()->json($result);
     }
 
+
+public function StoreImage($name , $pathUrl , $request){
+    if ($request->hasFile($name)) {
+
+        $image = $request->file($name);
+        $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+        $image_resize = Image::make($image->getRealPath());
+        // $image_resize->resize(200, 200);
+        $image_resize->save(public_path('/images/'.$pathUrl."/".$filename_logo));
+
+    } else {
+        $filename_logo = 'no-image.png';
+    }
+
+ 
+
+    return  $filename_logo;
+}
+
+  public function UpdateImage($name , $pathURL , $request ,  $requImage , $currentImage ){
+    if ($currentImage &&  $requImage != $currentImage) {
+        $image = $request->file($name);
+        $path = public_path() . '/images/'. $pathURL;
+        $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+        $image_resize = Image::make($image->getRealPath());
+        // $image_resize->resize(200, 200);
+        $image_resize->save(public_path('/images/'.$pathURL.'/'. $filename_logo));
+
+        $BrandImage = $path . '/' . $currentImage;
+        if (file_exists($BrandImage)) {
+            if ($currentImage != 'no-image.png') {
+                @unlink($BrandImage);
+            }
+        }
+    } else if (!$currentImage && $requImage !='null'){
+        $image = $request->file($name);
+        $path = public_path() . '/images/'.$pathURL;
+        $filename_logo = rand(11111111, 99999999) . $image->getClientOriginalName();
+
+        $image_resize = Image::make($image->getRealPath());
+        // $image_resize->resize(200, 200);
+        $image_resize->save(public_path('/images/'.$pathURL.'/'.  $filename_logo));
+    }
+
+    else {
+        $filename_logo = $currentImage?$currentImage:'no-image.png';
+    }
+
+
+    return $filename_logo;
+  }
+
+
+
     public function update(Request $request, $id)
     {
         // $this->authorizeForUser($request->user('api'), 'update', Center::class);
@@ -245,81 +263,15 @@ class CentersController extends BaseController
                     ->where('deleted_at', '=', null)
                     ->first();
  
-
-                    
-                //-- Update Center
-                $Center->en_info = $request['en_info'];
-                $Center->ar_info = $request['ar_info'];
-                $Center->facilities_ar = $request['facilities_ar'];
-                $Center->facilities_en = $request['facilities_en'];
-                $Center->activities_ar = $request['activities_ar'];
-                $Center->activities_en = $request['activities_en'];
-                $Center->url = $request['url'];
-                $Center->phone = $request['phone'];
-                $Center->share = $request['share'];
-
-                $Center->en_name = $request['en_name'];
-                $Center->ar_name = $request['ar_name'];
-
-                $Center->area_id = $request['area_id'];
-                
-
-                // $Center->activities_image = $request['activities_image'];
-                // $Center->institution_id = $request['institution_id'];
-                $Center->institution_id = $request['institution_id'];
-                $Center->lat = $request['lat'];
-                $Center->long_a = $request['long'];
-
  
+                     
+                $helpers = new helpers();
+                $Center =  $helpers->store($Center , $request);
 
-
- 
-                $Center->selected_ids = $request['selected_ids'];
-                 
-         
-         
-    
-
-
- 
-
-                if ($request['images'] === null) {
-
-                    if ($Center->image !== null) {
-                        foreach (explode(',', $Center->image) as $img) {
-                            $pathIMG = public_path() . '/images/educations/' . $img;
-                            if (file_exists($pathIMG)) {
-                                if ($img != 'no-image.png') {
-                                    @unlink($pathIMG);
-                                }
-                            }
-                        }
-                    }
-                    $filename = 'no-image.png';
-                } else {
-                    if ($Center->image !== null) {
-                        foreach (explode(',', $Center->image) as $img) {
-                            $pathIMG = public_path() . '/images/educations/' . $img;
-                            if (file_exists($pathIMG)) {
-                                if ($img != 'no-image.png') {
-                                    @unlink($pathIMG);
-                                }
-                            }
-                        }
-                    }
-                    $files = $request['images'];
-                    foreach ($files as $file) {
-                        $fileData =  base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $file['path']));
-                        // $fileData->resize(200, 200);
-                        $name = rand(11111111, 99999999) . $file['name'];
-                        $path = public_path() . '/images/educations/';
-                        $success = file_put_contents($path . $name, $fileData);
-                        $images[] = $name;
-                    }
-                    $filename = implode(",", $images);
-                }
-
-                $Center->image = $filename;
+                $imagesa  = $helpers->updateImagesActiv($request , $Center->image,  "images");
+                $images_tow  = $helpers->updateImagesActiv($request , $Center->images_tow,  "images_tow");
+                $Center->image =  $imagesa;
+                $Center->images_tow =  $images_tow;
                 $Center->save();
 
             }, 10);
@@ -458,74 +410,7 @@ class CentersController extends BaseController
 
     //------------ Get Centers By Warehouse -----------------\
 
-    public function Centers_by_Warehouse(request $request, $id)
-    {
-        $data = [];
-        $center_warehouse_data = center_warehouse::with('warehouse', 'Center', 'centerVariant')
-            ->where('warehouse_id', $id)
-            ->where('deleted_at', '=', null)
-            ->where(function ($query) use ($request) {
-                if ($request->stock == '1') {
-                    return $query->where('qte', '>', 0);
-                }
-            })->get();
-
-        foreach ($center_warehouse_data as $center_warehouse) {
-
-            if ($center_warehouse->center_variant_id) {
-                $item['center_variant_id'] = $center_warehouse->center_variant_id;
-                $item['code'] = $center_warehouse['centerVariant']->name . '-' . $center_warehouse['center']->code;
-                $item['Variant'] = $center_warehouse['centerVariant']->name;
-            } else {
-                $item['center_variant_id'] = null;
-                $item['Variant'] = null;
-                $item['code'] = $center_warehouse['center']->code;
-            }
-
-            $item['id'] = $center_warehouse->center_id;
-            $item['name'] = $center_warehouse['center']->name;
-            $item['barcode'] = $center_warehouse['center']->code;
-            $item['Type_barcode'] = $center_warehouse['center']->Type_barcode;
-            $firstimage = explode(',', $center_warehouse['center']->image);
-            $item['image'] = $firstimage[0];
-
-            if ($center_warehouse['center']['unitSale']->operator == '/') {
-                $item['qte_sale'] = $center_warehouse->qte * $center_warehouse['center']['unitSale']->operator_value;
-                $price = $center_warehouse['center']->price / $center_warehouse['center']['unitSale']->operator_value;
-            } else {
-                $item['qte_sale'] = $center_warehouse->qte / $center_warehouse['center']['unitSale']->operator_value;
-                $price = $center_warehouse['center']->price * $center_warehouse['center']['unitSale']->operator_value;
-            }
-
-            if ($center_warehouse['center']['unitPurchase']->operator == '/') {
-                $item['qte_purchase'] = round($center_warehouse->qte * $center_warehouse['center']['unitPurchase']->operator_value, 5);
-            } else {
-                $item['qte_purchase'] = round($center_warehouse->qte / $center_warehouse['center']['unitPurchase']->operator_value, 5);
-            }
-
-            $item['qte'] = $center_warehouse->qte;
-            $item['unitSale'] = $center_warehouse['center']['unitSale']->ShortName;
-            $item['unitPurchase'] = $center_warehouse['center']['unitPurchase']->ShortName;
-
-            if ($center_warehouse['center']->TaxNet !== 0.0) {
-                //Exclusive
-                if ($center_warehouse['center']->tax_method == '1') {
-                    $tax_price = $price * $center_warehouse['center']->TaxNet / 100;
-                    $item['Net_price'] = $price + $tax_price;
-                    // Inxclusive
-                } else {
-                    $item['Net_price'] = $price;
-                }
-            } else {
-                $item['Net_price'] = $price;
-            }
-
-            $data[] = $item;
-        }
-
-        return response()->json($data);
-    }
-
+ 
     //------------ Get center By ID -----------------\
 
     public function show($id)
@@ -561,8 +446,9 @@ class CentersController extends BaseController
         // $this->authorizeForUser($request->user('api'), 'create', Center::class);
         $Center_data = Institution::where('deleted_at', '=', null)->get(['id', 'ar_name']);
         $area = Area::where('deleted_at', '=', null)->get(['id', 'ar_name']);
-
+        $govs = Gov::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
         return response()->json([
+            'govs' => $govs , 
             'centers' =>  $Center_data ,
             'areas' =>  $area
         ]);
@@ -580,46 +466,20 @@ class CentersController extends BaseController
     
         // $this->authorizeForUser($request->user('api'), 'update', Center::class);
         $Center = Center::where('deleted_at', '=', null)->findOrFail($id);
-        $item['id'] = $Center->id;
-        $item['en_info'] = $Center->en_info;
-        $item['ar_info'] = $Center->ar_info;
-
-        $item['facilities_ar'] = $Center->facilities_ar;
-        $item['facilities_en'] = $Center->facilities_en;
-
-
-        $item['activities_ar'] = $Center->activities_ar;
-        $item['activities_en'] = $Center->activities_en;
-        $item['area_id'] = $Center->area_id;
-        $item['url'] = $Center->url;
-        $item['phone'] = $Center->phone;
-
-
-        $item['share'] = $Center->share;
-        $item['institution_id'] = $Center->institution_id;
-
-
-        $item['en_name'] =  $Center->en_name;
-        $item['ar_name'] =  $Center->ar_name;
-
-
-        $item['lat'] =  $Center->lat;
-        $item['long'] =  $Center->long_a;
-
-
-
-
         
-        $item['selected_ids'] =  $Center->selected_ids;
+        
+        $helpers = new helpers();
+        $item =  $helpers->edit( $Center );
+        // $images = $helpers->editImageV($Center->image, "images",  "image");
+        // $images_tow = $helpers->editImageV($Center->images_tow, "images_tow",  "image_tow");
+        
 
- 
-         
+        // $item[]   = $images;
+        // $item[]   =  $images_tow;
+
 
         $firstimage = explode(',', $Center->image);
         $item['image'] = $firstimage[0];
-          
- 
- 
         $item['images'] = [];
         if ($Center->image != '' && $Center->image != 'no-image.png') {
             foreach (explode(',', $Center->image) as $img) {
@@ -636,17 +496,47 @@ class CentersController extends BaseController
         } else {
             $item['images'] = [];
         }
- 
+
+
+
+
+
+
+        $firstimage = explode(',', $Center->images_tow);
+        $item['image_tow'] = $firstimage[0];
+        $item['images_tow'] = [];
+        if ($Center->images_tow != '' && $Center->images_tow != 'no-image.png') {
+            foreach (explode(',', $Center->images_tow) as $img) {
+                $path = public_path() . '/images/educations/' . $img;
+                if (file_exists($path)) {
+                    $itemImg['name'] = $img;
+                    $type = pathinfo($path, PATHINFO_EXTENSION);
+                    $data = file_get_contents($path);
+                    $itemImg['path'] = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+                    $item['images_tow'][] = $itemImg;
+                }
+            }
+        } else {
+            $item['images_tow'] = [];
+        }
+
+
+        // $item[]   = $images_tow;
+
+        // $data = array();
+       
         $data = $item;
-
-
-        
+ 
         $area = Area::where('deleted_at', '=', null)->get(['id', 'ar_name']);
         $drops =  $this->getSectionsWithDrops( $Center->selected_ids);
-   
+        $goves = Gov::where('deleted_at', '=', null)->get(['ar_name' , 'id']);
         return response()->json([
-            'center' => $data,
+           
+            'center' => $data, 
+            'govs' => $goves,
             'drops' => $drops,
+       
             'centers' =>  $Center_data ,
             'areas'=>$area 
         ]);

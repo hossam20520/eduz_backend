@@ -156,18 +156,17 @@
 
 
 
-          <!-- <li 
-            @mouseenter="toggleSubMenu"
+          <li  @mouseenter="toggleSubMenu"
             class="nav-item"
             :class="{ active: selectedParentMenu == 'centers' }"
             data-item="centers"
             :data-submenu="true">
             <a class="nav-item-hold" href="#">
               <img src="https://cdn-icons-png.flaticon.com/512/7118/7118114.png" width="50%"/> 
-              <span class="nav-text">{{   $t('centers')  }}</span>
+              <span class="nav-text">{{   $t('Entertainment')  }}</span>
             </a>
             <div class="triangle"></div>
-          </li> -->
+          </li>  
 
 
 
@@ -215,7 +214,7 @@
             :data-submenu="true">
             <a class="nav-item-hold" href="#">
               <img src="https://cdn-icons-png.flaticon.com/512/2997/2997322.png" width="50%"/> 
-              <span class="nav-text">{{   $t('Entertainment')  }}</span>
+              <span class="nav-text">{{   $t('Children Activites')  }}</span>
             </a>
             <div class="triangle"></div>
           </li>
