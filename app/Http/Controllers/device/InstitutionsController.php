@@ -17,6 +17,7 @@ use App\Models\Institution;
 use App\Models\Review;
 use App\Models\Recently;
 use App\Models\Drop;
+use App\Models\Section;
 
 use App\Models\Product;
 use App\utils\helpers;
