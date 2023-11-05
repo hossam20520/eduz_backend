@@ -16,7 +16,7 @@ use App\Models\Universitie;
 use App\Models\Institution;
 use App\Models\Review;
 use App\Models\Recently;
-
+use App\Models\Drop;
 
 use App\Models\Product;
 use App\utils\helpers;
@@ -228,6 +228,12 @@ class InstitutionsController extends Controller
               foreach ($idsArray as $id) {
              
                 $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                $drop =  Drop::where('id' , $id )->first();
+                $section = Section::where('id' , $drop->section_type)->first();
+
+                if( $section->en_name ==   "Area" ){
+                  $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                }
       
                 }
 
