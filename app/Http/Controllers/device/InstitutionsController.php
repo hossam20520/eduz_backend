@@ -224,10 +224,12 @@ class InstitutionsController extends Controller
               // }
               $idsToRemove = [9, 10]; // Numbers to be removed
 
+
+            
               $idsArray = array_diff($idsArray, $idsToRemove);
         
               foreach ($idsArray as $id) {
-             
+            
                 $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
                 $drop =  Drop::where('id' , $id )->first();
                 $section = Section::where('id' , $drop->section_type)->first();
@@ -251,7 +253,7 @@ class InstitutionsController extends Controller
             //         $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
             //     }
             // });  
-
+            $query->where('deleted_at',  '=' , null);
               $results = $query->get();
               // $results = $query->whereIn('id', $idsArray)
               // ->groupBy('id')
@@ -679,7 +681,7 @@ class InstitutionsController extends Controller
 public function MapData(Request $request){
 
     $type = $request->type;
-    
+     $model = School::class;
     if($type == "SCHOOLS"){
       $model = School::class;
     }else if($type == "KINDERGARTENS"){
