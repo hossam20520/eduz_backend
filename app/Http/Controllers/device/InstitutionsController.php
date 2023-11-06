@@ -234,8 +234,9 @@ class InstitutionsController extends Controller
                   $query->where('selected_ids', 'LIKE', '%,'.$id.',%')
                       ->orWhere('selected_ids', 'LIKE', ''.$id.',%')
                       ->orWhere('selected_ids', 'LIKE', '%,'.$id.']')
-                      ->orWhere('selected_ids', 'LIKE', '['.$id.',%')
-                      ->orWhere('selected_ids', '=',  $id );
+                
+                      ->orWhere('selected_ids', '=',  $id )
+                      ->orWhere('selected_ids', 'LIKE', '['.$id.',%');
 
 
 
