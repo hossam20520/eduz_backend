@@ -291,7 +291,7 @@ class InstitutionsController extends Controller
       
                 }
                
-                return $govs_ids;
+              
                 foreach ($govs_ids as $gov_id) {
                   $query->orWhere('selected_ids', 'LIKE', '['.$gov_id.',%');
                   $query->orWhere('selected_ids', 'LIKE', '%,'.$gov_id.',%');
@@ -300,13 +300,17 @@ class InstitutionsController extends Controller
                   $query->orWhere('selected_ids', '=',  $gov_id );
                   $query->orWhere('selected_ids', 'LIKE', '['.$gov_id.',%');
                   $query->where('deleted_at',  '=' , null);
-                  }
-
 
                   foreach ($area_ids as $area_id) {
                     $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$area_id]);
                     
                     }
+
+                    
+                  }
+
+
+             
 
 
                             foreach ($attr_ids as $attrId) {
