@@ -238,13 +238,13 @@ class InstitutionsController extends Controller
               });
 
             
-                $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-                $drop =  Drop::where('id' , $id )->first();
-                $section = Section::where('id' , $drop->section_type)->first();
+                // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                // $drop =  Drop::where('id' , $id )->first();
+                // $section = Section::where('id' , $drop->section_type)->first();
 
-                if( $section->en_name ==   "Area" ){
-                  $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-                }
+                // if( $section->en_name ==   "Area" ){
+                //   $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                // }
       
                 }
 
