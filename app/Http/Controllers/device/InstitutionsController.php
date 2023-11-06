@@ -243,16 +243,18 @@ class InstitutionsController extends Controller
                   // $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
                   // $query->where('deleted_at',  '=' , null);
 
+                  $query->orWhere('selected_ids', 'LIKE', '[' . $id . ',%');
 
-                  $query->where(function ($query) use ($id) {
-                    $query->where('selected_ids', 'LIKE', '%,' . $id . ',%')
-                        ->orWhere('selected_ids', 'LIKE', $id . ',%')
-                        ->orWhere('selected_ids', 'LIKE', '%,' . $id . ']')
-                        ->orWhere('selected_ids', '=', $id)
 
-                        ->orWhere('selected_ids', 'LIKE', '[' . $id . ',%');
+                //   $query->where(function ($query) use ($id) {
+                //     $query->where('selected_ids', 'LIKE', '%,' . $id . ',%')
+                //         ->orWhere('selected_ids', 'LIKE', $id . ',%')
+                //         ->orWhere('selected_ids', 'LIKE', '%,' . $id . ']')
+                //         ->orWhere('selected_ids', '=', $id)
+
+                //         ->orWhere('selected_ids', 'LIKE', '[' . $id . ',%');
                         
-                });
+                // });
 
 
                 }
