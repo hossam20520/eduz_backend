@@ -230,20 +230,24 @@ class InstitutionsController extends Controller
               $query->where('deleted_at',  '=' , null);
               foreach ($idsArray as $id) {
 
-
-               
-        
- 
-                $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
                 $drop =  Drop::where('id' , $id )->first();
                 $section = Section::where('id' , $drop->section_type)->first();
-
+               
                 if( $section->en_name ==   "Area" ){
                   $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-                }
-
-                if( $section->en_name ==   "Government" ){
+                }else if($section->en_name ==   "Government"){
                   $query->where('selected_ids', 'LIKE', '['.$id.',%');
+                }else{
+                  $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                }
+ 
+              
+         
+
+           
+
+                // if( $section->en_name ==   "Government" ){
+                //   $query->where('selected_ids', 'LIKE', '['.$id.',%');
                   // $query = $query->where(function ($query) use ($id) {
                     // $query->where('selected_ids', 'LIKE', '['.$id.',%');
                         // ->orWhere('selected_ids', 'LIKE', ''.$id.',%')
@@ -255,7 +259,7 @@ class InstitutionsController extends Controller
 
                 // $query->where('selected_ids', 'LIKE', '%,'.$id.',%')
                   // $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-                }
+                // }
       
                 }
 
