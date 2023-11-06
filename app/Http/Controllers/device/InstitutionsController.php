@@ -290,7 +290,8 @@ class InstitutionsController extends Controller
                 // }
       
                 }
-
+               
+                return $govs_ids;
                 foreach ($govs_ids as $gov_id) {
                   $query->orWhere('selected_ids', 'LIKE', '['.$gov_id.',%');
                   $query->orWhere('selected_ids', 'LIKE', '%,'.$gov_id.',%');
