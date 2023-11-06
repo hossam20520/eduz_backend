@@ -227,7 +227,7 @@ class InstitutionsController extends Controller
 
             
               $idsArray = array_diff($idsArray, $idsToRemove);
-        
+              $query->where('deleted_at',  '=' , null);
               foreach ($idsArray as $id) {
             
                 $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
@@ -253,7 +253,7 @@ class InstitutionsController extends Controller
             //         $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
             //     }
             // });  
-            $query->where('deleted_at',  '=' , null);
+             
               $results = $query->get();
               // $results = $query->whereIn('id', $idsArray)
               // ->groupBy('id')
@@ -710,9 +710,7 @@ public function MapData(Request $request){
       $item['banner'] = $edu->banner;
       $item['lat'] = $edu->lat;
       $item['long'] = $edu->long_a;
- 
-
-
+  
       $data[] = $item;
   }
 
