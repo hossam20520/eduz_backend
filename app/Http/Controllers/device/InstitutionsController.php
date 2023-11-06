@@ -272,6 +272,18 @@ class InstitutionsController extends Controller
                
            
 
+                  foreach ($area_ids as $area_id) {
+                    $query->where('selected_ids', 'LIKE', '['.$gov_id.',%');
+                    $query->where('selected_ids', 'LIKE', '%,'.$gov_id.',%');
+                    $query->where('selected_ids', 'LIKE', ''.$gov_id.',%');
+                    $query->where('selected_ids', 'LIKE', '%,'.$gov_id.']');
+                    $query->where('selected_ids', '=',  $gov_id );
+                    $query->where('selected_ids', 'LIKE', '['.$gov_id.',%');
+                    $query->where('deleted_at',  '=' , null);
+                    }
+
+
+
                 // if( $section->en_name ==   "Government" ){
                 //   $query->where('selected_ids', 'LIKE', '['.$id.',%');
                   // $query = $query->where(function ($query) use ($id) {
