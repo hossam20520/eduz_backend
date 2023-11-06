@@ -122,7 +122,7 @@ class CentersController extends BaseController
              $images =  $helpers->StoreImagesV($request , "images");
              $images_tow =   $helpers->StoreImagesV($request , "images_tow");
 
-   
+                $center->trend = $request['trend'];
                 $Center->image =  $images;
                 $Center->images_tow =  $images_tow ;
                 $Center->save();
@@ -272,6 +272,7 @@ public function StoreImage($name , $pathUrl , $request){
                 $images_tow  = $helpers->updateImagesActiv($request , $Center->images_tow,  "images_tow");
                 $Center->image =  $imagesa;
                 $Center->images_tow =  $images_tow;
+                $Center->trend = $request['trend'];
                 $Center->save();
 
             }, 10);
@@ -477,7 +478,7 @@ public function StoreImage($name , $pathUrl , $request){
         // $item[]   = $images;
         // $item[]   =  $images_tow;
 
-
+         $item['trend'] = $Center->trend;
         $firstimage = explode(',', $Center->image);
         $item['image'] = $firstimage[0];
         $item['images'] = [];

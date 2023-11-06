@@ -279,7 +279,20 @@
                   </b-form-group>
                 </b-col>
 
+                <b-col md="6" class="mb-2">
+                  <validation-provider name="Trend" :rules="{ required: true }">
+                    <b-form-group slot-scope="{ valid, errors }" :label="$t('trend')">
+                      <v-select :class="{ 'is-invalid': !!errors.length }"
+                        :state="errors[0] ? false : (valid ? true : null)" v-model="center.trend"
+                        :reduce="label => label.value" :placeholder="$t('Choose_trend')" :options="[
+                            { label: 'no', value: 'no' },
+                            { label: 'yes', value: 'yes' },
 
+                          ]"></v-select>
+                      <b-form-invalid-feedback>{{ errors[0] }}</b-form-invalid-feedback>
+                    </b-form-group>
+                  </validation-provider>
+                </b-col>
 
                 <!-- free free  -->
                 <b-col md="6" class="mb-2">
@@ -556,6 +569,7 @@ export default {
       variants: [],
       centers:[],
       center: {
+        trend:"",
         exp_from:"",
         exp_to:"",
         actives:"",

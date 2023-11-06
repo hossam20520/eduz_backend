@@ -554,6 +554,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -606,6 +619,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       variants: [],
       centers: [],
       center: {
+        trend: "",
         exp_from: "",
         exp_to: "",
         actives: "",
@@ -2379,6 +2393,105 @@ var render = function () {
                                             ],
                                             1
                                           ),
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "b-col",
+                                        {
+                                          staticClass: "mb-2",
+                                          attrs: { md: "6" },
+                                        },
+                                        [
+                                          _c("validation-provider", {
+                                            attrs: {
+                                              name: "Trend",
+                                              rules: { required: true },
+                                            },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "default",
+                                                  fn: function (ref) {
+                                                    var valid = ref.valid
+                                                    var errors = ref.errors
+                                                    return _c(
+                                                      "b-form-group",
+                                                      {
+                                                        attrs: {
+                                                          label:
+                                                            _vm.$t("trend"),
+                                                        },
+                                                      },
+                                                      [
+                                                        _c("v-select", {
+                                                          class: {
+                                                            "is-invalid":
+                                                              !!errors.length,
+                                                          },
+                                                          attrs: {
+                                                            state: errors[0]
+                                                              ? false
+                                                              : valid
+                                                              ? true
+                                                              : null,
+                                                            reduce: function (
+                                                              label
+                                                            ) {
+                                                              return label.value
+                                                            },
+                                                            placeholder:
+                                                              _vm.$t(
+                                                                "Choose_trend"
+                                                              ),
+                                                            options: [
+                                                              {
+                                                                label: "no",
+                                                                value: "no",
+                                                              },
+                                                              {
+                                                                label: "yes",
+                                                                value: "yes",
+                                                              },
+                                                            ],
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.center.trend,
+                                                            callback: function (
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.center,
+                                                                "trend",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "center.trend",
+                                                          },
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c(
+                                                          "b-form-invalid-feedback",
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(errors[0])
+                                                            ),
+                                                          ]
+                                                        ),
+                                                      ],
+                                                      1
+                                                    )
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              false,
+                                              827551081
+                                            ),
+                                          }),
                                         ],
                                         1
                                       ),
