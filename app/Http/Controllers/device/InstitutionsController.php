@@ -681,7 +681,7 @@ class InstitutionsController extends Controller
 public function MapData(Request $request){
 
     $type = $request->type;
-    
+    $model = School::class;
     if($type == "SCHOOLS"){
       $model = School::class;
     }else if($type == "KINDERGARTENS"){
