@@ -233,9 +233,11 @@ class InstitutionsController extends Controller
                 $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
                 $drop =  Drop::where('id' , $id )->first();
                 $section = Section::where('id' , $drop->section_type)->first();
+                $query->where('deleted_at',  '=' , null);
 
                 if( $section->en_name ==   "Area" ){
                   $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                  $query->where('deleted_at',  '=' , null);
                 }
       
                 }
