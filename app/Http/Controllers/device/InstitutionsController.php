@@ -306,6 +306,12 @@ class InstitutionsController extends Controller
                     $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$area_id]);
                     
                     }
+
+
+                            foreach ($attr_ids as $attrId) {
+                      $query->WhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$attrId]);
+                     
+                      }
               // foreach ($idsArray as $id) {
               // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
               
