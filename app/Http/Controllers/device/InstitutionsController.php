@@ -224,10 +224,14 @@ class InstitutionsController extends Controller
               // }
               $idsToRemove = [9, 10]; // Numbers to be removed
 
+
+            
               $idsArray = array_diff($idsArray, $idsToRemove);
         
               foreach ($idsArray as $id) {
-             
+                if($id == 9 || $id == 10){
+                  return;
+                }
                 $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
                 $drop =  Drop::where('id' , $id )->first();
                 $section = Section::where('id' , $drop->section_type)->first();
