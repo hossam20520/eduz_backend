@@ -242,7 +242,7 @@ class InstitutionsController extends Controller
                   $query->orWhere('selected_ids', 'LIKE', '%,'.$id.']');
                   $query->orWhere('selected_ids', '=',  $id );
                   $query->orWhere('selected_ids', 'LIKE', '['.$id.',%');
-                  $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                  // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
                 }else{
                   $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
                 }
