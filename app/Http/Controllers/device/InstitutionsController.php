@@ -213,10 +213,7 @@ class InstitutionsController extends Controller
         $model  = Universitie::class;
       } 
      
-             $govs_ids = [];
-             $area_ids = [];
-             $attr_ids = [];
-
+     
             $idsArray = explode(',', $ids);
   
          
@@ -225,98 +222,22 @@ class InstitutionsController extends Controller
               // if( $area_id  != "0"){
               //   $query->where('area_id', $area_id);
               // }
-              // $idsToRemove = [9, 10]; // Numbers to be removed
+              $idsToRemove = [9, 10]; // Numbers to be removed
 
-
-            
-              // $idsArray = array_diff($idsArray, $idsToRemove);
-              
+              $idsArray = array_diff($idsArray, $idsToRemove);
+        
               foreach ($idsArray as $id) {
-
+             
+                $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
                 $drop =  Drop::where('id' , $id )->first();
                 $section = Section::where('id' , $drop->section_type)->first();
-               
+
                 if( $section->en_name ==   "Area" ){
-                  array_push( $area_ids , $id);
-                  // $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-
-
-                }else if($section->en_name ==   "Government"){
-                  array_push( $govs_ids , $id);
-                  // array_push($myArray, "element1");
-
-
-                  // $query->orWhere('selected_ids', 'LIKE', '['.$id.',%');
-                  // $query->orWhere('selected_ids', 'LIKE', '%,'.$id.',%');
-                  // $query->orWhere('selected_ids', 'LIKE', ''.$id.',%');
-                  // $query->orWhere('selected_ids', 'LIKE', '%,'.$id.']');
-                  // $query->orWhere('selected_ids', '=',  $id );
-                  // $query->orWhere('selected_ids', 'LIKE', '['.$id.',%');
-                  // $query->where('deleted_at',  '=' , null);
-                  // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-                }else{
-                  array_push( $attr_ids , $id);
-                  // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                  $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
                 }
- 
-              
-          
-               
-           
-
-                  // foreach ($area_ids as $area_id) {
-                  //   $query->WhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$area_id]);
-                  //   $query->where('deleted_at',  '=' , null);
-                  //   }
-
-                  //   foreach ($attr_ids as $attrId) {
-                  //     $query->WhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$attrId]);
-                     
-                  //     }
-
-                // if( $section->en_name ==   "Government" ){
-                //   $query->where('selected_ids', 'LIKE', '['.$id.',%');
-                  // $query = $query->where(function ($query) use ($id) {
-                    // $query->where('selected_ids', 'LIKE', '['.$id.',%');
-                        // ->orWhere('selected_ids', 'LIKE', ''.$id.',%')
-                        // ->orWhere('selected_ids', 'LIKE', '%,'.$id.']')
-                        // ->orWhere('selected_ids', '=',  $id )
-                        // ->orWhere('selected_ids', 'LIKE', '['.$id.',%');
-   
-                // });
-
-                // $query->where('selected_ids', 'LIKE', '%,'.$id.',%')
-                  // $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-                // }
       
                 }
-               
-              
-                foreach ($govs_ids as $gov_id) {
-                  $query->orWhere('selected_ids', 'LIKE', '['.$gov_id.',%');
-                  $query->orWhere('selected_ids', 'LIKE', '%,'.$gov_id.',%');
-                  $query->orWhere('selected_ids', 'LIKE', ''.$gov_id.',%');
-                  $query->orWhere('selected_ids', 'LIKE', '%,'.$gov_id.']');
-                  $query->orWhere('selected_ids', '=',  $gov_id );
-                  $query->orWhere('selected_ids', 'LIKE', '['.$gov_id.',%');
-                  $query->where('deleted_at',  '=' , null);
 
-                  foreach ($area_ids as $area_id) {
-                    $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$area_id]);
-                    
-                    }
-
-                    
-                  }
-
-
-             
-
-
-                            foreach ($attr_ids as $attrId) {
-                      $query->WhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$attrId]);
-                     
-                      }
               // foreach ($idsArray as $id) {
               // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
               
@@ -330,7 +251,7 @@ class InstitutionsController extends Controller
             //         $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
             //     }
             // });  
-             
+
               $results = $query->get();
               // $results = $query->whereIn('id', $idsArray)
               // ->groupBy('id')
@@ -758,7 +679,7 @@ class InstitutionsController extends Controller
 public function MapData(Request $request){
 
     $type = $request->type;
-    $model = School::class;
+    
     if($type == "SCHOOLS"){
       $model = School::class;
     }else if($type == "KINDERGARTENS"){
@@ -787,7 +708,9 @@ public function MapData(Request $request){
       $item['banner'] = $edu->banner;
       $item['lat'] = $edu->lat;
       $item['long'] = $edu->long_a;
-  
+ 
+
+
       $data[] = $item;
   }
 
