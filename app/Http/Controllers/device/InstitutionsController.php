@@ -273,7 +273,7 @@ class InstitutionsController extends Controller
            
 
                   foreach ($area_ids as $area_id) {
-                    $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$area_id]);
+                    $query->WhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$area_id]);
                     $query->where('deleted_at',  '=' , null);
                     }
 
