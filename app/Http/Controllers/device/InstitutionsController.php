@@ -222,30 +222,30 @@ class InstitutionsController extends Controller
               // if( $area_id  != "0"){
               //   $query->where('area_id', $area_id);
               // }
-              $idsToRemove = [9, 10]; // Numbers to be removed
+              // $idsToRemove = [9, 10]; // Numbers to be removed
 
 
             
-              $idsArray = array_diff($idsArray, $idsToRemove);
+              // $idsArray = array_diff($idsArray, $idsToRemove);
               $query->where('deleted_at',  '=' , null);
               foreach ($idsArray as $id) {
 
-              //   $query = $query->where(function ($query) {
-              //     $query->where('selected_ids', 'LIKE', '%,'.$id.',%')
-              //         ->orWhere('selected_ids', 'LIKE', ''.$id.',%')
-              //         ->orWhere('selected_ids', 'LIKE', '%,'.$id.']')
-              //         ->orWhere('selected_ids', '=',  $id )
-              //         ->orWhere('selected_ids', 'LIKE', '['.$id.',%');
+                $query = $query->where(function ($query) {
+                  $query->where('selected_ids', 'LIKE', '%,'.$id.',%')
+                      ->orWhere('selected_ids', 'LIKE', ''.$id.',%')
+                      ->orWhere('selected_ids', 'LIKE', '%,'.$id.']')
+                      ->orWhere('selected_ids', '=',  $id )
+                      ->orWhere('selected_ids', 'LIKE', '['.$id.',%');
  
-              // });
+              });
  
-                $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-                $drop =  Drop::where('id' , $id )->first();
-                $section = Section::where('id' , $drop->section_type)->first();
+                // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                // $drop =  Drop::where('id' , $id )->first();
+                // $section = Section::where('id' , $drop->section_type)->first();
 
-                if( $section->en_name ==   "Area" ){
-                  $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-                }
+                // if( $section->en_name ==   "Area" ){
+                //   $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                // }
       
                 }
 
