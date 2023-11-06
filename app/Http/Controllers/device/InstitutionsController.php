@@ -239,7 +239,7 @@ class InstitutionsController extends Controller
  
               });
  
-                // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
                 $drop =  Drop::where('id' , $id )->first();
                 $section = Section::where('id' , $drop->section_type)->first();
 
