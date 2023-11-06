@@ -475,6 +475,7 @@ export default {
       center_types: [],
       sections: [],
       center: {
+      trend:"",
         exp_from: "",
         actives: "",
         exp_to: "",

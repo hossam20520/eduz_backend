@@ -576,7 +576,7 @@ class InstitutionsController extends Controller
       $id = $request->id;
       $type = $request->type;
       $idsString = $request->ids;
-
+      $trend = $request['trend'];
       $typeSearch = $request->searchType;
 
 
@@ -599,6 +599,8 @@ class InstitutionsController extends Controller
           $model  = Kindergarten::class;
         }else if($type == "CENTERS"){
           $model  = Center::class;
+
+          
         }else if($type == "SPECIALNEEDS"){
           $model  = Specialneed::class;
         }else if($type == "UNIVERSITIES"){
@@ -607,12 +609,28 @@ class InstitutionsController extends Controller
           $model  = Educenter::class;
         }
  
+
+
+      if($trend){
+
+        $education = $model::where('deleted_at', '=', null)->where('trend' , 'yes')->where(function ($query) use ($request) {
+          return $query->when($request->filled('search'), function ($query) use ($request) {
+              return $query->where('ar_name', 'LIKE', "%{$request->search}%")
+                  ->orWhere('en_name', 'LIKE', "%{$request->search}%");
+          });
+      });
+ 
+
+      }else{
+ 
         $education = $model::where('deleted_at', '=', null)->where(function ($query) use ($request) {
           return $query->when($request->filled('search'), function ($query) use ($request) {
               return $query->where('ar_name', 'LIKE', "%{$request->search}%")
                   ->orWhere('en_name', 'LIKE', "%{$request->search}%");
           });
       });
+
+      }
 
 
     $totalRows = $education->count();

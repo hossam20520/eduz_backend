@@ -523,6 +523,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       center_types: [],
       sections: [],
       center: {
+        trend: "",
         exp_from: "",
         actives: "",
         exp_to: "",
