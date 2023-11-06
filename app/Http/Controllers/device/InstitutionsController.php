@@ -243,14 +243,17 @@ class InstitutionsController extends Controller
                 }
 
                 if( $section->en_name ==   "Government" ){
-                  $query = $query->where(function ($query) use ($id) {
-                    $query->where('selected_ids', 'LIKE', '%,'.$id.',%')
-                        ->orWhere('selected_ids', 'LIKE', ''.$id.',%')
-                        ->orWhere('selected_ids', 'LIKE', '%,'.$id.']')
-                        ->orWhere('selected_ids', '=',  $id )
-                        ->orWhere('selected_ids', 'LIKE', '['.$id.',%');
+                  $query->where('selected_ids', 'LIKE', '['.$id.',%');
+                  // $query = $query->where(function ($query) use ($id) {
+                    // $query->where('selected_ids', 'LIKE', '['.$id.',%');
+                        // ->orWhere('selected_ids', 'LIKE', ''.$id.',%')
+                        // ->orWhere('selected_ids', 'LIKE', '%,'.$id.']')
+                        // ->orWhere('selected_ids', '=',  $id )
+                        // ->orWhere('selected_ids', 'LIKE', '['.$id.',%');
    
-                });
+                // });
+
+                // $query->where('selected_ids', 'LIKE', '%,'.$id.',%')
                   // $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
                 }
       
