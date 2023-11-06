@@ -236,9 +236,29 @@ class InstitutionsController extends Controller
                 $query->where('deleted_at',  '=' , null);
 
                 if( $section->en_name ==   "Area" ){
+
                   $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
                   $query->where('deleted_at',  '=' , null);
+                }else if ($section->en_name ==   "Government"){
+                  // $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                  // $query->where('deleted_at',  '=' , null);
+
+
+                  $query->where(function ($query) use ($id) {
+                    $query->where('selected_ids', 'LIKE', '%,' . $id . ',%')
+                        ->orWhere('selected_ids', 'LIKE', $id . ',%')
+                        ->orWhere('selected_ids', 'LIKE', '%,' . $id . ']')
+                        ->orWhere('selected_ids', '=', $id)
+
+                        ->orWhere('selected_ids', 'LIKE', '[' . $id . ',%')
+                        ->where('deleted_at' , '='  , null);
+                });
+
+
                 }
+
+
+
       
                 }
 
