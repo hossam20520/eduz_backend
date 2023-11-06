@@ -237,28 +237,38 @@ class InstitutionsController extends Controller
                 $section = Section::where('id' , $drop->section_type)->first();
                
                 if( $section->en_name ==   "Area" ){
-                  $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                  array_push( $area_ids , $id);
+                  // $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
 
 
                 }else if($section->en_name ==   "Government"){
+                  array_push( $govs_ids , $id);
                   // array_push($myArray, "element1");
 
 
+                  // $query->orWhere('selected_ids', 'LIKE', '['.$id.',%');
+                  // $query->orWhere('selected_ids', 'LIKE', '%,'.$id.',%');
+                  // $query->orWhere('selected_ids', 'LIKE', ''.$id.',%');
+                  // $query->orWhere('selected_ids', 'LIKE', '%,'.$id.']');
+                  // $query->orWhere('selected_ids', '=',  $id );
+                  // $query->orWhere('selected_ids', 'LIKE', '['.$id.',%');
+                  // $query->where('deleted_at',  '=' , null);
+                  // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                }else{
+                  array_push( $attr_ids , $id);
+                  // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                }
+ 
+              
+                foreach ($govs_ids as $id) {
                   $query->orWhere('selected_ids', 'LIKE', '['.$id.',%');
                   $query->orWhere('selected_ids', 'LIKE', '%,'.$id.',%');
                   $query->orWhere('selected_ids', 'LIKE', ''.$id.',%');
                   $query->orWhere('selected_ids', 'LIKE', '%,'.$id.']');
                   $query->orWhere('selected_ids', '=',  $id );
                   $query->orWhere('selected_ids', 'LIKE', '['.$id.',%');
-                  $query->where('deleted_at',  '=' , null);
-                  // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-                }else{
-                  $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-                }
- 
-              
-         
-
+                  }
+               
            
 
                 // if( $section->en_name ==   "Government" ){
