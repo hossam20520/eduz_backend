@@ -229,6 +229,14 @@ class InstitutionsController extends Controller
               $idsArray = array_diff($idsArray, $idsToRemove);
               $query->where('deleted_at',  '=' , null);
               foreach ($idsArray as $id) {
+
+                $query = $query->where(function ($query) {
+                  $query->where('selected_ids', 'LIKE', '%,'.$id.',%')
+                      ->orWhere('selected_ids', 'LIKE', ''.$id.',%')
+                      ->orWhere('selected_ids', 'LIKE', '%,'.$id.']')
+                      ->orWhere('selected_ids', '=',  $id );
+              });
+
             
                 $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
                 $drop =  Drop::where('id' , $id )->first();
