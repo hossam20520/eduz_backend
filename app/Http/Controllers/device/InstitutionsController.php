@@ -250,8 +250,8 @@ class InstitutionsController extends Controller
                         ->orWhere('selected_ids', 'LIKE', '%,' . $id . ']')
                         ->orWhere('selected_ids', '=', $id)
 
-                        ->orWhere('selected_ids', 'LIKE', '[' . $id . ',%')
-                        ->where('deleted_at' , '='  , null);
+                        ->orWhere('selected_ids', 'LIKE', '[' . $id . ',%');
+                        
                 });
 
 
