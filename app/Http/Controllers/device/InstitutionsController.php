@@ -234,7 +234,6 @@ class InstitutionsController extends Controller
                   $query->where('selected_ids', 'LIKE', '%,'.$id.',%')
                       ->orWhere('selected_ids', 'LIKE', ''.$id.',%')
                       ->orWhere('selected_ids', 'LIKE', '%,'.$id.']')
-                
                       ->orWhere('selected_ids', '=',  $id )
                       ->orWhere('selected_ids', 'LIKE', '['.$id.',%');
 
@@ -243,7 +242,7 @@ class InstitutionsController extends Controller
               });
 // SELECT * FROM schools WHERE selected_ids LIKE '%,9,%' OR selected_ids LIKE '9,%' OR selected_ids LIKE '%,9]' OR selected_ids = '9' OR selected_ids LIKE '[9,%' ;
             
-                // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
                 // $drop =  Drop::where('id' , $id )->first();
                 // $section = Section::where('id' , $drop->section_type)->first();
 
