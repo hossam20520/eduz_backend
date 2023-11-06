@@ -273,12 +273,12 @@ class InstitutionsController extends Controller
            
 
                   foreach ($area_ids as $area_id) {
-                    $query->orWhere('selected_ids', 'LIKE', '['.$area_id.',%');
-                    $query->orWhere('selected_ids', 'LIKE', '%,'.$area_id.',%');
-                    $query->orWhere('selected_ids', 'LIKE', ''.$area_id.',%');
-                    $query->orWhere('selected_ids', 'LIKE', '%,'.$area_id.']');
-                    $query->orWhere('selected_ids', '=',  $area_id );
-                    $query->orWhere('selected_ids', 'LIKE', '['.$area_id.',%');
+                    $query->where('selected_ids', 'LIKE', '['.$area_id.',%');
+                    $query->where('selected_ids', 'LIKE', '%,'.$area_id.',%');
+                    $query->where('selected_ids', 'LIKE', ''.$area_id.',%');
+                    $query->where('selected_ids', 'LIKE', '%,'.$area_id.']');
+                    $query->where('selected_ids', '=',  $area_id );
+                    $query->where('selected_ids', 'LIKE', '['.$area_id.',%');
                     $query->where('deleted_at',  '=' , null);
                     }
 
