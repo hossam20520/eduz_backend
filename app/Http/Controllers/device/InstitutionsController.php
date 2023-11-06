@@ -242,7 +242,7 @@ class InstitutionsController extends Controller
                 }else if ($section->en_name ==   "Government"){
 
 
-                  $query->where('selected_ids', 'LIKE', '%,' . $id . ',%')
+                  $query->orWhere('selected_ids', 'LIKE', '%,' . $id . ',%')
                   ->orWhere('selected_ids', 'LIKE', $id . ',%')
                   ->orWhere('selected_ids', 'LIKE', '%,' . $id . ']')
                   ->orWhere('selected_ids', '=', $id)
