@@ -260,13 +260,13 @@ class InstitutionsController extends Controller
                 }
  
               
-                foreach ($govs_ids as $id) {
-                  $query->orWhere('selected_ids', 'LIKE', '['.$id.',%');
-                  $query->orWhere('selected_ids', 'LIKE', '%,'.$id.',%');
-                  $query->orWhere('selected_ids', 'LIKE', ''.$id.',%');
-                  $query->orWhere('selected_ids', 'LIKE', '%,'.$id.']');
-                  $query->orWhere('selected_ids', '=',  $id );
-                  $query->orWhere('selected_ids', 'LIKE', '['.$id.',%');
+                foreach ($govs_ids as $gov_id) {
+                  $query->orWhere('selected_ids', 'LIKE', '['.$gov_id.',%');
+                  $query->orWhere('selected_ids', 'LIKE', '%,'.$gov_id.',%');
+                  $query->orWhere('selected_ids', 'LIKE', ''.$gov_id.',%');
+                  $query->orWhere('selected_ids', 'LIKE', '%,'.$gov_id.']');
+                  $query->orWhere('selected_ids', '=',  $gov_id );
+                  $query->orWhere('selected_ids', 'LIKE', '['.$gov_id.',%');
                   }
                
            
