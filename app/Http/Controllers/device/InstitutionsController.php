@@ -213,7 +213,10 @@ class InstitutionsController extends Controller
         $model  = Universitie::class;
       } 
      
-     
+             $govs_ids = [];
+             $area_ids = [];
+             $attr_ids = [];
+
             $idsArray = explode(',', $ids);
   
          
@@ -235,8 +238,13 @@ class InstitutionsController extends Controller
                
                 if( $section->en_name ==   "Area" ){
                   $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+
+
                 }else if($section->en_name ==   "Government"){
-                  $query->where('selected_ids', 'LIKE', '['.$id.',%');
+                  // array_push($myArray, "element1");
+
+
+                  $query->orWhere('selected_ids', 'LIKE', '['.$id.',%');
                   $query->orWhere('selected_ids', 'LIKE', '%,'.$id.',%');
                   $query->orWhere('selected_ids', 'LIKE', ''.$id.',%');
                   $query->orWhere('selected_ids', 'LIKE', '%,'.$id.']');
