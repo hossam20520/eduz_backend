@@ -277,7 +277,10 @@ class InstitutionsController extends Controller
                     $query->where('deleted_at',  '=' , null);
                     }
 
-
+                    foreach ($attr_ids as $attrId) {
+                      $query->WhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$attrId]);
+                     
+                      }
 
                 // if( $section->en_name ==   "Government" ){
                 //   $query->where('selected_ids', 'LIKE', '['.$id.',%');
