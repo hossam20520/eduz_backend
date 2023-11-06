@@ -230,7 +230,7 @@ class InstitutionsController extends Controller
               $query->where('deleted_at',  '=' , null);
               foreach ($idsArray as $id) {
 
-                $query = $query->where(function ($query) {
+                $query = $query->where(function ($query) use ($id) {
                   $query->where('selected_ids', 'LIKE', '%,'.$id.',%')
                       ->orWhere('selected_ids', 'LIKE', ''.$id.',%')
                       ->orWhere('selected_ids', 'LIKE', '%,'.$id.']')
