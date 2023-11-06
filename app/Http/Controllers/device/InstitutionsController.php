@@ -229,9 +229,7 @@ class InstitutionsController extends Controller
               $idsArray = array_diff($idsArray, $idsToRemove);
         
               foreach ($idsArray as $id) {
-                if($id == 9 || $id == 10){
-                  return;
-                }
+            
                 $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
                 $drop =  Drop::where('id' , $id )->first();
                 $section = Section::where('id' , $drop->section_type)->first();
@@ -255,7 +253,7 @@ class InstitutionsController extends Controller
             //         $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
             //     }
             // });  
-
+            $query->where('deleted_at',  '=' , null);
               $results = $query->get();
               // $results = $query->whereIn('id', $idsArray)
               // ->groupBy('id')
