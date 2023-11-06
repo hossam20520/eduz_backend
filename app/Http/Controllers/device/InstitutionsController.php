@@ -230,7 +230,7 @@ class InstitutionsController extends Controller
 
             
               // $idsArray = array_diff($idsArray, $idsToRemove);
-              $query->where('deleted_at',  '=' , null);
+              
               foreach ($idsArray as $id) {
 
                 $drop =  Drop::where('id' , $id )->first();
@@ -267,6 +267,7 @@ class InstitutionsController extends Controller
                   $query->orWhere('selected_ids', 'LIKE', '%,'.$gov_id.']');
                   $query->orWhere('selected_ids', '=',  $gov_id );
                   $query->orWhere('selected_ids', 'LIKE', '['.$gov_id.',%');
+                  $query->where('deleted_at',  '=' , null);
                   }
                
            
