@@ -219,9 +219,11 @@ class InstitutionsController extends Controller
          
               $query = $model::query();
 
-              $query->where('gov_id' , $gov_id);
+              // $query->where('gov_id' , $gov_id);
 
-
+              $query->whereHas('area', function ($query) use ($gov_id) {
+                $query->where('gov_id', $gov_id); // Filter by the gov_id
+            });
 
               // if( $section->en_name ==   "Area" ){
 
