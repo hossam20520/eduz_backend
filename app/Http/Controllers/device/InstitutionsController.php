@@ -40,8 +40,7 @@ class InstitutionsController extends Controller
     public function getAreaa(Request $request){
       $gov_id = $request->gov_id;
       $area = Area::where('gov_id' ,$gov_id )->get();
-
-      
+ 
       return response()->json([   'areas'=>    $area ], 200);
 
     }
@@ -190,7 +189,8 @@ class InstitutionsController extends Controller
       $dir = $request->SortType;
       $helpers = new helpers();
 
-      $area_id = $request->area_id;
+      $area_ids = $request->area_ids;
+      $gov_id = $request->gov_id;
       if( $request->type == "filter"){
 
         $typeinsta = $request->type_inst;
@@ -218,35 +218,45 @@ class InstitutionsController extends Controller
   
          
               $query = $model::query();
+
+              $query->where('gov_id' , $gov_id);
+
+
+
+              // if( $section->en_name ==   "Area" ){
+
+                // $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                // $query->where('deleted_at',  '=' , null);
+              // }
+
+
               
               // if( $area_id  != "0"){
               //   $query->where('area_id', $area_id);
               // }
-              $idsToRemove = [9, 10]; // Numbers to be removed
+              // $idsToRemove = [9, 10]; // Numbers to be removed
 
 
             
-              $idsArray = array_diff($idsArray, $idsToRemove);
+              // $idsArray = array_diff($idsArray, $idsToRemove);
         
               foreach ($idsArray as $id) {
             
                 $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-                $drop =  Drop::where('id' , $id )->first();
-                $section = Section::where('id' , $drop->section_type)->first();
+                // $drop =  Drop::where('id' , $id )->first();
+                // $section = Section::where('id' , $drop->section_type)->first();
                 $query->where('deleted_at',  '=' , null);
 
-                if( $section->en_name ==   "Area" ){
-
-                  $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-                  $query->where('deleted_at',  '=' , null);
-                }else if ($section->en_name ==   "Government"){
+       
+                
+                // else if ($section->en_name ==   "Government"){
 
 
-                  $query->orWhere('selected_ids', 'LIKE', '%,' . $id . ',%')
-                  ->orWhere('selected_ids', 'LIKE', $id . ',%')
-                  ->orWhere('selected_ids', 'LIKE', '%,' . $id . ']')
-                  ->orWhere('selected_ids', '=', $id)
-                  ->orWhere('selected_ids', 'LIKE', '[' . $id . ',%');
+                //   $query->orWhere('selected_ids', 'LIKE', '%,' . $id . ',%')
+                //   ->orWhere('selected_ids', 'LIKE', $id . ',%')
+                //   ->orWhere('selected_ids', 'LIKE', '%,' . $id . ']')
+                //   ->orWhere('selected_ids', '=', $id)
+                //   ->orWhere('selected_ids', 'LIKE', '[' . $id . ',%');
 
 
                   // $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
@@ -266,7 +276,7 @@ class InstitutionsController extends Controller
                 // });
 
 
-                }
+                // }
 
 
 
@@ -286,7 +296,7 @@ class InstitutionsController extends Controller
             //         $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
             //     }
             // });  
-            $query->where('deleted_at',  '=' , null);
+              $query->where('deleted_at',  '=' , null);
               $results = $query->get();
               // $results = $query->whereIn('id', $idsArray)
               // ->groupBy('id')

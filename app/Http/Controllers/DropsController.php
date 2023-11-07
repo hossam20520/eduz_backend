@@ -27,6 +27,7 @@ class DropsController extends Controller
         return response()->json([
          'SECIONS' => $SECTION,
          'govs' => $goves,
+       
 
         ]);
 
