@@ -218,92 +218,35 @@ class InstitutionsController extends Controller
   
          
               $query = $model::query();
-
-              // $query->where('gov_id' , $gov_id);
-
-              $query->whereHas('area', function ($query) use ($gov_id) {
+              $query->where('deleted_at',  '=' , null);
+    
+              $query =  $query->whereHas('area', function ($query) use ($gov_id) {
                 $query->where('gov_id', $gov_id); // Filter by the gov_id
             });
 
-              // if( $section->en_name ==   "Area" ){
 
-                // $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-                // $query->where('deleted_at',  '=' , null);
-              // }
+            $idsArrayAreas = explode(',',$area_ids);
 
-
-              
-              // if( $area_id  != "0"){
-              //   $query->where('area_id', $area_id);
-              // }
-              // $idsToRemove = [9, 10]; // Numbers to be removed
-
-
-            
-              // $idsArray = array_diff($idsArray, $idsToRemove);
-        
+           
+            if ( $idsArrayAreas[0] != "") {
+            $query->whereIn('area_id',   $idsArrayAreas);
+            }
+            if ( $idsArray[0] != "") {
+             
               foreach ($idsArray as $id) {
             
                 $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
                 // $drop =  Drop::where('id' , $id )->first();
                 // $section = Section::where('id' , $drop->section_type)->first();
                 $query->where('deleted_at',  '=' , null);
+ 
 
-       
-                
-                // else if ($section->en_name ==   "Government"){
-
-
-                //   $query->orWhere('selected_ids', 'LIKE', '%,' . $id . ',%')
-                //   ->orWhere('selected_ids', 'LIKE', $id . ',%')
-                //   ->orWhere('selected_ids', 'LIKE', '%,' . $id . ']')
-                //   ->orWhere('selected_ids', '=', $id)
-                //   ->orWhere('selected_ids', 'LIKE', '[' . $id . ',%');
-
-
-                  // $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-                  // $query->where('deleted_at',  '=' , null);
-
-                  // $query->orWhere('selected_ids', 'LIKE', '[' . $id . ',%');
-
-
-                //   $query->where(function ($query) use ($id) {
-                //     $query->where('selected_ids', 'LIKE', '%,' . $id . ',%')
-                //         ->orWhere('selected_ids', 'LIKE', $id . ',%')
-                //         ->orWhere('selected_ids', 'LIKE', '%,' . $id . ']')
-                //         ->orWhere('selected_ids', '=', $id)
-
-                //         ->orWhere('selected_ids', 'LIKE', '[' . $id . ',%');
-                        
-                // });
-
-
-                // }
-
-
-
-      
-                }
-
-              // foreach ($idsArray as $id) {
-              // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-              
-              // }
-
-
-
-           
-            //   $query->where(function ($query) use ($idsArray) {
-            //     foreach ($idsArray as $id) {
-            //         $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
-            //     }
-            // });  
-              $query->where('deleted_at',  '=' , null);
+              }
+            }
+     
+             
               $results = $query->get();
-              // $results = $query->whereIn('id', $idsArray)
-              // ->groupBy('id')
-              // ->havingRaw('COUNT(*)', '=', count($idsArray))
-              // ->get();
+ 
 
               $count = $query->count();
 
@@ -1042,3 +985,74 @@ $education = $education->offset($offSet)
 
     }
  
+
+
+
+                 // $results = $query->whereIn('id', $idsArray)
+              // ->groupBy('id')
+              // ->havingRaw('COUNT(*)', '=', count($idsArray))
+              // ->get();
+
+                
+                
+                // else if ($section->en_name ==   "Government"){
+
+
+                //   $query->orWhere('selected_ids', 'LIKE', '%,' . $id . ',%')
+                //   ->orWhere('selected_ids', 'LIKE', $id . ',%')
+                //   ->orWhere('selected_ids', 'LIKE', '%,' . $id . ']')
+                //   ->orWhere('selected_ids', '=', $id)
+                //   ->orWhere('selected_ids', 'LIKE', '[' . $id . ',%');
+
+
+                  // $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                  // $query->where('deleted_at',  '=' , null);
+
+                  // $query->orWhere('selected_ids', 'LIKE', '[' . $id . ',%');
+
+
+                //   $query->where(function ($query) use ($id) {
+                //     $query->where('selected_ids', 'LIKE', '%,' . $id . ',%')
+                //         ->orWhere('selected_ids', 'LIKE', $id . ',%')
+                //         ->orWhere('selected_ids', 'LIKE', '%,' . $id . ']')
+                //         ->orWhere('selected_ids', '=', $id)
+
+                //         ->orWhere('selected_ids', 'LIKE', '[' . $id . ',%');
+                        
+                // });
+
+
+                // }
+
+                
+
+              // if( $section->en_name ==   "Area" ){
+
+                // $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+                // $query->where('deleted_at',  '=' , null);
+              // }
+
+
+              
+              // if( $area_id  != "0"){
+              //   $query->where('area_id', $area_id);
+              // }
+              // $idsToRemove = [9, 10]; // Numbers to be removed
+
+
+            
+              // $idsArray = array_diff($idsArray, $idsToRemove);
+
+                       // foreach ($idsArray as $id) {
+              // $query->whereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+              
+              // }
+
+
+
+           
+            //   $query->where(function ($query) use ($idsArray) {
+            //     foreach ($idsArray as $id) {
+            //         $query->orWhereRaw('FIND_IN_SET(?, selected_ids) > 0', [$id]);
+            //     }
+            // });  

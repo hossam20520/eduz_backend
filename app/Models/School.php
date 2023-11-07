@@ -32,7 +32,7 @@ class School extends Model
 
     public function area()
     {
-        return $this->belongsTo(Gov::class, 'area_id');
+        return $this->belongsTo(Area::class, 'area_id');
     }
     public function getFavAttribute()
     {
