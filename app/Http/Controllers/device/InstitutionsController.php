@@ -220,6 +220,10 @@ class InstitutionsController extends Controller
               $query = $model::query();
               $query->where('deleted_at',  '=' , null);
     
+
+              if($gov_id != 0){
+                
+              
               $query =  $query->whereHas('area', function ($query) use ($gov_id) {
                 $query->where('gov_id', $gov_id); // Filter by the gov_id
             });
@@ -244,7 +248,7 @@ class InstitutionsController extends Controller
               }
             }
      
-             
+          }
               $results = $query->get();
  
 
