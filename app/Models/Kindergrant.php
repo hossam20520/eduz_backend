@@ -2,7 +2,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\utils\helpers;
 class Kindergrant extends Model
 {
     protected $table = 'Kindergrants';
@@ -20,6 +20,16 @@ class Kindergrant extends Model
     public function area()
     {
         return $this->belongsTo(Area::class, 'area_id');
+    }
+
+
+    public function getFavAttribute()
+    {
+    
+        $helpers = new helpers();
+        $found = $helpers->IsInWhishlistInst($this->id ,  "KINDERGARTENS");
+     
+        return  $found;
     }
 }
 

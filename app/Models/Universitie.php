@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\utils\helpers;
 class Universitie extends Model
 {
     protected $table = 'universities';
@@ -25,5 +25,15 @@ class Universitie extends Model
     public function area()
     {
         return $this->belongsTo(Area::class, 'area_id');
+    }
+
+
+    public function getFavAttribute()
+    {
+    
+        $helpers = new helpers();
+        $found = $helpers->IsInWhishlistInst($this->id ,  "UNIVERSITIES");
+     
+        return  $found;
     }
 }
