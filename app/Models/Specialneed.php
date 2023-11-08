@@ -9,7 +9,7 @@ class Specialneed extends Model
 {
     protected $table = 'specialneeds';
     protected $dates = ['deleted_at'];
-
+    protected $appends = ['Fav'];
     protected $fillable = [
          'en_name', 'ar_name', 'en_info', 
          'ar_info', 'facilities_ar', 'facilities_en',  

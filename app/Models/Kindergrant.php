@@ -7,7 +7,7 @@ class Kindergrant extends Model
 {
     protected $table = 'Kindergrants';
     protected $dates = ['deleted_at'];
-
+    protected $appends = ['Fav'];
     protected $fillable = [
         'ar_name', 'en_name',
     ];
