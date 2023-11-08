@@ -789,7 +789,7 @@ public function GetTheInstDetailNoAuth(Request $request ){
         $model  = Specialneed::class;
       }else if($type == "UNIVERSITIES"){
         $model  = Universitie::class;
-      }  else if( $typeinsta == "EDUCENTERS"){
+      }  else if( $type == "EDUCENTERS"){
         $model  = Educenter::class;
       }
 
