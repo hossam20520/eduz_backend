@@ -21,4 +21,9 @@ class Center extends Model
     protected $casts = [
  
     ];
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'area_id');
+    }
 }
