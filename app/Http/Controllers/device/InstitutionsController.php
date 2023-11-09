@@ -39,7 +39,7 @@ class InstitutionsController extends Controller
   }
     public function getAreaa(Request $request){
       $gov_id = $request->gov_id;
-      $area = Area::where('gov_id' ,$gov_id )->get();
+      $area = Area::where('deleted_at', '=', null)->where('gov_id' ,$gov_id )->get();
  
       return response()->json([   'areas'=>    $area ], 200);
 
