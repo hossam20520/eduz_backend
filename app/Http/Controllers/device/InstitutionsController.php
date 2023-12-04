@@ -403,7 +403,7 @@ class InstitutionsController extends Controller
                   $item['en_name'] =  $modV->en_name;
                   $item['type'] =  $recen->type;
                   $firstimage = explode(',', $modV->image);
-                  $item['image'] =  '/public/images/educations/'.$firstimage[0];
+                  $item['image'] =  '/public/images/educations/'.$firstimage[1];
                   $data[] = $item;
                   # code...
               }
