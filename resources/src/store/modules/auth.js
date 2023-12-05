@@ -16,6 +16,7 @@ const state = {
     loading: false,
     error: null,
     notifs:0,
+    phone_alert:[],
     Default_Language:'en',
 };
 
@@ -26,6 +27,7 @@ const getters = {
     currentUserPermissions: state => state.Permissions,
     loading: state => state.loading,
     notifs_alert: state => state.notifs,
+    phone_alert: state => state.phone_alert,
     DefaultLanguage: state => state.Default_Language,
     error: state => state.error
 };
@@ -63,7 +65,9 @@ const mutations = {
     Notifs_alert(state, notifs) {
         state.notifs = notifs;
     },
-
+    Phone_alert(state, phone_alert){
+        state.phone_alert = phone_alert;
+    },
 
     logout(state) {
         state.user = null;
@@ -82,17 +86,20 @@ const actions = {
             let Permissions = userAuth.data.permissions
             let user = userAuth.data.user
             let notifs = userAuth.data.notifs
+            let phone_alert = userAuth.data.notif
             let default_language = userAuth.data.user.default_language
 
             context.commit('setPermissions', Permissions)
             context.commit('setUser', user)
             context.commit('Notifs_alert', notifs)
-
+            context.commit('Phone_alert', phone_alert)
+            
             context.commit('SetDefaultLanguage', default_language)
         }).catch(() => {
             context.commit('setPermissions', null)
             context.commit('setUser', null)
             context.commit('Notifs_alert', null)
+            context.commit('phone_alert', null)
             context.commit('SetDefaultLanguage', 'en')
         });
     },

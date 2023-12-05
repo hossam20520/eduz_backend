@@ -64,6 +64,65 @@
           </vue-perfect-scrollbar>
         </b-dropdown>
       </div>
+
+
+
+
+            <!-- Notificaiton -->
+            <div class="dropdown">
+        <b-dropdown
+          id="dropdown-1" 
+          text="Dropdown Button"
+          class="m-md-2 badge-top-container d-none  d-sm-inline-block"
+          toggle-class="text-decoration-none"
+          no-caret
+          variant="link"
+        >
+          <template slot="button-content" >
+            <span class="badge badge-primary" v-if="phone_alert.length > 0">1</span>
+            <i class="i-Bell text-muted header-icon"></i>
+          </template>
+          <!-- Notification dropdown -->
+          <vue-perfect-scrollbar
+            :settings="{ suppressScrollX: true, wheelPropagation: false }"
+            :class="{ open: getSideBarToggleProperties.isSideNavOpen }"
+            ref="myData"
+            class="dropdown-menu-right rtl-ps-none notification-dropdown ps scroll"
+          >
+            <div class="dropdown-item d-flex"  >
+              <div class="notification-icon"  @click="updateUserMessage"   >
+                <i class="i-Bell text-primary mr-1"></i>
+              </div>
+              <div class="notification-details flex-grow-1"
+              v-if="currentUserPermissions && currentUserPermissions.includes('Reports_quantity_alerts')">
+               <router-link  tag="a" to="/app/People/Users" >
+
+                <p v-for="i in phone_alert" class="text-small text-muted m-0">
+                  {{i['phone'] }}  
+                  </p>
+ 
+
+ 
+               </router-link>
+              </div>
+            </div>
+           
+          </vue-perfect-scrollbar>
+        </b-dropdown>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
       <!-- Notificaiton -->
       <div class="dropdown">
         <b-dropdown
@@ -103,6 +162,13 @@
         </b-dropdown>
       </div>
       <!-- Notificaiton End -->
+
+
+
+
+
+
+
 
       <!-- User avatar dropdown -->
       <div class="dropdown">
@@ -146,6 +212,7 @@
 </template>
 <script>
 import Util from "./../../../utils";
+import axios from 'axios'
 // import Sidebar from "./Sidebar";
 import { isMobile } from "mobile-device-detect";
 import { mapGetters, mapActions } from "vuex";
@@ -197,6 +264,7 @@ export default {
       "getSideBarToggleProperties",
       "currentUserPermissions",
       "notifs_alert",
+      "phone_alert",
     ]),
 
 
@@ -210,6 +278,17 @@ export default {
       "changeThemeMode",
       "logout",
     ]),
+
+
+
+    async updateUserMessage()  {
+      await axios.get("updateusernoti").then((userAuth) => {
+             window.href='/app/People/Users'
+        }).catch(() => {
+  
+        }) 
+
+    },
 
     logoutUser() {
       this.$store.dispatch("logout");

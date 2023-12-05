@@ -21,6 +21,9 @@ use App\Models\Universitie;
 use App\Models\School;
 use App\Models\Kindergarten;
 use App\Models\Center;
+use App\Models\Notiform;
+
+
 use App\Models\Specialneed;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
@@ -542,6 +545,24 @@ class AuthController extends Controller
         return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
  
     }
+
+
+    public function updateUserNotiForm(Request $request)
+    {
+         $user  =  Auth::user();
+
+         $noti =  new Notiform;
+         $noti->user_id = $user->id;
+         $noti->phone = $user->phone;
+
+         $noti->save();
+
+        //  Notiform::where('deleted_at', '=', null)->where('read' ,  "unread"  )->update([
+        //    'read' => "read"
+        //  ]);
+         return response()->json(['status' => "success" ,  'message'=> 'success'   ], 200);
+    }
+
 
 
     public function changeImage(Request $request){

@@ -82,7 +82,7 @@ Route::middleware(['auth:api', 'Is_Active'])->group(function () {
     Route::get('device/cart/delete', 'device\ProductController@deleteCart');
     Route::get('device/product', 'device\ProductController@Get_Products_Details');
 
-
+    Route::get('device/updatenoti', 'device\AuthController@updateUserNotiForm');
     
 
     //------------------------------- Govs--------------------------\
@@ -535,6 +535,11 @@ Route::get('Schools/Detail/{id}', 'SchoolsController@Get_Schools_Details');
     //------------------------------------------------------------------\\
 
     Route::get('GetUserAuth', 'UserController@GetUserAuth');
+    Route::get('updateusernoti', 'UserController@updateUserNotiForm');
+
+    
+
+
     Route::get("/GetPermissions", "UserController@GetPermissions");
     Route::resource('users', 'UserController');
     Route::put('users/Activated/{id}', 'UserController@IsActivated');
