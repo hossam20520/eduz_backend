@@ -25,7 +25,7 @@ use Carbon\Carbon;
 use App\Models\Teacher;
 use App\Models\Deal;
 use App\Models\Gov;
-
+use Illuminate\Support\Facades\Auth;
 
 class InstitutionsController extends Controller
 {
@@ -112,9 +112,8 @@ class InstitutionsController extends Controller
     }
 
 
-    public function getInstName($type , $id){
-      $user = Auth::user();
-
+    public function getInstName($type , $id  ){
+ 
        $model = School::class;
       if( $type == "SCHOOLS"){
         $model = School::class;
