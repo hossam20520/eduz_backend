@@ -15,7 +15,7 @@ class Center extends Model
          'ar_info', 'facilities_ar', 'facilities_en',  
          'activities_ar', 'activities_en', 'url',
          'phone', 'activities_image', 'institution_id',    'review_id',  'share', 'image',
-         'lat', 'long_a' , 'area_id'  ,   'selected_ids' ,  'gov'  ,  'images_tow',
+         'lat', 'long_a' , 'area_id'  ,   'selected_ids' ,  'gov'  ,  'images_tow','exp_to'
     ];
 
     protected $casts = [

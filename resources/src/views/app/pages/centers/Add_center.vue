@@ -281,7 +281,7 @@
 
 
                 <b-col md="6" class="mb-2">
-                  <validation-provider name="exp_to Cost" :rules="{ required: true, regex: /^\d*\.?\d*$/ }"
+                  <validation-provider name="exp_to Cost" :rules="{ required: true  }"
                     v-slot="validationContext">
                     <b-form-group :label="$t('exp_to')">
                       <b-form-input :state="getValidationState(validationContext)" aria-describedby="ProductCost-feedback"
@@ -495,6 +495,7 @@ export default {
         institution_id: "",
         url: "",
         phone: "",
+   
         share: "",
         en_info: "",
         ar_info: "",

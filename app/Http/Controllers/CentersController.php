@@ -123,6 +123,8 @@ class CentersController extends BaseController
              $images_tow =   $helpers->StoreImagesV($request , "images_tow");
 
                 $center->trend = $request['trend'];
+                $center->exp_to = $request['exp_to'];
+                
                 $Center->image =  $images;
                 $Center->images_tow =  $images_tow ;
                 $Center->save();
@@ -273,6 +275,8 @@ public function StoreImage($name , $pathUrl , $request){
                 $Center->image =  $imagesa;
                 $Center->images_tow =  $images_tow;
                 $Center->trend = $request['trend'];
+
+                $Center->exp_to = $request['exp_to'];
                 $Center->save();
 
             }, 10);

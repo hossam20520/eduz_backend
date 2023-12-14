@@ -578,6 +578,7 @@ export default {
         paid_facilities_ar: "",
   paid_facilities_en: "",
                free:"",
+             
          ar_address:"",
          en_address:"",
         images_tow: "",
