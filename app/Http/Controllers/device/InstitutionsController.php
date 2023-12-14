@@ -113,6 +113,8 @@ class InstitutionsController extends Controller
 
 
     public function getInstName($type , $id){
+      $user = Auth::user();
+
        $model = School::class;
       if( $type == "SCHOOLS"){
         $model = School::class;
@@ -134,8 +136,8 @@ class InstitutionsController extends Controller
       return  $data;
     }else{
       return [
-        "ar_name"=> "Defalut",
-        "en_name"=> "Defalut",
+        "ar_name"=> "المؤسسة غير موجودة",
+        "en_name"=>  "Not Exist",
       ];
     }
      
