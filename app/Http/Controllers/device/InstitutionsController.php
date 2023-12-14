@@ -95,7 +95,7 @@ class InstitutionsController extends Controller
                $item['image']  =  "/public/images/avatar/".$value->user->avatar;
                $item['count']  = $value->count;
                $item['ar_name']  = $this->getInstName($value->type,  $value->id)->ar_name;
-               $item['en_name']  =  $this->getInstName($value->type,  $value->id)->en_name;;
+               $item['en_name']  =  $this->getInstName($value->type,  $value->inst_id)->en_name;;
                $item['review'] = $value->review;
                $data[] = $item;
 
@@ -129,7 +129,7 @@ class InstitutionsController extends Controller
       } 
 
 
-     $data =   $model->where('id' , $id)->first();
+     $data =   $model::where('id' , $id)->first();
     if($data){
       return  $data;
     }else{
