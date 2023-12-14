@@ -86,11 +86,16 @@ class InstitutionsController extends Controller
             ->get();
 
 
+            
+
+
           $data = array();
             foreach ( $reviews  as   $value) {
                $item['name']  = $value->user->firstname." ". $value->user->lastname;
                $item['image']  =  "/public/images/avatar/".$value->user->avatar;
                $item['count']  = $value->count;
+               $item['ar_name']  = $this->getInstName($value->type,  $value->id)->ar_name;
+               $item['en_name']  =  $this->getInstName($value->type,  $value->id)->en_name;;
                $item['review'] = $value->review;
                $data[] = $item;
 
@@ -104,6 +109,36 @@ class InstitutionsController extends Controller
 
 
 
+    }
+
+
+    public function getInstName($type , $id){
+       $model = School::class;
+      if( $type == "SCHOOLS"){
+        $model = School::class;
+      }else if( $type == "KINDERGARTENS"){
+        $model  = Kindergarten::class;
+      }else if( $type == "CENTERS"){
+        $model  = Center::class;
+      }else if( $type == "EDUCENTERS"){
+        $model  = Educenter::class;
+      }else if($type == "SPECIALNEEDS"){
+        $model  = Specialneed::class;
+      }else if( $type == "UNIVERSITIES"){
+        $model  = Universitie::class;
+      } 
+
+
+     $data =   $model->where('id' , $id)->first();
+    if($data){
+      return  $data;
+    }else{
+      return [
+        "ar_name"=> "Defalut",
+        "en_name"=> "Defalut",
+      ];
+    }
+     
     }
 
 
