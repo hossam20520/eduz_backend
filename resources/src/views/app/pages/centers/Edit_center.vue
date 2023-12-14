@@ -323,7 +323,7 @@
                 <b-col md="6" class="mb-2">
                   <validation-provider
                     name="exp_to Cost"
-                    :rules="{ required: true , regex: /^\d*\.?\d*$/}"
+                    :rules="{ required: true   }"
                     v-slot="validationContext"
                   >
                     <b-form-group :label="$t('exp_to')">

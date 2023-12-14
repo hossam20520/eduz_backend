@@ -2606,10 +2606,7 @@ var render = function () {
                                           _c("validation-provider", {
                                             attrs: {
                                               name: "exp_to Cost",
-                                              rules: {
-                                                required: true,
-                                                regex: /^\d*\.?\d*$/,
-                                              },
+                                              rules: { required: true },
                                             },
                                             scopedSlots: _vm._u(
                                               [
