@@ -94,8 +94,8 @@ class InstitutionsController extends Controller
                $item['name']  = $value->user->firstname." ". $value->user->lastname;
                $item['image']  =  "/public/images/avatar/".$value->user->avatar;
                $item['count']  = $value->count;
-               $item['ar_name']  = $this->getInstName($value->type,  $value->id)->ar_name;
-               $item['en_name']  =  $this->getInstName($value->type,  $value->inst_id)->en_name;;
+               $item['ar_name']  = $this->getInstName($value->type,  $value->inst_id)['ar_name'];
+               $item['en_name']  =  $this->getInstName($value->type,  $value->inst_id)['en_name'];
                $item['review'] = $value->review;
                $data[] = $item;
 
